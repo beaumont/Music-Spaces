@@ -1,0 +1,48 @@
+fb_stephane:
+    id: 1
+    user_id: 17
+    fb_user_id: 706528224
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_removed:
+    id: 2
+    user_id: 18
+    fb_user_id: 706528225
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_artem:
+    id: 3
+    user_id: 19
+    fb_user_id: 435432543
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_anya:
+    id: 4
+    user_id: 20
+    fb_user_id: 643553243
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_stephane_friend1:
+    id: 5
+    user_id: 22
+    fb_user_id: 1245182
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_stephane_friend2:
+    id: 6
+    user_id: 23
+    fb_user_id: 2314662
+    is_kd_user: 1
+    is_fb_connected: 0
+
+fb_public_page1:
+    id: 7
+    user_id: 25
+    fb_user_id: 116794308646
+    is_kd_user: 1
+    is_fb_connected: 0

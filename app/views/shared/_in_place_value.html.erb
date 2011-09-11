@@ -1,0 +1,5 @@
+<% no_value_label ||= '[ . . . ]' %><%= if in_place_value.blank?
+  '<span class="scaffold">%s</span>' % no_value_label
+else
+  sanitize(in_place_value)
+end %>

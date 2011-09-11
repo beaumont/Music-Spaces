@@ -1,0 +1,22 @@
+<% right_column_block(:header_title => 'Music Contests'.t) do %>
+  <% music_contests.each do |contest| -%>
+    <div class="main_body_subhead"><%= content_link(contest)%></div>
+    <div class="default"><%= h contest.second_title %></div>
+    <a href="<%= content_url(contest) %>" class="cover_art">
+      <%= image_tag(contest.cover_art.thumb(:thumb).public_filename, :border => 0, :alt => h(contest.cover_art.thumb(:thumb).filename)) %>
+    </a>
+    <div class="default">
+      <%= ('Start: {{date}}' / contest.start_date.to_s(:date_only) + "&nbsp;&nbsp;") if contest.start_date %><br />
+      <%= ('End: {{date}}' / contest.end_date.to_s(:date_only)) if contest.end_date %>
+    </div>
+    <div class="default">
+      <% if contest.number_of_tracks > 0 %>
+        <%= '{{count}} tracks' / [contest.number_of_tracks] %><br />
+        <%= 'Last added on {{date}}' / [contest.last_item_date.to_s(:date_with_time)] %>
+      <% else %>
+        <%= 'No tracks yet'.t %>
+      <% end %>
+    </div>
+    <div class="grey_line2"></div>
+  <% end -%>
+<% end %>

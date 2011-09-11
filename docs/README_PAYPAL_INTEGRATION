@@ -1,0 +1,46 @@
+PayPal Integration with Kroogi 2008-10-29
+@author  Kabari Hendrick <kabari@your-net-works.com>
+
+We process payments using PayPal's Instant Payment Notification System (https://www.paypal.com/IntegrationCenter/ic_ipn.html). 
+For consistency's sake, let's use the following as our outline:
+
+Buyer/Donater:  JoeSixPack
+Recipient/Vendor: Casual (donation basket: <http://casual.kroogi.com/>)
+
+A visitor would initiate a transaction by clicking a form button on a Kroogi members' page. The form looks like this:
+
+<form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" target="_blank" encoding="utf-8">
+<input type="hidden" name="cmd" value="_donations" />
+<input type="hidden" name="currency_code" value="USD" />
+<input type="hidden" name="charset" value="utf-8">
+<input type="hidden" name="cbt" value="Return to Kroogi" />
+<input type="hidden" name="return" value="http://casual.kroogi.com/donate/thank_you/" /
+><input type="hidden" name="notify_url" value="http://casual.kroogi.com/donate/instant_payment_notification/" />
+<input type="hidden" name="rm" value="1" />
+<input type="hidden" name="cancel_return" value="http://casual.kroogi.com/user" />
+<input type="hidden" name="no_note" value="1" />
+<input type="hidden" name="custom" value="MjBdW1BddoLoMxo8dNql%2BJPF%2BegOFhS3GQ4N7%2F1jAXxkXXWV%3B%3BMTldW77s8K%2BpXBNyLq9kkRauO8dNxZbE%2FfVy1cUADjv2coca" />
+<input type="hidden" name="business" value="payment@threedozen.com" />
+Donation Amount (USD) <input type="text" name="amount" value="" style="width:60px" class="payment_amount"/>&nbsp; <small>(Paypal)</small><p class="donation_message">There isn't a suggested donation amount, but please enter any amount you are comfortable with.</p>
+<input type="hidden" name="item_name" value="Free Thyself from my Debt" />
+<button name="submit" class="button" type="submit"><span>Make a Donation</span></button>
+</form>
+
+The variable reference can be found here: https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_Appx_websitestandard_htmlvariables#id085KN025030
+
+The information is sent to PayPal where a transaction is made. After the transaction PayPal send a POST request to http://casual.kroogi.com/donate/instant_payment_notification/ (shown as notify_url in the form) containing information about the transaction. The information we receive is listed here by variable name and content: https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables#BHIEFHHF
+
+The most important information to Kroogi is in the custom fields we send with the initial transaction:
+ID's of payment sender/receiver
+ID and title of content (if any) being contributed to
+Amount paid (gross)
+Status of payment (if payment is pending/declined we would need that status)
+
+These fields really just need to pass through the handler of the transaction and get sent back to us along with the rest of the payment information.
+
+PayPal also sends us a special token that is unique to each transaction; I use this token to track updates of the transaction. Ie. A payment that takes a few days to clear will send Kroogi an updated POST each time the transaction status changes, we update our record accordingly. The special token is also used to reconcile payments: https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/howto_html_paymentdatatransfer
+
+Reconciliation of payments, however, isn't a requirement if only a completed/instant transaction gets posted back to us.
+
+Basically, all Kroogi requires is a POST request to a specified url with transaction details after a payment is made.
+

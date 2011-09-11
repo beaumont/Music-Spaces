@@ -1,0 +1,177 @@
+--- 
+- 
+  created_at: 2011-01-27 18:03:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница программы"
+  tr_key: "Page itself"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-27 20:44:43 +00:00
+- 
+  created_at: 2011-01-27 18:04:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ВНИМАНИЕ!!! После запуска программы вы не сможете изменить эту информацию:"
+  tr_key: "WARNING!!! Once this campaign is launched, you will not be able to change the following:"
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-01-27 20:44:30 +00:00
+- 
+  created_at: 2011-01-27 18:04:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Приглашать участников программы в ваш зрительский круг автоматически?"
+  tr_key: "Do you want campaign participants to be invited to your Interested circle automatically?"
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-27 20:43:27 +00:00
+- 
+  created_at: 2011-01-27 18:04:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сколько продлится сбор средств?"
+  tr_key: "How long will the campaign run?"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-27 20:40:47 +00:00
+- 
+  created_at: 2011-01-27 18:04:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Удалить из конкурса"
+  tr_key: "Remove from contest"
+  tr_origin: /app/views/content/sidebar/_edit_content.html.erb
+  updated_at: 2011-01-27 20:41:29 +00:00
+- 
+  created_at: 2011-01-27 18:04:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Установки программы по сбору Кредита Доверия"
+  tr_key: "Fundraising Campaign Setup"
+  tr_origin: /app/views/tps_setup/setup.html.erb
+  updated_at: 2011-01-27 20:38:45 +00:00
+- 
+  created_at: 2011-01-27 18:04:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать определённую сумму?"
+  tr_key: "Are you trying to raise a specific amount of funds?"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-27 20:34:13 +00:00
+- 
+  created_at: 2011-01-27 18:04:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Для доставки разных добряков необходима разная информация, по этому принципу они разделены на группы"
+  tr_key: "Goodies groups depend on what tipe of info you need to deliver them"
+  tr_origin: ~
+  updated_at: 2011-01-27 20:33:45 +00:00
+- 
+  created_at: 2011-01-27 18:04:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать:"
+  tr_key: "Target amount of funds:"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-27 19:45:04 +00:00
+- 
+  created_at: 2011-01-27 18:04:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показывать юзеров только с включённым КПД"
+  tr_key: "Only show users with enabled TPS Setup"
+  tr_origin: /app/views/admin/users/list.html.erb
+  updated_at: 2011-01-27 19:43:00 +00:00
+- 
+  created_at: 2011-01-27 18:04:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Группа
+  tr_key: Group
+  tr_origin: /app/views/tps_setup/previews/_goodies.html.erb
+  updated_at: 2011-01-27 19:43:06 +00:00
+- 
+  created_at: 2011-01-27 18:04:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать Кредит Порога Доверия для своих материалов, Вы должны ознакомиться и принять условия Пользовательского соглашения."
+  tr_key: "You must read and accept Terms of Service to create a Threshold Pledge System Content."
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-01-27 19:42:15 +00:00
+- 
+  created_at: 2011-01-27 18:04:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Поделиться
+  tr_key: "Sharing Tools"
+  tr_origin: /app/views/content/sidebar/_sharing_tools.html.erb
+  updated_at: 2011-01-27 19:43:33 +00:00
+- 
+  created_at: 2011-01-27 18:04:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавьте пожалуйста название."
+  tr_key: "Please add title before."
+  tr_origin: /app/controllers/tps_setup_controller.rb
+  updated_at: 2011-01-27 20:45:36 +00:00
+- 
+  created_at: 2011-01-27 18:04:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавьте пожалуйста описание."
+  tr_key: "Please add Description before."
+  tr_origin: /app/controllers/tps_setup_controller.rb
+  updated_at: 2011-01-27 20:45:32 +00:00
+- 
+  created_at: 2011-01-27 18:04:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Счётчик
+  tr_key: Stats
+  tr_origin: /app/views/content/sidebar/_stats.html.erb
+  updated_at: 2011-01-27 20:49:36 +00:00
+- 
+  created_at: 2011-01-27 18:04:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать"
+  tr_key: "You want to raise"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-27 20:45:44 +00:00
+- 
+  created_at: 2011-01-27 18:04:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не запущено"
+  tr_key: "Not Started"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-27 20:46:03 +00:00
+- 
+  created_at: 2011-01-27 18:04:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Краткое описание "
+  tr_key: "Short Description"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-27 20:46:26 +00:00
+- 
+  created_at: 2011-01-27 18:04:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Включено
+  tr_key: Enabled
+  tr_origin: /app/views/admin/users/list.html.erb
+  updated_at: 2011-01-27 20:46:32 +00:00
+- 
+  created_at: 2011-01-27 18:04:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "О добряке"
+  tr_key: "Goody description"
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-27 20:46:54 +00:00
+- 
+  created_at: 2011-01-27 18:04:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запустить программу"
+  tr_key: "Campaign Launch"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-27 20:47:10 +00:00

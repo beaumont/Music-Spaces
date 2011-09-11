@@ -1,0 +1,34 @@
+<p><% content_owner = @content.commentable.user %>
+  <strong>
+  <%= @content.user.project? ? ("Kroogi project".t + " ") : "" -%>
+  <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> 
+  (<%= @from_user.display_name %>) 
+	  <% 
+	    display_type = @content.commentable.display_type
+	    content_anchor = link_to(kf_title(@content.commentable.title_long), "#{@url}/content/show/#{@content.commentable_id}")
+	   %>
+      <% if @user.is_self_or_owner?(content_owner) %>
+        <% if content_owner.project? %>
+          <%= "left a comment on your project {{projectname}}'s {{content_type}} '{{content_link}}'" / [content_owner.display_name, display_type.tdown, content_anchor] %>
+        <% else -%>
+          <%= "left a comment on your {{content_type}} '{{content_link}}'" / [display_type.tdown, content_anchor] -%>
+        <% end -%>
+      <% else %>
+        <% if content_owner.project? %>
+          <%= "left a comment on project {{projectname}}'s {{content_type}} '{{content_link}}'" / [content_owner.display_name, display_type.tdown, content_anchor] %>
+        <% else -%>
+          <%= "left a comment on user {{username}}'s {{content_type}} '{{content_link}}'" / [content_owner.display_name, display_type.tdown, content_anchor] -%>
+        <% end -%>
+      <% end %>
+  </strong>
+</p>
+
+<p>
+  <blockquote><em><%= kf_simple @content.comment %></em></blockquote>
+</p>
+
+<p>
+  <%= link_to "Read this comment and reply".t, comment_permalink(@content) %><br />
+  <%= link_to "Open Content".t, "#{@url}/content/show/#{@content.commentable_id}" if @content.commentable.is_a?(Content) %><br />
+</p>
+

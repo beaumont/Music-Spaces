@@ -1,0 +1,10 @@
+<%= 'Message from {{project}}' / user_link(content.content.user) %>:  
+<p>
+  <%= 'Thank you for supporting our music by paying for a goodie from {{album}}.' / content_link(content.content) %>
+  <%= 'To make sure that all goodies are delivered to their rightful owners, we need additional personal information from all of our goodie receivers.'.t %>
+  <%= list = ['your full name'.t]
+    list << 'Address'.tdown if content.address_needed
+    list << 'government issued picture ID'.t if content.document_needed
+    'Please provide us with {{following}}' / ("<a href=\"#{@url}/goodies/submit_info/#{content.id}\">" + list.to_sentence(:skip_last_comma => true, :connector => 'and'.t) + '</a>')
+  -%>
+</p>

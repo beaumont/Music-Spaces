@@ -1,0 +1,10 @@
+<% @title = 'Admin Administration'.t + ' :: ' + 'WebMoney Users'.t -%>
+
+<div style="margin-top: 15px;" class="admin">
+  <h2>WebMoney Accounts</h2>
+  <%= render :partial => 'accounts' %>
+</div>
+
+<div style="padding: 10px;">
+  <%= will_paginate @accounts %>
+</div>

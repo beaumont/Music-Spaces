@@ -1,0 +1,457 @@
+--- 
+- 
+  created_at: 2011-01-18 13:05:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выбрать:"
+  tr_key: "Select file:"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 13:05:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить изображение:"
+  tr_key: "Upload a picture:"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 13:05:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить треки"
+  tr_key: "Upload tracks"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 13:06:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пропустить >>"
+  tr_key: "Skip this step >>"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сохранить черновик"
+  tr_key: "Save as Draft"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "загружайте файлы JPG, PNG или GIF; и пусть они не превышают 3 Mb"
+  tr_key: "you can upload JPG, PNG or GIF files; please keep the file size below 3 Mb"
+  tr_origin: /app/views/tps_setup/_form.html.erb
+  updated_at: 2011-02-23 14:25:24 +00:00
+- 
+  created_at: 2011-01-18 17:43:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название и описание:"
+  tr_key: "Name and Description:"
+  tr_origin: /app/views/tps_setup/_form.html.erb
+  updated_at: 2011-02-23 08:24:35 +00:00
+- 
+  created_at: 2011-01-19 19:24:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(не более 200 символов)"
+  tr_key: "(200 characters max)"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-20 19:25:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Проблемы
+  tr_key: Problems
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-20 19:25:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста выберите файл для загрузки."
+  tr_key: "Please select a file to upload."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-20 19:25:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы можете загружать файлы в форматах JPG, PNG или GIF."
+  tr_key: "You can only upload JPG, PNG or GIF files."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 13:05:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Полное имя и адрес участника"
+  tr_key: "Participant’s full name and address"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 13:05:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Всего доступно:"
+  tr_key: "Total quantity available:"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-18 17:43:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: N/A
+  tr_key: N/A
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-20 19:25:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Основное описание"
+  tr_key: "Long Description"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-24 12:33:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сумма взноса за этот добряк:"
+  tr_key: "Contribution amount for this goodie:"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-24 12:33:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация необходимая для доставки этого добряка:"
+  tr_key: "Information required to deliver this goodie:"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:35:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда и как будут доставляться добряки?"
+  tr_key: "When and how will the goodies be delivered?"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:35:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Имя и номер документа (группа Б)"
+  tr_key: "Name and ID (Group B)"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:35:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Имя и адрес (группа А)"
+  tr_key: "Name and Address (Group A)"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:35:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваши добряки"
+  tr_key: "Your goodies"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:35:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Полное имя участника и номер документа, удостоверяющего его личность"
+  tr_key: "Participant’s full name and identification document "
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста загрузите изображение."
+  tr_key: "Please upload Image before."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Без данных (группа В)"
+  tr_key: "Nothing (Group C)"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Кол-во
+  tr_key: Qty.
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить ещё добряк"
+  tr_key: "Add another goodie"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Способ доставки"
+  tr_key: "Delivery Method"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста добавьте краткое описание."
+  tr_key: "Please add Short Description before."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:03:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница программы"
+  tr_key: "Page itself"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ВНИМАНИЕ!!! После запуска программы вы не сможете изменить эту информацию:"
+  tr_key: "WARNING!!! Once this campaign is launched, you will not be able to change the following:"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-01-27 18:04:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Приглашать участников программы в ваш зрительский круг автоматически?"
+  tr_key: "Do you want campaign participants to be invited to your Interested circle automatically?"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сколько продлится сбор средств?"
+  tr_key: "How long will the campaign run?"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-01-27 18:04:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Установки программы по сбору Кредита Доверия"
+  tr_key: "Fundraising Campaign Setup"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-02-23 14:25:12 +00:00
+- 
+  created_at: 2011-01-27 18:04:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать определённую сумму?"
+  tr_key: "Are you trying to raise a specific amount of funds?"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-01-27 18:04:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать:"
+  tr_key: "Target amount of funds:"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-01-27 18:04:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Группа
+  tr_key: Group
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать Кредит Порога Доверия для своих материалов, Вы должны ознакомиться и принять условия Пользовательского соглашения."
+  tr_key: "You must read and accept Terms of Service to create a Threshold Pledge System Content."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавьте пожалуйста название."
+  tr_key: "Please add title before."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавьте пожалуйста описание."
+  tr_key: "Please add Description before."
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы планируете собрать"
+  tr_key: "You want to raise"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Краткое описание "
+  tr_key: "Short Description"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-27 18:04:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "О добряке"
+  tr_key: "Goody description"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-01-26 13:36:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Подсказки
+  tr_key: Tips
+  tr_origin: /app/views/tps_setup/new.html.erb
+  updated_at: 2011-02-23 08:24:30 +00:00
+- 
+  created_at: 2011-02-05 11:50:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отправить Кругам"
+  tr_key: "Submit to Kroogi"
+  tr_origin: ~
+  updated_at: 2011-02-23 14:25:40 +00:00
+- 
+  created_at: 2011-02-05 11:50:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Автоматически добавлять участников в ваш круг <b>Знакомые</b>"
+  tr_key: "You want to add participants automaticaly to your <b>Interested circle</b>"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-02-21 12:14:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщать мне, когда кто-то присоединяется к моему кругу Знакомые/Зрители"
+  tr_key: "Notify me then somebody joins my Interested/Audience circle"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-02-21 12:14:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщать мне, когда кто-топокидает мой круг {{circle}}"
+  tr_key: "Notify me then somebody leaves my {{circle}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-02-21 12:14:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщать мне, когда кто-то присоединяется к моему кругу {{circle}}"
+  tr_key: "Notify me then somebody joins my {{circle}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-23 08:24:48 +00:00
+- 
+  created_at: 2011-02-23 14:38:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показать кто получает уведомления Кругов"
+  tr_key: "See who is receiving kroogi notification."
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-02-23 14:49:36 +00:00
+- 
+  created_at: 2011-02-23 14:38:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} переместил вас из круга {{from}} в круг {{to}} проекта {{project}}"
+  tr_key: "{{user}} moved you from project {{project}} {{from}} circle to {{to}} circle"
+  tr_origin: /app/views/activity_notifier/_alert_downcircle.rhtml
+  updated_at: 2011-02-23 14:50:41 +00:00
+- 
+  created_at: 2011-02-23 14:38:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "присоединиться к его кругам"
+  tr_key: "to join his circles"
+  tr_origin: /app/views/activity_notifier/_alert_invitation_sent.rhtml
+  updated_at: 2011-02-23 14:49:10 +00:00
+- 
+  created_at: 2011-02-23 14:38:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщать мне, когда кто-то покидает мой круг Знакомые/Зрители "
+  tr_key: "Notify me when somebody leaves my Interested/Audience circle"
+  tr_origin: /app/views/preference/emails.html.erb
+  updated_at: 2011-02-23 14:47:46 +00:00
+- 
+  created_at: 2011-02-23 14:38:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл в круг {{to}} вашего проекта {{project}}"
+  tr_key: "moved himself to your project {{project}} {{to}} circle"
+  tr_origin: /app/views/activity/messages/_moved_to_down_circle.html.erb
+  updated_at: 2011-02-23 14:48:46 +00:00
+- 
+  created_at: 2011-02-23 14:38:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подробнее о круге {{circle}} {{user}} "
+  tr_key: "View {{circle}} circle of {{user}}"
+  tr_origin: /app/views/activity_notifier/_alert_removed_from_circle.html.erb
+  updated_at: 2011-02-23 14:46:35 +00:00
+- 
+  created_at: 2011-02-23 14:38:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запрос не отправлен: сначала вам необходимо присоединиться к внешнему кругу пользователя"
+  tr_key: "No request sent: you can not send requests to the not followed users"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-02-23 14:44:39 +00:00
+- 
+  created_at: 2011-02-23 14:38:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщать мне, когда кто-то присоединяется к мой круг Знакомые/Зрители"
+  tr_key: "Notify me when somebody joins my Interested/Audience circle"
+  tr_origin: /app/views/preference/emails.html.erb
+  updated_at: 2011-02-23 14:48:00 +00:00
+- 
+  created_at: 2011-02-23 14:38:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Картинки:"
+  tr_key: "Pictures:"
+  tr_origin: /app/views/tps_setup/_form.html.erb
+  updated_at: 2011-02-23 14:45:37 +00:00

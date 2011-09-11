@@ -1,0 +1,86 @@
+/*
+    Sign in test.
+    Detailed testing of login procedure, including separate Sign in page, 'Forgot password' page
+    and errors handling.
+
+    Out of scope:
+    - Cannot really check e-mail that is being sent by 'Forgot password' functionality.
+    Maybe will check later with reading from log file.
+    - Do not know yet how to check 'remember me' checkbox
+
+    Test sequence:
+    - Open explore page and try to login with incorrect credentials
+    - After redirection to separate login page, check its availability
+    - Try incorrect credentials on this page now
+    - Try correct credentials, log in
+    - Log out and open 'Forgot passsword' page
+    - Check its availability and reset password
+    - Check that we still can login with old password
+
+    Tear-down: this test does not requires DB state restoring
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Login with incorrect credentials and check separate login page availability
+user_login($adminUserName, "fake", "false", "main");
+_assertExists(_heading2($loginPageHeader));
+_assertEqual($adminUserName, _textbox($loginField).value);
+_assertExists(_password($passwordField));
+_assertExists(_link($loginPageForgotLink));
+_assertExists(_label($loginPageRememberCheckbox));
+_assertExists(_submit($loginPageEnterButton));
+_assertExists(_link($loginPageSignUpLink));
+_assertExists(_link($loginPageExploreLink));
+
+// Check that links to signup and explore page are working - WILL INSERT EXPLORE PAGE ASSERTS LATER
+_click(_link($loginPageSignUpLink));
+_assertExists(_div($signUpPageTitle));
+_assertExists(_submit($signUpPageButton));
+user_login("chief", "fake", "false", "main");
+_click(_link($loginPageExploreLink));
+user_login("chief", "fake", "false", "main");
+_assertExists(_heading2($loginPageHeader));
+
+// Try incorrect credentials on this page now
+user_login($adminUserName, "fake", "false", "separate");
+
+// Try correct credentials to login successfully, then log out
+user_login($adminUserName, $adminUserPass, "true", "separate");
+user_logout();
+
+// Open 'Forgot password' page, check its availability
+user_login($adminUserName, "fake", "false", "main");
+_click(_link($loginPageForgotLink));
+_assertExists(_heading2($forgotPageHeader));
+_assertExists(_textbox("user[email]"));
+_assertExists(_submit($forgotPageResetButton));
+_assertExists(_link($forgotPageLoginLink));
+
+// Check that link to login page works
+_click(_link($forgotPageLoginLink));
+_assertExists(_heading2($loginPageHeader));
+_click(_link($loginPageForgotLink));
+_assertExists(_heading2($forgotPageHeader));
+
+// Try to reset password entering incorrect e-mail
+_setValue(_textbox("user[email]"), "fake@kroogi.al");
+_click(_submit($forgotPageResetButton));
+_assertExists(_span($forgotPageErrorMessage));
+
+// Reset password, check success message and check that redirected to login page
+_setValue(_textbox("user[email]"), $adminUserEmail);
+_click(_submit($forgotPageResetButton));
+_assertExists(_span($forgotPageSuccessfull));
+_assertExists(_heading2($loginPageHeader));
+
+// Check that we can still login with old password, then log out
+user_login($adminUserName, $adminUserPass, "true", "separate");
+user_logout();

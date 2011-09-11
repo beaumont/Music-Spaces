@@ -1,0 +1,40 @@
+# == Schema Information
+# Schema version: 20090211222143
+#
+# Table name: roles
+#
+#  id     :integer(11)     not null, primary key
+#  name   :string(30)      default(""), not null
+#  status :integer(4)      default(1), not null
+#
+
+# == Schema Information
+# Schema version: 20081224151519
+#
+# Table name: roles
+#
+#  id     :integer(11)     not null, primary key
+#  name   :string(30)      not null
+#  status :integer(4)      default(1), not null
+#
+
+anonymous:
+  status: "1"
+  name: anonymous
+  id: "1"
+
+admin:
+  status: "1"
+  name: admin
+  id: "2"
+
+user:
+  status: "1"
+  name: user
+  id: "3"
+
+moderator:
+  status: "1"
+  name: moderator
+  id: "4"
+

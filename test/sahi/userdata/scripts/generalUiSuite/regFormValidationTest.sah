@@ -1,0 +1,276 @@
+/*
+    Registration form val;idations test.
+    Checks errors validation on registration form.
+
+    Out of scope:
+    - Not checking server-side error message if JS alert also exists for this error
+
+    Known bugs adressed in this test:
+    - #4081 Registration form: inconsistent error messages for project name (cases 4b-4g)
+    - #4082 Registration form: redundant and inconsistent error messages (cases 1a, 1c, 2a, 2c, 3a, 4c)
+
+    Test sequence:
+    - Check that in all error cases error is shown and fields' values not changed
+         1a) empty e-mail
+         1b) incorrect e-mail
+         1c) e-mail is too short    //SENSELESS VALIDATION
+         1d) e-mail already used
+         2a) name is empty
+         2b*) name already used
+         2c*) name is too short (< 2 characters)
+         2d*) name is too long (>30 characters)
+         2e*) name contains invalid characters
+         2f*) name cannot start from "-"
+         2g*) name cannot end with "-"
+         2h*) name must contain at least one non-numeric character
+         3a) password is empty
+         3b) password confirmation is empty
+         3c) password is too short
+         3d) password is too long
+         3e) password doesn't match confirmation
+         4a) project name is not entered if 'are you an artist' is YES and artist type = 'project' (BA + project)
+         4b) project name is not entered if 'are you an artist' is YES and artist type = 'both' (AA + project)
+         4c) project name already used
+         4d) project name is too short (< 2 characters)
+         4e) project name is too long (>30 characters)
+         4f) project name contains invalid characters
+         4g) project name cannot start from "-"
+         4h) project name must contain at least one non-numeric character
+         5a) birthday is not entered
+         5b) age validation fails (<13 years)
+         5c) nonsence is entered for birthday
+         6) terms are not accepted
+    - Check several birthday transformation alghorytms
+
+    * validations that marked with this sign, are now also being checked with ajax.
+    In such cases, we are checking both validation types (for that case when javascript is off, we should be sure anyway, that registration will not happen)
+
+    Tear-down: no need to restore DB state after running this test
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Open sign up page
+_click(_link($signUpLink));
+
+// Check error case 1a: empty e-mail
+register_form_fill("", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageEmptyEmailError));
+_assertExists(_listItem($registerPageEmailTooShortError));
+_assertExists(_listItem($registerPageInvalidEmailError));
+register_form_verify("", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 1b: incorrect e-mail
+register_form_fill("newuser.kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageInvalidEmailError));
+register_form_verify("newuser.kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 1c: e-mail is too short
+register_form_fill("1@", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageEmailTooShortError));
+_assertExists(_listItem($registerPageInvalidEmailError));
+register_form_verify("1@", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 1d: e-mail already used
+register_form_fill($adminUserEmail, "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageExistingEmailError));
+register_form_verify($adminUserEmail, "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2a: name is empty
+register_form_fill("newuser@kroogi.al", "", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageEmptyNameError));
+_assertExists(_listItem($registerPageNameSizeError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// We do not use routine here because we want to check AJAX validations, so we enter only name field, checking AJAX and clicking button
+// Check error case 2b*: name already used
+_setValue(_textbox($signUpLoginNameField), $adminUserName);
+_assertExists(_span($registerPageAjaxUsedNameError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageUsedNameError));
+register_form_verify("newuser@kroogi.al", $adminUserName, "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2c*: name is too short (< 2 characters)
+_setValue(_textbox($signUpLoginNameField), "n");
+_assertExists(_span($registerPageAjaxNameTooShortError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameSizeError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "n", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2d*: name is too long (>30 characters)
+_setValue(_textbox($signUpLoginNameField), "qwertyuiopqwertyuiopqwertyuiop1");
+_assertExists(_span($registerPageAjaxNameTooLongError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameSizeError));
+register_form_verify("newuser@kroogi.al", "qwertyuiopqwertyuiopqwertyuiop1", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2e*: name contains invalid characters
+_setValue(_textbox($signUpLoginNameField), "new-us*r");
+_assertExists(_div($registerPageAjaxNameInvalidError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "new-us*r", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2f*: name cannot start from "-"
+_setValue(_textbox($signUpLoginNameField), "-newuser");
+_assertExists(_div($registerPageAjaxNameInvalidError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "-newuser", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2g*: name cannot end with "-"
+_setValue(_textbox($signUpLoginNameField), "newuser-");
+_assertExists(_div($registerPageAjaxNameInvalidError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "newuser-", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 2h*: name must contain at least one non-numeric character
+_setValue(_textbox($signUpLoginNameField), "31217");
+_assertExists(_div($registerPageAjaxNameNumericError));
+_click(_submit($signUpPageButton));
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameNumericError));
+register_form_verify("newuser@kroogi.al", "31217", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 3a: password is empty
+register_form_fill("newuser@kroogi.al", "new-user", "", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageShortPasswordError));
+_assertExists(_listItem($registerPageNoPasswordError));
+_assertExists(_listItem($registerPagePasswordMatchingError));
+register_form_verify("newuser@kroogi.al", "new-user", "", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 3b: password confirmation is empty
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNoConfirmationError));
+_assertExists(_listItem($registerPagePasswordMatchingError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 3c: password is too short
+register_form_fill("newuser@kroogi.al", "new-user", "123", "123", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageShortPasswordError));
+register_form_verify("newuser@kroogi.al", "new-user", "123", "123", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 3d: password is too long
+register_form_fill("newuser@kroogi.al", "new-user", "12345678901234567890123456789012345678901", "12345678901234567890123456789012345678901", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageLongPasswordError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345678901234567890123456789012345678901", "12345678901234567890123456789012345678901", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 3e: password doesn't match confirmation
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "123456", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPagePasswordMatchingError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "123456", "yes", "project", "new-project", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4a: project name is not entered if 'are you an artist' is YES and artist type = 'project' (BA + project)
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "", "female", "1982-06-08", "ru", "yes");
+_assertEqual($registerPageNoProjectNameAlert, _lastAlert());
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4b: project name is not entered if 'are you an artist' is YES and artist type = 'both' (AA + project)
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "both", "", "female", "1982-06-08", "ru", "yes");
+_assertEqual($registerPageNoProjectNameAlert, _lastAlert());
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "both", "", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4c: project name already used
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", $adminUserName, "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageUsedNameError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", $adminUserName, "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4d: project name is too short (< 2 characters)
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "n", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameSizeError));
+_assertExists(_listItem($registerPageNameInvalidError)); //Showing of this error message in this case is a BUG
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "n", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4e: project name is too long (>30 characters)
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "qwertyuiopqwertyuiopqwertyuiop1", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameSizeError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "qwertyuiopqwertyuiopqwertyuiop1", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4f: project name contains invalid characters
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-proj*ct", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-proj*ct", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4g: project name cannot start from "-"
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "-newproject", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameInvalidError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "-newproject", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 4h: project name must contain at least one non-numeric character
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "31217", "female", "1982-06-08", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNameNumericError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "31217", "female", "1982-06-08", "ru", "yes");
+
+// Check error case 5a: birthdate is not entered
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "", "ru", "yes");
+_assertEqual($registerPageNoBirthdayAlert, _lastAlert());
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "", "ru", "yes");
+
+// Check error case 5b: age validation fails (<13 years)
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1998-12-31", "ru", "yes");
+_assertEqual($registerPageTooYoungAlert, _lastAlert());
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1998-12-31", "ru", "yes");
+
+// Check error case 5c: nonsence is entered for birthday
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "11 january", "ru", "yes");
+_assertExists(_span($registerPageMainError));
+_assertExists(_listItem($registerPageNoBirthdayError));
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "", "ru", "yes");
+
+// Check error case 6: terms are not accepted
+register_form_fill("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "no");
+_assertEqual($registerPageTosAlert, _lastAlert());
+register_form_verify("newuser@kroogi.al", "new-user", "12345", "12345", "yes", "project", "new-project", "female", "1982-06-08", "ru", "no");
+
+/*
+    Check several birthday transformation algorythms.
+    Using empty name to prevent registration.
+    Enter and verify only birthday field for speed (not using function)
+*/
+
+_click(_checkbox($signUpTermsCheckbox));
+_setValue(_textbox($signUpLoginNameField), "");
+_setValue(_textbox($signUpBirthdayField), "7 june 1982");
+_click(_submit($signUpPageButton));
+_assertEqual("1982-06-07", _textbox($signUpBirthdayField).value);
+_setValue(_textbox($signUpBirthdayField), "1982-6-7");
+_click(_submit($signUpPageButton));
+_assertEqual("1982-06-07", _textbox($signUpBirthdayField).value);
+_setValue(_textbox($signUpBirthdayField), "07.06.1982");
+_click(_submit($signUpPageButton));
+_assertEqual("1982-06-07", _textbox($signUpBirthdayField).value);
+_setValue(_textbox($signUpBirthdayField), "06/07/1982");
+_click(_submit($signUpPageButton));
+_assertEqual("1982-06-07", _textbox($signUpBirthdayField).value);

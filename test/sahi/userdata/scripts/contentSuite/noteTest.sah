@@ -1,0 +1,185 @@
+/*
+    'Note' and 'Announcement' items test.
+    Checks adding note/announcement via profile page, 'Add/edit note' form, displaying of note/announcement.
+
+    Out of scope:
+    - Those fields, where two languages are available - only checking english tab for now
+    - Attaching picture to note/announcement cannot be checked
+
+    Known bugs:
+    - #4142 Separate note/announcement page - make comment block collapsed when no comments yet
+    - #4146 'Edit note' form has incorrect header
+
+    Not added yet:
+    - Asking for contributions checkbox
+
+    Test sequence:
+    - Open profile page, check notes block (no announcements block is shown by default)
+    - Use 'Share a thought' form to add note and check that it was added and control links appeared
+    - Via 'Link' link, open separate item page, check all elements there
+    - Click 'Edit' link, check form elements and their default values
+    - Change fields and click 'Cancel', check that item not changed
+    - Click 'Delete' link, you should be redirected to profile page - make sure that item was deleted
+    - Use 'Share a thought' form to add note again, now with 'Make an announcement' checkbox
+    - Check that 'Announcements' block appeared and our announcement is in it
+    - Use 'Edit' link on profile page to access form, check form values
+    - Enter new values, click 'Save' (removing 'Make an announcement' checkbox in this step)
+    - Check item on separate page and on profile page, check that it was moved from 'Announcements' to 'Notes'
+    - Use 'Delete' link on profile page to delete item and check that it was deleted
+    - Add one more announcement via profile page and check that 'move to notes' link works as it should and delete announcement
+
+    Tear-down: No need to restore DB state after this test.
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Login as advanced user
+user_login($joeUserName, $joeUserPass, "true", "main");
+
+// Open profile page, check notes block (no announcements block is shown by default)
+_click(_link($homeLink));
+_assertFalse(_div($joeAnnouncementsBlockLabel));
+_assertExists(_span($joeNotesBlockLabel));
+_click(_span($joeNotesBlockLabel));
+_assertExists(_div($profileNotesSecondaryLabels));
+_assertExists(_checkbox($profileNotesIsAnnouncementCheckbox));
+_assertEqual("", _textarea($profileNotesTextField).value);
+_assertExists(_link($profileNotesPicLink));
+_assertExists(_submit($profileNotesPostButton));
+_assert(!(_isVisible(_link($profileNotesPictureField))));
+_click(_link($profileNotesPicLink));
+_assert(_isVisible(_file($profileNotesPictureField)));
+
+// Use 'Share a thought' form to add note and check that it was added and control links appeared
+_setValue(_textarea($profileNotesTextField), "test note");
+_click(_submit($profileNotesPostButton));
+_assertExists(_div("test note"));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+_assertFalse(_link($profileAnnouncementsMoveLink));
+
+// Via 'Link' link, open separate item page, check all elements there
+_assertExists(_div("test note"));
+_click(_link($profileNotesLinkLink));
+_assertExists(_link($itemLikeLink));
+_assertExists(_link($itemCommentLink));
+_assertExists(_div($itemFbLink));
+_assertExists(_div($itemTweetLink));
+_assertExists(_div($itemDiggLink));
+_assertExists(_link($itemEditLink));
+_assertExists(_link($itemDeleteLink));
+_assertExists(_div($itemActivityDiv));
+
+/* not checking due to #4142 bug
+_assertExists(_link($itemLowerCommentLink));
+*/
+
+// Click 'Edit' link, check form elements and their default values
+_click(_link($itemEditLink));
+_assertExists(_div($editNoteFormHeader));
+_assertExists(_cell($editNoteTextLabel));
+_assertExists(_link($editNoteFormatPostLink));
+_assertExists(_label($editNoteTagsLabel));
+_assertExists(_cell($editNotePictureLabel));
+_assertExists(_cell($editNoteDonateLabel));
+_assertExists(_label($editNoteShowToLabel));
+_assertExists(_label($editNotePinLabel));
+_assertExists(_submit($editNoteSaveButton));
+_assertExists(_submit($editNoteCancelButton));
+note_form_verify("test note", "", "", "no", $itemShowEveryone, "no");
+
+// Change fields and click 'Cancel', check that item not changed
+note_form_fill("edited test note", "tag1, tag2, tag3", "", "yes", $itemShowFriends, "yes");
+_click(_submit($editNoteCancelButton));
+_assertExists(_div("test note"));
+
+// Click 'Delete' link, you should be redirected to profile page - make sure that item was deleted
+_click(_link($itemDeleteLink));
+_expectConfirm($itemDeleteConfirm, true);
+_assertExists(_span($noteDeletedMessage));
+_assertFalse(_div("test note"));
+_assertFalse(_link($profileNotesLinkLink));
+_assertFalse(_link($profileNotesCommentLink));
+_assertFalse(_link($profileNotesEditLink));
+_assertFalse(_link($profileNotesDeleteLink));
+
+// Use 'Share a thought' form to add note again, now with 'Make an announcement' checkbox
+_setValue(_textarea($profileNotesTextField), "test announcement");
+_click(_checkbox($profileNotesIsAnnouncementCheckbox));
+_click(_submit($profileNotesPostButton));
+_assertExists(_div("test announcement"));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+
+// Check that 'Announcements' block appeared and our announcement is in it
+_assertExists(_div($joeAnnouncementsBlockLabel));
+_assertExists(_span($joeNotesBlockLabel));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertExists(_link($profileAnnouncementsMoveLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+
+// Use 'Edit' link on profile page to access form, check form values
+_click(_link($profileNotesEditLink));
+note_form_verify("test announcement", "", "", "no", $itemShowEveryone, "yes");
+
+// Enter new values, click 'Save' (removing 'Make an announcement' checkbox in this step)
+note_form_fill("edited test announcement", "tag1, tag2, tag3", "", "no", $itemShowFriends, "no");
+_click(_submit($editNoteSaveButton));
+
+// Check item on separate page and on profile page, check that it was moved from 'Announcements' to 'Notes'
+_assertExists(_div("edited test announcement"));
+_assertExists(_div("Tags: tag1, tag2, tag3"));
+_assertExists(_div($itemShowFriends));
+_click(_link($homeLink));
+_assertFalse(_div($joeAnnouncementsBlockLabel));
+_assertExists(_span($joeNotesBlockLabel));
+_assertExists(_div("edited test announcement"));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+
+// Use 'Delete' link on profile page to delete item and check that it was deleted
+_click(_link($profileNotesDeleteLink));
+_expectConfirm($noteDeleteProfileConfirm, true);
+_assertExists(_span($noteDeletedMessage));
+_assertFalse(_div("edited test announcement"));
+
+// Add one more announcement via profile page and check that 'move to notes' link works as it should and delete announcement
+_setValue(_textarea($profileNotesTextField), "another test announcement");
+_click(_checkbox($profileNotesIsAnnouncementCheckbox));
+_click(_submit($profileNotesPostButton));
+_assertExists(_div($joeAnnouncementsBlockLabel));
+_assertExists(_span($joeNotesBlockLabel));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertExists(_link($profileAnnouncementsMoveLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+_assertExists(_div("another test announcement"));
+_click(_link($profileAnnouncementsMoveLink));
+_assertFalse(_div($joeAnnouncementsBlockLabel));
+_assertExists(_span($joeNotesBlockLabel));
+_assertExists(_link($profileNotesLinkLink));
+_assertExists(_link($profileNotesCommentLink));
+_assertFalse(_link($profileAnnouncementsMoveLink));
+_assertExists(_link($profileNotesEditLink));
+_assertExists(_link($profileNotesDeleteLink));
+_assertExists(_div("another test announcement"));
+_click(_link($profileNotesDeleteLink));
+_expectConfirm($noteDeleteProfileConfirm, true);
+_assertExists(_span($noteDeletedMessage));
+_assertFalse(_div("another test announcement"));

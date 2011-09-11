@@ -1,0 +1,55 @@
+<% title ||= "Download {{author}}'s {{content_name}}" / [h(truncate(project.display_name, :length => 20)), h(content.title_short(20))] %>
+<% @download_widget_number = (@download_widget_number || 0) + 1 %>
+<% dialog_id_suffix = @download_widget_number %>
+
+<% content_for :js do %>
+  <script type="text/javascript" language="javascript">
+    function checkGetInvitedForm() {
+      if (jQuery('#invite_follower_email').val() == '') {
+        return false;
+      }
+      return true;
+    }
+  </script>
+<% end %>
+<div style="display: none;" id="download_dialog_<%= dialog_id_suffix %>">
+  <%= render(:partial => '/shared/download_links', :locals => {:content => content, :autostart => autostart}) %>
+  <% if @dl_link_needed %>
+      <% form_remote_for :invite,
+                        :url => { :controller => '/invite', :action => 'get_invited_after_donation'},
+                        :type => :synchronous,
+                        :html => {:class => "get_invited", :id => 'get_invited_form'} do |f| -%>
+        <br />
+        <div id="get_invited_form_errors" class="error"></div>
+        <%= f.hidden_field(:project_id, :value => content.user.id) %>
+        <%= hidden_field_tag(:content_id, content.id) %>
+        <%= render :partial => '/donate/login_or_email_maybe', :locals => {:content => content, :suggest_logging_in => false, :f => f} %>
+        <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+          :disable_cancel => true,
+          :ok_label => 'Join'.t,
+          :ajax_mode => true,
+          :validate => "checkGetInvitedForm()",
+          } %>
+      <% end %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  var <%= "download_dialog_opts_#{dialog_id_suffix}" %> = {
+    title: "<%= title %>",
+    modal: true,
+    height: 'auto',
+    position: 'middle',
+    width: 300,
+    close: function() {
+      jQuery("#download_dialog_<%= dialog_id_suffix %>").html('');
+      jQuery("#download_dialog_<%= dialog_id_suffix %>").dialog('destroy');
+    }
+  };
+  function show_download_dialog_<%= dialog_id_suffix %>() {
+    jQuery('#download_dialog_<%= dialog_id_suffix %>').dialog(download_dialog_opts_<%= dialog_id_suffix %>);
+  }
+  jQuery(document).ready(function($){
+    show_download_dialog_<%= dialog_id_suffix %>();
+  });
+</script>

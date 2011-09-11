@@ -1,0 +1,60 @@
+<%
+  current_type = @menu.detect { |item| params[:type] == Invite::TYPES[item][:id].to_s }
+  current_item = current_type ? truncate(@kroog.name, 30) : 'Followers'.t
+  @title = @user.login + ' :: ' + (current_item || 'Followers'.t)
+%>
+
+<div class="<%= 'manage_followers' if @kroog.nil? || !@kroog.is_view_permitted? -%>">
+  <% content_for :right_column do %>
+    <% right_column_block(:header_title => 'Circles of {{user}}' / @user.login) do %>
+      <%= render :partial => 'join_this_kroog', :collection => @user.circles, :locals => {:link_name => true, :show_circle_number => true, :hide_edit_link => @user.basic_user?} %>
+    <% end %>
+  <% end %>
+
+  <% main_block(:header_title => '%s of %s' / [current_item, (h @user.login)], :white_body => true) do %>
+    <div class="default" style="float:right;">
+      <% if permitted?(@user, :profile_edit) %>
+        <% unless @followers.empty? || (params[:type] && params[:type] == '6') %>
+          <strong><%= 'Sort by'.t -%>:</strong>
+          <% if params[:sort] && params[:sort] == 'alpha' %>
+            <%= link_to '((sort by)) join date'.t, :controller => params[:controller], :action => params[:action], :id => params[:id], :type => params[:type], :sort => nil %>
+            |
+            <%= '((sort by)) name'.t %>
+          <% else %>
+            <%= '((sort by)) join date'.t %> |
+            <%= link_to '((sort by)) name'.t, :controller => params[:controller], :action => params[:action], :id => params[:id], :type => params[:type], :sort => 'alpha' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="default">
+      <% follower_label = 'Followers: {{count}}' / @follower_count %>
+      <% pending_label = "Pending invites: {{count}}" / @invited_count %>
+      <% if params[:action] == 'show_pending' %>
+        <%= link_to follower_label, {:controller => '/kroogi', :action => 'show', :id => @user.id, :type => params[:type]}, {:style => "font-weight:normal;"} %>
+        <% if permitted?(@user, :profile_edit) %> |
+          <%= pending_label %>
+        <% end %>
+      <% else %>
+        <%= follower_label %>
+        <% if permitted?(@user, :profile_edit) %> |
+          <%= link_to pending_label, {:controller => '/kroogi', :action => 'show_pending', :id => @user.id, :type => (params[:type].to_i == 6 ? "" : params[:type])}, {:style => "font-weight:normal;"} %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="invite_full followers">
+      <% if @followers.empty? %>
+          <div class="section_empty"><%= 'No users to display'.t %></div>
+      <% else %>
+        <% partial = (params[:action] == 'show_pending' && permitted?(@user, :profile_edit) ? "pending_list_item" : "list_item") %>
+        <%= render :partial => partial, :collection => @followers %>
+      <% end %>
+    </div>
+    <%= render :partial => '/shared/pager', :locals => {:results => @followers, :page_sizes => @page_sizes} %>
+  <% end %>
+
+  <% if @kroog && @kroog.is_view_permitted? %>
+    <%= render :partial => 'forum', :locals => {:show_teaser => true, :circlename => current_item, :hide_privacy => true} %>
+  <% end %>
+</div>

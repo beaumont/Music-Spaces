@@ -1,0 +1,41 @@
+--- 
+- 
+  created_at: 2011-02-05 11:50:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто наблюдает за мной."
+  tr_key: "People who follow me."
+  tr_origin: ~
+  updated_at: 2011-02-08 13:19:58 +00:00
+- 
+  created_at: 2011-02-08 13:17:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Студию"
+  tr_key: "Move to Studio"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 13:37:03 +00:00
+- 
+  created_at: 2011-02-08 13:17:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У ВАС НЕ ОСТАЛОСЬ СВОБОДНОГО МЕСТА ДЛЯ ЗАГРУЗКИ, УДАЛИТЕ НЕСКОЛЬКО ТРЕКОВ ИЗ СПИСКА"
+  tr_key: "THERE IS NO FREE SPACE FOR UPLOAD, DELETE SOME TRACKS FROM THE LIST"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-02-08 13:37:29 +00:00
+- 
+  created_at: 2011-02-08 13:18:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещен в круг Студия {{followed}}"
+  tr_key: "{{follower}} moved to the Studio circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-08 13:41:35 +00:00
+- 
+  created_at: 2011-02-08 13:19:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Люди, следящие за нашим творчеством."
+  tr_key: "People following us."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 13:47:08 +00:00

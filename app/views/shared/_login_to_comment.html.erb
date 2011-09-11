@@ -1,0 +1,33 @@
+<% unless defined?(show_invocation_links); show_invocation_links = true; end %>
+
+<%= captions[0] %>
+<% if show_invocation_links %>
+  <br/>
+  <%= login_link('Log in'.t, {}, :id => ids[0]) %>
+  <%= 'or'.t %>
+  <%= link_to('Sign up'.t, "/signup", :id => ids[1]) %>
+<% end %>
+<%= render :partial => '/shared/login_signup_widget_sandbox',
+           :locals => {:project_to_follow => user,
+                       :title => captions[1],
+                       :login_block_title => captions[2],
+                       :signup_block_title => captions[3],
+                       :fb_signup_block_title => captions[5],
+                       :dialog_id_suffix => dialog_id_suffix,
+                       :thanks_last => captions[4],
+                       } %>
+<script type="text/javascript">
+  function show_login_signup_widget(active_section) {
+    jQuery('#ask_for_login_or_signon_<%= dialog_id_suffix %>').dialog(ask_for_login_or_signon_dialog_opts_<%= dialog_id_suffix %>);
+    jQuery('#ask_for_login_or_signon_<%= dialog_id_suffix %> .accordion').accordion({ active: active_section, clearStyle: true, autoHeight: false });
+  }
+  jQuery("#<%= ids[0] %>").bind('click', function() {
+    show_login_signup_widget(0);
+    return false;
+  });
+  jQuery("#<%= ids[1] %>").bind('click', function() {
+    show_login_signup_widget(1);
+    return false;
+  });
+</script>
+

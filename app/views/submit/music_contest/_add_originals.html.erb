@@ -1,0 +1,75 @@
+<% maxUploads = 10 %>
+
+<tr class="download_option">
+  <td>
+    <% if @part_allowed %>
+      <script type="text/javascript" charset="utf-8">
+        var downloadsAdded = 1;
+        function addDownload() {
+          if (downloadsAdded < <%= maxUploads -%>) {
+            file_field = document.createElement("input");
+            file_field.type = 'file';
+            file_field.name = "file_bundle[][uploaded_data]";
+            file_field.size = '30';
+            file_field.style.width='320px';
+            $('file_field_container').down('.file_wrapper').appendChild(file_field);
+            downloadsAdded += 1;
+          } else {
+            $('add_another').hide();
+            $('add_no_more').show();
+            new Effect.Highlight('add_no_more');
+          }
+        }
+      </script>
+      <div id="file_field_container">
+        <% if @content.bundles.empty? %>
+          <div class="default"><b><%= 'Upload file(s) with originals for contest'.t %></b></div>
+        <% else %>
+          <div class="default"><b><%= 'Currently uploaded original(s)'.t -%>:</b></div>
+          <% locale = I18n.locale %>
+          <%= render :partial => "shared/translatable_fields",
+                     :locals => {
+                             :english_body => lambda {render(:partial => "submit/music_contest/originals_files",
+                                                     :locals => {:content => @content, :current_locale => locale})},
+                             :russian_body => lambda {render(:partial => "submit/music_contest/originals_files",
+                                                     :locals => {:content => @content, :current_locale => locale})},
+                             } %>
+        <% end %>
+        <%= hidden_field_tag 'redirect_to', url_for(contest_edit_part_path(@content, 'add_originals')) %>
+
+        <div class="another_file">
+          <div class="label row_item"><%= 'Upload more'.t unless @content.bundles.empty? -%></div>
+          <div class="row_item file_wrapper">
+            <input type="file" size="30" name="file_bundle[][uploaded_data]"/>
+          </div>
+          <div class="clear"></div>
+        </div>
+
+      </div>
+      <div class="add_another_wrapper" style="margin-left:92px;">
+        <div id="add_another">
+          <%= link_to_function 'Upload more files at once'.t, 'addDownload()' %>
+        </div>
+        <div style="padding-top: 5px; display: none; margin-top: 5px;" id="add_no_more" class="special_notice">
+          <%= 'To prevent system timeouts, you can only add up to %s files at a time.' / [maxUploads] %><br/>
+          <%= 'If you need to add more: upload %s, save, press edit, and repeat as necessary.' / [maxUploads] %>
+        </div>
+      </div>
+      <div class="terms">
+        <% terms = @content.details.display_terms_and_conditions %>
+        <% fields_for :terms, terms do  |t| %>
+          <%= t.check_box(:require_terms_acceptance, :class => 'checkbox') %>
+          <label ><%= 'When participants <b>download</b> samples, they should agree to the following:'.t %></label><br><br>
+          <%= render :partial => "shared/translatable_fields", :locals => {
+                  :f => t,
+                  :content => terms,
+                  :fields => [[nil, :terms]],
+          } %>
+        <% end %>
+      </div>
+    <% else %>
+      <%= 'Sorry, this feature is unavailable for you until you attach money'.t %>
+    <% end %>
+  </td>
+</tr>
+

@@ -1,0 +1,18 @@
+<%
+dialog_id_suffix ||= 1
+project_to_follow ||= nil
+start_following ||= false
+show_faces ||= false
+%>
+<div id="fb_connect_content_<%=dialog_id_suffix%>">
+  <% form_border do %>
+    <%= 'In order to authenticate via Facebook please login to your Facebook account'.t %>
+  <% end %>
+  <div class="button_wrapper">
+    <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+                  :locals => {
+                      :title_text => '',
+                      :show_faces => 'false',
+                      :button_text => 'Connect'.t} -%>
+  </div>
+</div>

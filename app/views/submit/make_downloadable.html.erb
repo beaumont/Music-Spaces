@@ -1,0 +1,63 @@
+<% @content_kind_displayname = 'Make downloadable'.t %>
+<% @title = @user.login + ' :: ' + @content.title_long + " :: " + @content_kind_displayname %>
+
+<% left_block = capture do %>
+  <div class="album_img">
+    <%= image_tag(@content.cover_art.thumb(:thumb).public_filename, :border => 0, :alt => h(@content.cover_art.thumb(:thumb).filename)) if @content.cover_art %>
+  </div>
+  <div class="main_left_block default">
+    <div id="music_album_attributes" class="default">
+      <%= render :partial => "content/music_album_attributes", :locals => {:entry => @content} %>
+    </div>
+  </div>
+<% end %>
+
+<% main_block(:header_title => "Make '{{album_title}}' downloadable" / ["#{gallery_content_title_link(@content, nil, :truncate_to => 200)}"], :content_head => '', :left_block => left_block) do %>
+  <% form_tag({:controller => 'submit', :action => :generate_zip, :id => @content.id}, {:id => 'make_downloadable_form', :onsubmit => "return pause_save();", }) do -%>
+    <div class="default"><%= "Create a downloadable zip file containing the album's tracks and cover art".t %>.</div>
+    <div class="default"><%= 'The person or organization represented on Kroogi as {{user_name}} must have full rights to digitally distribute the contents of this album.' / user_link(@user, :icon => true) %></div>
+    <div class="default">
+      <label>
+        <%= check_box_tag :have_full_rights, 0, false, :class => 'auto_width' %>&nbsp;
+        <b><%= 'I have full rights to digitally distribute the contents of this album.'.t %></b>
+      </label>
+    </div>
+    <div class="form_head"><%= 'Enter contribution requirement for downloading this album'.t %>:</div>
+    <%= render :partial => 'min_contribution_setting', :locals => {:setting => @contribution_setting}%>
+      
+    <% if @content.qualify_for_fb(:must_be_downloadable => false) %>
+      <div class="default">
+        <%= image_tag("icons/kd_icon.png") %>
+        <%= 'Once you make this album downloadable on Kroogi, Facebook users will also be able to download it using our Facebook  {{app_link}} application' / ['<strong><a href="%s" target="_blank">%s</a></strong>' % [Facebook::ApplicationHelper::url_for_canvas, 'Kroogi Downloads'.t]] %>. 
+      </div> 
+    <% end %>
+    <div class="form_head">&nbsp;</div>
+    <div class="form_buttons">
+      <%= render :partial => "buttons", :locals => {:ok_label => 'Generate File'.t, :upload => true } %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" language="javascript">
+    function pause_save() {
+      if (!$('have_full_rights').checked) {
+        alert('<%= js('A person or organization represented by {{user_name}} must have full rights for digital distribution of the contents of this album.' / @user.login) -%>');
+        return false;
+      } else {
+        var btn = $('make_downloadable_form').getElementsByClassName("button")[0];
+        btn.innerHTML = "<span><%= 'zip_generation.please_wait'.t %></span>";
+        btn.className = 'button_gr';
+        btn.disabled = true;
+
+        //disable Cancel - it won't actually cancel
+        var btn = $('make_downloadable_form').getElementsByClassName("cancel")[0];
+        Element.hide(btn);
+
+        $$('.wait_up_homie').each(function(e){e.show();});
+        return true;
+      }
+    }
+  </script>
+<% end %>

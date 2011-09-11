@@ -1,0 +1,762 @@
+<style>
+    /* ------------------------------------------------
+    * ------------------------------------------------
+    * GLOBAL STYLES
+    * ------------------------------------------------
+    */
+    .clear {clear: both;}
+    .clear_left {clear: left;}
+    .clear_right {clear: right;}
+
+    /* ------------------------------------------------
+    * ------------------------------------------------
+    * STRUCTURES
+    * ------------------------------------------------
+    * /
+
+    /* ------------------------------------------------
+    * 3 Column layout
+    */
+
+    .content .three_column {
+    }
+
+    .content .three_column .left_sidebar {
+        width: 150px;
+        float: left;
+        margin: 10px 0px 10px 0px;
+    }
+
+    .content .three_column .right_sidebar {
+        width: 150px;
+        float: right;
+        margin: 10px 0px 10px 0px;
+    }
+
+    .content .three_column .inner {
+        width: 440px;
+        float: left;
+        margin: 10px;
+    }
+
+    /* ------------------------------------------------
+    * 2 Column layout
+    */
+
+    .content .two_column {
+    }
+
+    .content .two_column .left_sidebar {
+        width: 150px;
+        float: left;
+    }
+
+    .content .two_column .inner {
+        width: 510px;
+        float: left;
+    }
+
+    .content .two_column .inner_right {
+
+        margin-left:150px;
+    }
+
+    .content .two_column .right_sidebar {
+        width: 240px;
+        float: right;
+        margin: 0px 0px 10px 10px;
+    }
+
+
+    .footer {
+        clear:both;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    * STYLES
+    * ----------------------------------------------------
+    *-----------------------------------------------------
+
+
+    /*temporary for veiw outside of facebook*/
+
+    .mainContent {
+        width:760px;
+        margin:0;
+        padding:0 0 40px 0;
+        font-family:Tahoma, Geneva, sans-serif;
+    }
+
+    img {
+        border:0;
+    }
+
+    a {
+        color:#3B5998;
+        text-decoration:none;
+        font-family:Tahoma, Geneva, sans-serif;
+        font-size:11px;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    header, logo, search form */
+
+    .headerTitle {
+        width:760px;
+        padding:0;
+        margin:0;
+        height:67px;
+    }
+
+    .kroogiLogo {
+        float:left;
+        margin-left:7px;
+        width:212px;
+    }
+
+    .headerLinks {
+        float:left;
+        margin-left:282px;
+        margin-top:35px;
+    }
+
+    .search {
+        float:right;
+        margin:15px 7px 0 0;
+    }
+
+    .searchBox {
+        float:left;
+        margin:0;
+        padding:0;
+    }
+
+    .searchBox input {
+        font-family:Tahoma, Geneva, sans-serif;
+        font-size:11px;
+        color:#999;
+        height:16px;
+    }
+
+    .searchButton {
+        margin:0 0 0 128px;
+        padding:0;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    kroogi menu and artist entrance */
+
+    .kroogiMenu ul {
+        list-style:none;
+        padding:10px 0;
+        margin:0;
+        font-weight:bold;
+    }
+
+    .kroogiMenu ul li {
+        display:inline;
+        margin-left:10px;
+    }
+
+    .artEntrance {
+        float:right;
+    }
+
+    li.artEntrance {
+        margin-right:10px;
+    }
+
+    .greyLine {
+        font-size:0;
+        border-top:1px #B8B3AB solid;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    Album Page*/
+
+    .boxes {
+        float: left;
+    }
+
+    .albumsContainer {
+        float: left;
+        margin: 8px 0px 10px 20px;
+    }
+
+    .arrow {
+        padding:10px 8px 10px 10px;
+        float:left;
+    }
+
+    .arrowText {
+        margin-left:33px;
+        padding-top:9px;
+        font-weight: bold;
+    }
+
+    .albums .cover {
+        float: left;
+        margin: 10px 0px;
+    }
+
+    .title {
+        width:260px;
+        font-weight: bold;
+        font-size: 18px;
+        color:#333;
+    }
+
+    .artist {
+        font-weight: bold;
+        font-size: 12px;
+        color:#666;
+    }
+
+    .style {
+        font-weight: normal;
+        font-size: 11px;
+        color:#666;
+    }
+
+    .more {
+        padding:5px 0;
+    }
+
+    .donatebox {
+        background-color: #F7F7F7;
+        border:1px #CCC solid;
+        margin: 4px 0px 0px 0px;
+        font-size: 11px;
+        width:330px;
+    }
+
+
+    .downloadbox {
+        background-color: #F7F7F7;
+        border:1px #CCC solid;
+        margin: 4px 0px 0px 0px;
+        font-size: 11px;
+        width:330px;
+    }
+
+    .description {
+        clear: both;
+        margin: 0 20px 20px 20px;
+        padding-top:10px;
+        width: 470px;
+        font-size: 11px;
+        color:#666;
+    }
+
+    /*placeholder for player*/
+    .player {
+        width:500px;
+    }
+
+    .downloadboxContent {
+        margin-left:33px;
+        padding:8px 0;
+    }
+
+    .donateboxContent {
+        margin-left:33px;
+        padding:9px 0;
+    }
+
+    .downloadFile {
+        font-weight:bold;
+        display:block;
+        padding-bottom:8px;
+    }
+
+    .artistName {
+        font-weight:bold;
+    }
+
+    .donateForm {
+        float:left;
+        padding-bottom:10px;
+    }
+
+    .donateBox {
+        font-size:11px;
+        vertical-align:middle;
+        margin-top:10px;
+    }
+
+    .donateButton {
+        vertical-align:middle;
+        margin-left:4px;
+        margin-top:10px;
+    }
+
+    .paypalInfo {
+        margin-left:6px;
+        margin-top:12px;
+        font-weight:bold;
+    }
+
+    .thankYou {
+        font-weight:bold;
+        margin-bottom:4px;
+        padding-top:0;
+    }
+
+    /* inner footer*/
+    .innerFooter {
+        clear: both;
+        margin: 20px;
+        width: 470px;
+        font-size: 11px;
+        color:#666;
+    }
+
+    .innerFooterTitle {
+        font-weight:bold;
+        margin:10px 0;
+    }
+
+    .sentFrom {
+        display:inline-block;
+        width:150px;
+        float:left;
+        padding-top:8px;
+    }
+
+    .noAlbum {
+        font-weight:bold;
+        margin-bottom:10px;
+        color:#333;
+    }
+
+    .noAlbumInfo .title {
+        font-size:12px;
+        color:#999;
+    }
+
+    .noAlbumInfo .artist {
+        color:#999;
+    }
+
+    .noAlbumInfo .lastAction {
+        color:#999;
+    }
+
+    .noAlbumInfo .style {
+        color:#999;
+    }
+
+
+    .noAlbumInfo {
+        color:#999;
+    }
+
+    .noAlbumInfo a {
+        color:#999;
+    }
+
+    .noAlbumMessage {
+        font-size:18px;
+        font-weight:bold;
+        color:#666;
+        padding-top:10px;
+    }
+
+    .opacity {
+        opacity: 0.5;
+    }
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    right sidebar for all pages!!!*/
+    .rightTitle {
+        font-size:12px;
+        font-weight:bold;
+        color:#666;
+        margin-top:13px;
+        margin-bottom:14px;
+    }
+
+    .rightBoxes {
+        background-color:#F7F7F7;
+        font-size:11px;
+        color:#666;
+        border:1px #EEE solid;
+    }
+
+    .boxContent {
+    }
+
+    .boxContent2 {
+        background-color:#EEE;
+    }
+
+    .veiwMore {
+        padding:10px;
+    }
+
+    .albumStatistic {
+        padding:10px;
+    }
+
+    .friendUserpic {
+        float:left;
+        padding-right:10px;
+    }
+
+    .userpic {
+        float:left;
+        padding-right:10px;
+    }
+
+    .donations {
+        padding-bottom:5px;
+    }
+
+    .quantity {
+        font-weight:bold;
+    }
+
+    .name {
+    }
+
+    .date {
+        color:#666;
+    }
+
+    .action {
+        padding-bottom:5px;
+    }
+
+    .rightButton {
+        padding-left:35px;
+
+    }
+
+    .greyLine2 {
+        font-size:0;
+        width:218px;
+        margin:0 auto;
+        padding:0;
+        border-top:1px #EEE solid;
+    }
+
+    .sendResult {
+        padding:10px;
+    }
+
+    .sendToFriend {
+        padding:10px;
+    }
+
+    .thisAlbumStatistic {
+        padding:10px;
+        font-weight:bold;
+    }
+
+    .friends {
+        padding:10px;
+    }
+
+    .topAlbums {
+        padding:10px;
+    }
+
+    .topAlbums .cover {
+        float:left;
+        padding-right:10px;
+    }
+
+    .topAlbumsContent {
+        margin-left:42px;
+    }
+
+    .topAlbums .yourAlbumStatistic {
+        margin:0 0 10px 0 ;
+    }
+
+    .friendsDownloads {
+        padding:10px;
+    }
+
+    .friendsDownloads .cover {
+        float:left;
+        padding-right:10px;
+    }
+
+    .friendsDownloadsContent {
+        margin-left:42px;
+    }
+
+    .friendsDownloads .artist {
+        font-weight:normal;
+    }
+
+    .friendsDownloadsStatistic {
+        padding-top:8px;
+    }
+
+    .noRightTitle {
+        height:43px;
+    }
+
+    .yourFriendsAlbums {
+        padding:10px;
+        font-weight:bold;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    My Albums*/
+
+    .collectionContainer {
+        background-color: #F7F7F7;
+        border:1px #DDD solid;
+        margin:0;
+        font-size: 11px;
+    }
+
+    .pageTitle {
+        margin:10px;
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    .collectionHeader {
+        margin:10px;
+        font-weight:bold;
+        color:#666;
+    }
+
+    .whiteBox {
+        background-color: #FFF;
+        border: 1px #DDD solid;
+        margin: 10px;
+        font-size: 11px;
+        padding-bottom:10px;
+    }
+
+    .whiteBox .cover {
+        float: left;
+        margin:10px 10px 0 10px;
+    }
+
+    .whiteBoxContent {
+        margin-left:120px;
+        margin-top:10px;
+    }
+
+    .lastAction {
+        float:right;
+        padding-right:10px;
+        color:#333;
+    }
+
+    .whiteBoxContent .name{
+    }
+
+    .whiteBoxContent .title {
+        width:100%;
+        padding:8px 0;
+    }
+
+    .whiteBoxContent .title a {
+        font-size:13px;
+    }
+
+    .whiteBoxContent .artist {
+        font-weight:normal;
+        font-size:11px;
+    }
+
+    .whiteBoxContent .style {
+        font-weight:bold;
+    }
+
+    .actionLinks {
+        padding-left:0;
+        margin:8px 0 0 0;
+    }
+
+    .actionLinks li {
+        display:inline;
+    }
+
+    .yourAlbumStatistic {
+        margin:8px 0 0 0;
+        color:#333;
+    }
+
+    .yourDonation {
+        font-weight:bold;
+        margin-top:10px;
+        color:#333;
+    }
+
+    .albumImpact {
+        color:#333;
+    }
+
+    .empty {
+        font-size:18px;
+        font-weight:bold;
+        color:#666;
+        padding:10px 10px 0 10px;
+    }
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    Home*/
+    .home
+    .homeHeader {
+        margin:10px 0 10px 0;
+    }
+
+    .homeH1 {
+        font-size:18px;
+        font-weight:bold;
+        color:#B8B3AB;
+    }
+
+    .homeH2 {
+        font-size:14px;
+        font-weight:bold;
+        color:#666;
+        margin-right:100px;
+    }
+    .moreMusic {
+        float:right;
+    }
+
+    .greyLine3 {
+        font-size:0;
+        border-top:1px #DEDEDE solid;
+    }
+
+    .homeContent .cover {
+        width:150px;
+        padding:20px 20px 10px 0;
+        float:left;
+        text-align:right;
+    }
+
+    .homeContent .artist {
+        padding-top:15px;
+    }
+
+    .homeContent .artist a {
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    .homeContent .country {
+        font-size:12px;
+    }
+    .homeContent .style  {
+        font-size:12px;
+        font-weight:bold;
+    }
+    .homeContent .moreAlbums {
+        padding:10px 0;
+    }
+
+    .friendsKroogi .friendUserpic {
+        margin-top:10px;
+        padding-right:0;
+        float:left;
+    }
+
+    .friendsKroogiContent {
+        margin-left:44px;
+    }
+
+    .friendsKroogiDownloads {
+        padding-top:10px;
+        font-size:11px;
+        color:#666;
+    }
+
+    .albumName a {
+        font-weight:bold;
+    }
+    .goTo {
+        padding:6px 0 10px 0;
+    }
+
+    .goTo a {
+        font-weight:bold;
+    }
+
+    .greyLine4 {
+        font-size:0;
+        width:218px;
+        margin-left:44px;
+        border-top:1px #EEE solid;
+    }
+
+
+    /* ---------------------------------------------------
+    * ----------------------------------------------------
+    Sent By Friends*/
+
+    .sentbyAlbums {
+        background-color: #F7F7F7;
+        border:1px #DDD solid;
+        margin:0;
+        font-size: 11px;
+    }
+
+    .greyLine5 {
+        font-size:0;
+        border-top:1px #CCC solid;
+        margin-right:10px;
+    }
+
+    .sentbyAlbums .whiteBox .whiteBoxContent .title {
+        padding-top:0px;
+        padding-bottom:6px;
+    }
+
+    .sentbyAlbums .whiteBox .whiteBoxContent .style {
+        padding-bottom:6px;
+    }
+
+
+
+</style>
+
+<div class="mainContent">
+    <div class="headerTitle">
+        <div class="kroogiLogo"><img src="http://www.kroogi.com/images/kroogi_downloads.jpg" /></div>
+    </div>
+    <div class="kroogiMenu">
+        <ul>
+            <li class="artEntrance"><a href="http://www.kroogi.com" class="" onclick="return true;" onmousedown="">Artist’s Entrance</a></li>
+            <li><a href="#" class="" onclick="return true;" onmousedown="">Home</a></li>
+            <li><a href="#" class="" onclick="return true;" onmousedown="">Find Music</a></li>
+            <li><a href="#">My Albums</a></li>
+            <li><a href="#">Sent by Friend</a></li>
+        </ul>
+    </div>
+    <div class="greyLine"></div>
+    <div class="content">
+        <div class="two_column">
+            <div class="inner">
+                <div class="collection">
+                    <div class="pageTitle">Error</div>
+                    <div class="collectionContainer">
+                        <div class="collectionHeader">Access Denied</div>
+                        <div class="whiteBox">
+                            <div class="empty">Please go back</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--This div has no actual value, just to veiw outside of facebook-->
+    <div class="clear"></div>
+</div>

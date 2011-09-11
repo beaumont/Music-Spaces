@@ -1,0 +1,30 @@
+<%
+dialog = box == 'download' ? link_to("(?)",'', :clicktoshowdialog => "download_info") : ''
+js_validate_method = "verify_amount_paypal_#{box}()"
+%>
+<div id="paypal_email">
+  <form id="<%= box %>_form" name="_xclick" action="<%= PAYPAL_CONFIG[:url] %>" target="_self" encoding="utf_8" class="donateForm" style="padding-bottom:0;">
+    <input id="business" name="business" type="hidden" value="<%= PAYPAL_CONFIG[:email] %>" />
+    <input type="hidden" name="cmd" value="_donations" />
+    <input type="hidden" name="currency_code" value="USD" />
+    <input type="hidden" name="charset" value="utf_8" />
+    <input type="hidden" name="cbt" value="Return to Kroogi Downloads" />
+    <input type="hidden" name="return" value="<%= return_url %>" />
+    <input type="hidden" name="notify_url" value="<%= PAYPAL_CONFIG[:ipn_url] %>" />
+    <input type="hidden" name="rm" value="1" />
+    <input type="hidden" name="cancel_return" value="<%= return_url %>" />
+    <input type="hidden" name="no_note" value="1" />
+    <input type="hidden" name="custom" value="<%= CGI.escape("#{recipient_id};#{content_id};#{donor_id}") %>" />
+    <input id="box" name="box" type="hidden" value="<%=box%>" />
+    <input id="item_name" name="item_name" type="hidden" value="<%= h(title) %>" />
+
+    <span style="margin-top:10px;">$</span>
+    <input class="donateBox" type="text" size="5" id="paypal_contribution_amount_field_<%=box%>" name="amount" value="<%= suggested_contribution_amount(@entry, p) %>" onFocus="document.getElementById('paypal_contribution_amount_field_<%=box%>').setStyle('background_color','white')"/>&nbsp;
+    <%= image_submit_tag('fb_button_paypal.png', :class => 'donateButton', :onclick => "return #{js_validate_method}") %>
+    <span class='paypalInfo'><%= dialog %></span>
+    <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="no_amount_warning_paypal_<%=box%>"><%= 'Please enter a valid number.'.t %></span></span>
+    <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="min_contrib_warning_paypal_<%=box%>"><%= "Minimum contribution required here is #{@entry.min_contribution_amount} USD".t %></span></span>
+  </form>
+</div>
+<%= validate_donation_form_script('paypal', 'paypal_contribution_amount_field', 'no_amount_warning_paypal', @entry, box) %>
+<br class="clear" />

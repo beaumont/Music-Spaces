@@ -1,0 +1,4 @@
+<% msg = 'added a new %s: {{folder_link}}' % activity.content.entity_name_for_human %>
+<%# 'added a new music album: {{folder_link}}'.t %>
+<%# 'added a new folder: {{folder_link}}'.t %>
+<%= msg / activity_url_for(one_liner, activity, kf_title("#{activity.content.title_long}"), :id => activity.id, :type => 'content') %>

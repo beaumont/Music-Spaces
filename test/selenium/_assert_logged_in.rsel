@@ -1,0 +1,6 @@
+# Checks: User is logged in
+
+assert_element_not_present 'css=#login'
+assert_element_not_present 'css=#top_password'
+assert_element_present 'css=#logged_in_user'
+assert_element_present 'css=#logout_link'

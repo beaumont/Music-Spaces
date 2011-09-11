@@ -1,0 +1,12 @@
+<% label_generator ||= lambda {|link| 'added a new announcement: %s' / link} %>
+<%= label_generator.call(activity_url_for(one_liner, activity, kf_title("#{activity.content.title_long}"), :id => activity.id, :type => 'content')) %>
+<% announcement = activity.content %>
+<% if image = announcement.embedded_image %>
+  <div>
+    <%= link_to image_tag( image.thumb(:thumb).public_filename,
+                  :border => 0, :style => css_cropping_for(image.thumb(:thumb), :image, false),
+                  :alt => h(announcement.title_short), :title => h(announcement.title_short)),
+                content_url(announcement) %>
+  </div>
+<% end %>
+

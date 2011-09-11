@@ -1,0 +1,27 @@
+<% content_for :head do %>
+  <%= auto_discovery_link_tag(:rss, user_feed_path(@user),
+                              {:title => "%s's Kroogi Activity" / h(@user.login)}) %>
+<% end %>
+
+<% @title = @user.login + ' :: ' + 'About Page'.t %>
+
+<% content_for :right_column do %>
+  <%= render :partial => "inboxes", :locals => {:user => @user, :force_inbox_open => true} %>
+  <%= render :partial => "public_history", :locals => {:public_history => @activities, :limit => 16} %>
+<% end %>
+
+  <%= render :partial => "full_profile", :locals => {:user => @user, :profile => @user.profile, :link_pic_to_content => true} %>
+     
+  <%# Announcements %>
+  <% if !@announcements.blank? || current_user.is_self_or_owner?(@user) %>
+    <div class="announcements">
+      <%= render(:partial => "announcements", :locals => {:announcements => @announcements, :user => @user,
+                                                          :allow_new => true,
+              }) %>
+    </div>
+  <% end %>
+
+  <%# Wall Posts %>
+    <% main_block(:content_head => 'Latest Wall Posts'.t) do %>
+    <%= render :partial => "wall", :locals => {:user => @user} %>
+    <% end %>

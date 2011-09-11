@@ -1,0 +1,36 @@
+end_date: 2010-11-12
+title_ru: Супертанго@Винил
+title: Supertango@Vinyl
+
+#it's important to ident all the string lines with two spaces.
+short_description_ru: |-
+  Это дверь на «творческую кухню» Мегаполиса. Здесь можно принять участие (деньгами, и не только) в завершающем этапе работы над альбомом «Супертанго» - выходом пластинки на виниле.
+description_ru: |-
+  Недавно был записан альбом «Супертанго» - с нашей точки зрения, это лучшее, что мы создали, как музыкальный коллектив. 
+  
+  Альбом вышел на CD, и в электронном виде, здесь, на Кругах. Его можно скачать по линку: http://megapolismusic.kroogi.com/download/supertango-797156. 
+  
+  Но мы еще не закончили работу. Изначально «Супертанго» задумывался как пластинка: круглая, виниловая, на 33 и 1/3 оборота, со звуковой дорожкой и сторонами A и Б. Работа над альбомом будет закончена, когда эта пластинка увидит свет.
+  
+  Номерные 180-граммовые LP будут произведены в конце года в Берлине. Завершающий этап этого процесса проводится впервые в России по принципу Кредит Порога Доверия - "КПД" (Threshold Pledge System). Вы можете принять в нем участие, и это станет опытом, гораздо более глубоким, чем просто поход в магазин - Вы поможете пластинке состояться.
+   
+  Мы ищем способы установить новые прочные связи с Вами. «Супертанго@Винил» даёт друзьям возможность принять участие в творческом процессе, и сделать для нас, артистов, то, что нам по-настоящему очень нужно!
+  
+  Мегаполис.
+short_description: |-
+  This is the door to the "creative lab" of Megapolis. By contributing to the band's project here, you can take part in the final production stage of the vinyl release of the album "Supertango," and receive all kinds of cool goodies.
+description: |-
+  Recently, we've recorded the album "Supertango" - our best work as a band so far (in our opinion). 
+
+  The album was released on CD as well as in digital form <a href="http://megapolismusic.kroogi.com/download/supertango-797156">here</a> on Kroogi. It can be downloaded.
+
+  But our work is not yet finished. Initially, "Supertango" was conceived as a classic record: made from vinyl plastic, round, two-sided, revolving at 33 1/2 rpm. Our work on the album will not be complete until this vinyl sees the light of day. 
+
+  The limited edition 180-gram LP vinyl record will be produced in Berlin at the end of the year. The final stage of this process is carried out using the Threshold Pledge System approach (for the first time in Russia). By participating in this process, you become a vital part of the vinyl's creation, which is a much more immersive experience than simply going to the store and buying the record.
+
+  We are looking for new ways to connect with you. The "Supertango@Vinyl" gives our friends and fans the opportunity to participate in our creative process and support our music in a way that really counts! 
+
+  Megapolis.
+
+related_content_id: <%= RAILS_ENV=='production' ? 797156 : (RAILS_ENV=='rc' ? 3346 : 7004) %>
+goal_amount: 4200

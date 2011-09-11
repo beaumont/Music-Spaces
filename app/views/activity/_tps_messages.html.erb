@@ -1,0 +1,8 @@
+<% list.each do |message| %>
+    <%#= render :partial => '/activity/messages/tps_buy', :locals => {:ticket => message.content} %>
+  <%= render :partial => '/activity/message', :object => message,
+             :locals => {:view_dialogue => false,
+                         :remove_message_title => 'this removes the message from your message center'.t,
+                         :prefix_with_sendername => false,
+                         } %>
+<% end %>

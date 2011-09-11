@@ -1,0 +1,177 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Site Activity Log'.t %>
+
+<div class="admin">
+  <% form_for(:log_configs, :url => admin_site_activity_log_path(:id => @log_configs.id), :html => {:method => :put}) do |f| %>
+    <%= f.radio_button 'monitoring', false %>
+    <%= f.label('monitoring_false', 'Disable monitoring'.t) %><br />
+
+    <%= f.radio_button 'monitoring', true %>
+    <%= f.label('monitoring_true', 'Enable monitoring'.t) %><br />
+
+    <div style="display:<%= 'none' unless @log_configs.monitoring %>;" id="enabled_monitoring">
+      <%= f.check_box("guests") %> <%= f.label('guests', 'Monitor logged-out users'.t) %>
+      <%= f.check_box("bots") %> <%= f.label('bots', 'including bots'.t) %><br />
+      
+      <%= f.radio_button("all_users", true) %>
+      <%= f.label('all_users_true', 'Monitor all logged in users'.t) %><br />
+
+      <%= f.radio_button("all_users", false) %>
+      <%= f.label('all_users_false', 'Monitor individual users'.t) %><br />
+      <div id="users_list_content" style="display:<%= 'none' if @log_configs.all_users %>;">
+        <div>
+          <%= link_to('Add user'.t, 'javascript:void(0);', :id => "add_user_link") %>
+          <!--div id="filter"><%= 'Filter'.t %> <%= text_field_tag(:filter) %></div-->
+        </div>
+
+        <div id="users_list">
+          <%= activity_log_users_list(@users) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity_logs_button">
+      <%= render :partial => '/submit/buttons',
+        :locals => {
+          :disable_cancel => true,
+          :ok_label => 'Save'.t,
+          :use_button_submit => true
+        } %>
+    </div>
+  <% end %>
+
+  <div id="add_user_form" title="<%= 'Add user'.t %>" style="display:none;">
+    <% form_remote_tag :url => admin_site_activity_logs_path do %>
+      <div id="add_user_form_login"><%= 'Add user'.t %><br /> <%= text_field_tag(:user_login) %></div>
+      <div class="error" id="add_user_form_errors"></div>
+      <div class="widget_button_right">
+        <%= render :partial => '/submit/buttons',
+          :locals => {
+            :disable_cancel => true,
+            :ok_label => 'Add'.t,
+            :use_button_submit => true,
+            :ajax_mode => true,
+            :cleanup_after => false,
+            :clear_errors_contaner => true
+          } %>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="paging_status">
+    <%= @paging_header %><br />
+    <%= 'Statistics'.t %>: <%= link_to('Browsers'.t, browsers_admin_site_activity_logs_path) %> | 
+    <%= link_to('Platforms'.t, platforms_admin_site_activity_logs_path) %> |
+    <%= link_to('Robots'.t, robots_admin_site_activity_logs_path) %> |
+    <%= link_to('Search Terms'.t, search_terms_admin_site_activity_logs_path) %>
+  </div>
+
+  <table class="admin users">
+    <tr>
+      <th><%= 'Created'.t %></th>
+      <th><%= 'Login Name'.t %></th>
+      <th><%= 'Actor'.t %></th>
+      <th><%= 'Browser'.t %></th>
+      <th><%= 'Platform'.t %></th>
+      <th><%= 'IP'.t %></th>
+      <th><%= 'Referrer'.t %> -> <%= 'Request uri'.t %></th>
+    </tr>
+
+    <% unless @logs.blank? %>
+      <% for log in @logs %>
+        <% if log.content.blank? %>
+          <%
+            user, actor = who_visited(log)
+            bg = cycle("dark", "light")
+          %>
+          <tr class="<%= bg %>" id="entry<%= log.id %>">
+            <td><%= datetime(log.created_at, true) %></td>
+            <td <%= 'colspan="2"' if actor.blank? %>>
+              <%= user %>
+              <% unless log.accept_language.blank? %>
+                <br /><b>lang:</b> <%= log.accept_language %>
+              <% end %>
+            </td>
+            <%= "<td>#{actor}</td>" unless actor.blank? %>
+            <td><%= log.browser %></td>
+            <td><%= log.platform %></td>
+            <td><%= log.ip %></td>
+            <td>
+              <%= log.referrer.blank? ? "none" : link_to(log.referrer, log.referrer) %> ->
+              <%= link_to(log.path, log.url) %>
+            </td>
+          </tr>
+          <tr class="<%= bg %>">
+            <% unless log.admin_flash_id.blank? && log.system_message_type.blank? %>
+              <td colspan="8">
+                <% unless log.admin_flash_id.blank? %>
+                  <% flash = log.admin_flash %>
+                  <b><%= 'Admin Message'.t %> [ID:<%= log.admin_flash_id %>]</b>: <%= flash.blank? ? 'DELETED' : flash.message %><br />
+                <% end %>
+                <% unless log.system_message_type.blank? %>
+                  <b><%= 'System Mesage Type'.t %></b>: <%= log.system_message_type %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% else %>
+          <tr class="<%= cycle("dark", "light") %>">
+            <td><%= datetime(log.created_at, true) %></td>
+            <td <%= 'colspan="2"' if actor.blank? %>><%= user %></td>
+            <%= "<td>#{actor}</td>" unless actor.blank? %>
+            <td colspan="4"><%= link_to("View #{log.content_type}", {:controller => "/content", :action => :show, :id => log.content_id}) %><br /><%= log.content %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+
+  <%= render :partial => '/shared/pager', :locals => {:results => @logs, :skip_padding => true} %>
+</div>
+
+<% content_for :js do %>
+  <%= javascript_tag("
+    jQuery(document).ready(function() {
+
+      jQuery('#add_user_link').click(function() {
+        jQuery('#add_user_form').dialog({
+          autoOpen: false,
+          modal: true,
+          width: 180
+        });
+        jQuery('#add_user_form').dialog('open');
+        jQuery('#add_user_form_errors').html('');
+        return false;
+      })
+
+      jQuery('#log_configs_all_users_false, #log_configs_all_users_true').click(function() {
+        if (jQuery(this).val() == 'true') jQuery('#users_list_content').hide();
+        else jQuery('#users_list_content').show();
+      })
+
+      jQuery('#log_configs_monitoring_false, #log_configs_monitoring_true').click(function() {
+        if (jQuery(this).val() == 'true') jQuery('#enabled_monitoring').show();
+        else jQuery('#enabled_monitoring').hide();
+      })
+
+      ActivityLog = {
+        close_dialog: function() {
+          jQuery('#add_user_form').dialog('destroy');
+        },
+        clear_form: function() {
+          jQuery('#user_login').val('');
+          submitted_button = jQuery('#add_user_form button.button_gr');
+          submitted_button.next('.wait_up_homie').hide();
+          submitted_button.attr('disabled', '');
+          submitted_button.toggleClass('button_gr').toggleClass('button');
+          submitted_button.children('span').html('#{'Add'.t}');
+        },
+        user_hover: function() {
+          jQuery('#users_list .user').hover(function() {jQuery(this).find(' .remove_user a').show()},
+                                            function() {jQuery(this).find(' .remove_user a').hide()})
+        }
+      }
+
+      ActivityLog.user_hover();
+    })
+  ") %>
+<% end %>

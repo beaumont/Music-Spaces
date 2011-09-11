@@ -1,0 +1,34 @@
+<% truncate_display ||= false # for short/long view -%>
+<table class="list">
+  <tr>
+	<th><%= active_sort_class('Date'.t, 'created_at') %> <%= sort_link('created_at', params[:dir]) %></th>
+	<th><%= 'From'.t %></th>
+      <% if !@content %>
+        <th><%= active_sort_class('Purpose'.t, 'item_name') %> <%= sort_link('item_name', params[:dir]) %></th>
+      <% end %>
+	<th><%= 'Payment<br />system'.t %></th>
+	<th><%= active_sort_class('Net USD<br />(Gross USD)'.t, 'payable_amount_usd') %>  <%= sort_link( 'payable_amount_usd', params[:dir]) %></th>
+  </tr>
+  <% donations_received.each do |contrib| %>
+    <tr class="<%= "last" if donations_received.last == contrib %>">
+      <td><%= datetime(contrib.created_at) %></td>
+      <td<%= %Q{ title="From: #{contrib.sender_email}"} unless contrib.sender_email.blank? -%>>
+        <% if contrib.anonymous? %>
+          <span ><%= "Guest User".t %></span>
+        <% else %>
+          <%= user_link(contrib.sender.user, :icon => true, :length => @truncate_to) %>
+        <% end %>
+      </td>
+      <% if !@content %>
+        <td>
+          <%= purpose(contrib, (truncate_display ? {:truncate => @truncate_to} : {})) %>
+        </td>
+      <% end %>
+      <td> <%=  contrib_processor_name(contrib) %> </td>
+      <td class="last">
+        <%= "$#{contrib.payable_amount_usd} ($#{contrib.gross_amount_usd})" %>
+      </td>
+    </tr>
+   <% end -%>
+</table>
+

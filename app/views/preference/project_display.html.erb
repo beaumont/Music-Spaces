@@ -1,0 +1,31 @@
+<% @title = @user.login + ' :: ' + 'Project Display Options'.t %>
+<% @content_kind_displayname = 'Project Display Options'.t %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, 'Project Display Options'.t)) do %>
+  <div class="default>">
+    <%= 'Control which projects are shown on your Kroogi Page under "Host Of"'.t -%>.
+    <%= "Note: to control whether a given project lists you as a host on the project's Kroogi Page".t -%>,
+    <%= "go to that project's Kroogi Page and click the Hosts Tab, then follow the \"Display Options\" link".t -%>.
+  </div>
+  <br>
+  <% form_tag do %>
+    <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+    <% form_border do %>
+      <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><b><%= 'Select which projects to show on your Kroogi Page'.t -%>:</b></td>
+        </tr>
+        <tr id="project_email_options">
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <% @user.projects.each do |p| %>
+              <label><%= check_box_tag 'show[]', p.id, !@user.hide_project_membership?(p), {:class => "auto_width"} %> <%= user_link(p, :icon => true) -%></label>                
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+    <button class="button wizard" type="submit" name="commit"><span><%= 'Save'.t -%></span></button>
+  <% end %>
+<% end %>

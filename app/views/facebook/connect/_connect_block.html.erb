@@ -1,0 +1,54 @@
+<% form_border do %>
+  <% if user.facebook_connected? %>
+    <%= "Kroogi user {{kroogi_name}} is connected to {{facebook_name}} on Facebook." / [user.display_name, user.fb_user_name] %>
+    <br/>
+    <%= "{{here_link}} these accounts." / [link_to("Disconnect".t, url_for('/facebook/connect/deactivate'))] %>
+  <% else %>
+    <%= 'Connect your Facebook account to your Kroogi account to reconnect with your FB friends and share your Kroogi "Likes."'.t %>
+  <% end %>
+<% end %>
+
+<% unless user.facebook_connected? %>
+  <div style="float:right;">
+    <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+      :locals => {:title_text => '',
+        :onclick_handler => 'load_fb_data()',
+        :show_faces => 'false',
+        :button_text => 'FB Connect'.t}
+      -%>
+    <%= render :partial => '/home/connect/js_calls', :locals => {:from_preferences => true} %>
+  </div>
+<% else %>
+  <% form_for :preference, :url => url_for('/preference/update_fb_settings') do |f| %>
+    <% form_border(:subhead_title => 'Kroogi Likes on Facebook'.t) do %>
+      <div class="default"><%= 'When you click the Kroogi "Like" button, it shows on your Facebook wall:'.t %></div>
+      <label for="choose_always" style="font-weight:normal;">
+        <%= f.radio_button :fb_like_consolidation, "always", :class => "auto_width" %>
+        <%= "Always".t %>
+      </label>
+      <label for="choose_ask_me" style="font-weight:normal;">
+        <%= f.radio_button :fb_like_consolidation, "ask_me", :class => "auto_width" %>
+        <%= "Ask me each time".t %>
+      </label>
+      <label for="choose_never" style="font-weight:normal;">
+        <%= f.radio_button :fb_like_consolidation, "never", :class => "auto_width" %>
+        <%= "Never".t %>
+      </label>
+    <% end %>
+    <%# TODO: Remove this line in R42 when reconnect with fb friends will be completed %>
+    <% if false %>
+      <% form_border(:subhead_title => 'Facebook Friends on Kroogi'.t) do %>
+        <div class="default"><%= 'Start following your FB friends:'.t %></div>
+        <label for="choose_ask_me" style="font-weight:normal;">
+          <%= f.radio_button :is_reconnect_with_fb_friends, true, :class => "auto_width" %>
+          <%= "Yes".t %>
+        </label>
+        <label for="choose_never" style="font-weight:normal;">
+          <%= f.radio_button :is_reconnect_with_fb_friends, false, :class => "auto_width" %>
+          <%= "No".t %>
+        </label>
+      <% end %>
+    <% end %>
+    <button class="button" name="commit" type="submit"><span><%= 'Save'.t -%></span></button>
+  <% end %>
+<% end %>

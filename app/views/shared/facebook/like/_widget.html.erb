@@ -1,0 +1,55 @@
+<% return if !content_is_safe_to_fb_like(@entry) %>
+<% return unless current_fb_connected_user %>
+
+<% title ||= 'Would you like to “Like” this on Facebook as well ?'.t %>
+<% close_button    =  'Close'.t %>
+<% @fb_like_widget_number = (@fb_like_widget_number || 0) + 1 %>
+<% dialog_id_suffix = @fb_like_widget_number %>
+
+<div style="display: none;" id="fb_like_dialog_<%= dialog_id_suffix %>">
+  <div class="title_icon" style="padding-left:15px;">
+    <%= image_tag(content_type_info(@entry.class)[:icon_filename]) %>
+  </div>
+  <h2 style="line-height:24px;" id="<%= @entry.id %>"><%= h(@entry.title_long) -%></h2>
+  <div class="album_img" style="float:left;">
+     <%= image_tag(@entry.cover_art.thumb(:thumb).public_filename, :border => 0, :alt => h(@entry.cover_art.thumb(:thumb).filename)) if @entry.respond_to?(:cover_art) && @entry.cover_art %>
+  </div>
+  <div class="artist">
+    <%= "#{@entry.artist}" unless @entry.artist.blank? -%>
+    <%= " / " unless @entry.artist.blank? || @entry.year.blank?%>
+    <%= "#{@entry.year}" unless @entry.year.blank? -%>
+ </div>
+  <div style="margin:10px 15px 0;">
+  <%= render :partial => '/shared/facebook/like/button',
+                                  :locals => {:entry => @entry,
+                                              :show_faces => 'true',
+                                              :layout => 'standard',
+                                              :width => 300} %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var dialog_selector = "#fb_like_dialog_<%= dialog_id_suffix %>";
+  var fb_like_dialog_opts_<%= dialog_id_suffix %> = {
+    title: "<%= js(title) %>",
+    modal: true,
+    position: 'middle',
+    width: 560,
+    resizable: false,
+    buttons: { '<%= close_button %>': function() { close_fb_like_dialog(); } },
+    close: function() { close_fb_like_dialog(); }
+  };
+
+  function close_fb_like_dialog() {
+    jQuery(dialog_selector).dialog('destroy');
+  }
+
+  function show_fb_like_dialog_<%= dialog_id_suffix %>() {
+    <% link_to_settings = "Change your {{link}} on Kroogi to stop receiving this message." / [link_to("FB Connect Settings".t, url_for("/preference/facebook_settings"), :target => "_blank")] %>
+
+    jQuery(dialog_selector).dialog(fb_like_dialog_opts_<%= dialog_id_suffix %>);
+    <% if show_fb_connect? %>
+      jQuery(".ui-dialog-buttonpane").append('<div class="link_to_settings"><%= link_to_settings %></div>');
+    <% end %>
+  }
+</script>

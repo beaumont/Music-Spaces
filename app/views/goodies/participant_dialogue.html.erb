@@ -1,0 +1,29 @@
+<% main_block(:header_title => 'Goodie Receiver Info'.t) do %>
+  <%= 'Thank you for supporting our music by paying for goodie of {{album}}.' / content_link(@hat) %>
+  <%= 'To make sure that all goodies are delivered to their rightful owners, we need additional personal information from all of our goodie receivers.'.t %>
+  <table class="list">
+    <tr>
+      <th><%= 'Name'.t %></th>
+      <th><%= 'Document'.t %></th>
+      <th><%= 'Document Number'.t %></th>
+      <th><%= 'Address'.t %></th>
+    </tr>
+    <% participant = @participant %> 
+      <tr class="no_border offwhite">
+        <td class="default"><%= participant.full_name %></td>
+        <td class="default"><%= tps_participant_info_document_field(participant, :document_kind) %></td>
+        <td class="default"><%= tps_participant_info_document_field(participant, :document_identifier) %></td>
+        <td class="default goodies_adrs"><%= tps_participant_info_address_field(participant, :address) %></td>
+      </tr>
+      <tr class="no_border">
+        <td colspan="4" class="last">
+          <div id="comments_<%= dom_id(participant) %>">
+            <%= render :partial => 'comment/comments', :locals => {:commentable => participant,
+                       :submit_url_options => {:controller=> 'comment', :action => 'tps_participant_answered', 
+                                               :id => participant.id, :commentable_type => participant.class }
+            } %>
+          </div>
+        </td>
+      </tr>
+  </table>
+<% end %>

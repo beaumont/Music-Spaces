@@ -1,0 +1,18 @@
+<% return if projects_info.blank? %>
+
+<% projects_info.each do |project| %>
+  <div class="main_left_tabs <%= 'selected' if project == user %>">
+    <%= avatar_md(project, {:outer_class => 'founder_avatar', :is_from_setting_center => 'true'}) %>
+    <div class="project_info">
+      <div class="project_name">
+        <%= link_to truncate_with_hint(project.display_name, :length => 15),
+          {:controller => 'preference',
+           :host => user_host(project.login),
+           :action => 'show',
+           :id => project.id,
+           } -%>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+<% end %>

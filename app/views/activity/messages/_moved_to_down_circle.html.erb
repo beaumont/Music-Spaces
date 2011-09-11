@@ -1,0 +1,14 @@
+<% kroog = UserKroog.first(:conditions => ["user_id = ? AND relationshiptype_id < ? AND relationshiptype_id IN (?)", content.user_id, content.relationshiptype_id, content.user.default_circles], :order => "relationshiptype_id DESC") %>
+<%= if activity.from_user.is_self_or_owner?(content.user)
+  if content.user.project?
+    kroog ? 'moved you from the {{from}} circle to {{to}} circle of project {{project}} ' / [kroog.name, content.name, user_link(content.user, :icon => true)] : 'moved you to the {{to}} circle of project {{project}}' / [content.name, user_link(content.user, :icon => true)]
+  else
+    kroog ? 'moved you from {{from}} circle to {{to}} circle' / [kroog.name, content.name] : 'moved you to {{to}} circle' / [content.name]
+  end
+ else
+  if content.user.project?
+    kroog ? 'moved himself from the {{from}} circle to {{to}} circle of your project {{project}} ' / [kroog.name, content.name, user_link(content.user, :icon => true)] : 'moved himself to the {{to}} circle of your project {{project}}' / [content.name, user_link(content.user, :icon => true)]
+  else
+    kroog ? 'moved himself from your {{from}} circle to {{to}} circle' / [user_link(content.user, :icon => true), kroog.name, content.name] : 'moved himself to your {{to}} circle' / [content.name]
+  end
+ end %>

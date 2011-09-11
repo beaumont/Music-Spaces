@@ -1,0 +1,31 @@
+
+<% @title = @user.login + ' :: ' + 'Favorites'.t %>
+<% @content_kind_displayname = 'Favorites'.t %>
+
+<div><%= image_tag('960_o_top.gif') %></div>
+<div class="white_block_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= 'Favorite Content'.t -%> </div>
+  </div>
+  <div class="white_body">
+	<%# TODO: Implement me %>
+      <% if false %>
+      <%= 'Entry Types'.t %>:
+      <select name="projects" onchange="alert('implement filtering then me')">
+        <option><%= 'All'.t -%></option>
+        <option><%= 'Images'.t -%></option>
+        <option><%= 'Sound'.t -%></option>
+        <option><%= 'Text'.t -%></option>
+      </select>
+      <% end %>
+  <div>
+    <%= render :partial => 'favorites', :locals => {:tracks => @favorite_tracks,
+                                                    :texts => @favorite_texts,
+                                                    :others => @favorite_other_content,
+                                                    } %>
+    </div>
+	<div class="clear"></div>
+</div>
+</div>
+<div class="shadow"><%= image_tag('960_w_btm.gif') %></div>
+

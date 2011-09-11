@@ -1,0 +1,35 @@
+<% title ||= "Contribute to {{author_name}} for {{content_title}}" / [h(recipient.display_name), content.title.blank? ? 'Untitled'.t : h(content.title)]%>
+<% title = truncate(title, :length => 57) %>
+<% contribute_rightaway ||= false %>
+<% unless defined?(download); download = true; end %>
+<div style="display: none;" id="donation_dialog_<%= donate_widget_suffix %>"></div>
+
+<!-- Javascript includes to drive this functionality -->
+<script type="text/javascript">
+  var <%= "donation_dialog_opts_#{donate_widget_suffix}" %> = {
+    title: "<%= js(title) %>",
+    modal: true,
+    height: 'auto',
+    position: 'top',
+    width: 400,
+    open:  function() {
+      jQuery("#donation_dialog_<%= donate_widget_suffix %>").html('<div style="text-align:center; width:100%"><div style="height:20px"></div><%= js(image_tag('big-ajax-loader.gif', :style => 'vertical-align:middle;')) %></div>');
+      jQuery("#donation_dialog_<%= donate_widget_suffix %>").load(
+        '/donate/choose?recipient_id=<%= recipient.id %>&content_id=<%= content.id %>&content_type=<%= content.class.name %>' +
+        '<%= (!donor.blank? and (donor.id >= 0)) ? "&donor_id=#{donor.id}"     : "" %>' +
+        '&dialog_id_suffix=<%= donate_widget_suffix %>' +
+        '&download=<%= download %>' +
+        '');
+    },
+    close: function() {
+      jQuery("#donation_dialog_<%= donate_widget_suffix %>").html('');
+      jQuery("#donation_dialog_<%= donate_widget_suffix %>").dialog('destroy');
+    }
+  };
+  function do_contribution_<%= donate_widget_suffix %>() {
+    jQuery('#donation_dialog_<%= donate_widget_suffix %>').dialog(donation_dialog_opts_<%= donate_widget_suffix %>);
+  }
+  <% if contribute_rightaway %>
+    do_contribution_<%= donate_widget_suffix %>();
+  <% end %>
+</script>

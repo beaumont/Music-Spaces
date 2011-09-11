@@ -1,0 +1,81 @@
+<% activity = ffeed_entry.activity
+   return unless activity #there can be no activity due to data error
+   activity_key = activity.keyname.to_sym
+
+   content = activity.content
+   unless content
+     # This is a weird case, but if e.g. points to removed image, hide it and destroy so it doesn't come up again
+     activity.destroy
+     return
+   end
+
+   return if content.respond_to?(:is_view_permitted?) && !activity.content.is_view_permitted?
+   return if content.is_a?(Album) && (content.empty? || (!content.is_a?(Inbox) && content.images.empty? && content.tracks.empty?))
+%>
+
+<div class="content_head" id="feed_entry_<%= ffeed_entry.id %>"> 
+  <% if activity_key == :created_project || activity.content.is_a?(User) %>
+    <%= user_link(activity.content, :use_both => true, :icon => true) -%>
+  <% elsif activity.content.is_a?(Track) && activity.content.music_contest_item? %>
+    <%= security_icon(activity.content) %>
+    <% contest = activity.content.container_album %>
+    <%= link_to(kf_title(contest.title_long), :controller => 'content', :action => 'show', :id => contest.id, :type => 'content') -%>
+    <span class="info">: <%= '{{track_link}} track added by {{user_link}}' / [content_link(activity.content),
+                                                                        user_link(activity.content.created_by, :icon => true)] %></span>
+  <% elsif activity.content.is_a?(PublicQuestion) %>
+    <%= 'New question from {{user_link}}' / user_link(activity.from_user, :icon => true) -%>
+  <% elsif activity.content.is_a?(PublicAnswer) %>
+    <% answer = activity.content %>
+    <% question = answer.question %>
+    <%= "New forum feed to {{project}}'s question {{question}}" / [user_link(question.user, :icon => true),
+                                                                content_link(question)] -%>
+  <% elsif activity_key == :author_commented_an_answer %>
+    <% answer = activity.content.commentable %>
+    <% if answer.host_user == activity.from_user %>
+      <%= '{{user}} contributed to their Forum discussion' / user_link(activity.from_user, :icon => true) -%>
+    <% else %>
+      <%= '{{user}} contributed to {{project_name}} Forum discussion' / [user_link(activity.from_user, :icon => true), user_link(answer.host_user, :icon => true)] -%>
+    <% end %>
+  <% elsif activity_key == :added_project_to_collection %>
+    <%= '{{project_link}} project was added to {{dir_link}} directory' / [user_link(activity.content.body_project, :icon => true), user_link(activity.content.user)] -%>
+  <% elsif activity.content.respond_to?(:title_long) %>
+    <%= security_icon(activity.content) if activity.content.is_a?(Content) %>
+    <%= content_link(activity.content) -%>
+  <% end %>
+  <% if activity_key == :added_as_favorite %>
+    <%= 'was added to <span class="favorite">favorites</span> by %s' / [user_link(activity.from_user, :icon => true)] %>
+  <% end %>
+</div>
+
+<div class="user_block">
+  <div class="block_date">
+    <%= ffeed_entry.updated_at.to_s(:date_with_time) %>
+  </div>
+  <% if activity_key == :added_as_favorite %>
+    <% the_user = activity.content.is_a?(User) ? activity.content : activity.content.user %>
+    <div class="block_username">
+      <% if the_user %>
+        <b><%= user_link(the_user, :icon => true) %></b>
+      <% end %>
+    </div>
+    <% if the_user %>
+      <%= avatar_lg(the_user) %>
+    <% end %>
+  <% else %>
+    <div class="block_username">
+      <% if activity.from_user %>
+        <b><%= user_link(activity.from_user, :icon => true) %></b>
+      <% end %>
+    </div>
+    <%= avatar_lg(activity.from_user) %>
+  <% end %>
+
+  <div class="block_body <%= activity.content.class.name.underscore %>">
+    <% if activity.content.is_a?(Inbox) %>
+      <%= render :partial => 'content/inbox_overview', :locals => {:inbox => activity.content} %>
+    <% else %>
+    <%= render(:partial => '/shared/public_history_entry', :locals => {:activity => activity}) %>
+    <% end %>
+  </div>
+</div>
+

@@ -1,0 +1,11 @@
+<% content = content.body_project if content.is_a?(ProjectAsContent) %>
+
+<div style="<%= (content.profile && content.profile.userpic) ? css_cropping_for(content.profile.userpic.thumb(:thumb), :image, false) : css_cropping_for(nil, :image, false, content.project? ? [100, 66] : [80, 120]) -%>">
+  <% if content.profile.nil? || content.profile.userpic.nil? %>
+    <%= link_to profile_picture(content, :zoom => true, :content_link => false, :max_width => 100, :max_height => 120), userpage_path(content) %>
+  <% else %>
+    <%= link_to image_tag(content.profile.userpic.thumb(:thumb).public_filename,
+      :border => 0, :style => css_cropping_for(content.profile.userpic.thumb(:thumb), :image, false), :alt => h(content.title_short),
+      :title => h(content.title_short)), userpage_path(content) %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<b><%= "Z-Purse (USD)".t %>:</b> <span id="90_amount">
+	<%= @account_setting.webmoney_wmz_attached? ? 'Loading Balance...'.t : 'Not Attached'.t %></span>
+  <span id="90_attach"><%= link_to 'Attach'.t, webmoney_path(:action => 'activate', :purse_type => ?Z) unless @account_setting.webmoney_wmz_attached? %></span><br />
+<b><%= "R-Purse (RUR)".t %>:</b> <span id="82_amount">
+	<%= @account_setting.webmoney_wmr_attached? ? 'Loading Balance...'.t : 'Not Attached'.t %></span>
+  <span id="82_attach"><%= link_to 'Attach'.t, webmoney_path(:action => 'activate', :purse_type => ?R) unless @account_setting.webmoney_wmr_attached? %></span><br />
+<b><%= "E-Purse (EUR)".t %>:</b> <span id="69_amount">
+	<%= @account_setting.webmoney_wme_attached? ? 'Loading Balance...'.t : 'Not Attached'.t %></span>
+  <span id="69_attach"><%= link_to 'Attach'.t, webmoney_path(:action => 'activate', :purse_type => ?E) unless @account_setting.webmoney_wme_attached? %></span><br />
+
+<script type="text/javascript" charset="utf-8">
+	new Ajax.Updater('purseBalances', '/webmoney/purse_balances', {method: 'get'})
+</script>

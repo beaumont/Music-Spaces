@@ -1,0 +1,29 @@
+<% allow_guests_commenting ||= nil %>
+<% before_form ||= nil %>
+<% comment_class_generator ||= nil %>
+<% submit_url_options ||= nil %>
+<% commentable_user = commentable.user %>
+<% unless defined?(show_entry_form); show_entry_form = true; end %>
+
+<% comments = commentable.all_comments(false, :page => 1, :per_page => Comment::LIMIT_FOR_SHOW, :include_private => current_user.is_self_or_owner?(commentable_user)) %>
+<% comments.each do |comment| %>
+  <div class="<%= cycle("offwhite", "offwhite_dark") %> answer_comments">
+    <% allow_deletion ||= current_user.is_self_or_owner?(commentable_user) || current_user.is_self_or_owner?(comment.user) %>
+    <%= render :partial => 'comments/flat_comment', :locals => {:comment => comment, :allow_deletion => allow_deletion,
+                                                                :comment_class_generator => comment_class_generator} %>
+  </div>
+  <br />
+<% end %>
+
+<% if allow_commenting %>
+  <%= render :partial => "comments/comment_form_new",
+             :locals => {:commentable => commentable, :hidden => !show_entry_form,
+                         :autoshow => true,
+                         :allow_guests => allow_guests_commenting, :before_form => before_form,
+                         :submit_url_options => submit_url_options,
+                         }  %>
+<% end %>
+
+<% if commentable.comment_count > Comment::LIMIT_FOR_SHOW %>
+  <%= leave_comment_link(commentable, {:title => 'View All'.t}) %>
+<% end %>

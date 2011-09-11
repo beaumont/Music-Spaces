@@ -1,0 +1,75 @@
+<div class="thought">
+  <div class="right"><%= security_icon(announcement) -%>&nbsp;<%= announcement.created_at.to_s(:date_with_time) %></div>
+  <div class="thought_body">
+    <div class="default_lg">
+      <%= kf_content announcement.post, {
+        :characters => 400,
+        :conditional_excerpt => true,
+        :inplace_link => true
+      } %>
+    </div>
+    <% if announcement.embedded_image %>
+      <div style="width: 504px; margin: 0 auto; padding-bottom:10px; text-align:center;">
+        <% image = announcement.embedded_image %>
+        <%= link_to image_tag(image.thumb(:preview).public_filename,
+                              :border => 0,
+                              :width => thumb_dim(image, :preview, :width),
+                              :height => thumb_dim(image, :preview, :height),
+                              :alt => h(image.filename)),
+                              content_url(announcement), :title => h(announcement.title) %>
+      </div>
+    <% end %>
+    <%= render :partial => "/content/download_donate_widget",
+      :locals => {:content => announcement, :recipient => announcement.user, :donor => current_user,
+        :no_call_to_action => true} %>
+  </div>
+  <div class="announcement_shadow"></div>
+
+  <div class="right">
+    <div class="block_action">
+      <%= content_link(announcement, :title => 'Link'.t) %>
+      <span class="separator">&nbsp;</span>
+      <%= comment_action_links(announcement) %>
+      <span class="separator">&nbsp;</span>
+    </div>
+    <%= render :partial => '/voting/voting', :locals => {:entry => announcement, :show_hand_icon => 'false'} %>
+
+    <% if permitted?(announcement.user, :content_edit) %>
+      <div class="block_action">
+        <span class="separator">&nbsp;</span>
+        <span class="edit">
+          <%= link_to('Edit'.t, {:controller => 'submit', :action => 'edit', :id => announcement},
+                                :html => {:style => 'position:relative; top: 1px;'}) %>
+        </span>
+
+        <% if announcement.announcement? && !announcement.user.collection? %>
+          <span class="separator">&nbsp;</span>
+          <span class="move_to_notes">
+            <%= link_to('Move to Notes'.t,
+                        {:controller => 'content', :action => 'move_to_notes', :id => announcement},
+                        :confirm => "Are you sure you want to move this Announcement to Notes section?".t,
+                        :method => :post,
+                        :html => {:style => 'position:relative; top: 1px;'}
+                       ) %>
+          </span>
+        <% end %>
+        <span class="separator">&nbsp;</span>
+        <span class="iconized i_delete">
+          <%= link_to('Delete'.t,
+                      {:controller => 'submit', :action => 'delete', :id => announcement},
+                      :confirm => delete_confirmation,
+                      :method => :post,
+                      :html => {:style => 'position:relative; top: 1px;'})
+                    %>
+        </span>
+      </div>
+    <% end %>&nbsp;
+  </div>
+  <div id="comments_<%= dom_id(announcement) %>" style="display:none;">
+    <%= render :partial => 'comment/comments', :locals => {:commentable => announcement} %>
+  </div>
+</div>
+
+<% unless items_on_page == announcement_counter + 1 %>
+  <div class="grey_line2"></div>
+<% end %>

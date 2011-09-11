@@ -1,0 +1,138 @@
+
+<% if (comment.can_see? || comment.can_see_children?) && (!comment.deleted? || comment.non_deleted_children?) %>
+
+<div id="comment_item_<%= comment.id -%>">
+
+<div style="visibility:hidden;float:left;width:<%= left_offset %>px;"> 
+  &nbsp;<%# IMPORTANT: this div must remain in for threading indents %>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td class="comment_avatar">
+      <%= avatar_md(comment.deleted? ? nil : (comment.avatar_id.nil? ? comment.user : Image.active.find(comment.avatar_id) rescue comment.user)) %>
+    </td>
+    <td class="wellspaced comment_header" style="width:500px;">
+      <% unless comment.deleted? %>
+        <div style="float:left;width:300px;padding-left:5px;color:#999999;font-weight:bold;">
+          <%= user_link(comment.user)  %>
+          <%= comment.created_at.to_s(:date_with_time) %>
+          <% if comment.private? || comment.commentable.is_a?(Pvtmessage) %>
+            <span class="iconized i_meonly"><%= 'Private Comment'.t %></span>
+          <% end %>
+        </div>
+        <div style="float: right; width: 150px; padding-right: 5px; text-align: right;">
+          <% unless defined?(nodelete_thread_head) && nodelete_thread_head && comment == comment.top %>
+          <%= comment_deletion_link(comment) %>
+          <% end %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+    <tr>
+      <td colspan="2">
+        <div style="padding:5px;">
+          <div class="wellspaced greeting_full" style="padding:0px;position:relative;width:500px;">
+            <% if comment.deleted? %>
+              <p style="margin-bottom:0px;"><strong> <%= 'Comment has been deleted'.t %> </strong></p>
+            <% else %>
+              <%= kf_simple(comment.comment, {:truncate => false}) -%>
+              <div style="margin:0px;padding:0px 0px 10px 0px">
+                <% if options[:threaded] %>
+                  <% if logged_in? %>
+                    <strong>
+                      <%= link_to_function('(Reply)'.t, {:class => 'reply_lnk', :id => "reply_lnk_#{comment.id}"}) { |page| page.call('show_reply', comment.id) } %>
+                    </strong>
+                  <% else %>
+                    <%= login_link('(Reply)'.t) %>
+                  <% end%>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+
+        <% if logged_in? %>
+          <span class="comment_reply" id="comment_reply_<%= comment.id -%>" style="display:none">
+            <% form_tag({:controller=> 'comment', :action => 'reply_comment', :id => commentable.id }) do -%>
+              <%= hidden_field_tag 'parent_id', comment.id %>
+              <%= hidden_field_tag 'curr_url', url_for(:overwrite_params => {}) %>
+              <%= hidden_field_tag 'commentable_type', commentable.class %>
+              <div style="float:left;width:20px;">&nbsp;</div>
+              <table width="100%" cellpadding="0" cellspacing="0" >
+                <tr valign="top">
+                  <td bgcolor="white" height="40" width="40">
+                    <%= avatar_md((current_actor.avatar_id.nil? ? current_actor : Image.active.find(current_actor.avatar_id) rescue current_actor), {:class => "showAvatarReply", :skip_add_link => true}) %>
+                  </td>
+                  <td class="" align="left" bgcolor="#e9e9e9" style="vertical-align:middle;">
+                    <%= render :partial => '/comments/avatar_selector', :locals => {:target => "#comment_reply_#{comment.id} .showAvatarReply", :commentable => comment} %><br/>
+                    <% if comment.private? || comment.commentable.is_a?(Pvtmessage) %><span class="i_meonly"><%= 'Private Comment'.t %></span><% end %>
+                  </td>
+                  <td align="left" bgcolor="#e9e9e9" style="vertical-align:middle; text-align:left;">
+                    <%= render :partial => '/comments/acting_as_selector', :locals => {:target => "#comment_reply_#{comment.id} .selectAvatar", :commentable => comment} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <div style="margin-top:3px;width:100%">
+                      <%= text_area("comment", "comment", "cols" => 86, "rows" => 3) %>
+                      <% if Comment.enable_private_comments? && !comment.private? && !comment.commentable.is_a?(Pvtmessage) %>
+                      <p>
+                        <label for="comment_private">
+                          <%= check_box "comment", "private", :style => 'width:auto;' %>
+                          <span class="i_meonly"><%= 'Make private'.t %></span>
+                        </label>
+                      </p>
+                      <% end %>
+                      <div style="float:right; margin-bottom:3px;margin-top:3px;">
+                        <button class="button" type="submit">
+                          <span><%= 'Post Comment'.t %></span>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </span>
+        <% end %>
+        <div style="clear:both"></div>
+
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  function show_reply(comment_id) {
+    if ($('leave_comment_link')) {
+      $('comment_form').hide();
+      $('leave_comment_link').show();
+    }
+    $$('.comment_reply').each(function(form){form.hide();});
+    $$('.reply_lnk').each(function(link){link.show();});
+    
+    $("comment_reply_" + comment_id).show();
+    $('reply_lnk_' + comment_id).hide();
+    $$("#comment_reply_"+comment_id+' textarea')[0].focus();
+  }
+
+  // If reply-to passed in as anchor, open that reply box and scroll down to it
+  if(window.ran_anchor_scroller === undefined) {
+    Event.observe(window, 'load', function(){
+      reply = document.location.hash.match(/comment_reply_(\d+)/);
+      if (reply) {
+        show_reply(reply[1]);
+        $('comment_item_'+reply[1]).scrollTo();
+      }    
+    });
+    ran_anchor_scroller = true;
+  }
+</script>
+<% end %>

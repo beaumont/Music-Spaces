@@ -1,0 +1,10 @@
+<p>
+  <strong>
+    <%= "Kroogi administrators have verified PayPal Account '%s' for %s -- it's all ready to use" / [h(@content.paypal_email_from_status), @content.user.login] -%>!
+  </strong>
+</p>
+
+<p>
+  <%= link_to 'Open Money Page'.t, "#{@url}/money/index/#{@activity.content.user_id}" %>
+</p>
+

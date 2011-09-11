@@ -1,0 +1,12 @@
+<% return unless answer %>
+<div>
+  <div class="default" style="float: right;" class="grey_out"><%= answer.created_at.to_s(:date_with_time) %></div>
+  <div style="margin: 0 200px 7px 0; font-size:11px;"><%= user_link(answer.user, :icon => true) %></div>
+  <%= avatar_md(answer.avatar_id ? (Image.active.find(answer.avatar_id) rescue answer.user) : answer.user) %>
+  <div class="block_body">
+    <div class="default_lg">
+      <%= h answer.text %>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>

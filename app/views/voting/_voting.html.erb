@@ -1,0 +1,92 @@
+<% @ui_id ||= 0
+  @ui_id += 1
+  ui_id = @ui_id
+  project_to_follow ||= entry.user
+  show_hand_icon ||= 'true'
+  show_fb_like ||= false
+  meta_description ||= nil
+  show_vk_like ||= false
+  show_odkl_like ||= false
+  show_mailru_like ||= false
+  content_title ||= nil
+  artist_name ||= nil
+%>
+
+<div id="voting_block_<%= ui_id %>" class="project_vote">
+  <% if logged_in? %>
+    <% execute_fb_like_dialog = current_user.show_fb_like_dialog? ? "show_fb_like_dialog_#{ui_id}();" : '' %>
+    <% form_remote_tag :url => {:controller => 'voting', :action => 'vote_up', :id => entry, :type => entry.class.name, :ui_id => ui_id},
+      :html => {:class => "vote"},
+      :before => "jQuery('#voting_block_#{ui_id} .ajax_spinner').show();",
+      :complete => "jQuery('#voting_block_#{ui_id} .ajax_spinner').hide(); #{execute_fb_like_dialog}" do %>
+      <%= hidden_field_tag("x#{ui_id}", nil, :class => 'theonly') %>
+      <% voted = current_user.voted_up?(entry)%>
+      <% unless voted %>
+        <div class="vote_text didnt">
+          <a href="javascript:void(0)" onclick = "jQuery('#voting_block_<%= ui_id %> input.theonly').attr('form').onsubmit();"><%= "Like".t %></a>
+        </div>
+        <div class="vote_number"><%= '&nbsp;'+entry.up_votes.count.to_s+'&nbsp;' %></div>
+          <div class="ajax_spinner_wrapper">
+            <div class="ajax_spinner" style="display:none;"><img src="/images/ajax-loader.gif" /></div>
+          </div>
+      <% else %> <%# unless voted, meaning "voted" %>
+        <div class="vote_text did"><%= thanks_for_voting_caption %> </div>
+        <div class="vote_number"><%= '&nbsp;'+entry.up_votes.count.to_s+'&nbsp;' %></div>
+      <% end %> <%# unless voted %>
+    <% end %>  <%# form_remote_tag :url => {:controller => 'voting',... %>
+  <% else %> <%# if logged_in?  -- meaning not logged in %>
+    <span id="kroogi_like_container">
+      <div class="sign_in">
+        <%= login_link "Sign in to vote".t, {}, :id => "sign_in_to_vote_link_#{entry.id}" %>
+        <% dialog_id_suffix = "vote_#{entry.id}" %>
+        <%= render :partial => '/shared/login_signup_widget_sandbox',
+          :locals => {
+          :project_to_follow => project_to_follow,
+          :content_to_like => entry.id,
+          :title => "Log In to vote".t,
+          :login_block_title => 'Log In to vote'.t,
+          :signup_block_title => 'Create Kroogi Account to vote'.t,
+          :fb_signup_block_title => 'Use your Facebook Account to vote'.t,
+          :dialog_id_suffix => dialog_id_suffix,
+          :thanks_last => 'You will not be able to vote until you activate your account.'.t,
+        } %>
+        <script type="text/javascript">
+          jQuery("#sign_in_to_vote_link_<%= entry.id %>").bind('click', function() {
+            jQuery('#ask_for_login_or_signon_<%= dialog_id_suffix %>').dialog(ask_for_login_or_signon_dialog_opts_<%= dialog_id_suffix %>);
+            jQuery('#ask_for_login_or_signon_<%= dialog_id_suffix %> .accordion').accordion({clearStyle: true, autoHeight: false});
+            return false;
+          });
+        </script>
+      </div>
+      <div class="vote_number">
+        <%= '&nbsp;'+entry.up_votes.count.to_s+'&nbsp;'  %>
+      </div>
+    </span>
+  <% end %> <%# if logged_in? -- end of non logged in branch %>
+</div>  
+  <% if show_fb_like && content_is_safe_to_fb_like(entry) %>
+  <div class="project_vote fb_like" id="fb_like_container">
+    <%= render :partial => '/shared/facebook/like/button',
+                :locals => {:entry => entry, :width => 150} %>
+  </div>
+  <% end %> <%# if show_fb_like && content_is_safe_to_fb_like(entry) %>
+  <% if russian_speaking_user? %>
+    <div class="project_vote vk_like" id="vk_like_container">
+      <%= vkontakte_like_js(entry, @title) if show_vk_like %>
+    </div>
+    <div id="mailru_like" class="project_vote mailru_like">
+      <%#= mailru_like_js(entry, content_title, artist_name) if show_mailru_like %>
+    </div>
+    <div class="project_vote odkl_like">
+      <%= odkl_like_js(entry) if show_odkl_like %>
+    </div>
+  <% end %>
+
+  <% if show_fb_like && content_is_safe_to_fb_like(entry)  %>
+    <%= render :partial => '/shared/facebook/like/widget' %>
+    <%= render :partial => '/shared/facebook/like/js_calls',
+              :locals => {:entry => entry} %>
+  <% end %>
+  <%= render :partial => '/shared/facebook/like/metadata',
+                :locals => {:entry => @entry,
+                            :meta_description => meta_description} %>

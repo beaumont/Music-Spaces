@@ -1,0 +1,7 @@
+<%= "reinvited %s to %s Circle" / [
+  user_link(activity.content.to_user, :detect_you => true, :public_context => one_liner), 
+  activity.content.circle_name] %> 
+
+
+<%= render :partial => 'invite/respond_actions', :locals => {:invite => activity.content} %>
+

@@ -1,0 +1,93 @@
+# Checks: inviting to circle, rejecting invite, revoking
+
+# Prerequisites
+setup :fixtures => :all
+Invite.delete_all
+InviteRequest.delete_all
+Relationship.delete_all
+Activity.delete_all
+@joe = User.find_by_login('joe')
+@chief = User.find_by_login('chief')
+@chief_kroogi = '/user/index/chief'
+
+# Test body
+# Logging in
+include_partial 'logout'
+open '/'
+include_partial 'login', :user => @joe
+
+# Opening 'Invite to your circles page'
+open '/user/kroogi/joe'
+assert_text_present 'Invitations: 0'
+click_and_wait 'invite_more_link'
+assert_text_present "Invite to your Circles"
+assert_text_present "Enter Kroogi names, display names, or email addresses"
+
+# Testing non-matching search
+type 'users', 'nomatches'
+click_and_wait 'css=#do_search'
+assert_text_present "Not found:"
+
+# Finding user chief
+type 'users', 'chief'
+click_and_wait 'css=#do_search'
+assert_text_present "The big cahuna"
+assert_text_present "Invite:"
+click_and_wait "css=#do_invite"
+assert_text_present "Successfully invited The big cahuna"
+assert_text_present 'Invitations: 1'
+assert_text_present 'Followers (0)'
+
+# Opening 'Changing invite' page
+click_and_wait 'link=Change'
+assert_text_present "The big cahuna"
+assert_text_present "Invited to Friends of Joe Blow"
+assert_text_present "Send Again"
+assert_text_present "Revoke Invitation"
+
+# Logging in as chief and view invites list
+include_partial 'switch_to', :user => @chief
+open '/activity/list'
+
+# Accepting invite and inviting back
+click_and_wait 'link=Join and invite back...'
+assert_text_present "You have accepted joe's invitation"
+assert_text_present "Invite to your Circles"
+assert_text_present "Invite:"
+assert_text_present "Joe Blow"
+click_and_wait "css=#do_invite"
+
+# Opening 'Changing invite' page and revoking invite
+assert_text_present "Friends of chief"
+assert_text_present "Invitations: 1"
+click_and_wait 'link=Change'
+click_and_wait 'css=#revoke_invite'
+assert_text_present "Cancelled invitation to Joe Blow"
+assert_text_present "Friends of chief"
+assert_text_present "Invitations: 0"
+
+# Inviting again, so can test rejection later
+open '/user/index/joe'
+click_and_wait 'link=Invite user to your Kroogi'
+assert_text_present "Invite:"
+assert_text_present "Joe Blow"
+click_and_wait "css=#do_invite"
+
+# Logging in as Joe, verifying initial invite acceptance and testing ajax invite rejection
+include_partial 'switch_to', :user => @joe
+open '/user/index/joe'
+assert_text_present 'Followers (1)'
+open '/activity/list'
+click 'link=No, thanks'
+# assert_text_present "This invite has been rejected"
+refresh
+# assert_text_present "Your invitations to join"
+
+# Cleanup (removing user chief from joe's circle)
+include_partial 'switch_to', :user => @chief
+open '/user/index/joe'
+click_and_wait 'link=Followers (1)'
+click_and_wait 'link=Remove me from this Kroogi'
+assert_confirmation '*'
+assert_text_present 'Followers (0)'
+include_partial 'logout'

@@ -1,0 +1,48 @@
+# Checks: joining circles, requesting invitations, and join_circles display
+# Cannot currently be run more than once in a row without refreshing the selenium page (e.g. is not idempotent)
+
+# Prerequisites
+setup :fixtures => :all
+@joe = User.find_by_login('joe')
+@chief = User.find_by_login('chief')
+@chief_kroogi = '/user/index/chief'
+Invite.delete_all
+InviteRequest.delete_all
+Relationship.delete_all
+Activity.delete_all
+
+# Test body
+# Opening site
+include_partial 'logout'
+open '/'
+include_partial 'login', :user => 'joe'
+
+# Inviting an existing user to circles
+open @chief_kroogi
+assert_text_present 'Join Circles'
+assert_text_present 'Invite user to your Kroogi'
+
+# Validating join circles page
+include_partial 'assert_valid_join_circles', :owner => 'chief', :logged_in_user => 'joe'
+
+# Asking for invite
+click_and_wait 'css=#request_invite_2'
+assert_text_present "Your request for an invitation was sent"
+include_partial 'assert_valid_join_circles', :owner => 'chief', :logged_in_user => 'joe', :requested_invite_to => {'2' => true}
+
+# Joining a circle
+click_and_wait 'link=Join'
+assert_text_present "You have joined the Interested circle of chief"
+assert_text_present "You are in Interested Circle"
+assert_text_present "Followers (1)"
+open "/kroogi/join_circles/#{@chief.id}"
+assert_element_not_present 'link=Join'
+
+# Checking that we are in user's circles rights now
+open '/user/kroogi/chief'
+assert_text_present "Remove me from this Kroogi"
+
+# Removing ourself from this circle
+click_and_wait "link=Remove me from this Kroogi"
+assert_confirmation '*'
+assert_text_present "Followers (0)"

@@ -1,0 +1,15 @@
+
+<% if matched_profile.user %>
+<tr>
+    <td valign="top">
+        <%= avatar(matched_profile.user) %>
+    </td>
+    <td valign="top">
+        <span style="font-weight:bold;"><%= link_to matched_profile.user.login, {:controller => 'user', :action => 'index', :id => matched_profile.user.login} %></span><br/>
+        <%= matched_profile.user.display_name %><br/>
+		<%= profile_tags matched_profile.user, matched_profile.contextual_tag_list("occupation") %>
+		<%= profile_tags matched_profile.user, matched_profile.contextual_tag_list("city") %> <%= profile_tags matched_profile.user, matched_profile.contextual_tag_list("country") %>
+    </td>
+</tr>
+<% end -%>
+

@@ -1,0 +1,10 @@
+<p>
+	<strong>
+	  <%= "%s has taken the %s '%s' (submitted by %s), to their Content" / [@content.user.login, @content.display_type.tdown, @content.title_long, @content.created_by.login] -%>.
+	</strong>
+</p>
+
+<p>
+  <%= link_to ("Open new copy of '%s'" / [@content.title_long]), "#{@url}/content/show/#{@content.id}" %>
+</p>
+

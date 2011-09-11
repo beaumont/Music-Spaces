@@ -1,0 +1,4 @@
+<div id="comments_<%= dom_id(user.profile) %>">
+  <%= render :partial => 'comment/comments', :locals => {:commentable => user.profile, 
+                :empty_text => user.has_wall_posts? ? nil : 'No wall posts yet'.t } %>
+</div>

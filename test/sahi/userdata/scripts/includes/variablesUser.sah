@@ -1,0 +1,31 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to test users
+*/
+
+// Chief - admin user
+$adminUserName = "chief";
+$adminUserPass = "password";
+$adminUserEmail = "chief@your-net-works.com";
+$adminDisplayName = "The big cahuna";
+
+// Joe - advanced account user with one project
+$joeUserName = "joe";
+$joeUserDisplayName = "joe magnificient";
+$joeUserDisplayNameForTabs = "joe mag...";
+$joeUserPass = "password";
+$joeUserEmail = "joe@kroogi.al";
+$joeBirthdate = "1980-06-01";
+$joeProjectName = "avatar-band";
+$joeProjectHideButton = $projectSettingsHideButtonPrefix + $joeProjectName;
+$joeProjectOpenButton = $projectSettingsOpenButtonPrefix + $joeProjectName;
+$joeProjectLinkNumber = 29;           // A number of link to project on settings tab, it changes oftenly
+$joeNotesBlockLabel = $joeUserDisplayNameForTabs + $profileNotesLabelSuffix;
+$joeAnnouncementsBlockLabel = $joeUserDisplayName + $profileAnnouncementsLabelSuffix;
+
+// Basic - basic account user
+$basicUserName = "basic";
+$basicUserDisplayName = "i'm too basic";
+$basicUserPass = "password";
+$basicUserEmail = "basic@kroogi.al";
+$basicBirthdate = "1980-06-01";

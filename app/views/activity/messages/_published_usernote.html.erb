@@ -1,0 +1,4 @@
+<%= render :partial => 'activity/messages/published_announcement.html.erb', :locals => {
+        :activity => activity, :one_liner => one_liner,
+        :label_generator => lambda {|link| 'added a new note: %s' / link }} %>
+

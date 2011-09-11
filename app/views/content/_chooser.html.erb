@@ -1,0 +1,27 @@
+
+<div style="margin:10px 4px 4px 10px;">
+<b style="font-size:1.3em"><%= "Select File from My Media".t %></b> <a href="#" class="lbAction" rel="deactivate"><button><%= 'Cancel'.t %></button></a>
+
+<div style="height:400px;overflow:auto;">
+<table class="list">
+            <tbody>
+                <th></th>
+                <th><%= 'Name'.t %></th>
+                <th><%= 'in Content?'.t %></th>
+                <th><%= 'Size'.t %></th>
+                <th><%= 'Date Added'.t %></th>
+                <th></th>
+<% @stream.each_with_index do | content, index | %>
+    <% # break if limit && index >= limit %>
+        <tr class="<%= cycle("high", "low") %>">
+            <td width="75"><%= image_tag content.thumb(:small).public_filename, {:alt=> content.title_short} %></td>
+            <td><%= content.title_short %></td>
+            <td><%= content.is_in_gallery ? 'Yes'.t : 'No'.t %></td>
+            <td><%= content.width -%>&times;<%= content.height -%></td>
+            <td><%= content.created_at.to_s(:date_with_time) %></td>
+            <td><%= link_to_remote "Select".t, {:url => {:controller => 'content', :action => "choose_#{params[:choose]}", :id => content, :user_id => params[:id], :index => params[:index]}} %></td>
+       </tr>
+<% end %>
+</table>
+</div>
+

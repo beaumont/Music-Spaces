@@ -1,0 +1,71 @@
+<%
+editable = monetary_processor_account.nil?
+if is_for_wizard
+  return_url = url_for(:controller => '/wizard', :action => "add_content", :id => user.id, :only_path => false)
+else
+  return_url = url_for(:controller => '/money', :action => "index", :id => user.id, :only_path => false)
+end
+%>
+<h3><a href="#<%= href %>">PayPal</a></h3>
+<div>
+  <div style="padding-bottom:1em;">
+    <%= 'Connect your {{start_strong}}verified PayPal account{{end_strong}}'.t %><br/><br/>    
+    <%= 'Please make sure your account is verified and can send and receive payments.'.t %><br/><br/>
+    <%= '{{start_strong}}Attention: Receiving payments through PayPal is not possible in some countries (such as Russia).  {{end_strong}}'.t %>    <br/>
+    <%= 'For a complete list of countries where money can be received using PayPal, check here: '.t + '<a href="https://www.paypal.com/worldwide/" target="_blank">https://www.paypal.com/worldwide/</a>' %>  <br/>  
+    <%= 'If payments cannot be received through PayPal in your country, try using Webmoney. Otherwise, proceed.'.t %> 
+
+  </div>
+  <strong><%= 'Step 1: Enter Your PayPal Login / Email Address'.t %></strong>
+
+  <% form_for(:paypal_account, (monetary_processor_account || PaypalAccount.new), :url => '#') do |f| %>
+    <div id="paypal_email_address">
+      <% unless editable %>
+        <div style="color: #F88">
+          <%= "You cannot edit this e-mail address.  If you would like to do so, please delete this account and re-attach.".t %>
+        </div>
+      <% end %>
+      <label for="paypal_account_account_identifier"><%= 'PayPal Login (Email)'.t %></label>
+      <%= f.text_field :account_identifier , :disabled => (editable ? nil : true) %>
+    </div>
+    <div id="paypal_form_errors" class="error"> </div>
+    <br/>
+    <strong><%= 'Step 2: Send $0.02 to Kroogi and Get $0.02 Back'.t %></strong>
+    <p>
+      <%= "Kroogi wants to make sure that you can receive contributions to your PayPal account. We do it by sending you $0.02. But first we need to receive those $0.02 from you to make sure that your account is <strong>verified</strong>.".t %>
+    </p>
+    <a class="button" href="#" onclick="try_paypal_attach(); return false;">
+      <span><%= 'Send $0.02 via PayPal'.t -%></span>
+    </a>
+  <% end -%>
+
+  <form id="paypal_post_form" action="https://www.paypal.com/cgi-bin/webscr" method="post" style="display:none;">
+    <input type="hidden" name="return" value="<%= return_url %>" />
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="<%= PAYPAL_CONFIG[:hosted_button_id] %>">
+    <input type="hidden" name="notify_url" value="<%= PAYPAL_CONFIG[:ipn_url] %>" />
+    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="">
+    <img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </form>
+</div>
+<script type="text/javascript" defer="defer">
+  function try_paypal_attach() {
+  <% if monetary_processor_account.nil? %>
+    edress = jQuery("#paypal_account_account_identifier").val();
+    if (edress == "") {
+      jQuery('#paypal_form_errors').html("<span style=\"color:red;\"><%= "Please enter a valid e-mail address".t %>.</span>");
+    } else {
+      //submit the info
+      jQuery.getJSON("<%= url_for({:controller =>"/monetary_processor_accounts/paypal", :action => "create_account"})%>",
+      { user_id : "<%= user.id %>", edress: edress},
+      function(data){
+        if (data["errors"] == null) jQuery("#paypal_post_form").submit();
+        else jQuery('#paypal_form_errors').html(data["errors"]);
+      });
+    }
+  <% else %>
+    jQuery("#paypal_post_form").submit();
+  <% end %>
+}
+</script>
+

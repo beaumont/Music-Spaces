@@ -1,0 +1,46 @@
+<div class="blue_head"><%= 'Share'.t %></div>
+<div class="blue_block light">
+  <% if entry.is_a?(Tps::Content) %>
+    <%= render :partial => 'shared/embed_thermometer', :locals => {:hat => entry} %>
+  <% end %>
+  <%= render :partial => 'content/sidebar/embed_player' %>
+  <div class="sharing_icon">
+    <a href="<%= facebook_share_url(entry) %>" target="_blank">
+      <%= image_tag('icon_facebook.gif') %>
+    </a>
+  </div>
+  <script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&login=kroogi&apiKey=R_2e15b95cd2f880f7e46452e596df398a"></script>
+  <script type="text/javascript" charset="utf-8" src="http://s.bit.ly/TweetAndTrack.js?v=1.01"></script>
+  <div class="sharing_icon">  
+    <a href="#" onclick='return TweetAndTrack.open(this, "<%= h(share_url(@entry)) %>");'>
+     <span style="display:none;">Check it out!: <%= content_title %></span>
+     <%= image_tag('icon_twitt.gif') %>
+    </a>
+  </div>
+  <div class="sharing_icon"> 
+    <a href="http://digg.com/submit?url=<%= CGI::escape(share_url(@entry)) %>&title=<%= CGI::escape("Check out: " + content_title) %>&bodytext=<%= CGI::escape("Check out: " + content_title) %>&topic=music" target="_blank">
+      <%= image_tag('icon_digg.gif') %>
+    </a>
+  </div>
+   <% if russian_speaking_user? %>
+     <%= vkontakte_sharing(@entry, content_title, artist_name) %>
+   <% end %>
+   <div class="clear"></div>
+
+   <% if @entry.comment_count > 0 %>
+     <%= link_to(image_tag('comments.png', :class => 'comment_icon_share') + '{{count}} Comments' / @entry.comment_count, '#comments') %>
+     <div class="clear"></div>
+  <% else %>
+    <% if logged_in? %>
+      <%= link_to_function image_tag('comments.png', :class => 'comment_icon_share') + 'Leave Comment'.t, "showCommentForm();" %>
+    <% else %>
+      <%= link_to(image_tag('comments.png', :class => 'comment_icon_share') + 'Leave Comment'.t, '#comments') %>
+    <% end %>
+  <% end %>
+  
+  <% if entry.class.to_s != 'Board' %>
+    <% if permitted?(entry.user, :favorite_or_vote, :content => entry) %>
+      <%= render :partial => 'content/add_to_favorites_new', :locals => {:favorable => entry} %>
+    <% end %> 
+  <% end %>
+</div>

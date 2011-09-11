@@ -1,0 +1,131 @@
+require 'digest/sha1'
+# Checks: inviting new user to Kroogi (test default interested relationships)
+
+# Prerequisites
+setup :fixtures => :all
+joe = User.find_by_login('joe')
+chief = User.find_by_login('chief')
+
+# Clearing all existing invites
+Invite.destroy_all
+invite_test_1 = 'invite-test-1'
+invite_test_2 = 'invite-test-2'
+invite_test_2_secondary = 'this_is_a_new_email_address_for_testing_activation@kroogi.com'
+User.destroy_all ['login=? OR login=? OR email=?', invite_test_1, invite_test_2, invite_test_2_secondary]
+
+# Creating new site invite to be registered normally
+site_invite_text = '[TESTING SITE INVITES]'
+site_invite_1 = Invite.new(
+  :inviter_id => joe.id,
+  :created_by_id => joe.id,
+  :user_email => "#{invite_test_1}@your-net-works.com",
+  :invitation => site_invite_text,
+  :circle_id => Invite::TYPES[:site_invite][:id]
+)
+Thread.current['user'] = User.find_by_login('chief')
+site_invite_1.save!
+
+# Creating a second invite to ensure activation required when change email on signup
+site_invite_2 = Invite.new(
+  :inviter_id => joe.id,
+  :created_by_id => joe.id,
+  :user_email => "#{invite_test_2}@your-net-works.com",
+  :invitation => site_invite_text,
+  :circle_id => Invite::TYPES[:site_invite][:id]
+)
+site_invite_2.save!
+
+# Since can't delete site invites, first generating a random email address, ensure it's not already in db
+invalid_email = 'notanemail'
+valid_email = ''
+while valid_email.blank? || Invite.find_by_user_email(valid_email)
+  randstr = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join )
+  valid_email = "invite_test_rand_#{randstr}@your-net-works.com"
+end
+
+# Test body
+# Logging in
+include_partial 'logout'
+include_partial 'login', :user => chief
+
+# Opening the "invite to site" page
+open '/invite/new/2'
+assert_text_present 'The big cahuna'
+assert_text_present 'Invite New Users to Kroogi'
+assert_text_present 'Email:'
+assert_text_present 'Language:'
+assert_text_present 'Invitation Text:'
+assert_text_present 'Send Invitation'
+
+# Trying to send to invalid email
+type 'user_emails', invalid_email
+click_and_wait 'css=#send_invite'
+assert_text_present "couldn't parse emails"
+
+# Testing sending invitation (UI ONLY!)
+type 'user_emails', valid_email
+click_and_wait 'css=#send_invite'
+assert_text_present 'Followers of chief'
+assert_text_not_present 'Network Invitations: 0'
+assert_text_present valid_email
+
+# Checking detail page
+open "/kroogi/show_pending/#{chief.id}?type=#{Invite::TYPES[:site_invite][:id]}"
+assert_text_present valid_email
+
+# Opening registration page
+include_partial 'logout'
+open "/home/signup/#{site_invite_1.activation_code}"
+assert_text_present 'Register with Kroogi'
+
+# Signing up wrong a few times
+click 'join_btn'
+assert_alert '*'
+click 'COPPA'
+click 'ToS'
+click_and_wait 'join_btn'
+assert_text_present 'There were problems with the following'
+
+# Signing up correctly and checking that logged in
+type 'user_login', invite_test_1
+type 'user_password', 'password'
+type 'user_password_confirmation', 'password'
+click 'COPPA'
+click 'ToS'
+click_and_wait 'join_btn'
+assert_text_present 'Tell us about yourself'
+include_partial 'assert_logged_in'
+
+# Trying again, this time changing the provided email address
+include_partial 'logout'
+open "/home/signup/#{site_invite_2.activation_code}"
+type 'user_email', invite_test_2_secondary
+type 'user_login', invite_test_2
+type 'user_password', 'password'
+type 'user_password_confirmation', 'password'
+click 'COPPA'
+click 'ToS'
+click_and_wait 'join_btn'
+
+# Making sure there's a required email activation step
+assert_text_present 'Thank you for joining Kroogi'
+open '/'
+include_partial 'assert_logged_out'
+
+# Done with invites. Now let's take on that's been accepted and test circles
+include_partial 'login', :user => invite_test_1
+include_partial 'assert_logged_in'
+open '/account_setting/circles_management'
+assert_text_present "regexp:Membership in .+'s Circles"
+include_partial 'page_is_default_circles_management', :type => :user
+
+# Not done yet
+# THEN create a new project (and test circle defaults again!!)
+# open '/project/create'
+# Try creating invalid project
+# Try creating valid project
+# Switch acting as to project
+# open '/account_setting/circles_management'
+# assert_text_present 'Membership in Your Circles'
+# include_partial 'page_is_default_circles_management', :type => :project
+# FILL IN DEFAULTS IN ABOVE PARTIAL

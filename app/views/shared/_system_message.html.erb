@@ -1,0 +1,45 @@
+<% return unless @system_message %>
+
+<div class="blue_block" id="bubble_container">
+    <div class="bubble_close">
+      <%= link_to_function(image_tag('sm_close.gif'), 'close_bubble()') %>
+    </div>
+    <div class="bubble_content">
+        <div class="bubble_in_content">
+          <%= render :partial => "/system_messages/#{@system_message.partial_name}", :locals => {:user => current_user} %>
+        </div>
+        <div class="bubble_button">
+         <% if @system_message.action_button_title %>
+            <% after_accept_action = @system_message.after_accept_action? ? 'after_accept_action();' : '' %>
+            <button class="button" name="commit" type="submit" onclick='accept_bubble(); <%= after_accept_action %>'>
+              <span><%= @system_message.action_button_title %></span>
+            </button>
+          <% end %>
+          </div>
+          <div class="bubble_note">
+      <% form_remote_for :system_message, 
+                        :url => { :controller => '/system_messages', :action => 'closed', :id => @system_message_trigger.id},
+                        :html => {:id => 'system_message_close_form'} do |f| %>
+        <%= check_box_tag :dont_show_again %>
+        <span><%= "Don't show again".t %></span>
+      <% end %>
+      </div>
+      <% form_remote_for :system_message,
+                        :url => { :controller => '/system_messages', :action => 'accepted', :id => @system_message_trigger.id},
+                        :html => {:id => 'system_message_accept_form', :style => 'display:none'} do %>
+      <% end %>
+    </div>
+</div>
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript">
+    function accept_bubble() {
+      jQuery("#system_message_accept_form").trigger("onsubmit");
+      jQuery("#bubble_container").hide();
+    }
+
+    function close_bubble() {
+      jQuery("#system_message_close_form").trigger("onsubmit");
+      jQuery("#bubble_container").hide();
+    }
+  </script>
+<% end %>

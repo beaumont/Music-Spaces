@@ -1,0 +1,3 @@
+page << "jQuery('#yandex_donation_form .fields').html('#{js(render(:partial => '/shared/form_fields',
+                                                                   :locals => {:fields => @fparams}))}');"
+page << "jQuery('#yandex_donation_form .prepare_progress').hide();"

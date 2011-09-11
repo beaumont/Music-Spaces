@@ -1,0 +1,27 @@
+<% content_for :css do %>
+	<%= stylesheet_link_tag "style-admin", :media => "all" %>
+  <%= calendar_date_select_includes "red" if @show_date_select %>
+<% end %>
+
+<% content_for :additional_body_headers do %>
+  <div class="admin_header">
+    <span class="adminmenu"><a href="/admin/monitor/" class="button"><span><%= 'Monitor'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/users/" class="button"><span><%= 'Users'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/roles/" class="button"><span><%= 'Roles'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/translate/" class="button"><span><%= 'Translations'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/donation_requests?type=pending" class="button"><span><%= 'Contribution Requests'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/featured_items/" class="button"><span><%= 'Featured'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/digital_download/" class="button"><span><%= 'Digital Downloads'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/faq/" class="button"><span><%= 'FAQs'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/messages/" class="button"><span><%= 'Messages'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/feedback/" class="button"><span><%= 'Feedback'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/bulk_message/" class="button"><span><%= 'Bulk Message'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/money/" class="button"><span><%= 'Money'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/money/webmoney/" class="button"><span><%= 'WebMoney Log'.t %>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/music_albums/" class="button"><span><%= 'Music Albums'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/users/karma/" class="button"><span><%= 'Karma Points'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/admin/site_activity_logs/" class="button"><span><%= 'Site Activity Log'.t -%>&nbsp;</span></a></span>
+  </div>
+<% end %>
+
+<%= render :file => 'layouts/application' %>

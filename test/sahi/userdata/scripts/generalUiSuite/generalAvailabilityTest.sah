@@ -1,0 +1,303 @@
+/*
+    General availability test.
+    Check main header and footer elements
+    availbility both when logged out and logged in.
+
+    Out of scope:
+    - Test only briefly checks pages to which header and footer links are leading;
+
+    Not added yet:
+    - Still not added checking of Kroogi logo in header and footer presence.
+
+    Test sequence:
+    - Open site as guest, check header and footer elements
+    - Briefly check that CDSP pages can be opened
+    - Briefly check that Sign-up page can be opened
+    - Log in, check header and footer elements
+    - Briefly check that CDSP pages can be opened
+    - Briefly check that 'Create project' page can be opened
+    - Briefly check that Messaging center is accessible
+
+    Tear-down: no need to restore DB state after running this test
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Guest - check main header elements
+_assertExists(_textbox($loginField));
+_assertExists(_password($passwordField));
+_assertExists(_submit($signInButton));
+_assertExists(_label($rememberMeCheckbox));
+_assertExists(_link($signUpLink));
+_assertFalse(_link($feedLink));
+_assertFalse(_link($messagesLink));
+_assertFalse(_link($settingsLink));
+_assertFalse(_link($moneyLink));
+_assertFalse(_link($createProjectLink));
+_assertFalse(_link($myProjectsLink));
+_assertFalse(_link($signOutLink));
+_assertExists(_link($musicDirectoryLink));
+_assertExists(_link($artDirectoryLink));
+_assertExists(_link($photoDirectoryLink));
+_assertExists(_link($videoDirectoryLink));
+_assertExists(_link($writtenDirectoryLink));
+_assertExists(_link($otherDirectoryLink));
+_assertEqual($searchDefaultText, _textbox("q").value);
+_assertExists(_submit($searchButton));
+_assertFalse(_link($addAvatarLink));
+_assertFalse(_link($homeLink));
+_assertFalse(_link($followersDefaultLink));
+_assertFalse(_span($inviteFriendsButton));
+
+// Guest - check footer elements
+_assertExists(_link($footerGuestFeedbackLink));
+_assertFalse(_link($footerSignedFeedbackLink));
+
+// Guest - briefly check that CDSP pages can be opened
+_click(_link($cdspAboutLink));
+_assertExists(_div($aboutPageAboutUsLabel));
+_assertExists(_div($aboutPageMediaCenterLabel));
+_assertExists(_div($aboutPageDownloads));
+_click(_link($cdspContactUsLink));
+_assertExists(_div($contactUsPageContactLabel));
+_assertExists(_div($contactUsPageAddressLabel));
+_click(_link($cdspPolicyLink));
+_assertExists(_div($policyPageTosLabel));
+_assertExists(_div($policyPageContentsLabel));
+_click(_link($cdspHelpLink));
+_assertExists(_div($helpPageHelpLabel));
+_assertExists(_div($helpPageContentsLabel));
+
+// Briefly check that sign-up page can be opened
+_click(_link($signUpLink));
+_assertExists(_div($signUpPageTitle));
+_assertExists(_submit($signUpPageButton));
+
+// Log in with advanced account and check header elements
+user_login($adminUserName, $adminUserPass, "true", "main");
+_assertFalse(_textbox($loginField));
+_assertFalse(_password($passwordField));
+_assertFalse(_submit($signInButton));
+_assertFalse(_label($rememberMeCheckbox));
+_assertFalse(_link($signUpLink));
+_assertExists(_link($feedLink));
+_assertExists(_link($messagesLink));
+_assertExists(_link($settingsLink));
+_assertExists(_link($moneyLink));
+_assertExists(_link($createProjectLink));
+_assertFalse(_link($myProjectsLink));
+_assertExists(_link($signOutLink));
+_assertExists(_link($musicDirectoryLink));
+_assertExists(_link($artDirectoryLink));
+_assertExists(_link($photoDirectoryLink));
+_assertExists(_link($videoDirectoryLink));
+_assertExists(_link($writtenDirectoryLink));
+_assertExists(_link($otherDirectoryLink));
+_assertEqual($searchDefaultText, _textbox("q").value);
+_assertExists(_submit($searchButton));
+_assertExists(_link($addAvatarLink));
+_assertExists(_link($homeLink));
+_assertExists(_link($contentLink));
+_assertExists(_link($followersDefaultLink));
+_assertExists(_span($addContentTool));
+_assert(!(_isVisible(_link($addContentMaLink))));
+_assert(!(_isVisible(_link($addContentTrackLink))));
+_assert(!(_isVisible(_link($addContentVideoLink))));
+_assert(!(_isVisible(_link($addContentPictureLink))));
+_assert(!(_isVisible(_link($addContentWritingLink))));
+_assert(!(_isVisible(_link($addContentFolderLink))));
+_assertExists(_span($inviteFriendsButton));
+
+// Logged in - check footer elements
+_assertFalse(_link($footerGuestFeedbackLink));
+_assertExists(_link($footerSignedFeedbackLink));
+
+// Logged in - briefly check that CDSP pages can be opened
+_click(_link($cdspAboutLink));
+_assertExists(_div("About Us"));
+_assertExists(_div("Media Center"));
+_assertExists(_div("Downloads"));
+_click(_link($cdspContactUsLink));
+_assertExists(_div("Contact Kroogi"));
+_assertExists(_div("Address"));
+_assertExists(_div("networks_buttons"));
+_click(_link($cdspPolicyLink));
+_assertExists(_div("Kroogi Terms of Service"));
+_assertExists(_div("Table of Contents"));
+_click(_link($cdspHelpLink));
+_assertExists(_div("Kroogi Help"));
+_assertExists(_div("Table of Contents"));
+
+// Briefly checking that 'Feed' page can be opened
+_click(_link($feedLink));
+_assertExists(_div($feedEmptyHeader));
+
+// Briefly checking that 'Messages' page can be opened
+_click(_link($messagesLink));
+_assertExists(_div($messagesInvitationsSection));
+_assertExists(_div($messagesNotificationsSection));
+_assertExists(_div($messagesPrivateSection));
+
+// Briefly checking that 'Money' page can be opened
+_click(_link($moneyLink));
+_assertExists(_heading3($moneyPaySystemHeader));
+_assertExists(_heading3($moneyContribHeader));
+_assertExists(_span($moneyContribReceivedHeader));
+_assertExists(_span($moneyContribMadeHeader));
+_assertExists(_span($moneyWithdrawalsHeader));
+
+// Briefly checking that 'Create project' page can be opened
+_click(_link($createProjectLink));
+_assertExists(_div($createProjectHeader));
+_assertExists(_div($createProjectAbout));
+
+// Briefly checking that 'Settings' page can be opened
+_click(_link($settingsLink));
+_assertExists(_link($settingsBreadcrumb));
+
+// Briefly checking that 'Home' page can be opened
+_click(_link($homeLink));
+_assertExists(_div($profileDonateHeader));
+_assertExists(_div($profileFollowedHeader));
+_assertExists(_div($profileRecentActivityHeader));
+_assertExists(_span($profileLatestWallHeader));
+
+// Briefly checking that 'Followers' page can be opened
+_click(_link($followersDefaultLink));
+_assertExists(_div($followersPageNoUsersText));
+
+// Briefly checking that 'Content' page can be opened
+_click(_link($contentLink));
+_assertExists(_div($contentPageHeader));
+
+// Briefly checking that 'Add content' tool can be used
+_click(_link($addContentMaLink));
+_assertExists(_div($addMaFormHeader));
+_click(_link($addContentTrackLink));
+_assertExists(_div($addTrackFormHeader));
+_click(_link($addContentVideoLink));
+_assertExists(_div($addVideoFormHeader));
+_click(_link($addContentPictureLink));
+_assertExists(_div($addPictureFormHeader));
+_click(_link($addContentWritingLink));
+_assertExists(_div($addWritingFormHeader));
+_click(_link($addContentFolderLink));
+_assertExists(_div($addFolderFormHeader));
+
+// Briefly checking that 'Invite friends' page can be opened
+_click(_span($inviteFriendsButton));
+_assertExists(_span($inviteWidgetHeader));
+_click(_span($inviteWidgetCloseButton));
+
+// Log out
+user_logout();
+
+// Log in again as adv. acc that has projects. Check that link for 'My projects' exists and no link for 'Create project'
+user_login($joeUserName, $joeUserPass, "true", "main");
+_assertFalse(_link($createProjectLink));
+_assertExists(_link($myProjectsLink));
+
+// Briefly checking that 'My projects' page can be opened
+_click(_link($myProjectsLink));
+_assertExists(_link($myProjectsCreateLink));
+
+// Log out
+user_logout();
+
+// Log in again as basic account and check header elements - they differ from advanced
+user_login($basicUserName, $basicUserPass, "true", "main");
+_assertFalse(_textbox($loginField));
+_assertFalse(_password($passwordField));
+_assertFalse(_submit($signInButton));
+_assertFalse(_label($rememberMeCheckbox));
+_assertFalse(_link($signUpLink));
+_assertExists(_link($feedLink));
+_assertExists(_link($messagesLink));
+_assertExists(_link($settingsLink));
+_assertFalse(_link($moneyLink));
+_assertExists(_link($createProjectLink));
+_assertFalse(_link($myProjectsLink));
+_assertExists(_link($signOutLink));
+_assertExists(_link($musicDirectoryLink));
+_assertExists(_link($artDirectoryLink));
+_assertExists(_link($photoDirectoryLink));
+_assertExists(_link($videoDirectoryLink));
+_assertExists(_link($writtenDirectoryLink));
+_assertExists(_link($otherDirectoryLink));
+_assertEqual($searchDefaultText, _textbox("q").value);
+_assertExists(_submit($searchButton));
+_assertExists(_link($addAvatarLink));
+_assertExists(_link($homeLink));
+_assertFalse(_link($contentLink));
+_assertExists(_link($followersDefaultLink));
+_assertFalse(_span($addContentTool));
+_assertFalse(_link($addContentMaLink));
+_assertFalse(_link($addContentTrackLink));
+_assertFalse(_link($addContentVideoLink));
+_assertFalse(_link($addContentPictureLink));
+_assertFalse(_link($addContentWritingLink));
+_assertFalse(_link($addContentFolderLink));
+_assertExists(_span($inviteFriendsButton));
+
+// Logged in - check footer elements
+_assertFalse(_link($footerGuestFeedbackLink));
+_assertExists(_link($footerSignedFeedbackLink));
+
+// Logged in - briefly check that CDSP pages can be opened
+_click(_link($cdspAboutLink));
+_assertExists(_div("About Us"));
+_assertExists(_div("Media Center"));
+_assertExists(_div("Downloads"));
+_click(_link($cdspContactUsLink));
+_assertExists(_div("Contact Kroogi"));
+_assertExists(_div("Address"));
+_assertExists(_div("networks_buttons"));
+_click(_link($cdspPolicyLink));
+_assertExists(_div("Kroogi Terms of Service"));
+_assertExists(_div("Table of Contents"));
+_click(_link($cdspHelpLink));
+_assertExists(_div("Kroogi Help"));
+_assertExists(_div("Table of Contents"));
+
+// Briefly checking that 'Feed' page can be opened
+_click(_link($feedLink));
+_assertExists(_div($feedEmptyHeader));
+
+// Briefly checking that 'Messages' page can be opened
+_click(_link($messagesLink));
+_assertExists(_div($messagesInvitationsSection));
+_assertExists(_div($messagesNotificationsSection));
+_assertExists(_div($messagesPrivateSection));
+
+// Briefly checking that 'Create project' page can be opened
+_click(_link($createProjectLink));
+_assertExists(_div($createProjectHeader));
+_assertExists(_div($createProjectAbout));
+
+// Briefly checking that 'Settings' page can be opened
+_click(_link($settingsLink));
+_assertExists(_link($settingsBreadcrumb));
+
+// Briefly checking that 'Home' page can be opened
+_click(_link($homeLink));
+_assertFalse(_div($profileDonateHeader));
+_assertExists(_div($profileFollowedHeader));
+_assertExists(_div($profileRecentActivityHeader));
+_assertExists(_span($profileLatestWallHeader));
+
+// Briefly checking that 'Followers' page can be opened
+_click(_link($followersDefaultLink));
+_assertFalse(_link($followersPageCirclesManagementLink));
+_assertExists(_div($followersPageNoUsersText));
+
+// Briefly checking that 'Invite friends' page can be opened
+_click(_span($inviteFriendsButton));
+_assertExists(_span($inviteWidgetHeader));
+_click(_span($inviteWidgetCloseButton));

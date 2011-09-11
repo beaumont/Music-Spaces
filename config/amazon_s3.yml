@@ -1,0 +1,45 @@
+defaults: &defaults
+  access_key_id: 0R9MG51RCK9WWT96DKG2
+  secret_access_key: 1pJM1fDogzPhrLGqngySWmePidzZebg27hKXENqo
+  persistent: false
+  
+development:
+  bucket_name: kroogi-stage
+  cloud_front: d30voi5vlani95 
+  #bucket_name: krugi_generic
+  # eh...you can switch to one of these if you reaaaaallly want to
+  # bucket_name: krugi_dev_sasha
+  # bucket_name: krugi_dev_miro
+  # bucket_name: krugi_dev_tanya
+  # bucket_name: krugi_dev_jacob
+  # bucket_name: krugi_dev_igor
+  <<: *defaults
+  
+staging:
+  bucket_name: kroogi-stage
+  cloud_front: d30voi5vlani95
+#  bucket_name: kroogi-rc
+#  cloud_front: dnw2uc5hdfyna
+  <<: *defaults
+  
+rc:
+#  bucket_name: krugi
+#  cloud_front: d1ob8phwwne29y
+  bucket_name: kroogi-rc
+  cloud_front: dnw2uc5hdfyna
+  <<: *defaults
+
+test:
+  bucket_name: kroogi-stage
+  cloud_front: d30voi5vlani95 
+  <<: *defaults
+
+selenium:
+  bucket_name: kroogi-stage
+  cloud_front: d30voi5vlani95
+  <<: *defaults
+
+production:
+  bucket_name: krugi
+  cloud_front: d1ob8phwwne29y
+  <<: *defaults

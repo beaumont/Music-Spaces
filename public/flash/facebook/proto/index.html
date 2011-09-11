@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>AudioPlayer</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+    <script type="text/javascript" src="js/swfobject.js"></script>
+
+<script type="text/javascript">
+
+		var flashvars = {};
+		flashvars.playlist_url = "http://Anya.brainmaggot.org/player/embedded_play_list.xml?album_id=7004";
+		var params = {};
+		params.scale = "noscale";
+		params.wmode = "opaque"; 
+		params.allowfullscreen = "true";
+		var attributes = {};
+		attributes.align = "top";
+		swfobject.embedSWF("Kroogi_MP3_Player.swf", "overlay", "396", "165", "10.0.0",false,  flashvars, params, attributes);
+</script>
+		
+<style type="text/css">
+*
+	{outline:none}
+body
+	{margin:0;
+	padding:0;
+	background: #FFFFFF;
+	background-image:url();
+               background-repeat:no-repeat;
+               background-position:top center;
+	}
+	
+	#overlayContainer
+	{
+        width:396;
+        z-index:10;
+		margin-left: 200px;
+		margin-right: auto;
+		padding-right: 400px;
+	}
+	
+</style>
+		
+
+</head>
+
+<body>
+	
+<div style="background-color:#eeeeee;height:100px">This is the div above the embed</div>
+	
+	<div id="overlayContainer" >
+			<div id="overlay">
+			</div>
+	</div>
+	
+<div style="background-color:#aaaaaa;height:100px">This is the div below embed</div>
+
+</body>
+</html>

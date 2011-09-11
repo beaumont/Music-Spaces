@@ -1,0 +1,35 @@
+<div class="grey_out" style="float:right;"><%= security_string(inbox, :hide_if_public => true) %></div>
+<div class="main_body_subhead"><%= content_link(inbox, :length => 40) %></div>
+<div class="default"><%= inbox.tagline %></div>
+<% if inbox.cover_art.nil? %>
+  <%= image_tag('Inbox.gif', :alt => 'Default Inbox cover art') %>
+<% else %>
+  <a href="<%= content_url(inbox) %>" class="cover_art">
+    <%= image_tag(inbox.cover_art.thumb(:thumb).public_filename, :border => 0) %>
+  </a>
+<% end %>
+<div class="default">
+  <% if inbox.inbox_contents.empty? %>
+    <%= 'No Submissions'.t %>
+  <% else %>
+    <%= '%d items' / [inbox.inbox_contents.count] -%>
+    <br/>
+    <%= 'Last added on %s' / [inbox.last_added.to_s(:date_only)] %>
+  <% end %>
+</div>
+<div class="default" style="font-weight:bold;">
+  <% if inbox.user.collection? %>
+    <%= 'Accepts submissions of users, projects, and other collections'.t %>
+  <% else %>
+    <% if inbox_post_opts(inbox).blank? %>
+      <div class="special_notice" style="padding: 5px; text-align: center;">
+        <%= 'This folder is not accepting new submissions.'.t %>
+      </div>
+    <% else %>
+      <%= link_to "Submit your %s" / [inbox_post_opts(inbox, :no_icon => true)], {:controller => 'content',
+                                                                                  :action => 'show',
+                                                                                  :id => inbox,
+                                                                                  :anchor => 'show_how_submit'} %>
+    <% end %>
+  <% end %>
+</div>

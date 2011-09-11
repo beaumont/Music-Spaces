@@ -1,0 +1,48 @@
+<% activity ||= nil
+   content ||= activity.content
+   no_like ||= false
+   donate_button_donor ||= current_user
+%>
+
+<% if [Track, Image].any?{|klass| content.is_a?(klass) || content.is_a?(Album)} %>
+  <% with_cover_art = (content.is_a?(Image) || content.is_a?(Album) && content.cover_art) %>
+
+  <% if with_cover_art || content.is_a?(Track) %>
+    <div class="<%= 'block_one' if with_cover_art %>">
+      <%= render(:partial => 'content/gallery_item', :locals => {:content => content, :url => content_url(content) }) %>
+    </div>
+  <% end %>
+
+  <% if content.is_a?(Album) %>
+    <% unless content.tracks.blank? %>
+      <div class="<%= 'block_two' if with_cover_art %>">   
+        <%= render :partial => '/content/tracks_player',
+                       :locals => {:data_options => {:album_id => content.id, :tracks => content.tracks},
+                                   :player_id => "album_player_#{content.id}"} %>
+      </div>
+    <% end %>
+
+    <% unless content.images.blank? %>
+      <% content.last_images.each do |image| %>
+       <%= render(:partial => 'content/gallery_item', :locals => {:content => image}) %>    
+      <% end %>
+
+      <% if content.images.size > content.last_images.size %>
+        <div class="info_more">
+          <%= content_link(content, :title => 'View More...'.t) %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if content.respond_to?(:description) && !content.description.blank? %>
+    <div class="<%= 'block_two' if with_cover_art %> default_lg">
+      <%= formatted_description(content) %>
+    </div>
+    <% description_done = true %>
+  <% end %>
+<% end %>
+
+<%= render(:partial => '/content/content_summary', :locals => {:activity => activity, :content => content,
+                                                               :no_description => description_done,
+                                                               :donate_button_donor => donate_button_donor}) %>

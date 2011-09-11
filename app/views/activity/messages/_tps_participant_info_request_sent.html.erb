@@ -1,0 +1,10 @@
+<%= 'Thank you for supporting our music by paying for a goodie from {{album}}.' /
+        link_to(content.content.title, :controller => 'activity', :action => 'read_and_frwd', :id => activity.id,
+                :content_type => Content.name, :content_id => content.content.id) %>
+<%= 'To make sure that all goodies are delivered to their rightful owners, we need additional personal information from all of our goodie receivers.'.t %>
+<% list = ['your full name'.t] %>
+<% list << 'Address'.tdown if content.address_needed %>
+<% list << 'government issued picture ID'.t if content.document_needed %>
+<%= 'Please provide us with {{following}}' /
+        link_to(list.to_sentence(:skip_last_comma => true, :connector => 'and'.t), :controller => 'activity',
+                :action => 'read_and_frwd', :id => activity.id, :type => 'content') %>.

@@ -1,0 +1,41 @@
+--- 
+- 
+  created_at: 2010-09-21 17:26:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Очистить
+  tr_key: "Clear All"
+  tr_origin: /app/views/uploader/_images_config.xml.erb
+  updated_at: 2011-01-09 18:14:58 +00:00
+- 
+  created_at: 2010-09-22 08:43:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Описание треков"
+  tr_key: "Tracks Info"
+  tr_origin: ~
+  updated_at: 2011-01-09 18:15:36 +00:00
+- 
+  created_at: 2010-09-22 08:44:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Загрузить
+  tr_key: "Upload Files"
+  tr_origin: /app/views/uploader/_images_config.xml.erb
+  updated_at: 2011-01-09 18:15:33 +00:00
+- 
+  created_at: 2008-08-21 18:24:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "о сообщениях для проекта %s"
+  tr_key: "For %s project"
+  tr_origin: /app/views/preference/emails.html.erb
+  updated_at: 2011-01-10 13:12:45 +00:00
+- 
+  created_at: 2008-08-21 18:24:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "o ваших личных сообщениях"
+  tr_key: "For my personal Kroogi messages"
+  tr_origin: /app/views/preference/emails.html.erb
+  updated_at: 2011-01-10 13:08:43 +00:00

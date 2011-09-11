@@ -1,0 +1,63 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('Add Content'.t) do %>
+  <% form_border(:subhead_title => "#{skip_step_link(6,@user) + image_tag('music_th.gif')}&nbsp;#{'Add Musical Album'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_music_album_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'music_album',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+
+  <% form_border(:subhead_title => "#{image_tag('sound.png')}&nbsp;#{'Add Track'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_track_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'upload_music',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+
+  <% form_border(:subhead_title => "#{image_tag('video.png')}&nbsp;#{'Add Video'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_video_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'video',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+
+  <% form_border(:subhead_title => "#{image_tag('image.png')}&nbsp;#{'Add Picture'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_image_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'upload_image',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+
+  <% form_border(:subhead_title => "#{image_tag('text.png')}&nbsp;#{'Add Writing'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_text_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'writing',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+
+  <% form_border(:subhead_title => "#{image_tag('folder.png')}&nbsp;#{'Add Folder'.t}") do %>
+    <div class="default"><%= render :partial => "wizard/text/add_folder_#{I18n.locale}"%></div>
+  <% end %>
+  <%= link_to "<button class='button wizard'><span>#{'Upload'.t}</span></button>",
+    {:controller => 'submit',
+    :action => 'album',
+    :host => user_host(@user.login),
+    :user_id => @user}, { :style => "text-decoration:none", :method => :post} %>
+  <br /><br /><br /><br />
+<% end %>

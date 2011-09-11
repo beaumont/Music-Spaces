@@ -1,0 +1,10 @@
+<% @title = 'Admin Console'.t + ' :: ' + "Stop {{project}}'s TPS" / @project.login %>
+
+<% unless @hat.stopped? %>
+  <%= "This will stop {{project}}'s TPS and send the address requests" / @project.login %>
+  <% form_tag do %>
+    <%= submit_tag('Stop'.t, :confirm => 'Are you sure?'.t) %>
+  <% end %>
+<% else %>
+  <%= 'The TPS is stopped'.t %>
+<% end %>

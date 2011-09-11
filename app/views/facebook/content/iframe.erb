@@ -1,0 +1,3 @@
+<% file_name = params[:file_name]%>
+<% id = params[:id]%>
+<%= link_to("#{file_name}", facebook_absolute_url("/facebook/save_as/#{id}"), {:style => "font-weight: bold; color:#3B5998; font-family:Tahoma,Geneva,sans-serif; font-size:14px;text-decoration:none;"}) %>

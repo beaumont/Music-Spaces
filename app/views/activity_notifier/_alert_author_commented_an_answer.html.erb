@@ -1,0 +1,20 @@
+<% comment = content
+   answer = comment.commentable
+   question = answer.question
+%>
+<p>
+  <strong>
+    <%= if activity.from_user == question.user
+      "{{author}} contributed to their Forum discussion:" / h(activity.from_user.display_name)
+    else
+      "{{user}} contributed to {{project_name}} Forum discussion:" / [
+              h(activity.from_user.display_name), h(question.user.display_name),
+      ]
+    end -%>
+  </strong><br/>
+  <%= kf_simple(comment.comment) %>
+</p>
+
+<p>
+  <%= link_to "Read this comment and reply".t, comment_permalink(content) %><br />
+</p>

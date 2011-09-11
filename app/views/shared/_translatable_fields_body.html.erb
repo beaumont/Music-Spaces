@@ -1,0 +1,36 @@
+<%# fields can't be blank, so not doing any checking... -%>
+<%-
+text_area_defaults  = {:rows => 5, :cols => 54}
+text_field_defaults = { :size => 56, :maxsize => 200 }
+fields = [fields] unless fields.is_a?(Array)
+fields.each do |field_params|
+  field = field_params[:field]
+  field_params[:options] ||= {}
+  prefix ||= ""
+  suffix ||= ""
+  -%>
+  <tr>
+    <td class="field_name">
+        <%- if field_params[:title] -%>
+          <%= field_params[:title].is_a?(Proc) ? field_params[:title].call : field_params[:title].t  -%>
+        <%- end -%>
+      <%- if field_params[:sub_title] -%>
+        <%= field_params[:sub_title].is_a?(Proc) ? field_params[:sub_title].call : field_params[:sub_title].t  -%>
+      <%- end -%>
+    </td>
+    <td class="field_area">
+      <%- params = []
+         params << field_params[:param_name] if field_params[:param_name]
+         params << field_params[:object]
+      -%>
+      <%- fields_for *params do |form| -%>
+        <%- form = field_params[:form] if field_params[:form] -%>
+        <%- if ( field_params[:options][:string] || ((coltype = field_params[:object].column_for_attribute(field)) && coltype.type == :string)) -%>
+          <%= form.text_field(prefix + field.to_s + suffix, text_field_defaults.merge(field_params[:options])) -%>
+        <%- else -%>
+          <%= form.text_area(prefix + field.to_s + suffix, text_area_defaults.merge(field_params[:options])) -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>

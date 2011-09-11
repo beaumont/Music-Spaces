@@ -1,0 +1,257 @@
+--- 
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Круг %s"
+  tr_key: "%s Circle"
+  tr_origin: /app/views/project/wizard_circles.html.erb
+  updated_at: 2011-02-22 19:55:55 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показывается только кругу %s и ближе"
+  tr_key: "Visible only to members of the %s and closer circles"
+  tr_origin: /app/views/kroogi/privatewall.html.erb
+  updated_at: 2011-02-22 19:56:12 +00:00
+- 
+  created_at: 2008-09-03 13:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "пригласил %s в круг %s"
+  tr_key: "invited %s to join %s Circle"
+  tr_origin: /app/views/activity/messages/_invite_sent.html.erb
+  updated_at: 2011-02-22 19:54:18 +00:00
+- 
+  created_at: 2008-09-03 13:23:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "повторно пригласил %s в круг %s"
+  tr_key: "reinvited %s to %s Circle"
+  tr_origin: /app/views/activity/messages/_invite_reinvited.html.erb
+  updated_at: 2011-02-22 19:55:30 +00:00
+- 
+  created_at: 2008-10-17 00:34:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "оставил запись в форуме круга %s %s"
+  tr_key: "left a post in %s circle forum of %s"
+  tr_origin: /app/views/activity/messages/_comment_made_or_replied_to.html.erb
+  updated_at: 2011-02-22 19:56:18 +00:00
+- 
+  created_at: 2008-10-10 11:46:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пригласить %s в круг %s"
+  tr_key: "Invite %s to the %s circle"
+  tr_origin: /app/views/activity_notifier/_alert_getcloser.rhtml
+  updated_at: 2011-02-22 19:55:35 +00:00
+- 
+  created_at: 2008-10-10 11:46:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ваш круг %s."
+  tr_key: "your %s circle."
+  tr_origin: /app/views/activity_notifier/_alert_getcloser.rhtml
+  updated_at: 2011-02-22 19:55:14 +00:00
+- 
+  created_at: 2008-10-13 13:12:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s приглашён в круг %s %s"
+  tr_key: "%s is invited to the %s circle of %s"
+  tr_origin: /app/views/user/_permanent_info.html.erb
+  updated_at: 2011-02-22 19:55:08 +00:00
+- 
+  created_at: 2008-10-13 16:40:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подробнее о круге %s"
+  tr_key: "View \"%s\" Circle"
+  tr_origin: /app/views/activity_notifier/_alert_getcloser.rhtml
+  updated_at: 2011-02-22 19:54:03 +00:00
+- 
+  created_at: 2008-10-13 16:40:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Открыть страницу круга %s"
+  tr_key: "Open '%s' Circle page"
+  tr_origin: /app/views/activity_notifier/_alert_forum_post.rhtml
+  updated_at: 2011-02-22 19:54:53 +00:00
+- 
+  created_at: 2008-10-17 16:46:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заглянуть в круг %s %s"
+  tr_key: "View \"%s\" circle of %s"
+  tr_origin: /app/views/activity_notifier/_alert_friend.rhtml
+  updated_at: 2011-02-22 19:54:23 +00:00
+- 
+  created_at: 2008-11-03 16:39:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вашего круга %s"
+  tr_key: "your %s Circle"
+  tr_origin: /app/views/activity_notifier/_alert_comment_reply_content_owner.rhtml
+  updated_at: 2011-02-22 19:55:50 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщения для круга %s %s"
+  tr_key: "The Forum for %s Circle of %s"
+  tr_origin: /app/views/user/thread.html.erb
+  updated_at: 2011-02-22 19:54:38 +00:00
+- 
+  created_at: 2010-12-09 08:45:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_or_project}} {{name}} приглашает вас присоединиться к их кругу {{circle_name}} сообщества Kroogi"
+  tr_key: "Kroogi {{user_or_project}} {{name}} wants you to join their \"{{circle_name}}\" circle on Kroogi"
+  tr_origin: /app/views/invite_notifier/invite_notification.text.plain.erb
+  updated_at: 2011-02-22 19:56:35 +00:00
+- 
+  created_at: 2008-10-06 22:52:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Уже приглашён в ваш круг %s или ближе (повторное приглашение выслано не будет)"
+  tr_key: "Already invited to your %s Circle or closer (will not be reinvited)"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-02-22 19:57:19 +00:00
+- 
+  created_at: 2008-10-06 22:52:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Уже в вашем круге %s или ближе (приглашение не выслано)"
+  tr_key: "Already in your %s Circle or closer (will not be invited)"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-02-22 19:56:50 +00:00
+- 
+  created_at: 2008-10-10 11:46:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Открыть ваш круг %s"
+  tr_key: "View your %s Circle"
+  tr_origin: /app/views/activity_notifier/_alert_friend.rhtml
+  updated_at: 2011-02-22 19:49:08 +00:00
+- 
+  created_at: 2008-10-10 11:46:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s %s приглашает вас присоединиться к кругу %s в сети \"Круги\""
+  tr_key: "Kroogi %s %s invited you to join their %s Circle on Kroogi"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:50:20 +00:00
+- 
+  created_at: 2010-09-05 16:22:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_or_project}} {{name}} приглашает вас присоединиться к их кругу {{circle_name}} сообщества Kroogi.com"
+  tr_key: "Kroogi {{user_or_project}} {{name}} wants you to join their circle of \"{{circle_name}}\" in Kroogi community"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:50:06 +00:00
+- 
+  created_at: 2008-09-03 13:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "отклонил приглашение в ваш круг %s"
+  tr_key: "declined the invitation to your %s Circle"
+  tr_origin: /app/views/activity/messages/_invite_denied.html.erb
+  updated_at: 2011-02-22 19:57:41 +00:00
+- 
+  created_at: 2008-11-03 16:56:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ответил на вашу запись в форуме круга %s %s"
+  tr_key: "replied to your forum post in %s circle of %s"
+  tr_origin: /app/views/activity/messages/_comment_made_or_replied_to.html.erb
+  updated_at: 2011-02-22 19:57:24 +00:00
+- 
+  created_at: 2008-10-13 16:39:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Установить плату за членство в ваших кругах"
+  tr_key: "Setup membership fees for your circles"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:51:01 +00:00
+- 
+  created_at: 2008-10-17 23:29:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s удалён из круга %s %s"
+  tr_key: "%s removed from the %s circle of %s"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:52:06 +00:00
+- 
+  created_at: 2011-02-21 12:13:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Посмотреть круг %s %s"
+  tr_key: "View %s circle of %s"
+  tr_origin: /app/views/activity_notifier/_alert_downcircle.rhtml
+  updated_at: 2011-02-22 19:59:04 +00:00
+- 
+  created_at: 2011-02-21 12:13:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "переместил вас в круг {{to}}"
+  tr_key: "moved you to {{to}} circle"
+  tr_origin: /app/views/activity/messages/_moved_to_up_circle.html.erb
+  updated_at: 2011-02-22 19:59:29 +00:00
+- 
+  created_at: 2011-02-21 12:13:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл в ваш круг {{to}}"
+  tr_key: "moved himself to your {{to}} circle"
+  tr_origin: /app/views/activity/messages/_moved_to_down_circle.html.erb
+  updated_at: 2011-02-22 19:59:48 +00:00
+- 
+  created_at: 2011-02-21 12:13:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} перешёл из круга {{from}} в ваш круг {{to}}"
+  tr_key: "{{user}} moved himself from your {{from}} circle to {{to}} circle"
+  tr_origin: /app/views/activity_notifier/_alert_downcircle.rhtml
+  updated_at: 2011-02-22 20:00:58 +00:00
+- 
+  created_at: 2011-02-21 12:13:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} перешёл в ваш круг {{to}} "
+  tr_key: "{{user}} moved himself to your {{to}} circle"
+  tr_origin: /app/views/activity_notifier/_alert_downcircle.rhtml
+  updated_at: 2011-02-22 20:00:15 +00:00
+- 
+  created_at: 2008-10-13 16:40:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "присоединиться к его кругу %s"
+  tr_key: "to join their \"%s\" Circle"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:52:27 +00:00
+- 
+  created_at: 2008-11-18 16:22:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "кругу %s"
+  tr_key: "circle of %s"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:52:49 +00:00
+- 
+  created_at: 2008-09-18 14:55:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s открыл вам доступ в свой круг %s"
+  tr_key: "%s has granted you access to their %s Circle."
+  tr_origin: ~
+  updated_at: 2011-02-22 19:53:02 +00:00
+- 
+  created_at: 2008-09-18 14:55:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "открыл вам доступ в круг %s"
+  tr_key: "has granted you access to %s Circle"
+  tr_origin: ~
+  updated_at: 2011-02-22 19:52:32 +00:00

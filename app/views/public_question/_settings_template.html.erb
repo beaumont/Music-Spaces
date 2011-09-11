@@ -1,0 +1,12 @@
+<% content_for :right_column do %>
+  <%= render :partial => "public_question/right_column_#{I18n.locale}" %>
+  <div class="blue_block sidebar">
+    <%= link_to h('Forum Archive'.t), 
+                    :controller => 'public_question', 
+                    :action => 'archive' %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => 'Question Settings'.t, :left_block => render(:partial => 'public_question/left_menu'), :content_head => '') do %>
+  <%= yield %>
+<% end %>

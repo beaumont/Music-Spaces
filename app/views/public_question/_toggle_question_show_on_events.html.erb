@@ -1,0 +1,18 @@
+<%  show_check_box ||= false %>
+
+<div style="margin: 0 0 0 5px;">
+	<span id="show_on_events<%= question.id %>">
+  		<%= question_show_on_events_caption(question) %>
+	</span>
+  	<%= link_to_remote 'Change this'.t, :url => {:action => 'toggle_show_on_events', :id => question},
+                     :update => "show_on_events#{question.id}",
+                     :loading => "$('wait_up_homie#{question.id}').show();",
+                     :loaded=> "$('wait_up_homie#{question.id}').hide();" %>
+  <%= wait_up_homie(:id => "wait_up_homie#{question.id}", :valign => :top) %>
+</div>
+
+<div style="margin: 0 0 15px 0;">
+	<% if show_check_box == 'true' %>
+  		<%= check_box_tag 'q_ids[]', question.id, false, {:class => 'checkbox'} %> <%= 'Select this Question'.t %>
+	<% end %>
+</div>

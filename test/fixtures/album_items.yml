@@ -1,0 +1,77 @@
+joydivision_is_in_kroogi_music:
+  id: 1
+  album_id: 6
+  content_id: 4
+  position: 0
+  created_by_id: 2
+
+joydivision_is_in_postpunk:
+  id: 2
+  album_id: 7
+  content_id: 8
+  position: 0
+  created_by_id: 2
+
+postpunk_is_in_kroogi_music:
+  id: 3
+  album_id: 6
+  content_id: 5
+  position: 0
+  created_by_id: 2
+
+jd_closer_isolation_track:
+  id: 4
+  album_id: 14
+  content_id: 15
+  position: 0
+  created_by_id: 8
+
+jd_closer_decades_track:
+  id: 5
+  album_id: 14
+  content_id: 16
+  position: 1
+  created_by_id: 8
+
+jd_up_disorder_track:
+  id: 6
+  album_id: 2
+  content_id: 17
+  position: 0
+  created_by_id: 8
+
+jd_up_insight_track:
+  id: 7
+  album_id: 2
+  content_id: 18
+  position: 1
+  created_by_id: 8
+
+jd_closer_isolation_track_is_featured:
+  id: 8
+  album_id: 3
+  content_id: 15
+  position: 0
+  created_by_id: 8
+
+jd_closer_text:
+  id: 9
+  album_id: 14
+  content_id: 20
+  position: 2
+  created_by_id: 8
+
+matisyahu_young_man_track:
+  id: 10
+  album_id: 25
+  content_id: 29
+  position: 1
+  created_by_id: 21
+ 
+squarepusher_weird_album_track:
+  id: 11
+  album_id: 12
+  content_id: 15 
+  position: 1
+  created_by_id: 8
+

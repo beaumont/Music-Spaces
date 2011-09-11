@@ -1,0 +1,97 @@
+--- 
+- 
+  created_at: 2011-01-31 19:52:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Введите свой e-mail адрес для регистрации (на него будет выслано приглашение в Круги)."
+  tr_key: "Enter your email address below to create an account (We will email you an invitation to join Kroogi)."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 18:04:50 +00:00
+- 
+  created_at: 2011-02-06 19:31:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы не терять ссылки на скачиваемые альбомы и получить возможность общаться с {{artist}}, вам необходимо {{login_link}} или {{register_link}}."
+  tr_key: "{{login_link}} or {{register_link}} to start building your relationship with {{artist}} and have all your download links in one place."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:25:27 +00:00
+- 
+  created_at: 2011-02-07 20:13:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещён в круг Фан-клуб {{followed}} "
+  tr_key: "{{follower}} moved to the Fun Club circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-08 17:09:24 +00:00
+- 
+  created_at: 2011-02-07 20:13:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Фан-клуб"
+  tr_key: "Move to Fan Club"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 17:03:25 +00:00
+- 
+  created_at: 2011-02-07 20:13:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} удалён из круга {{circle_name}} {{followed}}"
+  tr_key: "{{follower}} removed from the {{circle_name}} circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-08 17:02:01 +00:00
+- 
+  created_at: 2011-02-07 20:13:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в круг Зрители"
+  tr_key: "Move to Audience"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 17:05:12 +00:00
+- 
+  created_at: 2011-02-06 19:31:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание! Чтобы иметь возможность скачать '{{album}}' повторно, в случае если ваша загрузка прервётся, вам необходимо {{login_link}} или {{register_link}}. "
+  tr_key: "Important! {{login_link}} or {{register_link}}. This will let you download '{{album}}' again. You will need it if the initial download breaks."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:42:07 +00:00
+- 
+  created_at: 2011-02-08 17:26:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: зарегистрироваться
+  tr_key: "Register ((to be in))"
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:42:25 +00:00
+- 
+  created_at: 2011-02-08 17:26:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: зарегистрироваться
+  tr_key: "Register ((to be in with mnc))"
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:32:44 +00:00
+- 
+  created_at: 2011-02-08 17:26:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "войти в систему"
+  tr_key: "Login ((to be in))"
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:32:30 +00:00
+- 
+  created_at: 2011-02-08 17:26:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "войти в систему"
+  tr_key: "Login ((to be in with mnc))"
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 17:42:48 +00:00
+- 
+  created_at: 2011-02-08 17:26:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы не терять ссылки на скачиваемые альбомы и получить возможность общаться с {{artist}}, вам необходимо войти в систему или зарегистрироваться. "
+  tr_key: "Please login or register to start building your relationship with {{artist}} and have all your download links in one place. Registration is free."
+  tr_origin: /app/views/content/_download_donate_widget.html.erb
+  updated_at: 2011-02-08 17:31:27 +00:00

@@ -1,0 +1,220 @@
+
+<%= error_messages_for 'user' %>
+
+<table class="admin user">
+  <tr>
+    <th><%= 'Name'.t %></th>
+    <th><%= 'Value'.t %></th>
+  </tr>
+
+  <tr class=<%= cycle_color %> >
+    <td><label for="user_login"><%= 'Login Name'.t %></label></td>
+    <td>
+    <%= form.text_field("login", :id => "login", :size => 30, :maxsize => 30, :autocomplete => "off") if controller.action_name != 'edit' %>
+    <%= @user.login if controller.action_name == 'edit' %>
+    </td>
+  </tr>
+
+  <% if !@user.is_a?(Project) %>
+  <tr class=<%= cycle_color %>>
+  <td><%= 'Roles'.t %>:</td>
+    <td>
+    <% @all_roles.each do |role|
+        if role.id != Role::ANON
+    %>
+           <%= check_box_tag("user[role_ids][]", role.id, @user.roles.include?(role))  %>
+           <%= role.name %><br/>
+    <%  end
+    end %>
+    </td>
+  </tr>
+  <% end %>
+
+  <tr class=<%= cycle_color %>>
+    <td><label for="user_email"><%= 'Email'.t %></label></td>
+    <td><%= form.text_field('email', :size => 30, :maxsize => 200, :autocomplete => "off")  %></td>
+  </tr>
+
+  <% if !@user.is_a?(Project) %>
+  <tr class="<%= color = cycle_color %>">
+    <td>
+      <input id="set_plain_password" type="radio" checked="" name="set_password"
+        onclick="show_passwords_group(true);" value="plain" />
+
+      <label for="set_plain_password"><%= 'Plain password'.t%></label>
+
+      <input id="set_crypted_password" type="radio" name="set_password"
+        onclick="show_passwords_group(false);" value="crypted" />
+
+      <label for="set_crypted_password"><%= 'Crypted Password'.t%></label>
+    </td>
+    <td></td>
+  </tr>
+  <tbody id="plain_password_rows">
+    <tr class="<%= color %> continued">
+      <td><label for="user_password"><%= 'Password'.t %></label></td>
+      <td><input type="password" name="user[password]" size="30" maxlength="60" value=""/></td>
+    </tr>
+    <tr class="<%= color %> continued">
+      <td><label for="user_password_confirmation"><%= 'Password Confirmation'.t %></label></td>
+      <td><input type="password" name="user[password_confirmation]" size="30" maxlength="60" value=""/></td>
+    </tr>
+  </tbody>
+  <tr class="<%= color %> continued" id="crypted_password_row" style="display:none;">
+    <td><label for="user_crypted_password"><%= 'Crypted Password'.t %></label></td>
+    <td><input type="crypted_password" name="user[crypted_password]" size="30" maxlength="60" value=""/></td>
+  </tr>
+  <% end %>
+
+  <tr class="<%= cycle_color %>">
+    <td colspan="2">  <%= render :partial => "shared/translatable_fields", :locals => {:f => form, :content => @user,
+        :fields => [["Display Name", 'display_name']]} %>
+</td>
+  </tr>
+
+  <tr class="<%= cycle_color %>" id="billing_row">
+    <td><label><%= 'Upload quota, Mb'.t %></label></td>
+    <td>
+      <%= form.text_field :upload_quota_mb %> 
+    </td>
+  </tr>
+
+  <tr class="<%= cycle_color %>" id="billing_row">
+    <td><label><%= 'Billing Enabled'.t %></label></td>
+    <td>
+      <%= check_box 'account_setting', :billable %> Enable Billing
+    </td>
+  </tr>
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_minimum_withdrawal_amount"><%= 'Minimum Withdrawal Amount'.t %></label></td>
+    <td>$<%= text_field_tag "account_setting[minimum_withdrawal_amount]", @account_setting.minimum_for_withdrawal %></td>
+  </tr>
+
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_withdrawal_limit"><%= 'Withdrawal limit'.t %></label></td>
+    <td>$<%= text_field :account_setting, :withdrawal_limit, :size => 20 %></td>
+  </tr>
+
+ <tr class="<%= cycle_color %>">
+    <td><label><%= 'Withdrawal Waiting Period'.t %></label></td>
+    <td>
+	 <%= text_field :account_setting, :waiting_period, :size => 6 %> <%= 'Days'.t %>
+    </td>
+  </tr>
+
+  <tr class="<%= cycle_color %>">
+    <td><label><%= 'Current Payment System'.t %></label></td>
+    <td>
+      <% if @user.account_setting.nil? or @user.account_setting.current_monetary_processor_account.nil? %>
+		<% if @user.account_setting && !@user.account_setting.has_an_approved_account_set? -%>
+			<%= link_to 'Allow Donations'.t, url_for(:action => :allow_donations, :id => @user.id), :confirm => 
+				'This will allow the user to receive donations without a valid withdrawal account'.t %>
+		<% else -%>
+        None <%- if @user.account_setting && @user.account_setting.has_an_approved_account_set?%>(Able to receive donations)<% end -%>
+		<% end -%>
+      <% else %>
+        <%= render :partial => "/monetary_processor_accounts/#{@user.account_setting.current_monetary_processor_account.short_name}/show_status",
+                   :locals => {:current_monetary_processor_account => @user.account_setting.current_monetary_processor_account,
+                               :admin => true}%>
+      <% end %>
+    </td>
+  </tr>
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_webmoney_minimum_passport"><%= 'WebMoney Required Passport Type'.t %></label></td>
+    <td>
+    <%= wm_options = WebMoneyAccount::WM_ACCOUNT_TYPES
+    select_tag :wm_passport, options_for_select(wm_options, @account_setting.webmoney_passport_minimum)%></td>
+  </tr>
+
+  
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_webmoney_passport"><%= 'WebMoney Actual Passport Type'.t %></label></td>
+    <td><%= @account_setting.webmoney_account.display_level.t %></td>
+  </tr>
+  
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_wmid"><%= 'WebMoney WMID'.t %></label></td>
+    <td><%= @account_setting.webmoney_account.external_id %></td>
+  </tr>
+
+  <tr class="<%= cycle_color %>">
+    <td><label for="account_setting_wmid"><%= 'Attached WebMoney Purses'.t %></label></td>
+    <td><%= @account_setting.webmoney_account.account_type %></td>
+  </tr>  
+  
+  <tr class="<%= cycle_color %>" id="questions_row">
+    <td><label><%= 'Q&A'.t %></label></td>
+    <td><%= link_to_remote %{<span id="qa#{@user.id}">#{(@user.questions_enabled? ? "Disable Q&A".t : "Enable Q&A".t)}</span>},
+                           :url => {:controller => '/admin/users', :action => 'toggle_questions', :id => @user},
+                           :update => "qa#{@user.id}", :success => '$("questions_row").highlight();'  %></td>
+  </tr>
+  <tr class="<%= cycle_color %>">
+     <td><label><%= 'Q&A: questions interval'.t %></label></td>
+     <td>
+       <%= text_field_tag "rare_settings[questions_interval]", @user.questions_interval %>
+     </td>
+ </tr>
+  <tr class="<%= cycle_color %>">
+     <td><label><%= 'Q&A: questions interval randmoness delta'.t %></label></td>
+     <td>
+       <%= text_field_tag "rare_settings[questions_interval_random_delta]", @user.questions_interval_random_delta %>
+     </td>
+ </tr>
+
+ <%
+  settings = @user.rare_user_settings
+  kit_id = settings.questions_kit_id if settings
+ %>
+ <% unless kit_id.blank? %>
+  <tr class="<%= cycle_color %>">
+     <td><label><%= 'Q&A: Questions Kit'.t %></label></td>
+     <td>
+       <% if @user.can_change_questions_kit? %>
+         <%= select_tag "rare_settings[questions_kit_id]", options_for_questions_kit(@questions_kits, kit_id) %>
+       <% else %>
+         <%= get_questions_kit_name(@questions_kits, @user) %>
+       <% end %>
+     </td>
+  </tr>
+ <% end %>
+
+  <tr class="<%= cycle_color %>" id="guest_commenting_row">
+    <td><label><%= 'Guest commenting'.t %></label></td>
+    <td><%= link_to_remote %{<span id="guest_commenting#{@user.id}">#{toggle_guest_commenting_caption(@user)}</span>},
+                           :url => {:controller => '/admin/users', :action => 'toggle_guest_commenting', :id => @user},
+                           :update => "guest_commenting#{@user.id}", :success => '$("guest_commenting_row").highlight();'  %></td>
+  </tr>
+  <tr class="<%= cycle_color %>" id="fwd_tos_allowed_row">
+    <td><label><%= 'Allow Terms of Service for Downloadable Folders?'.t %></label></td>
+    <td><%= link_to_remote %{<span id="fwd_tos_allowed#{@user.id}">#{toggle_fwd_tos_allowed_caption(@user)}</span>},
+                           :url => {:controller => '/admin/users', :action => 'toggle_fwd_tos_allowed', :id => @user},
+                           :update => "fwd_tos_allowed#{@user.id}", :success => '$("fwd_tos_allowed_row").highlight();'  %></td>
+  </tr>
+  <tr class="<%= cycle_color %>" id="tps_setup_row">
+    <td><label><%= 'TPS Setup'.t %>:</label></td>
+    <td><%= link_to_remote %{<span id="tps_setup_#{@user.id}">#{@user.tps_setup_enabled? ? 'Disable' : 'Enable'}</span>},
+                           :url => {:controller => '/admin/users', :action => 'tps_setup_toggle', :id => @user},
+                           :update => "tps_setup_#{@user.id}", :success => '$("tps_setup_row").highlight();'  %></td>
+  </tr>
+</table>
+
+<script type="text/javascript" charset="utf-8">
+  function show_passwords_group(plain){
+    if (plain == 'choose') {
+      plain = $('set_plain_password').checked;
+    }
+    if (plain) {
+      to_show = 'plain_password_rows';
+      to_hide = 'crypted_password_row';
+    } else {
+      to_show = 'crypted_password_row';
+      to_hide = 'plain_password_rows';
+    }
+
+    $(to_show).show();
+    $(to_hide).hide();
+  }
+  
+  show_passwords_group('choose');
+</script>
+

@@ -1,0 +1,8 @@
+<div class="wellspaced">
+  <div>
+    <%= kf_content entry.post, :bigger_truncation => nil %>
+  </div>
+  <% if entry.embedded_image %>
+    <%= render :partial => 'image_content', :locals => {:entry => entry.embedded_image} %>
+  <% end %>
+</div>

@@ -1,0 +1,76 @@
+<% archive ||= false %>
+<% question = answer.question %>
+<% if answer.can_see? && !answer.deleted? %>
+  <div class="user_block">
+    <div class="block_date"><%= answer.created_at.to_s(:date_with_time) %></div>
+    <div class="block_username"><%= user_link(answer.user, :icon => true) %></div>
+    <%= avatar_md(answer.avatar_id ? (Image.active.find(answer.avatar_id) rescue answer.user) : answer.user) %>
+    <div class="block_body">
+      <div class="default_lg <%= answer.user.is_self_or_owner?(question.user) ? "artist_answer" : "" %>">
+        <%=  kf_simple(answer.text) -%>
+      </div>
+      <div class="right">
+        <div class="block_action">
+          <% show_comments = (params[:show_comments] == answer.id.to_s) %>
+          <% if show_comments %>
+            <%= link_to image_tag('comments.png') + "&nbsp;" + 'Hide Comments'.t, params_without(:show_comments) %>
+          <% else %>
+            <% commenting_allowed = !archive && (logged_in? || question.user.allows_guest_comments?) %>
+            <%= comments_count_link_or_label(answer.comment_count, :readonly => !commenting_allowed,
+                                             :some_comments_label => '{{count}} Comments' / answer.comment_count) do |caption|
+              link_to caption, params_without(:show_comments).merge(:show_comments => answer.id, :anchor => 'comments')
+            end %>
+          <% end %>
+        </div>
+        <span class="separator">&nbsp;</span>
+          <% unless archive %>
+            <%= render :partial => '/voting/voting', :locals => {:entry => answer} %>
+          <% else %>
+            <div class="project_vote">
+              <div class="vote vote_count"><%= votes_count_caption(answer.up_votes.count) %></div>
+            </div>
+          <% end %>
+          <div class="block_action">
+            <% unless archive %>
+              <%# TODO: create new helper for this link %>
+              <%#= comment_deletion_link(answer, 'Delete'.t, :confirm => "Are you sure you want to delete this answer?".t,
+                                    :url_options => {:controller => 'public_question', :action => 'delete_answer', :id => answer}, :separator => true)%>&nbsp;
+            <% end %>
+          </div>
+          <% if params[:show_comments] == answer.id.to_s %>
+            <div class="comments_container" id="comments">
+              <% unless logged_in? %>
+                <% before_form = '' +
+                  render(:partial => '/shared/login_to_comment',
+                         :locals => {
+                                 :user => question.user,
+                                 :ids => ['login_to_comment_link', 'signup_to_comment_link'],
+                                 :captions => [
+                                        'You are not signed in. You can still post entries to this forum as a guest user, however, you will not be notified when other participants respond to you.'.t + ' ' + '<a {{login_attribs}}>Sign in</a> or <a {{signup_attribs}}>register</a> to receive notifications.' /
+                                           ["href=\"#{url_for(login_link_params())}\" id=\"login_to_comment_link\"",
+                                            "href=\"/signup\" id=\"signup_to_comment_link\""],
+                                         "Log in".t,
+                                         'Log in'.t,
+                                         'Create Kroogi Account'.t,
+                                         'You will not be able to receive comments notification until you activate your account.'.t,
+                                 ],
+                                 :dialog_id_suffix => 'comment',
+                                 :show_invocation_links => false,
+            }) + '' %>
+              <% end %>
+              <%= render :partial => 'comments/flat_comments', :locals => {
+                  :commentable => answer, :allow_commenting => !archive, :allow_deletion => !archive,
+                  :allow_guests_commenting => question.user.allows_guest_comments?,
+                  :before_form => before_form,
+                  :comment_class_generator => lambda {|comment| comment.user.is_self_or_owner?(question.user) ? "artist_answer" : ""}
+                  } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% unless @answers.last == answer %>
+    <div class="grey_line2"></div>
+  <% end %>
+<% end %>
+

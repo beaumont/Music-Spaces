@@ -1,0 +1,109 @@
+<% dialog_id_suffix ||= 1 %>
+
+<% content_for :css do %>
+  <style type="text/css">
+    .calendar_date_select {
+      z-index: 9999 !important;
+    }
+  </style>
+<% end %>
+
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<% cache(guest_partial_cache_key('signup_widget', local_assigns)) do %>
+  <script type="text/javascript" language="javascript">
+    function checkSignupCheckBoxes_<%= dialog_id_suffix %>() {
+
+      if ($('tos_<%= dialog_id_suffix %>').checked == false)
+      {
+        alert ('<%= 'You must read and accept Terms of Service to create an account.'.t -%>');
+        return false;
+      }
+      else if (jQuery('#signupForm #birthdate_<%= dialog_id_suffix %>').val() == '') {
+        alert ('<%= 'Please enter a your birthday.'.t -%>');
+        return false;
+      }
+      else
+      {
+        var birthdate = jQuery('#signupForm #birthdate_<%= dialog_id_suffix %>').val().split("-");
+        var age = 13;
+        var mydate = new Date();
+        mydate.setFullYear(parseInt(birthdate[0]), parseInt(birthdate[1]) -1, parseInt(birthdate[2]));
+
+        var currdate = new Date();
+        currdate.setFullYear(currdate.getFullYear() - age);
+        if ((currdate - mydate) < 0){
+          alert('<%= 'Please note that this Site is not aimed at users under thirteen (13) years of age. Users thirteen (13) years or younger are required to have a parent or guardian review and complete any registration process, which may include age verification steps in addition to the standard process.'.t %>');
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  </script>
+
+  <h3><a href="#"><%= title %></a></h3>
+  <div>
+    <% remote_form_for :user_to_create, :url => {:controller => 'home', :action => 'signup', :ajax_mode => true}, :type => :synchronous,
+      :html => {:id => 'signupForm', :name => 'signupForm', :onsubmit => "if (!checkSignupCheckBoxes_#{dialog_id_suffix}()) {return false};", :class=> "signup" }  do |f| -%>
+      <% form_border do %>
+        <div id="signup_form_errors_<%= dialog_id_suffix %>" class="error"></div>
+        <%= f.hidden_field 'project_to_follow', :value => (project_to_follow ? project_to_follow.id : nil), :class => 'project_to_follow' %>
+        <%= f.hidden_field 'start_following', :value => start_following, :class => 'start_following' %>
+        <%= f.hidden_field 'created_on_event', :class => 'on_event' %>
+        <div style="padding-left: 90px;">
+          <label for="user_to_create_email"><%= 'Email'.t -%></label>
+          <%= f.text_field :email, :style => "width:250px;", :class => 'email' %>
+          <div class="default"><%= render :partial => '/shared/we_will_keep_your_email_private_wording' %></div>
+
+          <label for="user_to_create_login_<%=dialog_id_suffix%>"><%= 'Login Name'.t -%></label>
+          <% sub_text = %Q{<div class="default" id="allowed_values_#{dialog_id_suffix}">#{'Letters, numbers, and dashes (-) are allowed.'.t}</div>}%>
+          <%= render :partial => '/shared/form_observable_field',
+            :locals => {:f => f,
+                        :field_to_observe => "user_to_create_login_#{dialog_id_suffix}",
+                        :dialog_id_suffix => dialog_id_suffix,
+                        :field => 'login',
+                        :model => 'user',
+                        :validate => true,
+                        :sub_text => sub_text} %>
+
+          <label for="user_to_create_password"><%= 'Password'.t -%></label>
+          <%= f.password_field :password, :style => "width:150px;"%>
+          <div class="default"><%= "Password must be at least 4 characters long.".t %></div>
+          <label for="user_to_create_password_confirmation"><%= 'Confirm'.t -%></label>
+          <%= f.password_field :password_confirmation, :style => "width:150px;" %>
+          <label for="user_to_create_gender" class="cell"><%= 'Gender'.t -%></label>
+          <%= f.radio_button 'gender', 'M', :checked => 'checked' %>
+          <%= 'Male'.t %>
+          <%= f.radio_button 'gender', 'F' %>
+          <%= 'Female'.t %>
+          <label for="user_to_create_birthdate"><%= 'Birthday'.t -%></label>
+          <%= calendar_date_select_tag "user_to_create[birthdate]", '', :time => false ,
+            :year_range => 110.years.ago..13.years.ago,
+            :id => "birthdate_#{dialog_id_suffix}" %>
+          <label for="user_to_create_language"><%= 'Language'.t -%></label>
+          <%= f.radio_button 'language', 'en', :checked => "#{ I18n.locale == 'en' ? 'checked' : ''}" %>
+          <%= 'English'.t %>
+          <%= f.radio_button 'language', 'ru', :checked => "#{ I18n.locale == 'ru' ? 'checked' : ''}" %>
+          <%= 'Russian'.t %>
+          <br />
+          <%= check_box_tag "tos", "", false, :id => "tos_#{dialog_id_suffix}" %>
+          <label for="tos_<%= dialog_id_suffix %>" style="display: inline; font-weight: normal;"><%= 'I have read and accepted <a {{tos_link_attributes}}>Terms of Service</a>' / kroogi_tos_link_attributes -%></label>
+        </div>
+      <% end %>
+      <%= hidden_field_tag :dialog_id_suffix, dialog_id_suffix %>
+
+      <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+        :disable_cancel => true,
+        :ok_label => 'Join'.t,
+        :validate => "checkSignupCheckBoxes_#{dialog_id_suffix}()",
+        :ajax_mode => true,
+        :cleanup_after => restore_submit_button_state,
+        :buttons_widget_id => "signup_widget_#{dialog_id_suffix}",
+      } %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,79 @@
+<div class="sentbyFriends">
+  <div class="pageTitle">Sent By Friends</div>
+  <div class="sentbyAlbums">
+    <% @activities.each do |activity| %>
+      <% if activity.content && activity.content.is_a?(MusicAlbum) %>
+        <% if activity.content.qualify_for_fb %>
+          <div class="whiteBox">
+            <% if activity.content.cover_art %>
+              <div class="cover">
+                <%= link_to image_tag(activity.content.cover_art.thumb(:thumb).public_filename,
+                  :border => 0, :width => 100,
+                  :alt => h(activity.content.cover_art.thumb(:thumb).filename)),
+                  {:controller => 'content', :action => 'show', :id => activity.content.id}%>
+              </div>
+            <%end%>
+            <div class="whiteBoxContent">
+              <div class="title"><%= link_to(h(activity.content.title),{:controller => 'content', :action => 'show', :id => activity.content.id}) %></div>
+              <div class="artist">
+                <%= "#{activity.content.artist}" unless activity.content.artist.blank? -%>
+                <%= " / " unless activity.content.artist.blank? ||activity.content.year.blank?%>
+                <%= "#{activity.content.year}" unless activity.content.year.blank? -%>
+              </div>
+              <div class="style"><%= h(activity.content.genre) unless activity.content.genre.blank? %></div>
+              <div class="greyLine5"></div>
+              <%= render :partial => 'friends_list', :locals=>{:activity => activity} %>
+              <div class="clear"></div>
+            </div>
+          </div>
+        <%else%>
+          <div class="whiteBox">
+            <% if activity.content.cover_art %>
+              <div class="cover opacity">
+                <%= image_tag(activity.content.cover_art.thumb(:thumb).public_filename,
+                  :border => 0, :width => 100,
+                  :alt => h(activity.content.cover_art.thumb(:thumb).filename)) %>
+              </div>
+            <%end%>
+            <div class="whiteBoxContent">
+              <div class="noAlbum">This album is no longer available on Kroogi Downloads</div>
+              <div class="noAlbumInfo">
+                <div class="title"><%= activity.content.title %></div>
+                <div class="artist">
+                  <%= "#{activity.content.artist}" unless activity.content.artist.blank? -%>
+                  <%= " / " unless activity.content.artist.blank? ||activity.content.year.blank?%>
+                  <%= "#{activity.content.year}" unless activity.content.year.blank? -%>
+                </div>
+                <div class="style"><%= h(activity.content.genre) unless activity.content.genre.blank? %></div>
+              </div>
+              <div class="greyLine5"></div>
+              <%= render :partial => 'friends_list', :locals=>{:activity => activity} %>
+              <div class="clear"></div>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+    <%end%>
+    <div class="findFooter">
+      <div style="display:inline;white-space: nowrap;">
+        <table border="0">
+          <tr>
+            <% if @activities.next_page %>
+              <td width="460px">
+                <% url = facebook_absolute_url("/facebook/received?page=#{@page}")%>
+               <%= link_to("More Albums #{image_tag('FBArrowDown.png')}","#",{
+                        :clickrewriteurl => url,
+                        :clickrewriteform => 'dummy_form',
+                        :clickrewriteid => 'ajaxUpdater',
+                        :clicktoshow => 'spinner'}) %>
+
+               <form id="dummy_form"></form>
+              </td>
+              <td><span id="spinner" style="display:none;"> <%=image_tag('indicator_blue_small.gif')%> </span></td>
+            <%end%>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

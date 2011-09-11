@@ -1,0 +1,12 @@
+<% content_for :body do %>
+  <%= render :partial => "/layouts/shared/header" %>
+
+  <div id="right_column">
+    <%= yield :right_column %>
+  </div>
+  <div id="main_content_left">
+    <%= yield %>
+  </div>
+<% end %>
+
+<%= render :file => 'layouts/common' %>

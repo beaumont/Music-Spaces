@@ -1,0 +1,47 @@
+<div class="login_window_o">
+  <div class="login_window_title"><table class="login_window_title_t"><tr><td style="vertical-align:middle;"><p class="login_window_title_tx"><%%= "Join Kroogi Network".t %></p></td></tr></table></div>
+  <div class="login_window_info">
+  <%%= "Language".t %><br /><br /><%% form_tag({:action => 'thanks', :id => current_actor}, {:method => 'get'}) do -%>
+          <!-- %= hidden_field_tag 'curr_url', url_for(:overwrite_params => {}) % -->
+          <select name="locale" class="feedback_input" style="width:214px;" onchange="this.form.submit();">
+            <%%= options_for_select(APP_CONFIG.language_menu, I18n.language_code) %>
+          </select>
+        <%% end -%>
+  </div>
+  <div class="login_window_form">
+
+
+ <%% if flash[:error] %>
+  <p class="login_window_form_el" style="color:red;"><%%= flash[:error] %><br />
+  <%%= error_messages_for :<%= file_name %> %></p><br />
+ <%% flash[:error] = nil end %>
+
+<%% form_for :<%= file_name %> do |f| -%>
+<input type="hidden" name="activation_code" value="<%%= params[:activation_code] %>" />
+
+<p><label for="email" class="login_window_form_el"><%%= 'Email'.t -%>:</label></p>
+<%%= f.text_field :email, :style => "width:250px;", :class => "feedback_input" %>
+
+<p><label for="login" class="login_window_form_el"><%%= 'Kroogi Name'.t -%>:</label></p>
+<%%= f.text_field :login, :style => "width:250px;", :class => "feedback_input" %>
+<p style="width:350px;"><%%= "Kroogi name must be at least 3 characters long, it can only contain latin characters and numbers, case sensitive, no special characters except dash (-). The name cannot start or end with dash (-)".t %></p>
+
+<p><label for="password" class="login_window_form_el"><%%= 'Password'.t -%>:</label></p>
+<%%= f.password_field :password, :style => "width:250px;", :class => "feedback_input" %>
+<p><label for="password_confirmation" class="login_window_form_el"><%%= 'Confirm Password'.t -%>:</label></p>
+<%%= f.password_field :password_confirmation, :style => "width:250px;", :class => "feedback_input" %>
+<p style="width:350px;"><%%= "Kroogi password must be at least 4 characters long, it can only contain latin characters and numbers, case sensitive, no special characters except dash (-). The password cannot start or end with dash (-)".t %></p>
+
+<p><label for="login" class="login_window_form_el"><%%= 'Full Name'.t -%>:</label></p>
+<%%= f.text_field :display_name, :style => "width:250px;", :class => "feedback_input" %>
+
+<br /><br />
+<button class="button" type="submit" name="commit"><span><%%= 'Sign up'.t %></span></button>
+
+<%% end -%>
+
+ </div>
+</div>
+<div class="login_window_bottom">
+<p><%%= "Kroogi membership is currently open through personal invitations only.<br /><br />If you already received your invitation, please follow the instructions contained in the email. If you do not have an invitation, please contact someone who is already a member of Kroogi and ask them to bring you in.".t %></p>
+</div>

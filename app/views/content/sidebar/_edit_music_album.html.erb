@@ -1,0 +1,13 @@
+<div class="default"><%= render :partial => '/shared/modal_dialog',
+    :locals => {:button_title => 'Edit'.t, :button_class => 'button_gr', :entry => entry,
+    :title => 'Remove downloadable file before editing'.t,
+    :box_id => 'edit_ma_dialog', :box_contents =>
+      render(:partial => '/submit/edit_ma_dialog', :locals => {:content => entry})} %>
+  </div>
+  <div class="default"><%= render :partial => '/shared/modal_dialog',
+    :locals => {:button_title => 'Delete'.t, :button_class => 'button_gr', :entry => entry,
+    :title => 'Deleting Downloadable Music Album'.t,
+    :box_id => 'delete_ma_confirmation', :box_contents =>
+      render(:partial => '/submit/delete_ma_confirmation', :locals => {:content => entry})} %>
+  </div>
+

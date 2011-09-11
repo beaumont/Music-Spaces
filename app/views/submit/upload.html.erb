@@ -1,0 +1,22 @@
+<div align="center">
+  <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border">
+    <tr>
+      <td class="left white dotted_b">
+        <%= error_messages_for :content %>&nbsp;
+      </td>
+      <td class="center white dotted_b" style="vertical-align:middle;">
+        <p style="padding:10px;">
+          <%= yield -%>
+        </p>
+      </td>
+    </tr>
+    <% @uploaded.each do |content| -%>
+    <tr>
+      <td class="left">
+        <%= image_tag content.thumb(:thumb).public_filename, :size => content.thumb(:thumb).image_size %>
+      </td>
+    </tr>
+    <% end -%>
+  </table>
+</div>         
+

@@ -1,0 +1,36 @@
+<% main_block(:header_title => 'Goodie Receiver Info'.t) do %>
+  <% form_for @info_request, :url => {:id => @info_request} do |f| %>
+    <% form_border do %>
+      <div class="default">
+        <%= 'Thank you for supporting our music by paying for goodie from {{album}}.' / content_link(@hat) %>
+        <%= 'To make sure that all goodies are delivered to their rightful owners, we need additional personal information from all of our goodie receivers.'.t %>
+        <%= 'Please fill out all the fields below'.t %>:
+      </div>
+      <div style="padding-left:90px;">
+        <% unless error_messages_for(:info_request).blank? %>
+          <%= error_messages_for :info_request %>
+          <br/>
+        <% end %>
+        <label for="first_name"><%= 'First Name'.t %></label>
+        <%= f.text_field(:first_name) %>
+        <label for="last_name"><%= 'Last Name'.t %></label>
+        <%= f.text_field(:last_name) %>
+        <% if @info_request.document_needed %>
+          <label for="document"><%= 'Document Type'.t %></label>
+          <%= f.text_field(:document_kind) %>
+          <label for="doc_number"><%= 'Document Number'.t %></label>
+          <%= f.text_field(:document_identifier) %>
+        <% end %>
+        <% if @info_request.address_needed %>
+          <label for="address"><%= 'Address'.t %></label>
+          <%= f.text_field(:address) %>
+        <% end %>
+      </div>
+    <% end %>
+    <%# Has to give error message if not all fields filled out %>
+    <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                          :disable_cancel => true,
+                                                          :ok_label => 'Submit'.t
+    } %>
+  <% end %>
+<% end %>

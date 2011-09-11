@@ -1,0 +1,51 @@
+<% unless entry.music_contest_item? %>
+  <div class="default">
+    <%= link_to('Edit'.t, {:controller => 'submit', :action => "edit", :id => entry}) %>
+    <% del_caption = 'Delete'.t %>
+  </div>
+<% else %>
+  <%= promote_contest_item_link(entry) do |label, url_options, html_options|
+  link_to("<span>#{label}</span>", url_options, html_options.merge(:class => "button", :style => 'float:none;')) if label
+  end %>
+  <% del_caption = 'Remove from contest'.t %>
+<% end %>
+<% if entry.can_be_deleted? %>
+  <% if entry.is_a?(Album) && !entry.is_a?(Inbox) && !entry.album_contents.empty? %>
+    <%# 'Deleting this music album will also permanently delete all its contents. Are you sure?'.t %>
+    <%# 'Deleting this folder will also permanently delete all its contents. Are you sure?'.t %>
+    <% confirm_message = "Deleting this %s will also permanently delete all its contents. Are you sure?" % entry.entity_name_for_human.downcase
+    confirm_message = confirm_message.t %>
+  <% elsif entry.is_a?(Inbox) && entry.archived? %>
+    <div class="default">
+      <%= link_to('Activate'.t, {:controller => 'submit', :action => "activate_inbox", :id => entry}, { :confirm => "Are you sure you want to reopen this folder and accept new submissions?".t, :style => "text-decoration:none", :method => :post}) %>
+    </div>
+  <% elsif entry.is_a?(Inbox) && !entry.inbox_items.empty? %>
+    <div class="default">
+      <%= link_to('Archive'.t, {:controller => 'submit', :action => "archive_inbox", :id => entry}, { :confirm => "Are you sure to wish to archive this folder? Nobody will be able to add new submissions until you activate it again.".t, :style => "text-decoration:none", :method => :post}) %>
+    </div>
+  <% elsif entry.is_a?(CoverArt) && linked_to = entry.host_content %>
+  <% if linked_to.announcement? %>
+    <% confirm_message = "This image is embedded in an Announcement. If you delete it the Announcement will become pictureless. Are you sure?".t %>
+  <% else %>
+    <% confirm_message = "This image is embedded in a Note. If you delete it the Note will become pictureless. Are you sure?".t %>
+  <% end %>
+  <% else %>
+    <% confirm_message = "Are you sure?".t %>
+  <% end %>
+    <div class="default">
+      <%= link_to(del_caption, {:controller => 'submit', :action => "delete", :id => entry}, {:confirm => confirm_message, :style => "text-decoration:none", :method => :post}) if confirm_message %>
+    </div>
+  <% end %>
+  <% if entry.is_a?(MusicAlbum) && !entry.downloadable? && !entry.album_contents.empty? %>
+    <div class="default">
+      <%= link_to('Make downloadable'.t, {:controller => 'submit', :action => "make_downloadable", :id => entry}, :style => "text-decoration:none") %>
+    </div>
+    <div class="default">
+      <%= 'Click on this button to allow others to download this album and give you money in return'.t %>
+    </div>
+  <% end %>
+  <% if entry.music_contest_item? && entry.is_a?(Track) %>
+    <div class="default">
+      <%= link_to( 'Download'.t + " (" + h(number_to_human_size(entry.size)) + ')', entry.public_filename) %>
+    </div>
+  <% end %>

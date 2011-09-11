@@ -1,0 +1,27 @@
+<% no_q_caption = if @user != current_actor
+  "{{project}} doesn't have any Questions archived now" / h(truncate(@user.display_name, :length => 30))
+else
+  "You doesn't have any Questions archived now".t
+end %>
+<% render(:layout => 'list', :locals => { :no_q_caption => no_q_caption, :archive => true,
+                                          :title => 'Forum Archive'.t }) do %>
+<div class="right">
+  <div class="project_vote">
+    <div class="vote vote_count"><%= votes_count_caption(@question.up_votes.count) %></div>
+  </div>
+</div>
+  <%= render :partial => "answers", :locals => {:question => @question, :archive => true} %>
+  <% if current_user.is_self_or_owner?(@user) %>
+    <%= link_to("<span>#{'Unarchive'.t}</span>",
+                        { :controller => '/public_question',
+                          :action => 'unarchive',
+                          :id => @question.id,
+                        },
+                        :confirm => 'Are you sure you want to unarchive this question? This action can be undone later.'.t,
+                        :method => :post,
+                        :class => 'button') %>
+    <%= render :partial => 'delete_button', :locals => {:question => @question} %>
+  <% end %>
+<% end %>
+
+

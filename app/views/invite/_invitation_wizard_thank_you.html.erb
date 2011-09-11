@@ -1,0 +1,33 @@
+<script type="text/javascript">
+  jQuery("#overlay_waitindicator").hide();
+  cleanup_ovr('thank_you_overlay');
+  var thank_you_wizard_opts = {
+    modal: true,
+    position: 'middle',
+    width: 400,
+ 	minWidth: 400,
+    close: function() {
+      cleanup_ovr('none');
+      create_new_div('add_friends_overlay');
+    }};
+  jQuery("#thank_you_overlay").attr('title','<%= 'Thank you'.t -%> <%= @user.display_name -%> ');
+  jQuery("#thank_you_overlay").dialog(thank_you_wizard_opts);
+  create_new_div('add_friends_overlay');
+</script>
+
+<div id="overlay_waitindicator" style=" display: none; text-decoration: blink; ">
+  <%= 'Please Wait...'.t %>
+</div>
+<div id="bas_errmsg"></div>
+<div id="overlay_wizard">
+  <div class="widget_text" style="margin-top:20px;"><%= 'Would you like to'.t %> <b><%= link_to_remote 'try a different email address?'.t,
+    :update => 'add_friends_overlay', :url => {:action => 'add_friends_wizard',
+                                               :controller => 'invite',
+                                               :start_following_step => start_following_step},
+    :html => {:onclick => "jQuery('#tryanother_busy').show();"} -%></b>
+    <%= wait_indicator('tryanother_busy') %>
+  </div>
+  <div class="widget_button_right">
+    <%= link_to '<span>' + 'Done'.t + '</span>', '#', :onclick => %Q[ jQuery('#thank_you_overlay').dialog('destroy') ], :class => 'button' %>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+
+<% @title = 'Invite to Kroogi'.t %>
+
+<% @content_kind_displayname = 'Invite New Users to Kroogi'.t %>
+<div class="left_bordered" style="margin: 0 auto;">
+  <div class="border_offset">
+    <div class="subtopic_h1">
+      <span class="subtopic_left"><%= @content_kind_displayname %></span>
+    </div>
+  </div>
+
+  <p>
+    <%= 'Owners of the email addresses entered here will receive an invitation to join the Kroogi Network'.t -%>.
+    <%= "The invite will be from you, but it won't ask them to join any of your circles &mdash; just the network in general".t -%>.
+    <%= "If you'd like to invite users to join the network AND your circles <a {{attribs}}>click here</a>" /
+            %Q{href="#{url_for(:controller => 'invite', :action => 'find', :id => @user)}"} -%>.
+  </p>
+
+  <table border="0" cellpadding="8" class="site_invite" style="margin: 0 auto;">
+
+    <% form_for :invite, :url => {:controller=>'invite', :action => 'invite_by_mail' } do |f| -%>
+    <%= hidden_field_tag :id, @invite.inviter_id %>
+    <%= f.hidden_field :circle_id %>
+    <%= f.hidden_field :inviter_id %>
+    <tr>
+      <td colspan="2"><%= error_messages_for :invite %></td>
+    </tr> 
+      <th>
+        <%= 'From'.t -%>:
+      </th>
+      <td>
+        <%= user_link(@user, :icon => true) %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= 'Email'.t -%>:
+      </th>
+      <td>
+        <%= text_field_tag("user_emails", params[:user_emails], :size => 30, :maxsize => 200) -%><br/>
+        <small class="instructions"><%= 'Enter email addresses, separated by commas'.t %></small>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= 'Language'.t -%>:<br/>
+        <small class="instructions"><%= '(to send email in)'.t -%></small>
+      </td>
+      <td>
+        <select name="locale" class="feedback_input" style="width:214px;">
+          <%= options_for_select(APP_CONFIG.language_menu, I18n.language_code) %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th><%= 'Invitation Text'.t -%>:</th>
+      <td><%= f.text_area("invitation", :cols => 50, :rows => 14) -%></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="button" id="send_invite"><span><%= 'Send Invitation'.t %></span></button></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+

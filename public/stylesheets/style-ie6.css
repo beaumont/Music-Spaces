@@ -1,0 +1,165 @@
+.ie6_pos {
+  position:relative;
+  z-index: 2;
+}
+a {
+  position: relative;/* needed fo ie6 transparency to work with links */
+}
+img.tp {
+  filter:expression(
+      this.itloaded
+      ? "" :
+      (
+        this.src.substr(this.src.length-4)==".png"
+        ?
+        (
+          (!this.complete)
+          ? "" :
+            this.runtimeStyle.filter=
+            ("progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+this.src+"')")+
+            (this.onbeforeprint="this.runtimeStyle.filter='';this.src='"+this.src+"'").substr(0,0)+
+            String(this.itloaded =true).substr(0,0)+
+            (this.src="/images/tp.gif").substr(0,0)
+        )
+        :
+        this.runtimeStyle.filter=""
+      )
+    );
+}
+
+#main, #base_link, #my_krugi_link, #top_header, #summary, #content_body, #content_body_o, #summary_n {
+    background-image: expression(
+        this.origImg = this.currentStyle.backgroundImage.split('\"')[1],
+        this.runtimeStyle.backgroundImage = "none",
+        this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.origImg + "', sizingMethod='scale')"
+    );
+}
+
+#content_body, #content_body_wht {
+  z-index: -1;
+}
+
+#main_content_bg {
+  z-index: 1;
+  position:relative;
+}
+
+
+/*
+#main {
+  background-image:none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/bg_white.png', sizingMethod='scale');
+}
+#top_heder {
+  background-image:none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/top_header_bg.png', sizingMethod='scale');
+}
+*/
+a.button, a.button a:hover, a.button a:link, a.button a:active, a.button a:visited{
+  background: transparent url( '/images/bg_buttn_a_o.gif' ) no-repeat scroll top right;
+}
+a.button span{
+  background: transparent url( '/images/bg_buttn_span_o.gif' ) no-repeat;
+}
+a.button_gr, a.button_gr a:hover, a.button_gr a:link, a.button_gr a:active, a.button_gr a:visited{
+  background: transparent url( '/images/bg_buttn_a_gr.gif' ) no-repeat scroll top right;
+}
+a.button_gr span{
+  background: transparent url( '/images/bg_buttn_span_gr.gif' ) no-repeat;
+}
+
+button.button {
+  background: transparent url( '/images/bg_buttn_a_o.gif' ) no-repeat scroll top right;
+}
+button.button span{
+  background: transparent url( '/images/bg_buttn_span_o.gif' ) no-repeat;
+}
+button.button_gr {
+  background: transparent url( '/images/bg_buttn_a_gr.gif' ) no-repeat scroll top right;
+}
+button.button_gr span{
+  background: transparent url( '/images/bg_buttn_span_gr.gif' ) no-repeat;
+}
+
+button.button_lg {
+  background: transparent url( '/images/bg_buttn_a_lg_o.gif' ) no-repeat scroll top right;
+}
+button.button_lg span{
+  background: transparent url( '/images/bg_buttn_span_lg_o.gif' ) no-repeat;
+}
+button.button_lg_gr {
+  background: transparent url( '/images/bg_buttn_a_lg_gr.gif' ) no-repeat scroll top right;
+}
+button.button_lg_gr span{
+  background: transparent url( '/images/bg_buttn_span_lg_gr.gif' ) no-repeat;
+}
+
+table.gallery_table {
+  margin-left:16px;
+}
+
+.gallery_left {
+  padding:0;  
+}
+
+.gallery_entry_s, .gallery_entry_s_lg {
+  background: url(/images/shadow_alpha.gif) no-repeat bottom right;
+}
+
+.gallery_entry_s div, .gallery_entry_s_lg div {
+  padding: 3px 0 0 3px;
+}
+.gallery_entry_s .g_content, .gallery_entry_s_lg .g_content {
+  margin: -3px 4px 4px -3px;
+}
+
+span#watch_user.follow{
+  margin-left: -50px;
+}
+
+.circle1 .circle_selected .you_1 {
+  left: 260px;
+}
+
+.circle2 .circle_selected .you_2 {
+  left: 138px;
+}
+
+.circle4 .circle_selected .you_4{
+	left: 48px;
+}
+
+.circle5 span#watch_user.follow{
+	margin-left: -35px;
+}
+
+.circle3 .circle_selected .you_1{
+	left: 44px;
+}
+.circle3 .circle_selected .you_2{
+	left: 44px;
+}
+.circle3 .circle_selected .you_3{
+	left: 48px;
+}
+
+.circle5 .circle_selected .you_5{
+	left: -24px;
+}
+
+.comment_avatar .founder_avatar {
+  margin-right:2px;
+}
+
+
+/* new changes for galleries */
+.favorites_grid .gallery_entry_s2{
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.gallery_entry_lg2 {
+  margin:10px;
+}
+
+/* end new changes for galleries */

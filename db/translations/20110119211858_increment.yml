@@ -1,0 +1,81 @@
+--- 
+- 
+  created_at: 2010-12-23 14:54:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "вопросы / темы"
+  tr_key: "add questions / topics"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-19 21:00:20 +00:00
+- 
+  created_at: 2011-01-19 19:24:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(не более 200 символов)"
+  tr_key: "(200 characters max)"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-19 21:18:19 +00:00
+- 
+  created_at: 2011-01-19 19:24:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Он останется невидимым до тех пор, пока там не появятся {{link}}."
+  tr_key: "It will remain invisible until you {{link}} to it."
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-19 20:59:23 +00:00
+- 
+  created_at: 2011-01-19 19:24:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Скачайте эту музыку прямо с Кругов."
+  tr_key: "You can download this music directly from Kroogi."
+  tr_origin: /app/controllers/player_controller.rb
+  updated_at: 2011-01-19 21:18:53 +00:00
+- 
+  created_at: 2011-01-19 19:24:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Поблагодарить
+  tr_key: Thank
+  tr_origin: /app/controllers/player_controller.rb
+  updated_at: 2011-01-19 21:18:00 +00:00
+- 
+  created_at: 2011-01-19 19:24:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Измените свои {{link}}, чтобы больше не получать это сообщение."
+  tr_key: "Change your {{link}} on Kroogi to stop receiving this message."
+  tr_origin: /app/views/shared/facebook/like/_widget.html.erb
+  updated_at: 2011-01-19 21:17:40 +00:00
+- 
+  created_at: 2011-01-19 19:24:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не показывать другим пользователям, что я смотрел их материалы"
+  tr_key: "Don't show others when I view their content"
+  tr_origin: /app/views/preference/account.html.erb
+  updated_at: 2011-01-19 21:17:01 +00:00
+- 
+  created_at: 2011-01-19 19:24:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы можете отблагодарить автора, перечислив ему напрямую любую сумму денег."
+  tr_key: "You can thank the artist by contributing any amount directly to him."
+  tr_origin: /app/controllers/player_controller.rb
+  updated_at: 2011-01-19 21:16:28 +00:00
+- 
+  created_at: 2011-01-19 19:24:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Логин должен состоять из букв A-Z, a-z, цифр 0-9 (без пробелов!), он не может начинаться или заканчиваться символом \"-\", и не должен состоять только из цифр. "
+  tr_key: "Login should only contain A-Z, a-z, 0-9 and - (NOTE: no spaces allowed!). It cannot start or end with -, and must contain at least one non-numeric character."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-19 21:13:02 +00:00
+- 
+  created_at: 2011-01-19 19:24:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Текст скопирован в буфер обмена"
+  tr_key: "Text Copied to Clipboard"
+  tr_origin: /app/controllers/player_controller.rb
+  updated_at: 2011-01-19 21:05:32 +00:00

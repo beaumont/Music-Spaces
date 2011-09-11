@@ -1,0 +1,15 @@
+<% render :layout => 'settings_template' do %>
+  <% if @questions.empty? %>
+    <div class="no_questions">
+      <%= "You have no published questions".t %>
+    </div>
+  <% else %>
+  <div class="reorder_questions">
+      <%= render :partial => '/shared/reorder', :locals => {
+              :title_long => 'Published Questions'.t,
+              :album_contents => @questions,
+              :updater_url => '/public_question/update_order',
+              } %>
+  </div>
+  <% end %>
+<% end %>

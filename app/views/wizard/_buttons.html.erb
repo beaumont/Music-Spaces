@@ -1,0 +1,40 @@
+<%
+  unless defined?(back); back = true; end
+
+  buttons_wizard_id ||= generate_buttons_wizard_id
+
+  jsfunction = "jQuery(this).parent().children('.wait_up_homie').show();
+          jQuery(this).html('<span>#{"Please Wait...".t}</span>');
+          jQuery(this).parent().children('#back_wizard_widget_button_#{buttons_wizard_id}, #next_wizard_widget_button_#{buttons_wizard_id}').attr('disabled', 'disabled').removeClass('button').addClass('button_gr');"
+
+  back_function ||= ""
+  back_function = jsfunction + back_function + ";return false;"
+
+  next_function ||= ""
+  next_function = jsfunction + next_function + ";submitWizardForm('#{buttons_wizard_id}');return false;"
+
+  next_label ||= "Next".t
+%>
+
+<%= javascript_tag "
+  function submitWizardForm(id) {
+    var form = jQuery('#next_wizard_widget_button_' + id).parents('form');
+    var ajax = form.attr('onsubmit')
+    if (ajax == undefined || ajax == '') form.submit();
+      else form.trigger('onsubmit')
+  }
+" %>
+
+<div class="widget_button_right">
+  <%= wait_up_homie(:class => "wait_up_homie wizard_buttons") %>
+
+  <button class="button wizard_buttons" onclick="<%= next_function %>" id="next_wizard_widget_button_<%= buttons_wizard_id %>">
+    <span id="wizard_next_button_title"><%= next_label %></span>
+  </button>
+
+  <% if back %>
+    <button class="button wizard_buttons" onclick="<%= back_function %>" id="back_wizard_widget_button_<%= buttons_wizard_id %>">
+      <span><%= "Back".t %></span>
+    </button>
+  <% end %>
+</div>

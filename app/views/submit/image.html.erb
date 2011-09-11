@@ -1,0 +1,38 @@
+<% main_block(:header_title => 'Add Content'.t, :content_head => 'Image') do %>
+  <% form_for :content, :url => { :controller => 'submit', :action => (is_edit? ? 'update' : 'add_image'), :for_inbox => params[:for_inbox] }, :html => {:onsubmit => "return pause_save();", :name => "uploadForm", :multipart => true} do |form| -%>
+    <% (@uploaded || [@content]).each do |content| -%>
+      <% @content = content %>
+      <% fields_for "content[]", content do |f| %>
+        <%= f.hidden_field("id") %>
+        <%= f.hidden_field("is_in_gallery") %>
+        <%= render :partial => "image", :locals => {:f => f, :content => @content} %>
+      <% end -%>
+    <% end -%>
+     <div class="form_head">&nbsp;</div>
+      <div class="form_buttons">
+          <%= render :partial => "buttons", :locals => {:f => form, :center => true, :content => @content} %>
+      </div>
+      <div class="clear"></div>
+  <% end %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" language="javascript">
+    function pause_save() {
+      if (content_owner.value == '') {
+        alert('<%= js "Copyright owner field cannot be empty. Please enter either your Kroogi name, or the name of the copyright holder".t -%>');
+        return false;
+      } else {
+        // TODO content type validation   
+        //if (document.uploadForm.content_uploaded_data.value != ""){
+        var btns = $(document.uploadForm).getElementsByClassName("button");
+        btns.each(function(btn){
+          btn.innerHTML = "<span><%= 'Please Wait...'.t %></span>";
+          btn.className = 'button_gr';
+          btn.disabled = true;
+        });
+        //}
+      }
+    }
+  </script>
+<% end %>

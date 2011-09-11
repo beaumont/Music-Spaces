@@ -1,0 +1,20 @@
+<% permanent_info_details_body = render(:partial => 'user/permanent_info_details_body', :locals => {:profile => profile}).strip %>
+<% return if permanent_info_details_body.empty? %>
+
+<div class="right">  <%= link_to_function('Show Details'.t+' &gt;&gt;', nil, :id => "more_link") do |page|
+  page[:profile_info_details].toggle "Blind"
+  page[:less_link].show
+  page[:more_link].hide
+end %>
+</div>
+
+<div id="profile_info_details" style="display:none">
+  <%= permanent_info_details_body %>
+</div>
+<div class="right">
+  <%= link_to_function('Hide Details'.t+' &gt;&gt;', nil, :id => "less_link", :style => "display:none;") do |page|
+    page[:profile_info_details].toggle "Blind"
+    page[:more_link].show
+    page[:less_link].hide
+  end %>
+</div>

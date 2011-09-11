@@ -1,0 +1,49 @@
+<% @title = 'Sign up'.t %>
+
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+
+  <% if params[:id] %>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        document.location.href = "#main_content_left"
+      });
+    </script>
+  <% end %>
+<% end %>
+
+<% right_column_block(:header_title => 'If You are a Fan:'.t) do %>
+  <%= render :partial => "signup_user_text_#{I18n.locale}" %>
+<% end %>
+<% right_column_block(:header_title => 'If You are an Artist:'.t) do %>
+  <%= render :partial => "signup_project_text_#{I18n.locale}" %>
+<% end %>
+
+<div><%= image_tag('732_o_top.gif') %></div>
+<div class="main_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= 'Create Kroogi Account'.t %></div>
+  </div>
+
+  <%= render :partial => '/home/connect/left_menu' -%>
+
+  <div id="this_signup_form">
+    <div class="main_body">
+      <% form_for :user, :url => {:controller => 'home', :action => 'signup'}, :html => {:name => 'signupForm', :id => 'signupForm', :onsubmit => "return checkCheckBoxes();"} do |f| -%>
+        <%= hidden_field_tag("return_to", url_for('/wizard/basic_info_project')) %>
+        <% form_border do %>
+          <div style="padding-left:90px;">
+            <%= render :partial => 'signup_user_fields', :locals => {:f => f} %>
+          </div>
+        <% end %>
+        <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+          :disable_cancel => true,
+          :ok_label => 'Join Kroogi'.t,
+          :validate => 'checkCheckBoxes()'} %>
+        <br class="clear"/>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="shadow"><%= image_tag('732_gw_btm.gif') %></div>

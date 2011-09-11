@@ -1,0 +1,34 @@
+  <h3 <%= available_processor ? "" : "style='display:none'" %> ><a href="#"><%= p[:name].t %></a></h3>
+  <div>
+    <form id="<%= p[:short_name] %>_donation_form" action="<%= WEBMONEY_CONFIG[:url] %>" accept-charset="windows-1251" method="post">
+      <input type="hidden" name="LMI_PAYMENT_DESC" value="<%=  title %>"/>
+      <input type="hidden" name="LMI_PAYEE_PURSE" value="<%= WEBMONEY_CONFIG[:purse_usd] %>"/>
+      <%= render :partial => "/donate/webmoney_common/common", :locals => {
+                   :p => p,
+                   :available_processor => available_processor,
+                   :title => title,
+                   :karma_point_id => karma_point_id,
+                   :donor_id => donor_id,
+                   :content_id => content_id,
+                   :recipient_id => recipient_id,
+                   :return_url => return_url,
+                   :cancel_url => cancel_url,
+                   :download => download,
+      } %>
+ 
+      <div id="<%= p[:short_name] %>_contribution_amount">
+        <label for="<%= p[:short_name] %>_contribution_amount_field"><%= "Amount (USD)".t %></label>
+        <%= text_field_tag :LMI_PAYMENT_AMOUNT, suggested_contribution_amount(content, p),
+          :id => "#{p[:short_name]}_contribution_amount_field" %>
+      </div>
+      <div class="donation_button">
+        <%= link_to(
+          "<span>" + "Contribute using".t + " " + p[:name].t + "</span>",
+          "#",
+          {:onclick=>"run_choice('#{p[:short_name]}'); return false;",
+           :class => 'button'} ) %>
+        <%= wait_up_homie %>
+      </div>
+    </form>
+  </div>
+

@@ -1,0 +1,36 @@
+<%# translation ver 1 pass 2 -- AK %>
+
+<p><%= 'Hello, and welcome to Kroogi'.t -%>!</p>
+
+<p><%= 'Kroogi project %s invited you to be a project host' / [@invite.inviter.display_name] -%>.</p>
+
+<% unless @invite.invitation.blank? %>
+  <p><strong><%= 'Invitation message'.t -%>:</strong></p>
+  <p><blockquote><%= kf_simple @invite.invitation %></blockquote></p>
+<% end %>
+
+<p>
+  <%= 'Once you join and accept this invitation, you will have joint ownership of the project "%s" with other hosts' / [@invite.inviter.display_name] -%>.
+</p>
+
+<br/><br/>
+
+<p>
+  <%= link_to 'Join Kroogi'.t, @url_signup -%>, <%= 'then accept or reject the invitation'.t %><br/>
+  <%= link_to "View %s's Kroogi Page" / [@invite.inviter.display_name], "#{@url}/user/#{@invite.inviter.id}" %><br/>
+  <%= link_to 'Explore Kroogi'.t, "#{@url}/explore" %>
+</p>
+
+<p>
+  <strong><%= 'Already a Kroogi member?'.t %></strong><br/>
+  <%= link_to 'Log into Kroogi'.t, "#{@url}/login" -%>, <%= ', and then'.t %>
+  <%= link_to 'accept or reject this invitation'.t, "#{@url}/activity/list" %>
+</p>
+
+<p><%= render :partial => 'footer_text' %></p>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+  <%= 'The Kroogi Team'.t %>
+</p>
+

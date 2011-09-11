@@ -1,0 +1,37 @@
+<% if @show_basic_user_wizard %>
+  <%= overlay_for("tell_about_yourself_overlay", 'Display Basics'.t,
+              render(:partial => "/wizard/tell_about_yourself_widget", :locals => {:user => current_actor})) %>
+  <%= show_dialog("tell_about_yourself_overlay") %>
+<% else %>
+  <%= overlay_for("tell_about_yourself_overlay", 'Display Basics'.t) %>
+<% end %>
+
+<% if flash[:show_add_friends_widget] %>
+  <%= overlay_for("add_friends_overlay", 'Build Your Kroogi Community'.t,
+              render(:partial => "/wizard/add_friends_wizard", :locals => current_actor.get_and_delete_flash(:add_friends_widget_search_results))) %>
+  <%= show_dialog("add_friends_overlay", {:clear => true}) %>
+<% else %>
+  <%= overlay_for("add_friends_overlay", 'Build Your Kroogi Community'.t) %>
+<% end %>
+
+<% if flash[:show_select_kroogi_users_to_follow_widget] %>
+  <%= overlay_for("select_kroogi_users_to_follow_overlay", 'Follow Friends on Kroogi'.t, render(:partial => "/wizard/select_kroogi_users_to_follow",
+        :locals => current_actor.get_and_delete_flash(:add_friends_widget_search_results) || {:suggest_following => [], :already_followed => [], :kroogi_users_mails => []})) %>
+  <%= show_dialog("select_kroogi_users_to_follow_overlay", {:width => '500px'}) %>
+<% else %>
+  <%= overlay_for("select_kroogi_users_to_follow_overlay", 'Follow Friends on Kroogi'.t) %>
+<% end %>
+
+<% if flash[:show_what_you_like_widget] %>
+  <%= overlay_for("what_you_like_overlay", 'Tell us what you like'.t, render(:partial => "/wizard/what_you_like_widget", :locals => {:user => current_actor})) %>
+  <%= show_dialog("what_you_like_overlay", {:position => "['center', 10]"}) %>
+<% else %>
+  <%= overlay_for("what_you_like_overlay", 'Tell us what you like'.t) %>
+<% end %>
+
+<% if flash[:show_add_fb_friends_widget] %>
+  <%= overlay_for("add_fb_friends_overlay", 'Build Your Kroogi Community'.t, render(:partial => "/wizard/add_fb_friends_wizard")) %>
+  <%= show_dialog("add_fb_friends_overlay", {:clear => true}) %>
+<% else %>
+  <%= overlay_for("add_fb_friends_overlay", 'Build Your Kroogi Community'.t) %>
+<% end %>

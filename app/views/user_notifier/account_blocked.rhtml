@@ -1,0 +1,30 @@
+<p>
+  <%= 'Hi'.t %>
+  <%= @user.display_name -%>,
+</p>
+
+<p>
+  <strong>
+    <% if @project %>
+      <%= "Project %s (%s), where you were a host, has been blocked from the Kroogi Network" / [@project.display_name, @project.login] -%>.
+    <% else %>
+      <%= "Your account has been blocked from the Kroogi Network" -%>.
+    <% end %>
+  </strong>
+</p>
+
+<p>
+  <strong>
+    <% if @project %>
+      <%= "The project's Kroogi Page will no longer be accessible to anyone, and you will no longer be able to act on its behalf".t -%>.
+    <% else %>
+      <%= "Your Kroogi Page will no longer be accessible to anyone, and you will be unable to log in or create another account".t -%>.
+    <% end %>
+  </strong>
+</p>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+  <%= 'The Kroogi Team'.t -%>
+</p>
+

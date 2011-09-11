@@ -1,0 +1,43 @@
+<%# comments view %>
+
+<a name="comments"></a>
+<% if commentable.comment_count > 0 %>
+<br />
+  <%
+  options = {} if options.nil?
+  options[:threaded] = true unless options.key?(:threaded)
+  comments_number = 0
+  left_offset = 0
+  parent_user_id = 0
+
+  opts = {}
+  opts[:limit] = limit if defined?(limit) && limit # ONLY WORKS FOR NON-THREADED COMMENTS
+  if defined?(paging)
+    opts.merge!(paging)
+    opts[:per_page] = opts[:page_size]
+  end
+  @comments_list = @comments || commentable.all_comments(options[:threaded], opts)
+  @comments_list = @comments_list[0..options[:limit] - 1] if options[:limit]
+  @comments_list.each_with_index do | comment, index |
+    if comment.is_a?(Array)
+      level = comment[0].to_s.size / 2
+      comment = Comment.find(comment[1].to_i)
+    end
+    level ||= comment.level if comment.respond_to?(:level)
+    left_offset = 25 * level if options[:threaded] && level
+  %>
+
+	<% stripe_class = (defined?(stripe) && !stripe) ? '' : cycle("offwhite_dark", "offwhite") %>
+	
+    <% if(options[:threaded]) %>
+      <%= render :partial => '/comments/comments_threaded', :locals => { :comment => comment, :left_offset => left_offset, :options => options, :commentable => commentable, :parent_user_id => parent_user_id} %>
+    <% else %>
+      <% truncate_opts = options[:wall_post] ? {:truncate_extra => '... [' + link_to('Read More'.tdown, :controller => 'user', :action => 'thread', :id => user, :thread_id => comment.id) + ']'} : nil %>
+      <%= render :partial => '/comments/comments_linear', :locals => { :comment => comment, :user => user, :truncate_opts => truncate_opts, :last => (@comments_list.size - 1 == index)} %>
+    <% end %>
+
+    <% # parent_user_id = (comment.child? ? comment.user_id : 0)
+    parent_user_id = comment.user_id %>
+  <% end %>
+<% end %>
+

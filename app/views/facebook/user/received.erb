@@ -1,0 +1,22 @@
+
+<div class="two_column">
+  <% if @activities.empty? %>
+    <div class="inner">
+      <div class="sentbyFriends">
+        <div class="pageTitle">Sent By Friends</div>
+        <div class="sentbyAlbums">
+          <div class="whiteBox">
+            <div class="empty">You did not receive any requests for download from your friends yet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%else%>
+    <div class="inner">
+      <div id="ajaxUpdater">
+        <%= render :partial => "sent_by_friends", :locals => {:last_page => false}%>
+      </div>
+    </div>
+  <%end%>
+  <%= render :partial => 'shared/facebook/right_sidebar', :locals => {:box => ['spread']} %>
+</div>

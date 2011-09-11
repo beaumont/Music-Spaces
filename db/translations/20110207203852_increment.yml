@@ -1,0 +1,225 @@
+--- 
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: принято
+  tr_key: accepted
+  tr_origin: ~
+  updated_at: 2011-02-07 19:01:09 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Приглашение
+  tr_key: "This invite has been"
+  tr_origin: ~
+  updated_at: 2011-02-07 19:01:09 +00:00
+- 
+  created_at: 2008-10-17 23:29:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s удалён из круга \"%s\" %s"
+  tr_key: "%s removed from the %s circle of %s"
+  tr_origin: ~
+  updated_at: 2011-02-07 19:01:09 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уверены, что хотите покинуть этот круг?"
+  tr_key: "Are you sure you want to leave?"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 18:59:06 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Покинуть этот круг"
+  tr_key: "Remove me from this Kroogi"
+  tr_origin: ~
+  updated_at: 2011-02-07 19:01:09 +00:00
+- 
+  created_at: 2011-01-31 17:14:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Зрители получают уведомления на своих домашних страницах всякий раз, когда здесь появляется новая запись, или файл."
+  tr_key: "Members receive updates on their home page when we post anything new."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 18:59:54 +00:00
+- 
+  created_at: 2011-02-07 18:58:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы можете приглашать только тех, кто уже находится в одном из ваших кругов"
+  tr_key: "You can only invite users who follow you already"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-02-07 20:36:35 +00:00
+- 
+  created_at: 2011-02-07 18:58:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "После того как вы примете это приглашение,  {{user}} будет также добавлен в ваш круг Друзья"
+  tr_key: "If you receive and accept the invitation to this circle, {{user}} will also be automatically added to your \"Friends\" circle."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:36:55 +00:00
+- 
+  created_at: 2011-02-07 18:58:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещен в круг Знакомых {{followed}}"
+  tr_key: "{{follower}} moved to the Interested circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-07 20:27:51 +00:00
+- 
+  created_at: 2011-02-07 18:58:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Участники этого круга получают обновления от {{user}}, им доступен контент для круга \"Друзья\"."
+  tr_key: "In addition to receiving updates from {{user}}, members of this circle have access to special content marked \"Friends\"."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:27:44 +00:00
+- 
+  created_at: 2011-02-07 18:58:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Друзья"
+  tr_key: "Move to Friends"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:27:40 +00:00
+- 
+  created_at: 2011-02-07 18:59:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы сделать эту папку скачиваемой, добавить описание или изменить другие настройки, после загрузки файла перейдите в папку и нажмите на \"Редактировать\"."
+  tr_key: "Once the files are uploaded, go to the folder and click \"Edit\" to make this folder downloadable, add description and adjust other settings."
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2011-02-07 20:26:56 +00:00
+- 
+  created_at: 2011-02-07 18:59:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Покинуть круг"
+  tr_key: "Remove from this circle"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:18:43 +00:00
+- 
+  created_at: 2011-02-07 18:59:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{title}} - {{artist}}"
+  tr_key: "{{title}} by {{artist}}"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-02-07 20:09:24 +00:00
+- 
+  created_at: 2011-02-07 18:59:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} удален из круга {{circle_name}}{{followed}}"
+  tr_key: "{{follower}} removed from the {{circle_name}} circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-07 20:07:30 +00:00
+- 
+  created_at: 2011-02-07 18:59:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Ценители.
+  tr_key: "Loyal fans."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:17:57 +00:00
+- 
+  created_at: 2011-02-07 18:59:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Находясь в этом кругу вы получаете обновления от {{user}}."
+  tr_key: "Once you join this circle, you will start receiving updates from {{user}}."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:16:49 +00:00
+- 
+  created_at: 2011-02-07 18:59:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{follower}} перемещен в круг Друзья {{followed}}"
+  tr_key: "{{follower}} moved to the Friends circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-07 19:56:36 +00:00
+- 
+  created_at: 2011-02-07 18:59:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Знакомые"
+  tr_key: "Move to Interested"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 19:56:16 +00:00
+- 
+  created_at: 2011-02-07 18:59:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Произошла ошибка при обработке приглашения"
+  tr_key: "There was an error trying to reject this invitation"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-02-07 20:07:12 +00:00
+- 
+  created_at: 2011-02-07 19:00:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "скачать бесплатно"
+  tr_key: "download for free"
+  tr_origin: /app/views/layouts/common.html.erb
+  updated_at: 2011-02-07 19:53:51 +00:00
+- 
+  created_at: 2011-02-07 19:00:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещен в Ценители {{followed}}"
+  tr_key: "{{follower}} moved to the Fun Club circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-07 19:52:28 +00:00
+- 
+  created_at: 2011-02-07 19:00:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещен в Зрители {{followed}}"
+  tr_key: "{{follower}} moved to the Audience circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-07 19:52:27 +00:00
+- 
+  created_at: 2011-02-07 19:00:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кроме получения обновлений от {{user}} и доступа к контенту круга \"Друзья\", этим участникам также доступен контент для круга \"Семья\". Круг \"Семья\" только для приглашенных."
+  tr_key: "Members of this circle receive updates from {{user}}, have access to all content marked \"Friends\" and have exclusive access to content marked \"Family\". Invitation to this circle cannot be requested."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 20:23:45 +00:00
+- 
+  created_at: 2011-02-07 19:00:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Все сообщения от {{user}} были удалены."
+  tr_key: "All messages from {{user}} was successfully deleted."
+  tr_origin: /app/views/activity/remove.rjs
+  updated_at: 2011-02-07 19:52:30 +00:00
+- 
+  created_at: 2011-02-07 19:00:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Приглашение принято"
+  tr_key: "This invite has been accepted"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-02-07 19:52:31 +00:00
+- 
+  created_at: 2011-02-07 19:00:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Зрители"
+  tr_key: "Move to Audience"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 19:42:50 +00:00
+- 
+  created_at: 2011-02-07 19:01:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в Ценители"
+  tr_key: "Move to Fan Club"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-07 19:42:49 +00:00

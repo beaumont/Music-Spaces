@@ -1,0 +1,1 @@
+page.replace_html("content_languages_block" , :partial => "/shared/content_languages_block" )

@@ -1,0 +1,11 @@
+<div class="wellspaced" style="padding: 0 1em 1em 1em;">
+  <%= 'Deleting this Music Album will permanently remove it and all its contents from your Kroogi page and from <a {{link_attributes}}>Kroogi Downloads</a> Facebook application' /
+          "href=\"#{Facebook::ApplicationHelper::url_for_canvas(:controller => 'content', :action => 'show', :id => content.id)}\" target=\"_blank\"" %>.
+</div>
+<div class="buttons">
+  <%= link_to '<button class="button"><span>'+'Delete'.t+'</span></button>',
+                            {:controller => 'submit', :action => "delete", :id => content.id},
+                            { :style => "text-decoration:none", :method => :post} %>
+  &nbsp;
+  <button class="button" onclick="jQuery('#delete_ma_confirmation').dialog('destroy');return false;"><span> <%= 'Cancel'.t %></span></button>
+</div>

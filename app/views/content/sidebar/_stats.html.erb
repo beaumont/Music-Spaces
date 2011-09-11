@@ -1,0 +1,42 @@
+<% if can_view_content_stats?(entry) %>
+  <div class="default">
+<%= link_to_function 'Views: %d' / ContentStat.viewed(entry), "$('view_history').toggle();" %>
+  <div id="view_history" class="blue_more_info" style="display:none;">
+    <% views = Stats::View.for(@entry, 100) %>
+      <% if views.empty? %>
+        <%= 'Not viewed recently'.t %>
+      <% else %>
+      <%= render :partial => 'content/viewer_stat_new', :collection => views %>
+    <% end %>
+  </div>
+  </div>
+<% end %>
+
+<% if entry.class.to_s != 'Board' %>
+  <% if (entry.is_a? Track) && (ContentStat.played(entry) > 0) %>
+     <div class="default">
+      <%= 'Plays: %d' / [ContentStat.played(entry)] %>
+    </div>
+  <% end %>
+
+  <% if ContentStat.favorited(entry) > 0 %>
+      <div class="default">
+     <%= 'Favorited: %d times' / [ContentStat.favorited(entry)] %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if entry.is_a?(BasicFolderWithDownloadables) && !entry.unpublished? && can_view_donations_for?(entry.user) %>
+    <div class="default">
+    <%= link_to "Downloads: %s" / entry.downloads.count,
+      :controller => "/content", :action => 'downloads_report',
+      :id => entry %>
+  </div>
+<% end %>
+<% if can_view_donations_for?(entry.user) && (entry.donatable? || entry.monetary_donations.count > 0) %>
+    <div class="default">
+    <%= link_to "Contributions: %s" / entry.nonzero_donations_count,
+      user_url_for(entry.user, :action => 'donations_received', :controller => "money", :content_id => entry)%>
+  </div>
+<% end %>
+<div class="grey_line"></div>

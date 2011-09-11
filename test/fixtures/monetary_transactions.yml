@@ -1,0 +1,67 @@
+joe_donates_to_chiefs_album:
+  id: 1
+  sender_account_setting_id: 1
+  receiver_account_setting_id: 2
+  currency_id: 1
+  content_id: 1
+  gross_amount: 5.00
+  gross_amount_usd: 5.00
+  monetary_processor_id: 2
+  monetary_processor_fee_usd: 0.50
+  net_amount_usd: 4.50
+  handling_fee_usd: 0.45
+  payable_amount_usd: 4.05
+  applied_to_balance: true
+  available_at: <%= 1.day.ago.to_s(:db) %>
+  type: MonetaryDonation
+  created_at: <%= 1.day.ago.to_s(:db) %>
+ 
+chiefs_paypal_withdrawal:
+  id: 2
+  receiver_account_setting_id: 2
+  currency_id: 1
+  gross_amount: 4.00
+  gross_amount_usd: 4.00
+  monetary_processor_id: 2
+  monetary_processor_fee_usd: 0.20
+  net_amount_usd: 3.80
+  payable_amount_usd: 3.80
+  type: MonetaryWithdrawal
+  paid: true
+  created_at: <%= 40.minutes.ago.to_s(:db) %>
+
+joe_donates_to_chiefs_album_again:
+  id: 3
+  sender_account_setting_id: 3
+  receiver_account_setting_id: 2
+  currency_id: 1
+  content_id: 11
+  gross_amount: 2.00
+  gross_amount_usd: 2.00
+  monetary_processor_id: 2
+  monetary_processor_fee_usd: 0.20
+  net_amount_usd: 1.80
+  handling_fee_usd: 0.40
+  payable_amount_usd: 1.40
+  applied_to_balance: false
+  available_at: <%= 7.day.from_now.to_s(:db) %>
+  type: MonetaryDonation
+  created_at: <%= 1.day.ago.to_s(:db) %>
+
+chief_donates_to_joes_blog_entry:
+  id: 4
+  sender_account_setting_id: 2
+  receiver_account_setting_id: 3
+  currency_id: 1
+  content_id: 1
+  gross_amount: 2.00
+  gross_amount_usd: 2.00
+  monetary_processor_id: 2
+  monetary_processor_fee_usd: 0.20
+  net_amount_usd: 1.80
+  handling_fee_usd: 0.40
+  payable_amount_usd: 1.40
+  applied_to_balance: false
+  available_at: <%= 7.day.from_now.to_s(:db) %>
+  type: MonetaryDonation
+  created_at: <%= 1.day.ago.to_s(:db) %>

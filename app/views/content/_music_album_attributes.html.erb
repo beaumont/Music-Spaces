@@ -1,0 +1,17 @@
+<div class="attributes">
+  <label><%= 'Performer'.t %>:</label> <%= h(entry.artist) %><br />
+  <label><%= 'Title'.t %>:</label> <%= h(entry.title) %><br />
+  <label><%= 'Year'.t %>:</label> <%= entry.year %><br />
+  <label><%= 'Genre'.t %>:</label> <%= h (entry.genre) %><br />
+  <label><%= 'Bitrate'.t %>:</label> <%= entry.tracks_bitrate %><br />
+  <label><%= 'Tracks count'.t %>:</label> <%= entry.number_of_tracks %><br />
+  <label><%= 'Length'.t %>:</label> <%= h(format_duration(entry.tracks_length)) %>
+</div>
+
+<div class="album_playlist">
+  <label><%= 'Playlist'.t %>:</label><br />
+  <% entry.tracks.each_with_index do |track, position| %>
+    <%= position + 1 %>.
+    <%= content_link(track) %><br />
+  <% end %>
+</div>

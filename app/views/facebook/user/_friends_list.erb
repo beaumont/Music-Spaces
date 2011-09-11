@@ -1,0 +1,13 @@
+<%
+friend_list = current_fb_user.content_receive_from_friends(activity.content, :group=>true)
+ friend_list.each_with_index do |item, index|
+  friend = User.find_by_id(item.from_user_id)
+    unless friend.nil?
+%>
+  <div class="sentFrom">
+    <div class="friendUserpic"> <%= fb_profile_pic(friend.facebook_id, :size => :square, :width => "30px") %></div>
+    <div class="name"><%= link_to(fb_name(friend.facebook_id, :linked => 'false'), :controller => 'user', :action =>'friend_albums_list', :id => friend.facebook_id) %></div>
+    <div class="date"><%= item.created_at.strftime("%d %B, %Y")%></div>
+  </div>
+  <%end%>
+<%end%>

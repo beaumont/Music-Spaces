@@ -1,0 +1,21 @@
+<div id="submit_label" class="default">
+  <%= link_to_function('Submit to'.t, "$('submit_user_search').show();if ($('name')) $('name').focus();") %>
+  <div id="submit_ajax" style="display:none;"><img src="/images/ajax-loader.gif" /> <%= 'Please wait'.t -%>...</div>
+</div>
+<div id="submit_user_search" style="display: none;">
+  <% if entry.public? %>
+    <p style="margin-bottom: 3px;"><%= 'Kroogi Name'.t %>:</p>
+    <% form_remote_tag :url => {:controller => 'submit', :action => 'add_to_inbox__find_user', :id => entry}, :before => "$('submit_ajax').show();$('submit_inbox_search').hide();$('submit_errors').hide()", :complete => "$('submit_ajax').hide();" do %>
+      <%= text_field_tag :name, nil, :style => 'width: 100px;' %>
+      <button class="button_gr float_right" type="submit" style="margin-top:-4px;"><span><%= 'OK'.t %></span></button>
+    <% end %>
+    <% else %>
+      <div class="default">
+        <%= 'You can only submit public items.'.t %> <%= "To submit this item to another user's folder, first press Edit and change the security settings to allow everyone to view it.".t %> (<%= "If your item is in an album, you'll have to either move it or open up the whole album to public viewing".t %>).
+      </div>
+    <% end %>
+  </div>
+<div id="submit_inbox_search"></div>
+<div id="submit_errors" class="warning_txt"></div>
+
+

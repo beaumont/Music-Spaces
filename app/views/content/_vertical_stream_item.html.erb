@@ -1,0 +1,17 @@
+<div class="content_body">
+  <div class="content_head">
+    <%= link_to kf_title(content.title_long), content_url(content) %>
+  </div>
+  <div class="user_block">
+	  <div class="block_date">
+      <%= content.created_at.to_s(:date_with_time) %>
+    </div>
+	  <div class="block_username"><%= user_link(content.user, {:icon => true}) %></div>
+	  <%= avatar_md(content.user) %>	
+	  <div class="block_body <%= content.class.name.underscore %>">	
+      <%= render(:partial => '/shared/public_history_entry', :locals => {:content => content, :no_like => true,
+                                                                         :donate_button_donor => Guest.new}) %>
+    </div>
+  </div>
+</div>
+

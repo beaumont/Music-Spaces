@@ -1,0 +1,37 @@
+<%#- This differs from _translatable_fields in that it allows you to specify
+the content as part of the input fields
+
+this partial can be used multiple times, so need to uniqueify ids %>
+<% content_for :css do %>
+  <link rel="stylesheet" href="/stylesheets/jquery.tabs.profile.css" type="text/css" media="print, projection, screen"/>
+<% end %>
+
+<% @tab_container_offset = (@tab_container_offset || 0) + 1
+   initial_index ||= 0
+%>
+<% content_for :js do %>
+  <%= include_jquery_tabs %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('#tabs_container_<%= @tab_container_offset %>').tabs({ fxFade: true, fxSpeed: 'fast', initial: '<%= initial_index %>'});
+    });
+  </script>
+<% end %>
+<div><%= image_tag '732_o_top.gif' %></div>
+<div class="tabs_container" id="tabs_container_<%= @tab_container_offset %>">
+  <ul class="tabs-nav">
+    <% tabs.each do |body, tab_id, label| %>
+      <li class="round"><a href="#<%= tab_id %>"><span><%= label %> </span></a></li>
+    <% end %>
+  </ul>
+
+  <% tabs.each do |body, tab_id, label| %>
+    <div class="box" id="<%= tab_id %>">
+      <%= body %>
+    </div>
+  <% end %>
+</div>
+<div class="shadow"><%= image_tag '732_w_btm.gif' %></div>

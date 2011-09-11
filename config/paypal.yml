@@ -1,0 +1,42 @@
+defaults: &defaults
+  username: 'paypal_api1.kroogi.com'
+  password: 'JBSW6GHBFJKH4FE8'
+  signature: 'AFcWxV21C7fd0v3bYYYRCpSSRl31A5yyoYyEfXpy5n3198whIXY20zXe'
+  email: 'paypal@kroogi.com'
+  hosted_button_id: 2321509
+  url: "https://www.paypal.com/cgi-bin/webscr"
+  ipn_url: <%= "#{APP_CONFIG.external_host_address}/monetary_processors/paypal/instant_payment_notification" if APP_CONFIG.external_host_address %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+selenium:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+  username: 'paypal-staging_api1.kroogi.com'
+  password: 'EDH55KQZAMG5YA69'
+  signature: 'ACqGMNOuGUWyENJWUYzVuceLBEfoAKJBfQ4skoamsS77Gicg6o5JkusH'
+  email: 'paypal-staging@kroogi.com'
+  hosted_button_id: 6771227
+  ipn_url: "http://www.brainmaggot.org/monetary_processors/paypal/instant_payment_notification"
+
+rc:
+  <<: *defaults
+  username: 'paypal-dev_api1.kroogi.com'
+  password: 'ARWVNGKY68Y7658C'
+  signature: 'AFcWxV21C7fd0v3bYYYRCpSSRl31ASjhojnJAO2oikGupZLrSX56uwYi'
+  email: 'paypal-dev@kroogi.com'
+  hosted_button_id: 6771463
+  ipn_url: "http://www.brainmaggot.net/monetary_processors/paypal/instant_payment_notification"
+
+production:
+  <<: *defaults
+  url: "https://www.paypal.com/cgi-bin/webscr"
+  ipn_url: "http://www.kroogi.com/monetary_processors/paypal/instant_payment_notification"
+  
+

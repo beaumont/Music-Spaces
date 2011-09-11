@@ -1,0 +1,12 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Convert Folder With Downloadables to Music Album'.t %>
+
+<% form_tag({:action => :make_ma}) do %>
+  <div>
+    <label for=""><%= "Convert {{user_link}}'s {{entity_name}} '{{album_name}}' to MA?" / [
+            user_link(@album.user, :icon => true), @album.entity_name_for_human.tdown, content_link(@album)] %></label>
+    <input id="fwd_id" name="fwd_id" type="hidden" value="<%= @album.id %>"/>
+  </div>
+  <%= submit_tag('Yes'.t) %>
+  <%= submit_tag('Cancel'.t, :onclick => 'history.go(-1); return false;') %>
+<% end %>
+

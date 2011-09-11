@@ -1,0 +1,72 @@
+stef_download_impact:
+ id: 1
+ user_id: 17
+ content_id: 27
+ counter_kind_id: 1
+ to_user_id: 20
+ total: 0
+
+artem_download_impact:
+ id: 2
+ user_id: 19
+ content_id: 27
+ counter_kind_id: 1
+ to_user_id: 20
+ total: 0
+
+stef_donate_impact:
+ id: 3
+ user_id: 17
+ content_id: 28
+ counter_kind_id: 2
+ to_user_id: 20
+ total: 0
+
+stef_invite_impact_on_jeff_mills_album1:
+ id: 4
+ user_id: 17
+ content_id: 24
+ counter_kind_id: 3
+ to_user_id: 20
+ total: 1
+
+stef_invite_impact_on_jeff_mills_album2:
+ id: 5
+ user_id: 17
+ content_id: 30
+ counter_kind_id: 3
+ to_user_id: 20
+ total: 2
+
+stef_download_impact_on_jeff_mills_album1:
+ id: 6
+ user_id: 17
+ content_id: 24
+ counter_kind_id: 1
+ to_user_id: 20
+ total: 1
+
+stef_download__impact_on_jeff_mills_album2:
+ id: 7
+ user_id: 17
+ content_id: 30
+ counter_kind_id: 1
+ to_user_id: 20
+ total: 1
+
+stef_donate_impact_on_jeff_mills_album1:
+ id: 8
+ user_id: 17
+ content_id: 24
+ counter_kind_id: 2
+ to_user_id: 20
+ total: 5
+
+stef_donate_impact_on_jeff_mills_album2:
+ id: 9
+ user_id: 17
+ content_id: 30
+ counter_kind_id: 2
+ to_user_id: 20
+ total: 6
+ 

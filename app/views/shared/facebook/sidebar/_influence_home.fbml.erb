@@ -1,0 +1,28 @@
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <div class="rightTitle"></div>
+  <div class="rightBoxes">
+    <div class="boxContent">
+      <div class="albumStatistic">
+        <%if current_fb_user %>
+          <div class="userpic"><%= fb_profile_pic(current_fb_user.facebook_id, :size => :square, :width => "34px") %></div>
+          <div class=""><%=link_to("#{pluralize_with_style(current_fb_user.download_impact_count, 'Person', 'quantity')} <b>downloaded</b>", :controller => 'user', :action => 'index')%> <br /><%=pluralize_with_style(current_fb_user.dowload_albums_count.count, 'album', '')%> because you <br/>recommended it.</div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <% fb_else do %>
+    <div class="rightTitle">Ripple effect you created</div>
+    <div class="rightBoxes">
+      <div class="boxContent">
+        <div class="albumStatistic">
+          <div class=""><b>0</b> People downloaded albums because of your recommendations on Facebook</div>
+        </div>
+      </div>
+      <div class="greyLine2"></div>
+      <div class="boxContent">
+        <div class="sendResult">Start a chain reaction by sending albums you like to your friends.The Ripple Effect numbers will reflect how far the albums have gone and how many people you influenced.</div>
+      </div>
+    </div>
+  <%end%>
+<% end %>
+

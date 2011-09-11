@@ -1,0 +1,29 @@
+<div id="searchFormId">
+  <div class="tabsearchForm" >
+    <H1 class="header">What Kroogi Artist<br />Do You Want to Represent ?</H1>
+    <br />
+    <div class="collectionContainer searchFromContainer">
+      <div class="collectionHeader">Enter Artist Name</div>
+      <div class="whiteBox" >
+        <div>
+          <% form_remote_tag do %>
+            <div style="padding:10px 10px 0px 10px;"><%= text_field_tag :display_name , '', :size => 30, :id => 'searchTerm',
+                                                          :style=>'float:left;margin:0;padding:0;'%></div>
+             <div style="float:left;padding-left:10px;">
+              <%= image_submit_tag 'search.gif' ,
+                :clickrewriteurl=>facebook_absolute_url("/facebook/tab/search"),
+                :clickrewriteid=>"searchResultId",
+                :clicktoshow=>"searchSpinner"
+            %>
+             </div>
+          <%end%>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="searchResultId" style="padding-top:8px;">
+        <span id="searchSpinner" style="display:none;" class="searchSpinner"> Loading... </span>
+        <%= render :partial => "facebook/tab/promote/search_result" %>
+      </div>
+    </div>
+  </div>
+</div>

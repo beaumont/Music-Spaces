@@ -1,0 +1,32 @@
+<% anchor ||= nil %>
+<% if defined?(results) && results && results.total_entries > 1 %>
+<div class="pager_btm">
+  <%
+    query_params ||= params_without_paging(:keep_size => results.per_page)
+    query_params.merge!(:anchor => anchor) if anchor
+  %>
+  <% unless defined?(skip_padding) && skip_padding %><% end %>
+  <div class="pager-pager-bottom">
+    <%= will_paginate((@search_results || @results || results),
+      :prev_label => '&laquo;',
+      :next_label => '&raquo;',
+      :params => query_params, :replace_params => true) %>
+  </div>
+  <div class="pager-per-page">
+    <%= 'Per page'.t -%>:
+    <% max_page_size ||= 50
+       page_sizes ||= [5, 10, 25, 50].reject {|x| x > max_page_size}
+    %>
+    <% page_sizes.each do | val | %>
+      <% if results.per_page == val %>
+        <span class="pager-pager-active"><%= val %></span>
+      <% else %>
+        <%= link_to(val, query_params.merge({:page_size => val}), {:id => "page_size_#{val}"}) -%>
+      <% end %>
+      <%= '|' unless val == page_sizes.last %>
+    <% end %>
+  </div>
+  <% unless defined?(skip_padding) && skip_padding %><% end %>
+  </div>
+<% end %>
+

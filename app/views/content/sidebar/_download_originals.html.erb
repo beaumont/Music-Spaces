@@ -1,0 +1,26 @@
+<% ask_for_sign_in = !logged_in? %>
+<% show_terms = !ask_for_sign_in && content.need_terms_acceptance_of(current_user) %>
+
+<div class="blue_head"><%= 'Download Samples'.t %></div>
+<% content.bundles.original_contest_samples.each_with_index do |bundle, i| %>
+  <div class="default">
+    <% unless bundle.title.blank? %>
+      <div class="label">
+        <%= bundle.title %>
+      </div>
+    <% end %>
+    <span class="filename">
+      <%= render( :partial => "/content/download_bundle",
+        :locals => {:bundle => bundle, :fake => (ask_for_sign_in || show_terms),
+          :truncate => true} ) %>
+    </span>
+  </div>
+<% end %>
+<%= render :partial => '/shared/require_terms', :locals => {
+        :ask_for_sign_in => ask_for_sign_in,
+        :show_terms => show_terms,
+        :content => content,
+        :terms => content.details.terms_and_conditions,
+        :title => "Download Music Contest Originals".t,
+        :header => 'Standard Terms for Music Remixes'.t,
+} %>

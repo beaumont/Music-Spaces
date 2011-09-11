@@ -1,0 +1,37 @@
+development: &defaults
+  app_id: 112748542129943
+  api_key: 68384a79551e300da9aaecf047eb2632 
+  secret_key: dcd3985ee17f821d996e847f1a3d61c8
+  connect_url: http://soxos-inc.com:5322
+  site_name: soxos
+  
+staging:
+  app_id: 109817405739090
+  api_key: 3773d2f400f7fb3677f26a75ef7c72d4
+  secret_key: 11f4ed5864cd55513f1da25d3f694a09
+  connect_url: http://brainmaggot.org
+  site_name: kroogi_stage
+
+test:
+  <<: *defaults
+
+rc:
+  <<: *defaults
+  app_id: 103555215324
+  api_key: cc0da0e928ba0b508b69f4fbc70d07fa
+  secret_key: bc2916f435d49cdbbf83c64776ce9bf3
+  connect_url: http://brainmaggot.net
+  site_name: kroogi_rc
+
+production:
+ <<: *defaults
+ app_id: 126090704110671
+ api_key: e48ede174150a968443450f9cdd47dd7
+ secret_key: 88a0cea64da8a5960d9965afe30d2c5a
+ connect_url: http://www.kroogi.com
+ site_name: kroogi
+
+selenium:
+  <<: *defaults
+  api_key: 08fd76856b0b2417e22def45fdd547ed
+  secret_key: 81a182e8d9e4688c00d81f003f3ccf1d

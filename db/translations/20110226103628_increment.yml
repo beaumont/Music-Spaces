@@ -1,0 +1,81 @@
+--- 
+- 
+  created_at: 2010-10-11 10:09:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Материалы Кредита Порога Доверия"
+  tr_key: "Threshold Pledge System Content"
+  tr_origin: ~
+  updated_at: 2011-02-25 15:04:46 +00:00
+- 
+  created_at: 2011-02-21 12:14:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл из круга {{from}} в круг {{to}} вашего проекта {{project}} "
+  tr_key: "moved himself from your project {{project}} {{from}} circle to {{to}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-21 12:14:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "присоединился к кругу {{circle}} вашего проекта {{project}}. "
+  tr_key: "has joined your project {{project}} {{circle}} circle."
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-21 12:14:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "переместил вас из круга {{from}} в круг {{to}} проекта {{project}}"
+  tr_key: "moved you from project {{project}} {{from}} circle to {{to}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-21 12:14:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "покинул круги вашего проекта {{project}}."
+  tr_key: "has left your project {{project}} circles."
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-21 12:14:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "переместил вас в круг {{to}} проекта {{project}}"
+  tr_key: "moved you to project {{project}} {{to}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-23 14:38:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл в круг {{to}} вашего проекта {{project}}"
+  tr_key: "moved himself to your project {{project}} {{to}} circle"
+  tr_origin: ~
+  updated_at: 2011-02-25 21:22:35 +00:00
+- 
+  created_at: 2011-02-26 10:22:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл из круга {{from}} в круг {{to}} вашего проекта {{project}} "
+  tr_key: "moved himself from the {{from}} circle to {{to}} circle of your project {{project}} "
+  tr_origin: /app/views/activity/messages/_moved_to_down_circle.html.erb
+  updated_at: 2011-02-26 10:35:41 +00:00
+- 
+  created_at: 2011-02-26 10:22:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перешёл в круг {{to}} вашего проекта {{project}} "
+  tr_key: "moved himself to the {{to}} circle of your project {{project}}"
+  tr_origin: /app/views/activity/messages/_moved_to_down_circle.html.erb
+  updated_at: 2011-02-26 10:35:55 +00:00
+- 
+  created_at: 2011-02-26 10:22:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "включил ваш проект {{project}} в свой круг {{circle}}."
+  tr_key: "has allowed your project {{project}} to join his {{circle}} circle."
+  tr_origin: /app/views/activity_notifier/_alert_getcloser_granted.html.erb
+  updated_at: 2011-02-26 10:29:16 +00:00

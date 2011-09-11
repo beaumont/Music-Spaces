@@ -1,0 +1,40 @@
+<% render :layout => 'settings_template' do %>
+  <% if @unpublished_q.empty? %>
+    <div class="no_questions">
+      <%= "You have no unpublished questions".t %>
+    </div>
+  <% else %>
+    <% form_for '@unpublished_q[]', @unpublished_q,
+                  :url => {:controller => '/public_question', :action => 'publish'},
+                  :html => {:id => 'question_form'} do |f| -%>
+    <%= hidden_field_tag 'from_action', 'unpublished' %>
+    <% @unpublished_q.each do |question| %>
+      <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info" width="500px;">
+        <tr>
+          <td colspan="2">
+            <% locale = I18n.locale %>
+            <%= render :partial => "shared/translatable_fields",
+              :locals => {
+              :english_body => lambda {render(:partial => "unpublished_text_fields",
+                  :locals => {:locale => 'en', :question => question, :current_locale => locale})},
+              :russian_body => lambda {render(:partial => "unpublished_text_fields",
+                  :locals => {:locale => 'ru', :question => question, :current_locale => locale})},
+            } %>
+            <%= render :partial => 'toggle_question_show_on_events', :locals => {:f=> f, 
+                                                                                 :question => question,
+                                                                                 :show_check_box => 'true'} %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+    <div style="margin-top:5px;float:right;">
+      <%= render(:partial => '/shared/button', :locals => {:label => 'Publish'.t}) %>
+    </div>
+    <div style="margin-top:5px;">
+      <button class="button" name="submit" type="submit" onclick="jQuery('#question_form').attr('action','delete').submit();">
+        <span><%= 'Delete'.t -%></span>
+      </button>
+    </div>
+    <% end %>
+  <% end %>
+<% end %>

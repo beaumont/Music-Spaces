@@ -1,0 +1,51 @@
+
+<% @content_kind_displayname = 'Private Message to'.t + ' ' + h(@content.recipient.display_name) %>
+<% @title = h(@user.login) + ' :: ' + @content_kind_displayname %>
+
+<script type="text/javascript" language="javascript">
+function checkInputs() {
+	if ($('content_post').value == "") {
+		alert("<%= 'No, I will not send an empty message. Dont even ask!'.t -%>");
+		return false;
+    }
+    return true;
+}
+</script>	
+
+<div align="center">
+	<% form_for :content, :url => { :controller => 'submit', :action => ('add_pvtmsg') }, :html => { :name=> "messageForm" } do |f| -%><br/>
+		<%= f.hidden_field("user_id") %>
+		<%= f.hidden_field("foruser_id") %>
+        <%= error_messages_for :content %>
+        <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border">
+            <tr>
+                <td colspan="2">
+                  <%= render :partial => "shared/translatable_fields", :locals => {
+                               :f => f,
+                               :content => @content,
+                               :fields => [["Subject", 'title']] } %>
+                </td>
+				<td rowspan="5" class="right white dotted_l">
+                  <%= render :partial => "buttons" , :locals => { :vertical => true, :use_button_submit => true,
+                                                                  :message => true, :validate => 'checkInputs()'} %>
+				</td>
+            </tr>
+			<tr>
+                <td class="left">
+					<label for="description"><%= 'Message Text'.t %></label>
+				</td><td class="center">
+					<%= f.text_area('post', "cols" => 60, "rows" => 20)  %>
+                </td>
+            </tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+                  <%= render :partial => "buttons" , :locals => { :use_button_submit => true, :message => true,
+                                                                  :validate => 'checkInputs()'} %>
+				</td>
+			</tr>
+        </table>
+    <% end %>
+
+</div>
+

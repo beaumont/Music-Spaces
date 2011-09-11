@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<image><%= @content.cover_art_url %></image>
+
+	<header><%= @content.title %></header>
+	<body><%= @content.short_description %></body>
+
+	
+	<links>
+		<artist><%= user_url_for(@content.user) %></artist>
+		<learn_more><%= content_url(@content) %></learn_more>
+		<kroogi>http://<%= user_domain %></kroogi>
+	</links>
+
+	<current_result><%= @pledge_state %></current_result>
+	<target_result><%= 100 %></target_result>
+
+	<more_btn_text><%= @content.stopped? ? 'Learn More'.t : 'Learn More and Participate'.t %></more_btn_text>
+</config>

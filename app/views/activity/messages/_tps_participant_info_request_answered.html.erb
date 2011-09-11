@@ -1,0 +1,5 @@
+<%# TODO: convert both links to read_and_fwd %>
+<%= '{{user}} has answered to tps information request. See {{link}}' / [
+        user_link(content.participant.user),
+        link_to('participants page'.t, :controller => 'tps', :action => 'participants', :id => content.participant.content.id),
+] %>

@@ -1,0 +1,64 @@
+<% inclusion = collection_list_item
+   content = inclusion.child_pac
+   project = content.body_project
+   collection = inclusion.parent
+   return unless project.is_view_permitted?
+%>
+<% show_info ||= false %>
+
+<div class="item">
+  <% if show_info %>
+    <div class="avatar">
+      <%= avatar_md(project) %>
+    </div>
+
+  <% else %>
+    <div style="float:left;padding:5px 5px 34px 0;"><%= link_to(image_tag('bullet.gif'), :host => user_host(project.login)) %></div>
+  <% end %>
+
+  <div class="info">
+    <div class="name">
+      <%= user_link(project, :use_display_name => true, :limit => 20) %>
+    </div>
+
+    <% if project.collection? %>
+      <div class="default">
+        <%= user_link(project, :title => '%d projects' / (project.featured_album.album_contents_items.count)) %>
+      </div>
+    <% end %>
+
+    <% if show_info %>
+      <div class="default">
+        <%= kf_simple(content.description, :characters => 45, :skip_tags => %w( img ), :ending => ' (' + link_to("...", content_url(content)) +')') if !content.description.blank? %>
+      </div>
+    <% end %>
+
+    <% unless inclusion.direct? %>
+      <% if current_user.admin? || current_user.is_self_or_owner?(inclusion.direct_parent) || current_user.is_self_or_owner?(collection) %>
+        <div class="default">
+          <%= 'From {{collection_link}} collection' / user_link(inclusion.direct_parent, :use_display_name => true) %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if inclusion.direct? && current_user.is_self_or_owner?(inclusion.direct_parent) %>
+      <div class="default">
+        <%= link_to 'Edit'.t, {:controller => 'submit', :action => "edit", :id => content} %>
+        <span class="separator"></span>
+        <%= link_to image_tag('remove.png') + ' '+ 'Delete'.t, {:controller => 'submit', :action => "delete", :id => content},
+                    {:confirm => "Are you sure?".t, :method => :post} %>
+      </div>
+    <% end %>
+    <% if !inclusion.child_is_collection? && current_user.is_self_or_owner?(collection) %>
+      <div>
+        <%= link_to_remote %{<span id="toggle_inclusion#{inclusion.id}">#{toggle_collection_inclusion_caption(inclusion)}</span>},
+                             :url => {:controller => '/user', :action => 'toggle_collection_inclusion', :id => inclusion},
+                             :update => "toggle_inclusion#{inclusion.id}",
+                             :success => "$(\"toggle_inclusion#{inclusion.id}\").highlight();",
+                             :loading => "$('wait_up_homie_toggle_inclusion#{inclusion.id}').show();",
+                             :loaded=> "$('wait_up_homie_toggle_inclusion#{inclusion.id}').hide();"
+        %>
+        <%= wait_up_homie(:id => "wait_up_homie_toggle_inclusion#{inclusion.id}", :valign => :top) %>
+      </div>
+    <% end %>
+  </div>
+</div>

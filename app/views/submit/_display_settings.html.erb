@@ -1,0 +1,55 @@
+<% in_inbox_context = (((@content.new_record? || @content.just_uploaded) && @for_inbox) || @content.in_inbox?) && !@content.is_a?(Inbox) %>
+<% child_is_in_inbox = @content.is_a?(Album) && !@content.is_a?(Inbox) && @content.album_contents.any?{|x| x.in_inbox?} %>
+
+<div class="form_head"><%= 'Display Settings'.t %></div>
+
+<% if @content.is_a?(Image) %>
+  <% is_kroogi_pic = (@content.user.profile.userpic == @content || params[:cat_id].try(:to_i) == Content::CATEGORIES[:userpic][:id]) %>
+  <div class="form_line">
+  	<div class="form_center">
+      <label id="userpic_label">
+        <%= f.check_box("use_as_kroogi_image", {:style=>'width:auto;', :id => 'userpic_checkbox', :checked => is_kroogi_pic ? "checked" : ''}) %>
+        <%= "Use as Profile picture".t %>
+      </label>
+  	</div>
+  </div>
+<% end %>
+<div class="form_line">
+	<div class="form_left">
+    <label for="cat_id"><%= 'Show in'.t %></label>
+	</div>
+	<div class="form_right">
+     <% in_album = @content.container_album %>
+     <% if !in_album.blank? && [Image, Track].include?(@content.class) && controller.action_name == "upload" %>
+       <%= hidden_field_tag("album_selector_#{ @content.id }", in_album.id, :name => "content[#{ @content.id }][album_id]") %>
+       <span><%= in_album.title %></span><br />
+     <% else %>
+       <select name="content[<%= @content.id %>][album_id]" id="album_selector_<%= @content.id %>">
+         <option value=""><%= 'Content'.t %></option>
+         <%= options_for_select Album.album_menu(@content), in_album ? in_album.id : params[:for_album].try(:to_i) %>
+       </select>
+     <% end %>
+     <span>
+       <%= render :partial => "display_on_kroogi_page", :locals => { :f => f, :content => @content, :label => 'and feature on Profile page'.t } %>
+     </span> 
+  </div> 
+</div>
+<div class="form_line">
+  <% if in_inbox_context %>
+    <div style="color: red; font-weight: bold;">
+      <%= (@content.new_record? || @content.just_uploaded) ? "This item will be submitted to other people's Kroogi".t : "This item has been submitted to other people's Kroogi.".t %>
+      <%= "You cannot change the security or place it in a non-public folder without first withdrawing the item from all folders.".t %>
+    </div>
+  <% elsif child_is_in_inbox %>
+    <div style="color: red; font-weight: bold;">
+      <%= "This folder contains items submitted to other people's Kroogi.".t %>
+      <%= "You cannot change the security of this folder or place it in a non-public folder without first withdrawing the items from all folders.".t %>
+    </div> 
+  <% end %>    
+</div>
+<div id="permissions">
+  <%= render :partial => "permissions", :locals => { :f => f, 
+                                        :content => @content,  
+                                        :in_inbox_context => in_inbox_context, 
+                                        :child_is_in_inbox => child_is_in_inbox } %>
+</div>

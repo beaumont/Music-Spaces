@@ -1,0 +1,185 @@
+--- 
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, и разрешения у меня тоже нет"
+  tr_key: "I don't own this, nor do I have permission to upload it"
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права на материал принадлежат мне"
+  tr_key: "I own a copyright to this work"
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нет, мне права не принадлежат, но я ручаюсь, что правообладатель не против того, чтобы я публиковал материал, и я готов это подтвердить."
+  tr_key: "I am not a copyright owner, but I certify that the copyright owner does not mind me putting this work here, and I can prove it if I am asked to."
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права принадлежат:"
+  tr_key: "This is who owns it: "
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2010-01-13 11:33:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто является правообладателем?"
+  tr_key: "Who owns the rights?"
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2010-04-06 06:50:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(если обладателей авторских прав несколько, оставьте поле пустым – вы сможете указать их позже)"
+  tr_key: "(for multiple owners, leave this field blank; you will have a chance to name owners later)"
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2011-01-18 14:50:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У меня нет ни прав на материал, ни разрешения на его загрузку"
+  tr_key: "I don’t own copyright to this work, nor do I have permission to upload it"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-01-18 19:52:02 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Правами владеет"
+  tr_key: "The copyright owner is"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-01-18 19:52:02 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права на материал принадлежат мне"
+  tr_key: "I own copyright to this work"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-01-18 19:52:03 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, но я ручаюсь, что правообладатель не будет возражать, если я опубликую здесь этот матераил, и я готов это подтвердить."
+  tr_key: "I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked."
+  tr_origin: ~
+  updated_at: 2011-01-18 19:52:24 +00:00
+- 
+  created_at: 2011-01-18 14:50:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, но я ручаюсь, что правообладатель не будет возражать, если я опубликую здесь этот матераил, и я готов это подтвердить"
+  tr_key: "I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-01-18 19:52:12 +00:00
+- 
+  created_at: 2011-01-18 14:50:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(если владельцев авторских прав несколько, оставьте это поле пустым, вы сможете указать их позже.)"
+  tr_key: "(for multiple owners leave this field blank; you will be able to add names later.)"
+  tr_origin: /app/views/shared/_ownership_settings.html.erb
+  updated_at: 2011-01-18 19:52:15 +00:00
+- 
+  created_at: 2011-01-18 14:50:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Владелец авторских прав"
+  tr_key: "Copyright ownership"
+  tr_origin: /app/views/shared/_ownership_settings.html.erb
+  updated_at: 2011-01-18 19:52:17 +00:00
+- 
+  created_at: 2011-01-18 13:05:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "С помощью своей электронной почты вы можете узнать кто из ваших друзей уже находится в Кругах."
+  tr_key: "Matching your Email accounts with Kroogi user directory is the fastest way to find your friends on Kroogi."
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 17:53:57 +00:00
+- 
+  created_at: 2011-01-18 17:43:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: N/A
+  tr_key: N/A
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-18 19:22:27 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользовательское соглашение"
+  tr_key: "Terms of Service"
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-01-18 17:59:22 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сохранить черновик"
+  tr_key: "Save as Draft"
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-01-18 17:59:03 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "загружайте файлы JPG, PNG или GIF; и пусть они не превышают 3 Mb"
+  tr_key: "you can upload JPG, PNG or GIF files; please keep the file size below 3 Mb"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 19:33:29 +00:00
+- 
+  created_at: 2011-01-18 17:43:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название и описание:"
+  tr_key: "Name and Description:"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 17:58:50 +00:00
+- 
+  created_at: 2011-01-18 17:43:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кажется, что-то сломалось."
+  tr_key: "Sorry, Something Broke."
+  tr_origin: /app/helpers/wizard_helper.rb
+  updated_at: 2011-01-18 17:58:27 +00:00
+- 
+  created_at: 2011-01-18 17:43:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Организуйте своё сообщество в Кругах"
+  tr_key: "Build Your Kroogi Community"
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-18 17:55:28 +00:00
+- 
+  created_at: 2011-01-18 17:44:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Добряки
+  tr_key: "((tps setup page)) Goodies"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-18 18:00:30 +00:00
+- 
+  created_at: 2011-01-18 20:14:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Краткое описание"
+  tr_key: "Short description"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 20:16:36 +00:00

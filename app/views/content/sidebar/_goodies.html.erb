@@ -1,0 +1,28 @@
+<% if current_user.is_self_or_owner?(@user) %>
+  <div class="default"><%= link_to_tps_payments_page(hat) %></div>
+  <div class="default"><%= link_to_tps_participants_page(hat) %></div>
+  <div class="grey_line"></div>
+<% end %>
+
+<div class="blue_head"><%= 'List of Goodies'.t %></div>
+
+<table class="list goodies">
+  <% goodies = hat.goodies %>
+  <% goodies = goodies.available unless hat.stopped? %> 
+  <% goodies.each do |goodie| %>
+  <tr>
+    <td class="goodies_item" <%= 'colspan="2"' if goodie.donation? %> >
+      <% unless hat.stopped? %>
+        <%= link_to(sanitize(goodie.title, :tags => []), :controller => 'tps', :action => 'goodies', :id => hat.id) %>
+      <% else %>
+        <%= sanitize(goodie.title, :tags => []) %>
+      <% end %>
+    </td>
+    <% unless goodie.donation? %>
+      <td class="goodies_price">
+        $<%= number_to_currency(goodie.price, :precision => 0, :unit => '') %>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

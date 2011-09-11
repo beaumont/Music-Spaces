@@ -1,0 +1,7 @@
+<p><%= "Dear {{display_name}}" / [@user.display_name] %>,</p>
+
+<p><%= "Your {{link}} email notifications settings are currently set to send you daily message digests. We've realized that, for most users, these settings were selected by the system automatically. This slowed down the message exchange on Kroogi, and many of our users have asked us to look into it. We listened." / [link_to('Kroogi'.t, root_url)] %></p>
+
+<p><%= "In 2 days ({{date}}) your email notifications settings will be reset to notify you each time you receive a message or a comment on Kroogi. If you do not want this system-wide change to affect you, click {{link}}. You can also adjust these settings after the change is in effect." / [(Date.current + 2.days).strftime("%B %d, %Y"), link_to("here", unsubscribe_change_notifications_url(:user_id => @notification.user_id, :token => @notification.token))] %></p>
+
+<p><%= "Sincerely, <br />Kroogi Team".t %></p>

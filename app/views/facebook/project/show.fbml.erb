@@ -1,0 +1,54 @@
+
+<div class="two_column">
+  <div class="inner">
+    <div class="artistPage">
+      <div class="cover"> <%= fb_profile_picture(@user, :content_link => false, :max_width => 150, :max_height => 150)%> </div>
+      <div class="artistPageContainer">
+        <div class="artist"><%= truncate(@user.display_name, 55) %></div>
+        <div class="country"><%= @profile.city_and_country %></div>
+        <div class="toKroogi"><%= ext_kroogi_user_link(@user, :title=>"Go to Kroogi Page of #{@user.display_name}", :use_display_name => true, :icon => true,:target=>"_blank") %></div>
+      </div>
+      <div class="description">
+        <% question = @profile.is_person? ? 'bio' : 'about_project' %>
+        <% about_q = @profile.profile_questions.by_name(question) %>
+        <% if  about_q && !about_q.answer.blank? %>
+          <%= kdf_simple about_q.answer, {:characters => 300} %>
+        <% end %>
+      </div>
+      <div class="artistAlbums">
+        <div class="artistAlbumsHeader"><%= albums_count(@music_albums.size, 'Album') %> available for download</div>
+        <div class="whiteBox">
+          <% @music_albums.each_with_index do |music_album,i| -%>
+            <% if i % 2 == 0 %><div class="clear"></div><%end%>
+            <div class="albumInfo">
+              <div class="cover" style="margin: 10px;">
+                <% if music_album.cover_art %>
+                  <%= link_to(image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+                    :border => 0, :width => 75,
+                    :alt => h(music_album.cover_art.thumb(:thumb).filename)),{:controller => 'content', :action => 'show', :id => music_album.id}) %>
+                <%else%>
+                  <%= image_tag('no-cover.png') %>
+                <% end %>
+              </div>
+              <div style="width:140px;float:left;">
+              <div class="title"><%= link_to(truncate(h(music_album.title), 45),{:controller => 'content', :action => 'show', :id => music_album.id}) %></div>
+              <div class="artist">
+                <% if music_album.artist.blank? && music_album.year.blank? %>
+                  &nbsp;
+                <%else%>
+                  <%= "#{music_album.artist}" unless music_album.artist.blank? -%>
+                  <%= " / " unless music_album.artist.blank? || music_album.year.blank?%>
+                  <%= "#{music_album.year}" unless music_album.year.blank? -%>
+                <%end%>
+              </div>
+              <div class="style"><%= h(music_album.genre) unless music_album.genre.blank? %></div>
+              </div>
+            </div>
+          <%end%>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render :partial => 'shared/facebook/right_sidebar', :locals => {:box => ['influence_on_artist']} %>
+</div>

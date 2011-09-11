@@ -1,0 +1,36 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('About My Project'.t) do %>
+  <div class="main_body_subhead"><%= skip_step_link(0, @user) -%></div>
+  <%= error_messages_for :profile -%>
+  <%- form_for :profile, :url => { :controller => 'wizard', :action => 'basic_info_project', :id => @user.id }, :html => { } do |f| -%>
+    <%= hidden_field_tag 'next_step', next_wizard_step(@user, 0) -%>
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+      <tr>
+        <td colspan="2">
+          <%= render :partial => "shared/translatable_fields2", :locals => {
+            :fields => [{:object => @profile.user, :title => lambda {"Display Name".t}, :field => :display_name,
+                :options => {:size => 30, :maxsize => 200}, :param_name => :user},
+              {:object => @profile, :title => "Motto", :field => :tagline,
+                :options => {:size => 30, :maxsize => 200}}
+            ]} -%>
+        </td>
+      </tr>
+
+      <tr><%= profile_question_input(@profile.question_object(:country, true), false) -%></tr>
+      <tr><%= profile_question_input(@profile.question_object(:city, true), false) -%></tr>
+
+      <%- question = @profile.is_person? ? @profile.question_object(:bio, true) : @profile.question_object(:about_project, true) -%>
+      <tr><%= profile_question_input(question, false, (question.name == "Birthdate") ? (@profile.is_person? ?  'Birth date'.t  : 'Date of formation'.t)  : nil) -%></tr>
+      <tr><%= profile_question_input(@profile.question_object(:interests, true), false) -%></tr>
+      <tr>
+        <td class="">&nbsp;</td>
+        <td class="">
+          <button class="button wizard" type="submit" name="commit">
+            <span><%= 'Save'.t -%></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  <%- end -%>
+<%- end -%>

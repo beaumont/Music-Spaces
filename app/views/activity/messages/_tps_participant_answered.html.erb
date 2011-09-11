@@ -1,0 +1,5 @@
+<%# TODO: convert both links to read_and_fwd %>
+<%= '{{user}} replied to question about their tps info. See {{link}}' / [
+        user_link(content.commentable.user),
+        link_to('participants page'.t, :controller => 'tps', :action => 'participants', :id => content.commentable.content.id),
+] %>

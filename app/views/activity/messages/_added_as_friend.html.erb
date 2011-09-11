@@ -1,0 +1,10 @@
+<% if content.user.project? %>
+  <%= 'has joined the {{circle}} circle of your project {{project}} .' / [link_to(content.name, :controller => 'activity', :action => 'read_and_frwd', :type => 'user_kroog', :id => activity.id), user_link(content.user, :icon => true)] %>
+<% else %>
+  <%= 'has joined your {{circle}} circle.' / [link_to(content.name, :controller => 'activity', :action => 'read_and_frwd', :type => 'user_kroog', :id => activity.id)] %>
+<% end %>
+<%# I have no idea if this LJ stuff works or not, but it doesn't look like it should... %>
+<% if Relationship.friended_through_lj?(Relationship.locate_me(activity.user,activity.content,:added_as_friend)) %>
+  <em>(<%= "Added as a friend through LiveJournal".t -%>)</em>
+<% end %>
+

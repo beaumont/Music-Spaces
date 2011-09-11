@@ -1,0 +1,70 @@
+<% archive ||= false %>
+<% user = question.user %> 
+
+  <% if (logged_in? || user.allows_guest_comments?) && !archive %>
+    <% unless logged_in? %>
+      <% before_form = '<div style="width: 350px;">' +
+              render(:partial => '/shared/login_to_comment',
+                     :locals => {
+                             :user => user,
+                             :ids => ['login_to_answer_link', 'signup_to_answer_link'],
+                             :captions => [
+                                     'You are not signed in. You can still post entries to this forum as a guest user, however, you will not be notified when other participants respond to you.'.t + ' ' + 
+                                     '<a {{login_attribs}}>Sign in</a> or <a {{signup_attribs}}>register</a> to receive notifications.' /
+                                       ["href=\"#{url_for(login_link_params())}\" id=\"login_to_answer_link\"",
+                                        "href=\"/signup\" id=\"signup_to_answer_link\""],
+                                     "Log in".t,
+                                     'Log in'.t,
+                                     'Create Kroogi Account'.t,
+                                     'You will not be able to receive comments notification until you activate your account.'.t,
+                             ],
+                             :dialog_id_suffix => 'answer',
+                             :show_invocation_links => false,
+        }) + '</div>' %>
+    <% end %>
+	<div class="forum_answer">
+    <%= render :partial => "comments/comment_form_new",
+               :locals => {:commentable => question, :hidden => true,
+                           :prompt_label => answers_count_label(@answers.total_entries),
+                           :submit_url_options => {:controller=> 'public_question', :action => 'answer', :question_id => question},
+                           :allow_acting_as_project => false, :autoshow => !params[:show_comments], :allow_guests => true,
+                           :before_form => before_form,
+                           :textarea_id => 'answer_field'
+                           }  %>
+	</div>
+   <% else %>
+      <div class="block_action">
+        <%= answers_count_label(@answers.total_entries, :readonly => true) %>
+      </div>
+	<% unless logged_in? || archive %>
+	  <div class="login_to_comment" style="width:300px;">
+	      <%= render :partial => '/shared/login_to_comment',
+	                 :locals => {
+	                         :user => user,
+	                         :ids => ['login_to_comment_link', 'signup_to_comment_link'],
+	                         :captions => ['You must have a Kroogi account to leave an answer.'.t,
+	                                       "Log In to leave an answer".t,
+	                                       'Log In to leave an answer'.t,
+	                                       'Create Kroogi Account to leave an answer'.t,
+	                                       'You will not be able to leave an answer until you activate your account.'.t,
+	                                       ],
+	                         :dialog_id_suffix => 'comment',
+	                 } %>
+		</div>
+	<% end %>
+  <% end %>
+
+
+  <% if @answers.total_entries > 0 %>
+    <div class="content_head" style="margin-top:30px"><%= 'Answers'.t %></div>
+  <% end %>
+  <%= render :partial => "answer", :collection => @answers, :locals => {:archive => archive} %>
+  
+  <%= render :partial => '/shared/pager', :locals => { :results => @answers, :query_params => params_without(:page, :show_comments) } %>
+
+<script type="text/javascript" charset="utf-8">
+  function show_comments(element) {
+    element = $(element);
+    element.up().next('.comments_container').show();
+  }
+</script>

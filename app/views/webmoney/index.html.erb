@@ -1,0 +1,55 @@
+<div style="margin:30px 0px 20px 20px">
+
+<center>
+  
+      <div class="right_bordered" id="circles_management">
+        <div class="border_offset">
+          <div class="subtopic_h1">
+            <span class="subtopic_left"><%= 'WebMoney Connection'.t -%></span>
+          </div>
+			<br />
+			<div style="text-align:left">
+
+          <p><b><%= 'Currently Connected to WMID'.t %>: <%=h obfuscate_account(@account_setting.webmoney_account) || 'None Available' %></b></p>
+					<%= form_tag :controller => 'webmoney', :action => 'detach'%>
+          <% if @account_setting.webmoney_any_attached? %>
+          <table cellpadding="1" cellspacing="0" border="0" width="100%" class="manage_circle">
+        		<tr>
+						  <td>
+						    <table cellspacing="0" cellpadding="5" class="project_wizard" style="width: 100%;">
+									<tr>
+										<td style="line-height:18px" colspan="2"><%= render :partial => 'money/webmoney_summary'%></td>
+									</tr>
+									<% if request.post? -%>
+									<tr>
+							      <td><label for="password"><%= 'Kroogi Password'.t %></label></td>
+							      <td><input type="password" name="password" size="30" maxlength="60" value=""/></td>
+							    </tr>
+									<% end -%>
+									<tr>
+                  	<td colspan="2">&nbsp;</td>
+									</tr>
+									<tr>
+									<td colspan="2" style="text-align:center">
+                    <button class="button_gr" type="submit" name="commit" value="detach">
+                      <span><%= 'Disconnect'.t -%></span>
+                    </button>
+									</td>
+									</tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+					</form>
+
+          <% else -%>
+            <p><%= link_to 'You have no purses attached, attach/activate your purses'.t, :action => 'attach' %></p>
+          <% end -%>  
+          
+          <%= link_to 'Money Page'.t, url_for(:controller => '/money', :action => 'index', :id  => current_actor.id) %>
+			</div>
+        </div>
+  
+      </div>
+</center>
+</div>

@@ -1,0 +1,175 @@
+<%# According to http://www.quirksmode.org/css/display.html, Explorer doesn't support display:table %>
+<% @content_kind_displayname = @user.project? ? 'Project Settings'.t : 'User Settings'.t %>
+<% @title = @user.login + ' :: ' + @content_kind_displayname %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user)) do %>
+  <% form_border(:subhead_title => link_to('Edit Details'.t, {:controller => 'profile', :action => 'edit_basic', :id => @user.profile.id})) do %>
+    <%= 'Edit information about you that is available to others'.t %>:
+    <%= 'Display Name'.t -%>, <%= 'Motto'.t -%>, <%= 'Your Contact Information'.t -%>, etc.
+  <% end %>
+  <br>
+
+  <% unless @user.basic_user? %>
+    <% upload_picture_url = {:controller => 'submit', :action => 'upload_image', :user_id => @user, :cat_id => Content::CATEGORIES[:userpic][:id], :is_from_setting_center => 'true'}%>
+    <% form_border(:subhead_title => link_to('Upload New Profile Picture'.t, upload_picture_url)) do %>
+      <% if @user.project? %>
+        <%= 'Change the picture that represents your project on the main profile page.'.t -%>
+        <br/>
+      <% else %>
+        <%= 'Change the picture that represents you on the main profile page'.t -%>
+      <% end %>
+    <% end %>
+    <br>
+  <% end %>
+
+  <% form_border(:subhead_title => link_to('Manage Avatars'.t, {:controller => 'profile', :action => 'edit_avatar', :id => @user.profile.id, :is_from_setting_center => 'true'})) do %>
+    <%= 'Select and Upload New Avatar'.t -%>.<br/>
+    <%= 'Manage Existing Avatars'.t -%>.
+  <% end %>
+  <br>
+
+  <% form_border(:subhead_title => link_to((@user.project? ? 'Project Settings'.t : 'Account Settings'.t), :controller => 'preference', :action => 'account', :id => @user, :is_from_setting_center => 'true')) do %>
+    <% if @user.project? %>
+      <%= 'Modify your privacy settings.'.t -%>
+      <br/>
+      <%= 'Hide or delete this project.'.t -%>
+    <% else %>
+      <%= 'Change your primary email and password.'.t -%>
+      <br/>
+      <%= 'Modify your privacy settings.'.t -%>
+      <br/>
+      <%= 'Delete your account.'.t -%>
+    <% end %>
+  <% end %>
+  <br>
+
+  <%# TODO: Refactoring this %>
+  <% if @user.project? %>
+    <% form_border(:subhead_title => link_to('Email Notifications'.t, :controller => 'preference', :action => 'project_emails', :id => @user, :is_from_setting_center => 'true')) do %>
+      <%= 'How do you want to receive email notifications?'.t -%>
+      <br/>
+      <%= 'See who is receiving activity notification via email.'.t -%>
+    <% end %>
+    <br>
+  <% else %>
+    <% form_border(:subhead_title => link_to('Email Notifications'.t, :controller => 'preference', :action => 'emails', :id => @user, :is_from_setting_center => 'true')) do %>
+      <%= 'How do you want to receive email notifications?'.t -%>
+      <br/>
+      <%= 'What notifications do you want to receive?'.t -%>
+    <% end %>
+  <% end %>
+  <br>
+
+
+  <% form_border(:subhead_title => link_to('Kroogi Notifications'.t, :controller => 'preference', :action => (@user.project? ? 'project_kroogi' : 'kroogi'), :id => @user, :is_from_setting_center => 'true')) do %>
+    <%= 'How do you want to receive kroogi notifications?'.t -%>
+    <br/>
+    <% if @user.project? %>
+      <%= 'See who is receiving kroogi notification.'.t -%>
+    <% else %>
+      <%= 'What notifications do you want to receive?'.t -%>
+    <% end %>
+  <% end %>
+  <br />
+
+  <% unless @user.basic_user? %>
+    <% if @user.account_setting.money_approved? %>
+      <% form_border(:subhead_title => link_to("Manage Money Account".t, money_path(@user))) do %>
+        <% unless @user.account_setting.monetary_processor_accounts.blank? %>
+          <table cellspacing="0" cellpadding="3px">
+            <tbody>
+              <% @user.account_setting.monetary_processor_accounts.each do |acc| %>
+                <tr>
+                  <td class="left"><strong><%= acc.display_subtype %></strong></td>
+                  <td><%= acc.account_identifier %></td>
+                </tr>
+              <% end -%>
+            </tbody>
+          </table>
+        <% else -%>
+          <%= "Not connected to any payment system".t %>
+        <% end -%>
+      <% end -%>
+    <% end %>
+    <br>
+  <% end %>
+
+  <% unless @user.basic_user? %>
+    <% unless @user.project? %>
+      <% projs = @user.projects.reject { |p| !p.is_view_permitted? }.sort_by { |x| x.login.downcase } %>
+      <%
+        subhead_title = 'Project Setting Links'.t
+        subhead_title << "( #{link_to('Change display options'.t, :controller => 'preference', :action => 'project_display', :id => @user, :is_from_setting_center => 'true')} )" unless projs.empty?
+      %>
+      <% form_border(:subhead_title => subhead_title) do %>
+        <% if projs.empty? %>
+          <%= 'No projects to show'.t -%>.
+          <%= link_to 'Create Project'.t, :controller => 'project', :action => 'create' -%>.
+        <% end %>
+        <% projs.each do |proj| %>
+          <%= project_settings_link(proj, :icon => true) %>
+          <br />
+        <% end %>
+      <% end %>
+    <% end %>
+    <br />
+  <% end %>
+
+  <% if RAILS_ENV != 'production' && @user.project? && !@user.collection? %>
+    <% form_border(:subhead_title => link_to('Fundraising Campaign Setup'.t, :controller => 'tps_setup')) do %>
+      <%= 'Set up Threshold Pledge System for your project'.t -%>
+      <br />
+    <% end %>
+  <% end %>
+
+  <% if show_fb_connect? %>
+    <% unless @user.project? %>
+      <% form_border(:subhead_title => link_to('Facebook Connect Settings'.t, '/preference/facebook_settings')) do %>
+        <%= 'Connect your Kroogi account to Facebook.'.t -%>
+        <br />
+        <%= 'Change Facebook connection settings.'.t -%>
+      <% end %>
+      <br />
+    <% end %>
+  <% end %>
+
+  <% unless @user.basic_user? %>
+    <% form_border(:subhead_title => link_to('Livejournal Connect Settings'.t, user_path_options(@user, :controller => 'blog', :action => 'settings', :is_from_setting_center => 'true'))) do %>
+      <%= 'Connect your Kroogi account to Livejournal.'.t -%>
+      <br/>
+      <%= 'Change Livejournal connection settings.'.t -%>
+    <% end %>
+    <br />
+  <% end %>
+
+  <% if @user.basic_user? %>
+    <% form_border(:subhead_title => link_to('Upgrade to Advanced Account'.t, {:controller => 'profile', :action => 'upgrade_account', :id => @user.profile.id})) do %>
+      <%= 'Upgrate your account if you want to add music albums and tracks, video, and texts, make announcements and receive monetary contributions'.t %>
+      <br>
+    <% end %>
+  <% end %>
+
+  <% unless @user.basic_user? %>
+    <% qa_forum_title = @user.questions_enabled? ? 'Q&A Forum'.t : link_to('Enable Q&A Forum'.t, {:controller => "/user", :action => :enable_questions, :id => @user.id}) %>
+    <% form_border(:subhead_title => qa_forum_title) do %>
+      <% if @user.questions_enabled? %>
+        <%= "Your forum feature is enabled.".t %>
+        <% if PublicQuestion.with_user(@user).count == 0 %>
+          <%= "It will remain invisible until you {{link}} to it." / [link_to("add questions / topics".t, {:controller => "/public_question", :action => :new})] %>
+        <% end %>
+      <% else %>
+        <%= "Use the Forum to start a dialogue within your Kroogi circles and grow your community faster.".t %>
+      <% end %>
+    <br />
+    <% end %>
+    <br />
+  <% end %>
+
+  <% form_border(:subhead_title => link_to('Blocked Users'.t, :controller => '/preference', :action => 'blocked_users')) do %>
+    <%= 'Block and Unblock Users'.t -%>
+  <% end %>
+  <br />
+
+<% end %>

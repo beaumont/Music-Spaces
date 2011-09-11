@@ -1,0 +1,2 @@
+page['favorites'].innerHTML = '<div class="sharing_label_favs" style="padding-right:15px;">' + 'Added to your favorites'.t + '</div>'
+page['favorites'].visual_effect :highlight

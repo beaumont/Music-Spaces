@@ -1,0 +1,63 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Translator\'s Booth'.t %>
+
+<div class="admin">
+
+  <div id="language">
+    <h1><%= "Language".t + ': ' + (Locale.language.native_name || Locale.language.english_name) -%></h1></div>
+
+
+    <table class="admin" width="100%">
+      <tr>
+        <th><%= 'Search for strings here'.t %>:<br/>
+          <small>(<%= 'Remember to include SQL wildcard % where necessary'.t %>)</small>
+        </th>
+        <th>
+          <div>
+            <% form_tag({:controller=> 'admin/translate'}, {:style=>"margin:0;padding:0;", :method => :get}) do -%>
+              <%= text_field_tag("term", params[:term], :size => 30, :style => "padding: 2px; border:1px solid #7DA0BE;font-size:11px") %>
+              <button class="button_gr" type="submit" name="commit" onClick="if(document.getElementById('term').value==''){return false}">
+                <span><%= 'Go'.t %></span>
+              </button>
+            <% end -%>
+          </div>
+        </th>
+      </tr>
+    </table>
+
+  <div>
+
+    <% if @view_translations.nil? %>
+        <div class="section_empty"><%= 'No results found'.t %></div>
+    <% else %>
+      <table class="admin translation" width="100%">
+        <tr>
+          <th style="width:2%"><%= '#' -%></th>
+          <th style="width:2%"><%= 'Date'.t -%></th>
+          <th style="width:2%"><%= 'Origin'.t -%></th>
+          <th style="width:20%"><%= 'Source text'.t -%></th>
+          <th style="width:70%" colspan="<%= @max_pluralizations -%>"><%= 'Translation(s)'.t %></th>
+          <th style="width:2%"><%= 'To dump?'.t -%></th>
+        </tr>
+
+        <% @series = 1 -%>
+        <% @view_translations.each do |tr| -%>
+          <%= render :partial => 'translation_form', :locals => {:series => @series, :tr => tr, :maxcols => @max_pluralizations} %>
+          <% @series += 1 -%>
+        <% end -%>
+      </table>
+    <% end %>
+  </div>
+
+  <%= will_paginate @view_translations %>
+
+  <p>
+    <% if RAILS_ENV == 'development' %>
+      [ <%= link_to 'Apply fresh translations'.t, {:action => 'apply_translations'} %> ]
+    <% end %>
+    [ <%= link_to 'Scan code'.t, {:action => 'scan_code'} %> ]
+    [ <%= link_to 'Clear DNRs'.t, {:action => 'clear_dnrs'} %> ]
+    [ <%= link_to 'Grab the dump'.t, {:action => 'grab_dump_page'} %> ]
+  </p>
+
+</div>
+

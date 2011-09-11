@@ -1,0 +1,71 @@
+<% form_data ||= {} %>
+<% start_following_step ||= nil %>
+<div id="overlay_waitindicator" style=" display: none;">
+  <span class="add_friends_wizard_busy"><img src="/images/ajax-loader.gif"/> </span><%= 'Please Wait...'.t %>
+</div>
+<div id="bas_errmsg"></div>
+<div id="overlay_wizard">
+<%# The first step in getting addresses %>
+  <% url_options = {}
+     if APP_CONFIG.ssl_host
+       url_options.merge!(:protocol => 'https', :host => APP_CONFIG.ssl_host)
+     end
+  %>
+  <% form_tag url_options.merge(:controller => 'invite', :action => 'select_kroogi_users_to_follow'), :id => 'invite_widget_form',
+              :onsubmit => "jQuery('#invite_widget_form .wait_up_homie').show();" do %>
+    <input type="hidden" name="return_to" id="invite_widget_return_url"/>
+    <%= hidden_field_tag 'start_following_step', start_following_step %>
+
+    <div id="the_wizard_form">
+      <div id="the_first_tab">
+        <div class="widget_area_text"><%= 'Searching your email account is the fastest way to find people you want to be near you on Kroogi'.t %></div>
+<%#TODO: Here must be good captcha view or some another logic especially for GMail, maybe some js animation and dialog re-constructing when we see that user was typed "@gmail.com" %>
+        <div class="table widget_table">
+          <div class="row">
+            <label class="cell" for="mail_in"><%= 'E-mail'.t %>:</label>
+
+            <div class="cell">
+              <%= text_field_tag "mail_in", form_data[:mail_in] %>
+            </div>
+          </div>
+          <div class="row">
+            <label class="cell" for="magic_in"><%= 'Password'.t %>:</label>
+
+            <div class="cell">
+              <%= password_field_tag "magic_in" %>
+            </div>
+          </div>
+        </div>
+        <div class="widget_area_text"><%= 'Attention! We do not store, save, sell and even remember your password.'.t -%>
+          <a href="/home/policy" target="_blank"><%= 'Learn more.'.t %></a></div>
+      </div>
+    </div>
+
+    <div class="widget_button_right">
+      <%= render :partial => '/submit/buttons', :locals => {:disable_cancel => true, :ok_label => 'Find Friends'.t} %>
+    </div>
+  <%- end -%>
+</div>
+
+<script type="text/javascript">
+  cleanup_ovr('add_friends_overlay');
+  modal_height = document.viewport.getHeight() * 0.8;
+  tab_height_m = 0.6;
+  tab_height_n = 0.4;
+
+  var add_friends_wizard_opts = {
+    modal: true,
+    height: 'auto',
+    resizable: true,
+    width: 500,
+    minWidth: 500,
+    close: function() {
+      jQuery('#add_friends_overlay').dialog('destroy');
+      jQuery('#add_friends_overlay').empty();
+    }
+  };
+  jQuery("#add_friends_overlay").attr('title', '<%= 'Share your artistic taste with friends'.t %>');
+  jQuery("#tell_about_yourself_widget").dialog('destroy');
+  jQuery("#add_friends_overlay").dialog(add_friends_wizard_opts);
+  jQuery('#invite_widget_return_url').val(document.location);
+</script>

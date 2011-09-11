@@ -1,0 +1,8 @@
+<span class="wonder_menu">
+  <ul>
+  <% ([[current_user.login, current_user.id]] + current_user.projects.sort_by(&:login).collect{|project| [h(project.login), project.id]}).each do |menu_item| %>
+    <li><a href="<%= wonder_menu_url(menu_item[1]) %>" <%= wonder_menu_class(menu_item[1]) %>><%= menu_item[0] %></a></li>
+  <% end -%>
+  </ul>
+</span>
+

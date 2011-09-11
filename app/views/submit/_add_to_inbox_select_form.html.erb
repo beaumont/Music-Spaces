@@ -1,0 +1,24 @@
+<% # Prep the select box for the given inboxes
+inbox_opts = ''
+@avail_inboxes.each do |inbox|
+  inbox_opts << %Q{<option value="#{inbox.id}">#{inbox.title_short(20)}</option>}
+end 
+%>
+<p style="margin-bottom: 3px;"><%= 'Folder'.t %></p>
+<% form_remote_tag :url => {:controller => 'submit', :action => 'add_to_inbox__do_add', :id => @content}, :before => "$('submit_ajax').show();", :complete => "$('submit_ajax').hide();" do %>
+  <%= select_tag :inbox, inbox_opts %><br/>
+  <div style="margin: 10px 0px; color: #666;">
+    <div id="atts_forced" style="display:none; color: red;">
+      <%= "Note: This folder's owner will be able to take any item submitted as their own (with text noting you as the original owner)".t %>
+    </div>
+    <div id="atts_option" style="display:none;">
+      <label>
+        <%= check_box_tag :allow_take_to_showcase, 1, true, :class => 'auto_width' %>
+        <%= "Allow %s to use this content in their showcase (with text noting you as the original owner)" / [user_link(@other_user, :icon => true)] %>
+      </label>
+    </div>
+  </div>
+  <button style="margin-top: 3px; margin-left: -3px;" class="button" type="submit"><span><%= 'Submit'.t %></span></button>
+<% end %>
+
+

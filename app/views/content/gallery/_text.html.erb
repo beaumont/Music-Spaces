@@ -1,0 +1,12 @@
+<div class="gallery_textentry">
+  <div class="gallery_audio_inner_sm">
+    <div class="g_title2">
+      <%= gallery_content_title_link(content, nil, :from_related => from_related, :class => "gallery_text_link") %>
+    </div>
+
+    <div style="color: #999;">
+      <%= kf_simple(content.post, {:characters => 100, :skip_tags => %w[p embed b strong em i img a] }) %>
+      <br/>
+    </div>
+  </div>
+</div>

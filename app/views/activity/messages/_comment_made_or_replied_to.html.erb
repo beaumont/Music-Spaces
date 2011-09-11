@@ -1,0 +1,59 @@
+<% aid = activity.id %>
+<% comment = activity.content %>
+
+<% if comment.commentable.nil? %>
+  <%= 'commented on content which was subsequently deleted'.t %>
+<% else %>
+  <% if comment.commentable.class.name.to_s == 'Profile' %>
+    <% if activity.keyname == :comment_made %>
+      <% if comment.commentable.user.project? %>
+        <%= 'left a greeting on {{project_link}} profile page' / [user_link(comment.commentable.user)] %>
+      <% else %>
+        <%= 'left a greeting on your profile page'.t %>
+      <% end %>
+    <% else %>
+      <%= 'replied to a'.t %>
+      <%= link_to 'Wall Posting'.tdown, "/user/thread/#{comment.top.commentable.user_id}?thread_id=#{comment.top.id}" %>
+      <%= 'on Kroogi Page of %s' / [user_link(comment.commentable.user, {:use_both => false, :frwrd_type => 'user', :public_context => one_liner})] %>
+    <% end %>
+  <% elsif comment.commentable.class.name.to_s == 'UserKroog' %>
+    <% if comment.parent %>
+      <%= "replied to your forum post in %s circle of %s" / [comment.commentable.circle_name, user_link(comment.commentable.user, {:public_context => one_liner})] %>
+    <% else %>
+      <%= "left a post in %s circle forum of %s" / [comment.commentable.circle_name, user_link(comment.commentable.user, {:public_context => one_liner})] %>
+    <% end %>
+  <% elsif comment.commentable.class == PublicAnswer %>
+    <% answer = comment.commentable %>
+    <% question = answer.question %>
+    <%= "left a comment on answer '{{answer}}' to question '<a href='{{url}}'>{{question}}</a>'" / [
+            answer.title_long, url_for(:host => user_host(question.user.login), :controller => '/public_question',
+                                       :action => 'index', :id => question),
+            question.title_long] %>
+  <% else %>
+    <% if activity.keyname == :comment_made %>
+      <% if @user.is_self_or_owner?(comment.commentable.user) %>
+        <%= "left a comment on your {{content_type}}" / comment.commentable.entity_name_for_human.tdown %>
+      <% else %>
+        <%= "left a comment on {{user_or_project}}'s {{content_type}}" / [user_link(comment.commentable.user),
+                                                                          comment.commentable.entity_name_for_human.tdown] %>
+      <% end %>
+    <% else %>
+      <%= 'replied to a comment on'.t %>
+      <%= (comment.commentable.entity_name_for_human.tdown) %>
+    <% end %>
+    <% anchor = kf_title("#{comment.commentable.title_long}") %>
+    <%= activity_url_for(one_liner, activity, anchor, :id => aid, :type => 'comment') %>
+  <% end  %>
+  
+  <% unless one_liner %>
+    <div class="message-extended">
+      <% if comment.deleted? %>
+        <em><%= 'Comment Deleted'.t %></em>
+      <% else %>
+        <%= kf_simple(comment.comment, :truncate_length => citation_length) %>
+      <% end %>
+    </div>
+  <% end %>
+
+<% end %>
+

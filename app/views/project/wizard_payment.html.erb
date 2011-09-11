@@ -1,0 +1,26 @@
+<% @title = current_actor.login + ' :: ' + 'Connect to Payment Systems'.t %>
+
+
+<div id="centered_modules">
+
+  <div class="module_thin_padding">
+    <div class="left_noborder profile_text white" style="padding: 10px;">
+
+
+      <h2 class="dotted_b"><%= 'Step 2'.t + ' - ' + 'Connect to Payment Systems'.t %></h2>
+      <div class="dotted_b">
+        <p>
+          <%= 'Connect your Kroogi to online payment systems if you would like to receive contributions.'.t %>
+          <%= 'You may skip this step and do it later.'.t %>
+        </p>
+      </div>
+
+    	<% form_for :account_setting, @account_setting, :url => {:controller => 'project', :action => 'wizard_payment', :id => @project, :type => @type} do |f| -%>
+    	  <%= error_messages_for :account_setting %>
+    	  <%= render :partial => 'account_settings/account_forms', :locals => {:f => f, :context => :wizard} %>
+      <% end %>	
+
+    </div>
+  </div>
+</div>
+

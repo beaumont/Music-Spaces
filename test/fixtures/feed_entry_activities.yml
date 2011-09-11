@@ -1,0 +1,6 @@
+jd_announcement_in_chiefs_friendfeed:
+  feed_entry_id: 1
+  activity_id: 9 
+  activity_type_id: <%= Activity::ACTIVITIES[:published_announcement][:id] %>
+  content_id: 36 #jd_announcement
+  content_type: Content

@@ -1,0 +1,23 @@
+
+<% clink = link_to kf_title(@content.title_long), "#{@url}/content/show/#{@content.id}" %>
+<% explorelink = link_to('Explore Kroogi'.t, "#{@url}/explore") %>
+
+<p>
+	<strong>
+		 <% if @content.user.project? %> 
+			 <%= 'Content item %s (by project %s) is featured on the %s page' / [clink, @content.user.login, explorelink] -%>
+		 <% else %>
+			 <%= 'Your Content item %s is featured on the %s page' / [clink, explorelink] -%>
+		 <% end %>
+	</strong>
+</p>
+
+<p>
+  <%= 'Congratulations' -%>!
+</p>
+
+<p>
+  <%= "Go to %s page" / explorelink %><br />
+  <%= "Open %s" / clink %><br />
+</p>
+

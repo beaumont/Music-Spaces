@@ -1,0 +1,29 @@
+<%= "Matching your Facebook account with Kroogi user directory is one of the fastest ways to find your friends on Kroogi.".t %>
+<br />
+<%= "Click Reconnect if you would like to reconnect with your friends.".t %>
+
+<div id="find_fb_friends_dialog" title="<%= 'Build Your Kroogi Community'.t %>" style="display:none;">
+  <% form_remote_tag(:url => url_for(:controller => '/wizard', :action => :follow_fb_friends)) do %>
+    <%= render :partial => "/wizard/add_fb_friends_form_content" %>
+
+    <button class="button wizard_buttons" onclick="jQuery('#find_fb_friends_dialog form').trigger('onsubmit');jQuery('#find_fb_friends_dialog').dialog('destroy');">
+      <span><%= "Close".t %></span>
+    </button>
+  <% end %>
+</div>
+
+<%= render :partial => "/wizard/add_fb_friends_js_calls", :locals => {:reconnect_button_title => "Reconnect".t } %>
+
+<script type="text/javascript">
+  function after_accept_action(){
+    jQuery('#find_fb_friends_dialog').dialog({
+      modal: true,
+      resizable: false,
+      position: 'middle',
+      width: 400,
+      close: function() {
+        jQuery('#find_fb_friends_dialog').dialog('destroy');
+      }
+     });
+  }
+</script>

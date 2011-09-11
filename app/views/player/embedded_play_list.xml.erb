@@ -1,0 +1,7 @@
+<%
+  @vars[:more_attribs][:embed_code] = render(:partial => "/player/embed_code.html.erb", :locals => {
+    :width => params[:width] || @player_width, :content => @vars[:content], :id_param => @vars[:id_param],
+    :tracks => @vars[:tracks]}).squish
+
+%>
+<%= render(:partial => "play_list", :locals => @vars) %>

@@ -1,0 +1,75 @@
+<% artist = question.user %>
+<% title ||= '{{artist_name}} has a question for you' / h(truncate(artist.display_name, :length => 20)) %>
+<% prefix ||= nil %>
+<% suffix ||= nil %>
+<% @question_widget_number = (@question_widget_number || 0) + 1 %>
+<% dialog_id_suffix = @question_widget_number %>
+
+<div style="display: none;" id="question_dialog_<%= dialog_id_suffix %>">
+  <%= prefix %>
+  <% form_border(:content_extra_class => 'question') do %>
+    <%= render(:partial => 'shared/question/question', :locals => {:question => question})%>
+  <% end %>
+  <div style="display:none">
+    <% form_remote_tag(:url => {:controller=> 'public_question', :action => 'didnt_answer'},
+                       :html => {:class => 'didnt_answer'}) do -%>
+      <%= hidden_field_tag 'user_id', user.id %>
+      <%= hidden_field_tag 'artist_id', artist.id %>
+      <%= hidden_field_tag 'question_id', question.id %>
+    <% end %>
+  </div>
+  <div class="answer_block">
+    <div class="answer_accordion">
+      <h3><a href="#"><%= 'Leave Answer'.t %></a></h3>
+      <div>
+        <%= render :partial => "comments/remote_comment_form",
+                   :locals => {:commentable => question, :hidden => false, :allow_acting_as_project => false,
+                               :autoshow => false,
+                               :submit_url_options => {:controller=> 'public_question', :action => 'answer',
+                                                       :question_id => question.id, :dialog_id_suffix => dialog_id_suffix},
+                               :after_button => ('<div class="default grey_out" style="margin-left:70px;">' +
+                                       "Your answer is not private. It will be posted on the Artist's forum. Don't write anything that you don't want others to see.".t +
+                                       '</div>'),
+                               :current_user => user,
+                               :autoshow => false,            
+                               }  %>
+      </div>
+    </div>
+    <div style="margin-top:5px;">
+      <%= 'Notice: this is not a real time chat with the artist. However, the question comes directly from the artist who will have a chance to see your response.'.t %>
+    </div>
+  </div>
+  <% if suffix %>
+    <div style="margin-top:7px;">
+      <%= suffix %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  var question_dialog_opts_<%= dialog_id_suffix %> = {
+    title: "<%= title %>",
+    modal: true,
+    height: 'auto',
+    position: 'middle',
+    width: 532,
+    dialogClass: 'question_widget',
+    close: function() {
+      if(jQuery("#question_dialog_<%= dialog_id_suffix %> .answer_accordion").length > 0) {
+        jQuery("#question_dialog_<%= dialog_id_suffix %> form.didnt_answer").trigger("onsubmit");
+      }
+      jQuery("#question_dialog_<%= dialog_id_suffix %>").dialog('destroy');
+    }
+  };
+  function show_question_dialog_<%= dialog_id_suffix %>() {
+    jQuery('#question_dialog_<%= dialog_id_suffix %>').dialog(question_dialog_opts_<%= dialog_id_suffix %>);
+    jQuery("#question_dialog_<%= dialog_id_suffix %> .answer_accordion").accordion({
+      collapsible: true,
+      autoHeight: false,
+      active: false
+    });
+  }
+  jQuery(document).ready(function($){
+    show_question_dialog_<%= dialog_id_suffix %>();
+  });
+</script>

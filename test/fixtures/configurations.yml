@@ -1,0 +1,24 @@
+# == Schema Information
+# Schema version: 20081006211752
+#
+# Table name: configurations
+#
+#  id          :integer(11)     not null, primary key
+#  config_key  :string(255)
+#  description :text
+#  value       :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  config_key: MyString
+  description: MyText
+  value: MyText
+
+two:
+  config_key: MyString
+  description: MyText
+  value: MyText

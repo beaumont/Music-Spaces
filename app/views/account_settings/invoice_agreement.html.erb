@@ -1,0 +1,60 @@
+<div style="text-align:left">
+  <% form_tag do %>
+  <%= hidden_field_tag 'is_for_wizard', params[:is_for_wizard] if params[:is_for_wizard]%>
+    <table cellpadding="1" cellspacing="0" border="0" width="100%" class="manage_circle">
+      <tr>
+        <td colspan="2">
+          <%= render :partial => force_bulktext_render("read_tos_section") %>
+          <div style="padding:1em 0 1em;">
+            <%= kroogi_tos_link('<strong>Open Kroogi Terms of Service</strong>'.t) %>
+          </div>
+          <%= 'Once you validate your acceptance and successfully attach PayPal or Webmoney account the following will take place:'.t %>
+
+          <ul>
+            <li>
+              <%= 'You will be able to receive contributions from other Kroogi users'.t %>.
+            </li>
+            <li>
+              <%= 'Your Music Albums with Downloads option turned on will instantly become available on Kroogi Downloads application for Facebook users'.t %>.
+            </li>
+            <li>
+              <%= 'Kroogi will receive contributions on your behalf via PayPal, Webmoney, and SMS through Kroogi.com and PayPal through Kroogi Downloads'.t %>.
+            </li>
+            <li>
+              <%= 'Kroogi will hold your contributions for 30 days or more for security reasons'.t %>.
+            </li>
+            <li>
+              <%= 'Once the waiting period is over, you will be able to withdraw your contributions into attached payment system account'.t %>.
+            </li>
+            <li>
+              <%= 'You can change your withdrawal account at any moment'.t %>.
+            </li>
+            <li>
+              <%= 'To receive contributions you must agree to service fee withheld by Kroogi: {{standart_percent}}% from all contributions. Service fee is a subject to change without prior notice.' /
+                      MonetaryDonation.standard_charge_percent %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-bottom:2em;">
+          <%= check_box_tag 'invoice_agreement_accepted' %>
+          <label for="invoice_agreement_accepted" style="font-weight:bold">
+            <%= 'I have reviewed and I accept the Terms of Service'.t %>
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">
+          <button class="button" name="agreement_submit" type="submit"><span><%= 'I Accept'.t %></span></button>
+        </td>
+        <td style="text-align:center;">
+          <button class="button" onclick="jQuery('#invoice_agreement_dialog').dialog('destroy');return false;">
+            <span><%= 'I Decline'.t %></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <!-- end form elements -->
+  <% end %>
+</div>

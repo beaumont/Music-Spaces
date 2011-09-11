@@ -1,0 +1,10 @@
+<p>
+	<strong>
+	  <%= "%s adopted your old %s '%s' as their own content item" / [@content.user.login, @content.display_type.tdown, @content.title_long] -%>!
+	</strong>
+</p>
+
+<p>
+  <%= link_to "View the adopted content item".t, "#{@url}/content/show/#{@content.id}" %>
+</p>
+

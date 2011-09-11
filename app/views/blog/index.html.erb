@@ -1,0 +1,55 @@
+<% @title = @user.login + ' :: ' + 'LiveJournal'.t %>
+
+<% content_for :right_column do %>
+  <% if permitted?(@user, :content_add) %>
+    <div class="blue_block sidebar">
+      <% if @user.livejournal_account -%>
+        <% if (@user.livejournal_account.last_manual_sync && @user.livejournal_account.last_manual_sync.utc < 1.hour.ago.utc) %>
+          <%= link_to 'Refresh LiveJournal'.t, {:controller => 'blog', :action => 'refresh', :id => @user} %><br />
+        <% else %>
+          <%=	'Due to LiveJournal restrictions, you may only update once per hour'.t %><br />
+        <% end %>
+      <% end -%>
+      <%= link_to 'Change LiveJournal Settings'.t, :controller => 'blog', :action => 'settings' %>
+    </div>
+  <% end %>
+<% end %> 
+
+<%= header_title('LiveJournal of'.t + link_to_livejournal(@account)) %>
+<% if @account.blank? %>
+  <div class="extra_body">
+      <div class="section_empty"><%= 'This user has no LiveJournal blog set up at the moment. Be their encouragement!'.t %></div>
+  </div>
+<% else %>
+  <% (@entries || []).each_with_index do |blogentry, index| %>
+    <div class="content_body">
+      <div class="content_head">
+        <div class="block_date"><%= blogentry.blogentry.posted_at.localize('%d %B %Y %I:%M %p') if blogentry.blogentry %></div>
+        <img src="/images/livejournal.gif" />
+        <% unless blogentry.is_view_permitted? %>
+          &nbsp;
+        <% else %>
+          <%= security_icon(blogentry) %>
+          <%= link_to(blogentry.title_long, content_url(blogentry)) %>
+        <% end %> 
+      </div>
+      <% unless blogentry.is_view_permitted?(current_actor) %>
+        <img src="/images/secure.gif" align="absmiddle">&nbsp;<%= 'Private post'.t -%>
+      <% else %>
+      <div class="default_lg">
+        <%= kf_simple(blogentry.cut, :tags => "embed") %>
+      </div>
+      <div class="default right">
+        <a href="<%= blogentry.post_url %>" target="_blank"><%= 'View in LiveJournal'.t -%></a>
+      </div>
+    <% end %>
+  </div>    
+<% end %>
+<%= javascript_tag("jQuery(document).ready(function(){ resize_textentry_images(630, '.entries'); });") %>
+
+
+
+
+  <%= render :partial => '/shared/pager', :locals => {:results => @entries} %>
+<% end %> 
+

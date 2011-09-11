@@ -1,0 +1,229 @@
+.mainContent {
+    width:520px;
+    margin:0;
+    padding:0 0 40px 0;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+.headerTitle {
+    width:520px;
+    padding:0;
+    margin:0;
+    height:67px;
+}
+.kroogiLogo {
+    float:left;
+    margin-left:7px;
+    width:212px;
+}
+.searchSpinner {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#999;
+    padding: 10px;
+}
+.tab {
+    width: 520px;
+}
+.tab .artistPage {
+    margin-left:20px;
+}
+
+.header_text {
+    padding-top:10px;
+}
+.artistPage .cover {
+    float: left;
+    margin: 10px 0px;
+}
+.tab .artistPage .artistPageContainer {
+    float: left;
+    margin: 0px 0px 10px 20px;
+}
+
+.tab .artistPage .artistPageContainer .artist {
+    font-weight: bold;
+    font-size: 18px;
+    color:#333;
+    font-size:28px;width:350px;
+}
+
+.tab .artistPage .artistPageContainer .bio {
+    width:300px;
+    padding-top:15px;color:#666;
+}
+
+.tab .artistPage .collectionContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+
+.collectionHeader {
+    margin:10px;
+    font-weight:bold;
+    color:#666;
+}
+.tab .artistPage .collectionContainer .whiteBox {
+    background-color: #FFF;
+    border: 1px #DDD solid;
+    margin: 10px;
+    font-size: 11px;
+    padding-bottom:10px;
+    height:120px;
+}
+.collectionContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+.collectionContainer .whiteBox {
+    background-color: #FFF;
+    border: 1px #DDD solid;
+    margin: 10px;
+    font-size: 11px;
+    padding-bottom:10px;
+}
+
+.tab .artistPage .collectionContainer .whiteBox .cover {
+    float: left;
+    margin:10px;
+}
+.whiteBox .cover {
+float:left;
+margin:10px 10px 0;
+}
+
+.whiteBoxContent {
+    margin-left:120px;
+    margin-top:10px;
+}
+.tab .artistPage .collectionContainer .whiteBox .whiteBoxContent .title {
+    font-size:12px;
+    font-weight:bold;
+}
+
+.tab .artistPage .collectionContainer .whiteBox .whiteBoxContent .artist {
+    padding:5px 0px 5px 0px;
+}
+
+
+.tab .artistPage .collectionContainer  .whiteBoxContent .style {
+    font-weight:bold;
+    color:#666666;
+    font-size:11px;
+}
+.tab .artistPage .collectionContainer  .actionLinks {
+    padding-left:0;
+    margin:8px 0 0 0;
+}
+.tab .artistPage .collectionContainer  .actionLinks li {
+    display:inline;
+}
+.tab .searchForm {
+    width:520px;
+    margin-left:20px;
+}
+.mainContent .tabsearchForm {
+    width:520px;
+    margin-left:20px;
+}
+.mainContent .tabsearchForm .header{
+    width:520px;
+    font-size:28px;
+    padding:10px 0px 10px 0px;
+}
+
+.mainContent .tabsearchForm .searchFromContainer {
+    width:498px;
+}
+.searchResult {
+    margin-right:10px;
+}
+.searchResult .header{
+    width:520px;
+    font-size:28px;
+    padding:10px 0px 10px 0px;
+}
+.searchHeader {
+    margin:10px 20px;
+    color:#666;
+}
+.searchResult li {
+    list-style:none;
+    display:inline;
+    padding-left:3px;
+}
+.searchResult a:hover {
+    text-decoration:underline;
+}
+
+.searchResult .selected {
+    font-weight:bold;
+    text-decoration:underline;
+}
+.searchWord {
+    font-weight:bold;
+}
+
+.searchMenu li.selected {
+    background-color:#F7F7F7;
+    color:#666;
+    font-weight:bold;
+}
+ul.question {
+    color:#666;
+    padding:0;
+    margin:0;
+    list-style:none;
+    width:60px;
+    float:left;
+}
+ul.question li {
+    padding-bottom:4px;
+}
+ul.result {
+    color:#666;
+    padding:0;
+    margin:0;
+    list-style:none;
+    float:left;
+}
+ul.result li {
+    padding-bottom:4px;
+}
+ul.searchRight {
+    width:100px;
+    float:right;
+    padding:0;
+    margin:0;
+    margin-right:10px;
+    list-style:none;
+}
+ul.searchRight li {
+    border-bottom:1px solid #DEDEDE;
+    padding:2px 0;
+}
+.searchFooter .searchResult {
+    margin:0 10px 10px 0;
+}
+.shortLi {
+    line-height:90%;
+}
+.noResult {
+    margin:10px;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#666;
+}
+.anotherSearch {
+    margin-top:10px;
+}
+.header_text_input {
+    width:430px;
+}
+.header_text_submit_btn {
+  width:438px;
+  padding-top:4px;
+}

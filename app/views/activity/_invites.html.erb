@@ -1,0 +1,30 @@
+<% if @invitations.empty? %>
+  <div class="section_empty"><%= 'There are no outstanding invitations or invitation requests'.t %></div>
+<% else %>
+
+  <% @invitations.each do |invite| %>
+    <div class="message_center user_block">
+      <%= avatar_md(invite.from_user, :outer_class => 'founder_avatar') %>            
+      <div class="block_body">
+        <% link_to_sender = user_link(invite.from_user, :use_display_name => true, :icon => true)
+            link_to_circle = link_to(invite.circle_name, :controller => 'kroogi', 
+                                                        :action => :show, 
+                                                        :id => invite.is_a?(Invite) ? invite.from_user : invite.to_user, 
+                                                        :type => invite.circle_id) %>
+        <% if invite.is_a?(Invite) %>
+          <%= '<b>{{user_name}}</b> has invited you to join his {{circle_name}} circle.' / [link_to_sender, link_to_circle]%>
+          <% unless invite.invitation.blank? %>
+              <%= 'Message from {{user_name}}' / link_to_sender %>:<br/>
+              <strong><%= kf_simple invite.invitation %></strong>
+          <% end %>
+        <% else %>
+          <%= '<b>{{user_name}}</b> has requested to join your {{circle_name}} circle.' / [link_to_sender, link_to_circle] %>
+        <% end %>
+        <%= render :partial => 'invite/respond_actions', :locals => {:invite => invite} %>              
+      </div>
+    </div> 
+  <% end %>
+<% end %> 
+<div class="lower_action_buttons">
+  <a href="/activity/invitations"><%= 'View history'.t %> &gt;&gt;</a>
+</div>

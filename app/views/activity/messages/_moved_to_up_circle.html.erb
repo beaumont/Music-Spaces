@@ -1,0 +1,6 @@
+<% kroog = UserKroog.first(:conditions => ["user_id = ? AND relationshiptype_id > ? AND relationshiptype_id IN (?)", content.user_id, content.relationshiptype_id, content.user.default_circles], :order => "relationshiptype_id") %>
+<%= if content.user == activity.from_user
+  kroog ? 'moved you from {{from}} circle to {{to}} circle' / [kroog.name, content.name] : 'moved you to {{to}} circle' / [content.name]
+ else
+  kroog ? 'moved himself from your {{from}} circle to {{to}} circle' / [kroog.name, content.name] : 'moved to your {{to}} circle' / [content.name]
+ end %>

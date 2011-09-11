@@ -1,0 +1,11 @@
+
+<% 
+  phrase = params[:cat_id].to_i == Content::CATEGORIES[:userpic][:id] ? 'New Kroogi Picture'.t : 'Content Image'.t
+  @title = @user.login + ' :: ' + phrase
+  @content_kind_displayname = phrase
+%>
+
+<% render(:layout => 'media', :locals => {:header => 'Uploading Image Files'.t}) do %>
+  <%= 'You can upload JPG, PNG or GIF files.'.t -%><br/>
+  <%= 'Please keep the file size below 3 Mb.'.t -%><br /><br />
+<% end %>

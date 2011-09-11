@@ -1,0 +1,54 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: user profile, feed, messaging center etc.
+    Will be splitted further.
+*/
+
+// Profile page (homepage)
+$profileDonateHeader = "Donate";
+$profileFollowedHeader = "Followed People and Projects";
+$profileRecentActivityHeader = "Recent Activity";
+$profileLatestWallHeader = "Latest Wall Posts";
+$profileProjectHiddenMessage = "This project is currently hidden from new visitors! Only users who have already joined the project or have been invited to its circles can view its content. Open Project";
+$projectSettingsProjectOpenedMessage = "This project is now open to the public";
+
+// Profile page - 'Notes' and 'Announcements' blocks (full label variables is located in user variables include because it contains user's full name)
+$profileNotesLabelSuffix = "'s Notes";
+$profileAnnouncementsLabelSuffix = "'s Announcements";
+$profileNotesSecondaryLabels = "Share a thought Make Announcement";
+$profileNotesIsAnnouncementCheckbox = "is_announcement";
+$profileNotesTextField = "content[post]";
+$profileNotesPicLink = "Share a pic";
+$profileNotesPostButton = "Post[1]";
+$profileNotesPictureField = "embedded_image[uploaded_data]";
+$profileNotesLinkLink = "Link";
+$profileNotesCommentLink = "Leave Comment";
+$profileNotesEditLink = "Edit";
+$profileNotesDeleteLink = "Delete";
+$profileAnnouncementsMoveLink = "Move to Notes";
+
+// Feed page
+$feedEmptyHeader = "You are not following anyone";
+
+// Messages center
+$messagesInvitationsSection = "Invitations";
+$messagesNotificationsSection = "Notifications";
+$messagesPrivateSection = "Private Messages";
+
+// Money page
+$moneyPaySystemHeader = "Connected Payment System";
+$moneyContribHeader = "Contributions on Kroogi Page";
+$moneyContribReceivedHeader = "Contributions Received";
+$moneyContribMadeHeader = "Contributions Made";
+$moneyWithdrawalsHeader = "Withdrawals";
+
+// 'My projects' page
+$myProjectsCreateLink ="Create New Project";
+
+// 'Create project' wizard
+$createProjectHeader = "Start Project for an Artist";
+$createProjectAbout = "About Kroogi Project";
+
+// Followers page
+$followersPageCirclesManagementLink = "Circle Management[2]";
+$followersPageNoUsersText = "No users to display";

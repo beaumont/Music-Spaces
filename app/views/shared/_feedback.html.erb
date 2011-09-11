@@ -1,0 +1,57 @@
+<div id="feedback_form">
+  <% if logged_in? %>
+    <% form_remote_for :feedback_field,
+            :url => { :controller => '/helloworld', :action => 'feedback',
+            :from => uri_escape(@controller.request.url)},
+            :condition => 'feedback_not_empty()',
+            :loading => "show_feedback_progress()" do |f| -%>
+      <div id="feedback_field_container" class="feedback_label">
+        <%= image_tag('edit.gif') %>
+        <span>&nbsp;&nbsp;<b><%= 'Have some feedback about Kroogi?'.t %>
+        <%= link_to_function("Share it with us!".t, "switch_to_big_feedback()", :title => 'Share it with us!') %></b></span>
+      </div>
+      <div id="big_feedback_field_container" style="display:none;">
+        <div class="feedback_label"><%= image_tag('edit.gif') %><label for="feedback">&nbsp;<%= 'Site feedback'.t %>:</label></div>
+        <textarea id="big_feedback_field" name="big_feedback_field" type="text" rows="3" class="feedback_input"></textarea>
+        <div class="feedback_button">
+          <span style="display:none;"><img src="/images/ajax-loader.gif" /><%= 'Sending...'.t %></span>
+          <button class="button_gr" type="button" onclick="hide_feedback();">
+            <span><%= 'Cancel'.t %></span>
+          </button>
+          <button class="button" type="submit">
+            <span><%= 'Send Feedback'.t %></span>
+          </button>
+        </div> 
+      </div>
+    <% end %>
+
+  <script type="text/javascript" charset="utf-8">
+    function switch_to_big_feedback() {
+      $('feedback_field_container').hide();
+      $('big_feedback_field_container').show();
+      $('big_feedback_field').focus();
+    }
+
+    function hide_feedback() {
+      $('feedback_field_container').show();
+      $('big_feedback_field_container').hide();
+    }
+
+    function feedback_not_empty() {
+      return $("big_feedback_field").value != "";
+    }
+
+    function show_feedback_progress() {
+      $('big_feedback_field').value = '';
+      $('feedback_form').select('button')[0].hide();
+      $('feedback_form').select('.progress')[0].show();
+    }
+
+  </script>
+  <% else %>
+    <div class="feedback_area">
+      <%= image_tag('edit.gif') %>
+      <span>&nbsp;&nbsp;<%= 'Have feedback? Email us at'.t %>&nbsp;<%= javascript_email_for("info@kroogi.com") %></span>
+    </div>
+  <% end %>
+</div>

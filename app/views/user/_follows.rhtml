@@ -1,0 +1,4 @@
+<% members = user.followed_by_count(Relationshiptype.follower_types) %>
+<% right_column_block(:header_title => 'Followed People and Projects'.t) do %>
+  <%= render :partial => 'follows_body', :locals => {:list_limit => 16, :members => members, :user => user} %>
+<% end %>

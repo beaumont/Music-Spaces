@@ -1,0 +1,102 @@
+# == Schema Information
+# Schema version: 20090211222143
+#
+# Table name: profiles
+#
+#  id               :integer(11)     not null, primary key
+#  user_id          :integer(11)     default(1), not null
+#  account_type_id  :integer(11)
+#  avatar_id        :integer(11)
+#  userpic_id       :integer(11)
+#  wizard_completed :boolean(1)
+#  tagline          :string(255)
+#  tagline_ru       :string(255)
+#
+
+anonymous:
+  userpic_id: 
+  avatar_id: 
+  id: "1"
+ # invite_quota: "5"
+  account_type_id: "0"
+  user_id: "1"
+
+chief:
+  userpic_id: 
+  avatar_id: 
+  id: "2"
+#  invite_quota: "9999"
+  account_type_id: "0"
+  user_id: "2"
+  wizard_completed: "2"
+
+joe:
+  userpic_id: 
+  avatar_id: 
+  id: "3"
+#  invite_quota: "5"
+  account_type_id: "0"
+  user_id: "3"
+  wizard_completed: "2"
+
+kroogi:
+  userpic_id: 
+  avatar_id: 
+  id: "4"
+#  invite_quota: "9999"
+  account_type_id: 1
+  user_id: "4"
+
+filka:
+  userpic_id: 
+  avatar_id: 
+  id: 7
+  account_type_id: 0
+  user_id: 7
+
+joy_division:
+  id: 8
+  account_type_id: 1
+  user_id: 8
+
+kroogi-music:
+  id: 9
+  user_id: 9
+
+ian_curtis:
+  id: 11
+  account_type_id: 0
+  user_id: 11
+  wizard_completed: 2
+
+empty_collection:
+  id: 12
+  user_id: 13
+
+dub:
+  id: 13
+  user_id: 15
+
+ambient-dub:
+  id: 14
+  user_id: 16
+
+matisyahu:
+  id: 15
+  account_type_id: 0
+  user_id: 21
+
+matisyahu1:
+  id: 16
+  account_type_id: 0
+  user_id: 24
+
+basic_user1:
+  id: 28
+  account_type_id: 1
+  user_id: 28
+
+bad_login:
+  id: 29
+  account_type_id: 0
+  user_id: 29

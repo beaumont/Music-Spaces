@@ -1,0 +1,26 @@
+<% _user = @context_user || @profile.try(:user) || @entry.try(:user) || @content.try(:user) || @user %>
+
+<% content_for :body do %>
+  <%= render :partial => "/layouts/shared/header" %>
+
+  <%= yield :additional_body_headers %>
+
+  <div id="right_column">
+    <%= render(:partial => "/layouts/shared/circle_managment", :locals => {:user => _user}) unless _user.nil? || _user.guest? %>
+    <%= yield :right_column %>
+  </div>
+  <div id="main_content_left">
+    <%= render :partial => "/layouts/shared/kroogi_narrow", :locals => {:user => _user} unless _user.nil? || _user.guest? %>
+    <%= yield %>
+  </div>
+
+  <% if question = show_generic_question_widget %>
+    <%= render :partial => '/shared/question_widget', :locals => {
+            :user => current_user,
+            :question => question,
+    } %>
+  <% end %>
+  <%= render :partial => '/shared/invite_search_results_maybe' %>
+<% end %>
+
+<%= render :file => 'layouts/common' %>

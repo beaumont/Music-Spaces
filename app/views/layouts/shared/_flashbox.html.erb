@@ -1,0 +1,16 @@
+
+<div id="flashbox">
+  <% keys = flash.keys.select {|key| %w(success warning error).include?(key.to_s)} %>
+  <% unless keys.blank? %>
+    <% keys.each do |k| %>
+      <p class="flashmsg <%= k -%>"><span class="message"><%= flash[k] %></span></p>
+    <% end %>
+  <% else %>
+    <% unless @admin_flashmsg.blank? %>
+      <p class="flashmsg admin">
+        <span class="message"><%= @admin_flashmsg.message %></span>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+

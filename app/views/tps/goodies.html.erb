@@ -1,0 +1,63 @@
+<% unless @picked_tickets.empty? %>
+  <% right_column_block(:header_title => 'Goodies You Picked'.t) do %>
+    <table class="list">
+      <% @picked_tickets.each do |ticket| %>
+        <% next if @hat.stopped? && !ticket.succeeded? %>
+        <tr>
+          <td class="goodies_item">
+            <%= ticket.title %>
+            <br/>
+            <% if ticket.succeeded? %>
+              <% if ticket.goodie.downloadable? %>
+                <%= bundle_links(ticket.goodie.downloadable_album.bundles) if ticket.goodie.downloadable_album.respond_to?(:bundles) %>
+              <% end %>
+            <% else %>
+              <span class="goodies_avl"><%= 'payment pending'.t %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
+
+<% content_for :right_column do %>
+  <div class="toolbar">
+    <% if current_user.is_self_or_owner?(@hat.user) %>
+      <div class="default"><%= link_to_tps_payments_page(@hat) %></div>
+      <div class="default"><%= link_to_tps_participants_page(@hat) %></div>
+    <% end %>
+    <div class="default"><%= return_to_content_page_link(@hat) %></div>
+  </div>
+<% end %>
+
+<% main_block(:header_title => 'List of Goodies for {{content_title}}' / @hat.title, :white_body => true) do %>
+  <div class="default">
+    <%= render :partial => "goodies_preface_#{I18n.locale}" %>
+  </div>
+  <div class="orng_line"></div>
+  <table class="list goodies">
+    <% @hat.goodies.each do |goodie| %>
+      <tr>
+        <td class="goodies_item" <%= 'colspan="3"' if goodie.donation? %>><%= goodie.title %></td>
+        <% unless goodie.donation? %>
+          <td class="goodies_price">$<%= number_to_currency(goodie.price, :precision => 0, :unit => '') %></td>
+          <td class="goodies_avl"><%= goodies_left_caption(goodie) %></td>
+        <% end %>
+        <td class="last goodies_add">
+          <% unless @hat.stopped? || goodie.all_gone? %>
+            <%= render :partial => '/tps/donate_widget', :locals => {:goodie => goodie} %>
+            <%= link_to(
+                    "<span>#{goodie.donation ? 'Donate'.t : 'Take'.t}</span>",
+                    'javascript:void(0)',
+                    :class=>"button",
+                    :onclick=>"do_contribution_#{goodie.identifier}(this); return false"
+            ) %>
+            <%# TODO: convert all such ajax-loaders to image_tag %>
+            <%= wait_up_homie %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

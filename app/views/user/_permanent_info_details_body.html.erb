@@ -1,0 +1,57 @@
+  <% user = profile.user %>
+  <% unless profile.contextual_tag_list("occupation").empty? %>
+    <div class="default">
+      <b><%= profile.is_person? ? 'Occupation'.t : 'Project Type'.t %></b>
+      <%= profile_tags user, profile.contextual_tag_list("occupation") %>
+    </div>
+  <% end %>
+
+  <% legacy_birthdate =  profile.profile_questions.by_name('birthdate') %>
+  <% birtdate = (legacy_birthdate && legacy_birthdate.answer && !user.has_new_birthdate?) ? legacy_birthdate.answer : user.birthdate %>
+  <% if user.show_new_birthdate? || (legacy_birthdate && legacy_birthdate.show_on_kroogi_page?) %>
+    <div class="default">
+      <b><%= 'Birthdate'.t %></b>
+      <%= birtdate %>
+    </div>
+  <% end %>
+
+  <% unless user.gender.nil? %>
+    <div class="default">
+      <b><%= 'Gender'.t %></b>
+      <%= user.gender == 'M' ? 'Male'.t : 'Female'.t %></div>
+  <% end %>
+
+  <% unless profile.contextual_tag_list("city").empty? || profile.contextual_tag_list("country").empty? %>
+
+  <% end %>
+
+
+  <% question_set = profile.is_person? ? :basic_user_2 : :basic_project_1 %>
+
+  <% log.debug "interesting questions: " + profile.question_group(question_set, false).reject {|question|question.answer.blank?}.map {|question| question.name}.inspect %>
+  <% profile.question_group(question_set, false).each do |question| %>
+    <% unless question.answer.blank? %>
+      <div class="default">
+        <%= render :partial => "/profile/content_simple", :locals => {:question => question} %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% profile.trivia_questions.each do |question| %>
+    <div class="default">
+      <b><%= kf_simple(question.question) %></b>
+      <br />
+      <%= kf_simple(question.answer) %>
+    </div>
+  <% end %>
+
+  <% question_set = profile.question_group(:contact, false) %>
+  <% question_set.each do |question| %>
+    <% unless question.answer.blank? %>
+      <div class="default">
+        <b><%= kf_simple(question.name.t) %></b>
+        <br />
+        <%= kf_simple(question.answer, {:truncate_length => 255}) %>
+      </div>
+    <% end %>
+  <% end %>

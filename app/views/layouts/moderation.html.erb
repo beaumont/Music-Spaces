@@ -1,0 +1,12 @@
+<% content_for :css do %>
+	<%= stylesheet_link_tag "style-admin", :media => "all" %>
+<% end %>
+
+<% content_for :additional_body_headers do %>
+  <div class="admin_header">
+    <span class="adminmenu"><a href="/moderate/reports" class="button"><span><%= 'Reports'.t -%>&nbsp;</span></a></span>
+    <span class="adminmenu"><a href="/moderate/simple_reports" class="button"><span><%= 'Simple Tables'.t -%>&nbsp;</span></a></span>
+  </div>
+<% end %>
+
+<%= render :file => 'layouts/application' %>

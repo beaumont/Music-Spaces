@@ -1,0 +1,8 @@
+@removed_ids.each do |i|
+  message = "Message was successfully deleted.".t
+  if @ids.include?(i.to_s)
+    message = ("All messages from {{user}} was successfully deleted." / @from_user.login) if @delete_all && @from_user
+    message += " " + (@block && @from_user ? "{{user}} was successfully blocked." / @from_user.login : "")
+  end
+  page << "jQuery('#message_#{i}').replaceWith('#{content_tag(:div, content_tag(:div, message, :style => "padding-top: 30px;font-weight: bold;"), :class => "comment_full", :style => "text-align: center; color:#999;")}')"
+end

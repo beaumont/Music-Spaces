@@ -1,0 +1,61 @@
+.tab_content {
+    padding:20px;
+}
+h4 {
+    color:#333333;
+    font-size:11px;
+    margin:0 0 5px;
+    padding:0;
+}
+.large_album_list {
+    height:250px;
+    overflow:auto;
+}
+.album_list {
+    border:1px solid #C1C1C1;
+}
+.plain {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+.album_list li {
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    background:#FFFFFF none repeat scroll 0 0;
+    border-bottom:1px solid #EEEEEE;
+    border-top:1px solid #FFFFFF;
+    cursor:pointer;
+    padding:5px;
+}
+.clearfix {
+    display:block;
+}
+.album_list li {
+    cursor:pointer;
+}
+a {
+    color:#3B5998;
+    cursor:pointer;
+    outline-style:none;
+    text-decoration:none;
+}
+.album_list li input, .album_list li img {
+    float:left;
+    margin-right:10px;
+}
+.album_list img {
+    border:1px solid #DDDDDD;
+    display:block;
+    float:left;
+}
+img {
+    border:0 none;
+}
+.album_name {
+    color:#000000;
+}
+.album_list .stats {
+    color:#808080;
+}

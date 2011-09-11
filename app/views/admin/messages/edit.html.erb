@@ -1,0 +1,18 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Edit Admin Message'.t %>
+
+<div class="admin">
+
+
+
+<h2><%= 'Editing message'.t %></h2>
+
+<span class="adminmenu"><%= link_to 'Back'.t, :action => 'index' %></span>
+
+<% form_for :admin_flash, :url => {:action => :edit, :id => @admin_flash } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f }%>
+  <%= submit_tag 'Edit'.t %>
+<% end %>
+
+</div>
+

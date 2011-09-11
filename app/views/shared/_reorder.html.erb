@@ -1,0 +1,32 @@
+<% album_item_content_fetcher ||= lambda { |album_item| album_item } %>
+<div class="default"><%= 'Drag item to change position'.t %></div>
+<div id="queue">
+  <span id="album_list_holder_id">
+    <ul id="album_list_id">
+      <% album_contents.each do |album_item| %>
+        <li class="dragme alb_row" id="item_<%= album_item.id.to_s %>" style="cursor:move">
+          <% content = album_item_content_fetcher.call(album_item) %>
+          <div class="title iconized <%= icon_class(content) %>"><%= truncate_with_hint(content.title_long, :length => 65) %></div>
+        </li>
+      <% end %>
+    </ul>
+  </span>
+</div>
+
+<script>
+  if ($('album_list_id')) {
+    Sortable.create("album_list_id", {
+      constraint:'vertical',
+      handle: 'dragme',
+      tag: 'li',
+      onUpdate: function() {
+        new Ajax.Request('<%= updater_url %>',
+        {asynchronous:true, evalScripts:true, onComplete:function(request) {
+          new Effect.Highlight("album_list_id", {});
+        },
+          parameters:Sortable.serialize("album_list_id")})
+      }
+    });
+  }
+</script>
+

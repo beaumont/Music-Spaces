@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <%= yield :head %>
+  <%= yield :content_metadata %>
+  <%= yield :js %>
+  <%= stylesheet_link_tag 'style-old.css' %>
+  <%= yield :css %>
+</head>
+<body id="phone-layout">
+        <%= yield %>
+</body>
+</html>

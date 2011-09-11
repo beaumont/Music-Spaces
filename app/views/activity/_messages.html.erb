@@ -1,0 +1,19 @@
+<% view_all_url ||= '/activity/messages' %>
+<% remove_message_title ||= nil %>
+
+<% view_dialogue ||= false %>
+
+<% if messages.empty? %>
+  <div class="section_empty"><%= 'No messages yet'.t %></div>
+<% else %>
+  <% messages.each do |activity| %>
+  <%= render :partial => 'message', :object => activity, :locals => {:view_dialogue => view_dialogue,
+                                                  :remove_message_title => remove_message_title} %>
+  <% end %>
+  <div class="lower_action_buttons">
+    <%= link_to('View All'.t + image_tag('more.png'), view_all_url) %>
+  </div>
+  <% if messages.any?(&:pvtmessage?) %>
+    <%= render :partial => "/shared/delete_private_message" %>
+  <% end %>
+<% end %>

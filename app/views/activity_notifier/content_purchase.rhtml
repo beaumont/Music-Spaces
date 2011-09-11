@@ -1,0 +1,4 @@
+<%= 'Your contribution to %s has earned you a music album!' / link_to(kf_title("#{activity.content.title_long}"), :controller => 'activity', :action => 'read_and_frwd', :id => activity.id, :type => 'content') %>
+
+<%= 'Download it %s' / link_to('here'.t, :controller => 'activity', :action => 'read_and_frwd', :id => activity.id, :type => 'purchase') -%>.
+

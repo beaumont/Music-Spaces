@@ -1,0 +1,34 @@
+
+<%= '<span class="iconized">' if (defined?(iconized) && iconized) %>
+
+<% show_from_user ||= false %>
+<% partial_name = activity.keyname %>
+<% partial_name = 'comment_made_or_replied_to' if (activity.keyname == :comment_made || activity.keyname == :comment_replied_to) %>
+<% one_liner ||= false %>
+<% citation_length ||= one_liner ? 0 : 150 %>
+
+<%= begin
+  if activity.content.nil?
+    activity.destroy
+    "This message has expired, and will be removed with the next refresh".t
+  else
+    html  = if show_from_user
+      if activity.who_did_it && activity.who_did_it != activity.from_user
+        "#{user_link(activity.from_user)} (#{user_link(activity.who_did_it)})"
+      else
+        user_link(activity.from_user)
+      end
+    else ''
+    end
+    html << render(:partial => "/activity/messages/#{partial_name.to_s}.html.erb", 
+      :locals => {:activity => activity, :citation_length => citation_length, :one_liner => one_liner,
+                  :content => activity.content}) 
+  end
+  rescue ActionView::ActionViewError => e
+    raise e if RAILS_ENV == 'development'
+    AdminNotifier.async_deliver_alert("Activity Message Error: #{e.message}. #{logged_in? ? current_actor.login : 'Guest'} is viewing.  @user is #{@user ? @user.login : 'nil'}\n<br/><br/>\n#{e.inspect}\n\n\n#{request.inspect}")
+    just_notify(e)
+    ''
+  end %>
+
+<%= '</span>' if (defined?(iconized) && iconized) %>

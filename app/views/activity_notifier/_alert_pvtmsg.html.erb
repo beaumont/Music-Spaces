@@ -1,0 +1,17 @@
+
+<p>
+  <strong>
+    <%= @from_user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "http://#{user_host(@from_user)}" %> (<%= @from_user.display_name %>)
+    <%= 'sent a private message: "{{title}}"' / [link_to(@content.title_long, "#{@url}/content/show/#{@activity.content_id}")] %>:
+  </strong>
+</p>
+
+<p>
+  <blockquote><em><%= kf_simple @content.post %></em></blockquote>
+</p>
+
+<p>
+<%= link_to "Reply to this message".t, "#{@url}/content/show/#{@activity.content_id}" %><br />
+<%#= link_to "Delete the message".t, "#{@url}/submit/delete/#{@activity.content_id}" %>
+</p>

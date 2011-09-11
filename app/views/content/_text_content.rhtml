@@ -1,0 +1,15 @@
+<% full_width ||= false %>
+
+<!--<div class="<%= 'narrowed ungoatse' unless full_width %>">-->
+  <div class="<%= 'video_container' if entry.is_a?(Video) -%>">
+    <%= kf_simple entry.post, {
+            :tags => %w(embed object param a),
+            :attributes => %w(width height name value type allowscriptaccess allowfullscreen id onclick style data),
+            :bigger_truncation => nil,
+            } %>
+    </div>
+  <%= javascript_tag("jQuery(document).ready(function(){ resize_textentry_images(500, null); });") if entry.is_a?(Textentry) %>
+	<% if entry.is_a?(Blog) %>
+      <p class="left"><a href="<%= entry.post_url %>" target="_blank"><%= 'View in LiveJournal'.t -%></a></p>
+	<% end -%>
+

@@ -1,0 +1,17 @@
+
+<p>
+  <strong>
+    <% if @content.user.is_a? Project %>
+      <%= "%s's host %s has connected the project's contribution basket account to a payment service" / [@content.project.login, @from_user.login]-%>.
+    <% else %>
+      <%= "%s's contribution basket account has been connected to a payment service" / [@from_user.login] -%>.
+    <% end %>
+  </strong>
+</p>
+
+<p>
+  <%= link_to 'Open Money Page for details'.t, "#{@url}/account_setting/donation_basket/#{@activity.content.user_id}" %><br/>
+  <% anchor = @activity.content.user.project? ? 'Create announcement with contributions option'.t : 'Create note with contributions option'.t %>
+  <%= link_to anchor, "#{@url}/submit/announcement?user_id=#{@activity.content.user_id}" %><br/>
+</p>
+

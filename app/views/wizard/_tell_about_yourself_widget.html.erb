@@ -1,0 +1,24 @@
+<div id="tell_about_yourself_widget">
+  <% form_tag({:controller => '/wizard', :action => 'set_about_user'}, :multipart => true, :class => "widget_table")  do %>
+    <div class="table">
+      <% fields_for :user, user do |fields| %>
+        <div class="row">
+          <label class="cell"><%= 'Display Name'.t %>:</label>
+          <div class="cell"><%= fields.text_field :display_name %></div>
+        </div>
+      <% end %>
+      <% fields_for :profile, user.profile do |fields| %>
+        <div class="row">
+          <label class="cell"><%= 'Motto'.t %>:</label>
+          <div class="cell"><%= fields.text_field :tagline %></div>
+        </div>
+      <% end %>
+      <div class="row">
+        <label class="cell"><%= 'Upload Avatar'.t %>:</label>
+        <div class="cell"><%= file_field_tag :image_file %></div>
+      </div>
+    </div>
+
+    <%= render :partial => "/wizard/buttons", :locals => {:back => false} %>
+  <% end %>
+</div>

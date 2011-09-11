@@ -1,0 +1,18 @@
+<% content_for :body_headers do %>
+  <div id="top_header" style="padding-bottom:10px;">
+    <%= render :partial => '/layouts/shared/flashbox' %>
+      </div>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/stylesheets/login.css" type="text/css" media="screen"  charset="utf-8" />
+<% end %>
+
+<% content_for :body do %>
+  <%= yield :body_headers %>
+  <div id="login_n">
+    <%= yield %>
+  </div>    
+<% end %>
+
+<%= render :file => 'layouts/common' %>

@@ -1,0 +1,85 @@
+<div class="invite_<%= invite.id -%>_status" style="padding: 2px; padding-bottom: 5px;">
+<% if invite.is_a?(Invite) %>
+
+  <% if invite.inviter.private? %>
+    <div style="margin-bottom: 10px;" class="special_notice">
+      <strong><%= 'This %s is hidden and invitation-only' / [invite.inviter.display_type.tdown] -%>.</strong><br/>
+      <%= 'It is invisible to anyone who is not either already a member or invited to become one.'.t %>
+    </div>
+  <% end %>
+
+  <% if invite.accepted? %>
+    <div class="iconized i_yes"><%= 'You have accepted this invitation'.t %></div>
+  <% elsif invite.rejected? %>
+    <div class="iconized i_delete"><%= 'You have declined this invitation'.t %></div>
+  <% elsif invite.revoked? %>
+    <div class="iconized i_delete"><%= 'This invite is no longer current'.t %></div>
+  <% else %>
+    <div class="iconized i_yes">
+      <%= link_to_remote('Join'.t, 
+        {:url => {:controller => 'invite', :action => 'accept', :id => invite.id}}, :class => "accept_invite_link") %>
+    </div>
+
+    <div class="iconized i_delete">
+    <%= link_to_remote('No, thanks'.t, 
+      {:url => {:controller => 'invite', :action => 'deny', :id => invite.id}}, :class => "deny_invite_link") %>
+    </div>
+    <%# Never need send invite more %>
+    <!--div class="iconized i_yes">
+      <%#= link_to('Join and invite back...'.t,
+        {:controller => 'invite', :action => 'accept', :id => invite.id, :reciprocate => true}, :method => :post) %>
+    </div-->
+  <% end %>
+<% elsif invite.is_a?(InviteRequest) %>
+  <% if invite.accepted? %>
+    <div class="iconized i_yes"><%= 'You have invited this user'.t %></div>
+  <% elsif invite.rejected? %>
+    <div class="iconized i_delete"><%= 'You have declined this request'.t %></div>
+  <% elsif invite.pending? %>
+    
+    <div class="iconized i_yes">
+      <%= link_to_remote("#{'Add'.t} #{h(invite.user.display_name)} #{'to the circle'.t}",
+                    {:url => {:controller => 'invite',
+                             :action => 'send_invites',
+                             :id => invite.wants_to_join_id,
+                             :to_invite => "uid:#{invite.user.id}",
+                             :circle_id => invite.circle_id,
+                             :invite_id => invite.id
+                            }}, :class => "accept_invite_link") %>
+    </div>
+    <div class="iconized i_yes">
+      <%= link_to "#{'Invite'.t} #{h(invite.user.display_name)} #{'to different circle'.t}", "/invite/find/#{invite.wants_to_join_id}?invitee_id=#{invite.user_id}&circle_id=#{invite.circle_id}&invite_id=#{invite.id}", :class => "other_invite_link" %>
+    </div>
+
+    <div class="iconized i_delete">
+      <%= link_to_remote('Delete Request'.t, {:url => {:controller => 'invite', :action => 'deny_request', :id => invite.id}}, :class => "deny_invite_link") %>
+    </div>
+    
+  <% end %>
+<% end %>
+</div>
+<% content_for :js do %>
+<%= javascript_tag("
+  jQuery(document).ready(function(){
+    jQuery('.deny_invite_link, .accept_invite_link, .other_invite_link').unbind().die();
+
+    jQuery('.accept_invite_link').click(function(){
+      jQuery(this).parent().parent().find('div a.deny_invite_link').remove()
+      jQuery(this).parent().parent().find('div a.other_invite_link').remove()
+    })
+    jQuery('.deny_invite_link').click(function(){
+      jQuery(this).parent().parent().find('div a.accept_invite_link').remove()
+      jQuery(this).parent().parent().find('div a.other_invite_link').remove()
+    })
+    jQuery('.other_invite_link').click(function(){
+      jQuery(this).parent().parent().find('div a.accept_invite_link').remove()
+      jQuery(this).parent().parent().find('div a.deny_invite_link').remove()
+    })
+
+    jQuery('.deny_invite_link, .accept_invite_link, .other_invite_link').click(function() {
+      jQuery(this).replaceWith('#{js wait_up_homie(:display => true)}')
+    })
+  })
+") %>
+
+<% end %>

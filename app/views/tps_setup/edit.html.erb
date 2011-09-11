@@ -1,0 +1,13 @@
+<% unless @tips.blank? %>
+  <div id="right_column">
+    <% right_column_block(:header_title => 'Tips'.t) do %>
+      <%= @tips %>
+    <% end %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => 'FundBox'.t, :white_body => true) do %>
+  <% form_for(@tps_content, :url => tps_setup_path(:id => @tps_content.id), :html => {:multipart => true}) do |f| %>
+    <%= render :partial => "form", :locals => {:f => f} %>
+  <% end %>
+<% end %>

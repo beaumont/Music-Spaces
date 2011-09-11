@@ -1,0 +1,127 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: main elements: explore page, main header, user header, footer, CDSP pages and everything else that do not have separate include file yet
+    WIll be splitted further.
+*/
+
+// Login and pass field in header and on login page
+$loginField = "user[login]";
+$passwordField = "password";
+
+// Main header elements
+    // for guest
+    $signInButton = "Sign in";
+    $rememberMeCheckbox = "Remember me";
+    $signUpLink = "Sign Up!";
+
+    // for both types of users and project
+    $feedLink = "Feed";
+    $messagesLink = "Messages";
+    $settingsLink = "Settings";
+    $signOutLink = "Sign out";
+
+    // for advanced user only
+    $moneyLink = "Money";
+    $createProjectLink = "Create Project";
+    $myProjectsLink = "My Projects";
+
+// User header elements
+    // for both types of users and project
+    $addAvatarLink = "Add Avatar";
+    $homeLink = "Home";
+    $followersDefaultLink = "Followers (0)";
+    $inviteFriendsButton = "Invite friends";
+
+    // for advanced user and project
+    $contentLink = "Content";
+    $addContentTool = "Add content";
+    $addContentMaLink = "Music Album";
+    $addContentTrackLink = "Track";
+    $addContentVideoLink = "Video";
+    $addContentPictureLink = "Picture";
+    $addContentWritingLink = "Writing[1]";
+    $addContentFolderLink = "Folder";
+
+// Global directories menu and search bar
+$musicDirectoryLink = "Music";
+$artDirectoryLink = "Art";
+$photoDirectoryLink = "Photos";
+$videoDirectoryLink = "Videos";
+$writtenDirectoryLink = "Writing";
+$otherDirectoryLink = "More";
+$searchDefaultText = "Search ...";
+$searchButton = "Go";
+
+// Footer elements
+$footerGuestFeedbackLink = "info@kroogi.com";
+$footerSignedFeedbackLink = "Share it with us!";
+$cdspAboutLink = "About";
+$cdspContactUsLink = "Contact Us";
+$cdspPolicyLink = "Policy";
+$cdspHelpLink = "Help";
+
+// CDSP pages
+$aboutPageAboutUsLabel = "About Us";
+$aboutPageMediaCenterLabel = "Media Center";
+$aboutPageDownloads = "Downloads";
+$contactUsPageContactLabel = "Contact Kroogi";
+$contactUsPageAddressLabel = "Address";
+$policyPageTosLabel = "Kroogi Terms of Service";
+$policyPageContentsLabel = "Table of Contents";
+$helpPageHelpLabel = "Kroogi Help";
+$helpPageContentsLabel = "Table of Contents";
+
+// Sign up page
+$signUpPageTitle ="Create Kroogi Account";
+$signUpPageEmailTab = "Create an account using email, username, and password";
+$signUpPageFbTab = "Create an account using Connect";
+$signUpFanHelp = "If You are a Fan:";
+$signUpArtistHelp = "If You are an Artist:";
+$signUpEmailFieldLabel = "Your Email Address";
+$signUpEmailField = "user[email]";
+$signUpLoginNameFieldlabel = "Your Personal Login Name";
+$signUpLoginNameField = "user[login][1]";
+$signUpPasswordFieldLabel = "Your Password";
+$signUpPasswordField = "user[password]";
+$signUpConfirmPasswordFieldLabel = "Confirm Password";
+$signUpConfirmPasswordField = "user[password_confirmation]";
+$signUpArtistRadioLabel = "Are You an Artist?";
+$signUpArtistRadioNo = "user_is_artist_false";
+$signUpArtistRadioYes = "user_is_artist_true";
+$signUpArtistTypeRadioSingle = "user_artist_kind_single";
+$signUpArtistTypeRadioProject = "user_artist_kind_project";
+$signUpArtistTypeRadioBoth = "user_artist_kind_single_plus_project";
+$signUpProjectNameFieldLabel = "Your Project Kroogi Name";
+$signUpProjectNameField = "project[login]";
+$signUpGenderRadioLabel = "Gender";
+$signUpGenderRadioMale = "user_gender_m";
+$signUpGenderRadioFemale = "user_gender_f";
+$signUpBirthdayFieldLabel = "Birthday";
+$signUpBirthdayField = "user[birthdate]";
+$signUpLanguageRadioLabel = "Language";
+$signUpLanguageRadioEn = "user_language_en";
+$signUpLanguageRadioRu = "user_language_ru";
+$signUpTermsCheckboxLabel = "I have read and accepted Terms of Service";
+$signUpTermsLink = "Terms of Service";
+$signUpTermsCheckbox = "tos";
+$signUpPageButton ="Join Kroogi";
+
+// 'Registration successfull' page
+$signUpDonePageTitle = "Waiting for Email Confirmation";
+$signUpDoneEmailInfoTextLeft = "Your account is not activated yet. Please check your email (";
+$signUpDoneEmailInfoTextRight = ") for instructions.";
+$signUpDoneProjectText = "After you sign in, you will be able to switch between your project and personal account using the drop-down in the top-right corner.";
+
+// Separate login page
+$loginPageHeader = "Please log in to continue";
+$loginPageForgotLink = "Forgot your password?";
+$loginPageRememberCheckbox = "Remember me on this computer";
+$loginPageEnterButton = "Enter";
+$loginPageSignUpLink = "Not a Kroogi Member? Join now!";
+$loginPageExploreLink = "You can also explore Kroogi first";
+
+// 'Forgot your password' page
+$forgotPageHeader = "Forgot your password?";
+$forgotPageResetButton = "Reset";
+$forgotPageLoginLink = "Let me try to log in again";
+$forgotPageSuccessfull = "Your password has been reset and emailed to the address you provided";

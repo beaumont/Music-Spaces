@@ -1,0 +1,8 @@
+external_user_invited_to_circle:
+  id: 1
+  inviter_id: 2
+  user_email: a25@b.com
+  invitation: yo
+  activation_code: 827bc077d6fa498aa6250b4f00ebf9afab42149a
+  circle_id: 5
+  

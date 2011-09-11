@@ -1,0 +1,15 @@
+<% header_title = capture do %>
+  <div class="subtopic_right">
+    <% if @kroog.comment_count != 0 %>
+      <%= link_to "#{'View All'.t} >>", {:controller => 'kroogi', :action => 'privatewall', :id => @user, :commentable => @kroog, :type => @kroog.relationshiptype_id}, :method => :post %>
+    <% end %>
+  </div>
+  <%= 'Messages for %s of %s' / [circlename, h(@user.login)] -%>
+<% end %>
+
+<% main_block(:header_title => header_title, :white_body => true) do %>
+  <div id="forum">
+    <%= render :partial => "comments/comment_form", :locals => {:commentable => @kroog, :hide_privacy => defined?(hide_privacy) && hide_privacy} %>
+    <%= render :partial => "/comments/comments", :locals => {:user => @user, :commentable => @kroog, :options => {:limit => 10, :show_entry => false, :threaded => false}} %>
+  </div>
+<% end %>

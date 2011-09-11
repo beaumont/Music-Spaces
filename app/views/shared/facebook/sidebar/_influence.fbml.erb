@@ -1,0 +1,117 @@
+<div class="rightTitle"></div>
+<%unless current_fb_user.nil?%>
+  <div style="padding-top:28px;">
+    <fb:if-section-not-added section="profile">
+      <div class="add_to_profile">
+        <p><strong>Promote</strong> your favorite artists and <strong>share</strong> your tastes with your friends!</p>
+        <%= fb_add_profile_section %>
+      </div>
+    </fb:if-section-not-added>
+  </div>
+<%end%>
+<div class="rightBoxes" style="margin-top:10px;">
+  <div class="boxContent">
+    <div class="albumStatistic">
+      <%if current_fb_user %>
+        <div class="userpic"><%= fb_profile_pic(current_fb_user.facebook_id, :size => :square, :width => "34px") %></div>
+        <div class="downloads"><%=pluralize_with_style(current_fb_user.download_impact_count, 'Person', 'quantity')%> <b>downloaded</b><br/> <%=pluralize_with_style(current_fb_user.dowload_albums_count.count, 'album', '')%>  because you <br/>recommended it.</div>
+      <%elsif @user %>
+        <div class="userpic"><%= fb_profile_pic(@user.facebook_id, :size => :square, :width => "34px") %></div>
+        <div class="downloads"><%=pluralize_with_style(@user.download_impact_count, 'Person', 'quantity')%> <b>downloaded</b><br/> <%=pluralize_with_style(@user.dowload_albums_count.count, 'album', '')%>  because <%= viewer_first_name(@user, :possessive => false, :capitalize => true, :use_you => false) %> <br/>recommended it.</div>
+      <%end%>
+    </div>
+  </div>
+  <div class="greyLine2"></div>
+  <div class="boxContent">
+    <%if current_fb_user %>
+      <div class="sendResult">
+        <div class="">
+          <% current_fb_user.download_impact.each_with_index do |impact,i| %>
+            <%= i == 4 ? '<div id="hidden_result" style="display:none">':'' %>
+            <%if impact.to_user.nil?%>
+              <div style="padding-bottom:5px;">
+                <div class="profilecover">
+                  <%=image_tag("fb_friend_no_image.gif", :size => "34x34")%>
+                </div>
+                <div class="">A friend&nbsp;downloaded</div>
+                <div>
+                  <%if impact.content %>
+                    <%=link_to(impact.content.title, :controller => 'content', :action => 'show', :id => impact.content.id)%>
+                  <%else%>
+                    An Album
+                  <%end%>
+                </div>
+                <div><%=time_ago_in_words(impact.updated_at)%> ago</div>
+                <div class="clear"></div>
+              </div>
+            <%else%>
+              <div style="padding-bottom:5px;">
+                <div class="profilecover">
+                  <%= link_to(fb_profile_pic(impact.to_user.facebook_id, :size => :square, :width => "34px"), :controller => 'user', :action =>'friend_albums_list', :id => impact.to_user.facebook_id) %>
+                </div>
+                <div class=""><%=link_to(fb_name(impact.to_user.facebook_id, :linked => 'false'), :controller => 'user', :action =>'friend_albums_list', :id => impact.to_user.facebook_id) %>&nbsp;downloaded</div>
+                <div>
+                  <%if impact.content %>
+                    <%=link_to(impact.content.title, :controller => 'content', :action => 'show', :id => impact.content.id)%>
+                  <%else%>
+                    An album
+                  <%end%>
+                </div>
+                <div><%=time_ago_in_words(impact.updated_at)%> ago</div>
+                <div class="clear"></div>
+              </div>
+            <%end%>
+          <%end%>
+          <% if current_fb_user.download_impact.count > 4 %>
+          </div>
+          <div class="">
+            <a href="#" class="SeeAllLink" clicktoshow="hidden_result" clicktohide="showtext" id="showtext"  style="background:transparent url(<%=image_path('/images/small_arrow.gif')%>) no-repeat scroll right 4px;"> See All (<%=current_fb_user.download_impact.count%>)</a>
+          </div>
+        <%end%>
+      </div>
+    <%elsif @user %>
+      <div class="sendResult">
+        <div class="">
+          <% @user.download_impact.each_with_index do |impact,i| %>
+            <%= i == 4 ? '<div id="hidden_result" style="display:none">':'' %>
+            <%if impact.to_user.nil?%>
+              <div style="padding-bottom:5px;">
+                <div class="profilecover">
+                  <%=image_tag("fb_friend_no_image.gif", :size => "34x34")%>
+                </div>
+                <div class="">a friend&nbsp;downloaded</div>
+                <%if impact.content %>
+                  <%=link_to(impact.content.title, :controller => 'content', :action => 'show', :id => impact.content.id)%>
+                <%else%>
+                  An Album
+                <%end%>
+                <div><%=time_ago_in_words(impact.updated_at)%> ago</div>
+                <div class="clear"></div>
+              </div>
+            <%else%>
+              <div style="padding-bottom:5px;">
+                <div class="profilecover">
+                  <%= link_to(fb_profile_pic(impact.to_user.facebook_id, :size => :square, :width => "34px"), :controller => 'user', :action =>'friend_albums_list', :id => impact.to_user.facebook_id) %>
+                </div>
+                <div class=""><%=link_to(fb_name(impact.to_user.facebook_id, :linked => 'false'), :controller => 'user', :action =>'friend_albums_list', :id => impact.to_user.facebook_id) %>&nbsp;downloaded</div>
+                <%if impact.content %>
+                  <%=link_to(impact.content.title, :controller => 'content', :action => 'show', :id => impact.content.id)%>
+                <%else%>
+                  An Album
+                <%end%>
+                <div><%=time_ago_in_words(impact.updated_at)%> ago</div>
+                <div class="clear"></div>
+              </div>
+            <%end%>
+          <%end%>
+          <% if @user.download_impact.count > 4 %>
+          </div>
+          <div class="">
+            <a href="#" class="SeeAllLink" clicktoshow="hidden_result" clicktohide="showtext" id="showtext"  style="background:transparent url(<%=image_path('/images/small_arrow.gif')%>) no-repeat scroll right 4px;"> See All (<%=@user.download_impact.count%>)</a>
+          </div>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+</div>
+</div>

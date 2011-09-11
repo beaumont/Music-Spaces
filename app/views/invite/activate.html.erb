@@ -1,0 +1,5 @@
+
+<% form_tag({:controller=> 'invite', :action => 'activate', :id => nil}) do -%>
+<p><%= text_field_tag :activation_code, h(params[:activation_code]), {:size => 40 }%></p>   
+<p><%= submit_tag 'Activate'.t %></p>
+<% end -%>

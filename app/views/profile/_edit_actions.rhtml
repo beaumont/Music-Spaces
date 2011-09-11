@@ -1,0 +1,7 @@
+
+<h2 id="edit_actions" style="color:#ccc">
+  <%=  link_to_unless_current('View Full Details'.t, {:controller => 'profile', :action => 'show', :id => @profile.id}, {:style => "color:white"}) -%>
+	<%= " | " << link_to_unless_current('Edit Details'.t, {:controller => 'profile', :action => 'edit_basic', :id => @profile.id}, {:style => "color:white"}) -%>
+	<%=  " | " << link_to_unless_current('Edit Avatars'.t, {:controller => 'profile', :action => 'edit_avatar', :id => @profile.id}, {:style => "color:white"}) -%>
+	<%=  " | " << link_to_unless_current((@profile.is_person? ? 'User Settings'.t : 'Project Settings'.t), {:controller => 'preference', :action => 'show', :id => @profile.user.id}, {:style => "color:white"}) -%>
+</h2>

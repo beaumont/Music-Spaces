@@ -1,0 +1,103 @@
+<% dialog_id = "#{commentable.class.name}_#{commentable.id}" %>
+<% hidden ||= false %>
+<% full_width ||= false %>
+<% prompt_label ||= 'Click to Leave Comment'.t %>
+
+<% if logged_in? %>
+
+  <div id="comment_form_block_<%= dialog_id %>">
+  <div id="reply_holder"></div>
+  <% if hidden %>
+    <div id="leave_comment_link" style="text-align: center; font-size: 14px;">
+      <strong><%= link_to_function prompt_label, "showCommentForm();" %></strong>
+    </div>
+  <% end %>
+  <span id="comment_form" style="<%= hidden ? 'display:none;' : 'display:inline-block;' -%> <%= "width: 100%;" if full_width -%>">
+    <% form_tag({:controller=> 'comment', :action => 'add_comment', :id => commentable.id, :commentable_type => commentable.class }, :style=>"margin:0 !important;padding:0 !important;display:inline;", :onsubmit => 'return okToSubmit();') do -%>
+      <%= hidden_field_tag 'curr_url', url_for( request.request_uri) %>
+      <%= hidden_field_tag 'commentable_type', commentable.class %>
+      
+
+<%# THIS TABLE SHOULD BE A TABLE UNTIL COMMENTS CHANGED FROM THREADED TO LINEAR  %>
+<table cellpadding="4" cellspacing="0" style="width:555px;">
+        <tr valign="top">
+						        <%= render :partial => '/comments/avatar_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .showAvatarComment", :commentable => commentable} %>
+
+						        <%= render :partial => '/comments/acting_as_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .selectAvatar", :commentable => commentable} %>				 
+<br />
+<%= avatar_md(current_actor, {:class => "showAvatarComment", :skip_add_link => true}) %>
+
+				            <div class="block_body">	 
+  <%= text_area("comment", "comment", {"id" => "comment_fld", "cols" => 50, "rows" => 10, :class => 'comment', :style => defined?(boxstyle) ? boxstyle : nil}) %>
+				              <%= formatting_help %>
+				              <% show_alert_option = commentable.is_a?(UserKroog) && current_actor.is_self_or_owner?(commentable.user) && commentable.allow_easy_notifiaction? %>
+
+				              <% if Comment.enable_private_comments? && !(defined?(hide_privacy) && hide_privacy) && !commentable.is_a?(Pvtmessage) %>
+				                <p>
+				                  <label for="comment_private">
+				                    <%= check_box "comment", "private", :style => 'width:auto;', :onfocus => show_alert_option ? "$('alert').checked = false;" : nil %>
+				                    <span class="i_meonly"><%= 'Make private'.t %></span>
+				                  </label>
+				                </p>
+				              <% end %>
+				              <% if show_alert_option %>
+				                <p>
+				                  <label for="alert">
+				                    <%= check_box_tag "alert", 1, false, :style => 'width:auto;', :onfocus => "$('comment_private').checked = false;" %>
+				                    <span><%= 'Notify everyone in this and closer circles'.t %></span>
+				                  </label>
+				                </p>
+				                <script type="text/javascript" charset="utf-8">
+				                  function okToSubmit() {
+				                    if (!$('alert').checked) {
+				                      return true;
+				                    }
+				                    to_return = confirm("<%= 'All members of this and closer circles will receive a Kroogi message and an email notification. Some of the viewers might get annoyed with you, if this feature is overused. Are you sure you want to send this broadcast?'.t -%>");
+				                    if (!to_return) {
+				                      $('alert').checked = false;
+				                    }
+				                    return to_return;
+				                  }
+				                </script>
+				              <% else %>
+				                <script type="text/javascript" charset="utf-8">
+				                  function okToSubmit() { return true; }
+				                </script>
+				              <% end %>
+				              <% if commentable.is_a?(Pvtmessage) %>
+				              <p>
+				                <label for="comment_private">
+				                  <span class="i_meonly"><%= 'Private Comment'.t %></span>
+				                </label>
+				              </p>
+				              <% end %>
+				              <div class="right">
+				                <button class="button" type="submit" id="post_comment_<%= commentable.class.to_s.downcase -%>_<%= commentable.id -%>">
+				                  <span><%= 'Post ((button))'.t %></span>
+				                </button>
+				              </div>
+		
+        </tr>
+      </table>
+    <% end %>
+  </span>
+  <% if hidden %>
+  <script type="text/javascript" charset="utf-8">
+    function showCommentForm() {
+      $('leave_comment_link').hide();
+      $('comment_form').show();
+      $$('.comment_reply').each(function(form){form.hide();});
+      $$('.reply_lnk').each(function(link){link.show();});
+      $('comment_form').scrollTo();
+      $$("#comment_form textarea")[0].focus();
+    }
+    Event.observe(window, 'load', function(){
+      if (document.location.hash == '#comment_form') {
+        showCommentForm();
+      }
+    });
+  </script>
+  <% end %>
+  </div>
+<% end %>
+

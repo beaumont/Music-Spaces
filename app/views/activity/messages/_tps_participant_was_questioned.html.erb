@@ -1,0 +1,5 @@
+<%# TODO: convert both links to read_and_fwd %>
+<%= '{{user}} asked you about your personal info for goodies receiving: {{question}}' / [
+        user_link(content.user),
+        link_to(content.comment, :controller => 'goodies', :action => 'participant_dialogue', :id => content.commentable.id),
+] %>

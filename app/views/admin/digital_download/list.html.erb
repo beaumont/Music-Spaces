@@ -1,0 +1,183 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'List Music Albums'.t %>
+
+<div class="admin">
+
+<h2><%= 'Music Album list'.t %></h2>
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'Type'.t %></th>
+    <th><%= 'Popularity'.t %></th>
+    <th><%= 'English Title'.t %></th>
+    <th><%= 'Russian Title'.t %></th>
+    <th><%= 'Downloadable?'.t %></th>
+    <th><%= 'Account'.t %></th>
+    <th><%= 'Display Name Eng'.t %></th>
+    <th><%= 'Display Name Ru'.t %></th>
+  </tr>
+  
+<% @albums.each  do |content| %>
+  <tr class="<%= cycle("dark", "light") %>">
+    <td><%= content_link(content, :title => content.id) %></td>
+    <td><%= content.is_a?(MusicAlbum) ? 'MA' : 'FWD' %></td>
+    <td><%= content.popularity %></td>
+    <td>
+      <span id="title_<%= content.id %>">
+        <%= render :partial => '/shared/in_place_value', :object => content.read_attribute(:title) %>
+      </span>
+      <%= in_place_editor "title_#{content.id}",
+        :url => { :action => :set_content_attrib, :id => content.id, :attrib => 'title'},
+        :load_text_url => url_for({ :action => :content_attrib, :id => content.id, :attrib => 'title' })%>
+    </td>
+    <td>
+      <span id="title_ru_<%= content.id %>">
+        <%= render :partial => '/shared/in_place_value', :object => content.read_attribute(:title_ru) %>
+      </span>
+      <%= in_place_editor "title_ru_#{content.id}",
+        :url => { :action => :set_content_attrib, :id => content.id, :attrib => 'title_ru'},
+        :load_text_url => url_for({ :action => :content_attrib, :id => content.id, :attrib => 'title_ru' })%>
+    </td>
+    <td><%= content.downloadable? %></td>
+    <td><%= content.user.login %> <%= link_to '[' + 'Edit'.tdown + ']', :controller => 'users', :action => 'edit', :id => content.user %><br/></td>
+    <td><%= content.user.read_attribute(:display_name) %></td>
+    <td><%= content.user.read_attribute(:display_name_ru) %></td>
+
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @albums %>
+
+<hr style="margin: 25px 0px;" />
+
+<div style="border: 1px solid #333; background: #CCC; padding: 5px; width: 300px; margin-bottom: 25px;">
+  <div style="font-weight: bold; margin-bottom: 15px;"><%= 'Make Track Downloadable'.t %></div>
+  <% form_tag({:action => 'start_download'}) do -%>
+      <input type="text" name="track_id" value="<%=h params[:track_id] %>">
+      <%= 'Enter track ID'.t %><br/>
+      <input type="submit" name="new" value="<%= 'Make it downloadable'.t -%>">
+  <% end %>
+</div>
+
+
+<h2><%= 'Downloadable Tracks'.t %></h2>
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'Title'.t %></th>
+    <th><%= 'Account'.t %></th>
+    <th><%= 'Download'.t %></th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @tracks.each do |track| %>
+    <tr class="<%= cycle('dark', 'light') -%>">
+      <td><%= track.id %></td>
+      <td><%= content_link(track) %></td>
+      <td><%= user_link(track.user, :icon => true) %></td>
+      <td><%= track.file_download ? track.file_download.filename : 'ERROR'.t %></td>
+      <td><%= link_to 'Disallow New Downloads'.t, :action => 'stop_download', :track_id => track.id %></td>
+    </tr>
+  <% end %>
+</table>
+  <%= will_paginate @tracks, :param_name => :track_page %>
+
+
+
+
+
+
+<hr style="margin: 25px 0px;" />
+
+
+<h2><%= 'Preset Terms and Conditions' %></h2>
+<% form_for :terms_and_conditions, :url => {:action => 'add_terms'} do |f| -%>
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'Title'.t %></th>
+    <th><%= 'Title (Russian)'.t %></th>
+    <th><%= 'Body'.t %></th>
+    <th><%= 'Body (Russian)'.t %></th>
+    <th><%= 'Number of Albums Using' %></th>
+  </tr>
+  <% @terms.each do |term| %>
+    <% @preset_terms_and_conditions = term %>
+    <tr class="<%= cycle('dark', 'light') -%>">
+      <td><%= term.id %></td>
+      <td><%= in_place_editor_field :preset_terms_and_conditions, 'title' %></td>
+      <td><%= in_place_editor_field :preset_terms_and_conditions, 'title_ru' %></td>
+      <td><%= in_place_editor_field :preset_terms_and_conditions, 'body', {:value => kf_simple(term.body)},
+                                    {:load_text_url => {:action => 'unformatted_terms_body', :id => term, :lang => 'en'}, :rows => 50} %></td>
+      <td><%= in_place_editor_field :preset_terms_and_conditions, 'body_ru', {:value => kf_simple(term.body_ru)},
+                                    {:load_text_url => {:action => 'unformatted_terms_body', :id => term, :lang => 'ru'}, :rows => 50} %></td>
+      <td>
+        <% masize = term.owning_folders.count %>
+        <%= masize %>
+        <% if masize.zero? %>
+          <%= link_to 'Delete', :action => 'delete_terms', :id => term %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr><th colspan="6"><%= link_to_function 'Add new preset terms...'.t, "$('add_new_terms').show();$('terms_submit').show();" %></th></tr>
+  
+  <tr style="display: none;" id="add_new_terms">
+    <td style="background: #eee;">&nbsp;</td>
+    <td style="background: #eee;"><%= f.text_field :title, :style => 'width: auto;' %></td>
+    <td style="background: #eee;"><%= f.text_field :title_ru, :style => 'width: auto;' %></td>
+    <td style="background: #eee;"><%= f.text_area :body, :style => 'width: 200px;' %></td>
+    <td style="background: #eee;"><%= f.text_area :body_ru, :style => 'width: 200px;' %></td>
+    <td style="background: #eee;">&nbsp;</td>
+  </tr>
+</table>
+
+  <button type="submit" name="new" id="terms_submit" style="display:none;" class="button">
+    <span><%= 'Add New Default Terms and Conditions'.t -%></span>
+  </button>
+<% end %>
+
+
+
+<hr style="margin: 25px 0px;" />
+
+<h2><%= 'Weekly Top'.t %></h2>
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'Sum'.t %></th>
+    <th><%= 'English Title'.t %></th>
+    <th><%= 'Russian Title'.t %></th>
+    <th></th>
+    <th><%= 'Account'.t %></th>
+  </tr>
+
+<% @weekly_top.each  do |content| %>
+  <tr class="<%= cycle("dark", "light") %>">
+    <td><%= content_link(content, :title => content.id) %></td>
+    <td><%= content.c %></td>
+    <td>
+      <span id="title_wt_<%= content.id %>">
+        <%= render :partial => '/shared/in_place_value', :object => content.read_attribute(:title) %>
+      </span>
+      <%= in_place_editor "title_wt_#{content.id}",
+        :url => { :action => :set_content_attrib, :id => content.id, :attrib => 'title'},
+        :load_text_url => url_for({ :action => :content_attrib, :id => content.id, :attrib => 'title' })%>
+    </td>
+    <td>
+      <span id="title_ru_wt_<%= content.id %>">
+        <%= render :partial => '/shared/in_place_value', :object => content.read_attribute(:title_ru) %>
+      </span>
+      <%= in_place_editor "title_ru_wt_#{content.id}",
+        :url => { :action => :set_content_attrib, :id => content.id, :attrib => 'title_ru'},
+        :load_text_url => url_for({ :action => :content_attrib, :id => content.id, :attrib => 'title_ru' })%>
+    </td>
+    <td><%= content.hidden_from_eng_top? ? link_to('show this to all users'.t, :action => 'toggle_visiblity_for_non_eng', :content_id => content.id, :hide_from_eng_top => 0) : link_to('hide this for english users'.t, :action => 'toggle_visiblity_for_non_eng', :content_id => content.id, :hide_from_eng_top => 1) %></td>
+    <td><%= content.user.login if content.user %> <br/></td>
+
+  </tr>
+<% end %>
+</table>
+
+
+</div>
+

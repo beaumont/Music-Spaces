@@ -1,0 +1,24 @@
+<%= 'Hello'.t %>,
+<%= 'Kroogi {{user_or_project}} {{name}} wants you to join their "{{circle_name}}" circle on Kroogi' / [
+        (@invite.inviter.project? ? 'Project'.tdown : 'User'.tdown), @invite.inviter.title_long, @invite.circle_name] %>.
+<%- unless @invite.invitation.blank? -%>
+
+<%= 'Invitation Text'.tdown.capitalize -%>:
+"<%= @invite.invitation %>"
+<%- end -%>
+<%- unless @invite.circle.teaser.blank? -%>
+  
+<%= 'Circle overview'.t -%>: <%= @invite.circle.teaser %>
+<%- end -%>
+
+<%= 'Follow this link to accept the invitation and register: {{link}}.' / @url_signup %>
+
+<%= "To view {{user}}'s Kroogi profile, click here: {{link}}" / [@invite.inviter.login, @inviter_url] %>
+
+<%= render :partial => 'footer_text.html.erb' -%>
+
+<%= 'Explore Kroogi'.t + ": #{@url}/explore" %> 
+
+<%= 'We hope to see you on Kroogi!'.t %>.
+<%= 'Best((regards))'.t %>,
+<%= '{{user}} and Kroogi Team' / @invite.inviter.login.capitalize %>

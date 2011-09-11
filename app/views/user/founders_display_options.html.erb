@@ -1,0 +1,105 @@
+
+<% form_for :preference, :url => { :controller => '/user', :action => 'founders_display_options', :id => @user}, :html => { } do |f| -%>
+
+<table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border">
+  <tr> 
+    <td class="left white dotted_b"> 
+      <%= 'Hosts Tab'.t %> 
+    </td> 
+    <td class="center white dotted_b"> 
+      <label> 
+        <%= f.radio_button :show_founders_tab, true, :class => 'auto_width' %> 
+        <%= 'Show to Everyone'.t %> 
+      </label> 
+
+      <label style="padding-left: 15px;"> 
+        <%= f.radio_button :show_founders_tab, false, :class => 'auto_width' %> 
+        <%= 'Show only to hosts and hide from everyone else'.t %> 
+      </label> 
+    </td> 
+  <% unless @user.collection? %>
+    <td class="right white dotted_l"> 
+      <button class="button" type="submit" name="commit"> 
+        <span><%= 'Save'.t -%></span>
+      </button> 
+    </td>
+   <% end %>
+  </tr> 
+
+
+  <% unless @user.collection? %>
+  <tr>
+    <td class="left white dotted_b">
+      <%= 'Hosts on Kroogi Page'.t %>
+    </td>
+    <td class="center white dotted_b">
+      <p>
+        <label>
+          <%= f.check_box 'show_founders_module', :class => 'auto_width' %> 
+          <%= 'Display Hosts module on Kroogi Page'.t -%>
+        </label>
+      </p>
+      
+      <div id="queue">
+      
+        <div class="header">
+          <div class="title">
+            <span class="title"><%= 'Drag name to change position on Kroogi Page'.t %></span> 
+          </div>
+        </div>
+
+        <span id="album_list_holder_id">
+          <ul id="founder_list_id">
+            <% @user.front_page_founders.each do |founder| %>
+            <li class="dragme alb_row" id="item_<%= founder.id.to_s %>" style="cursor:move">
+              <div class="title iconized <%= icon_class(founder) %>">
+                <strong><%=h founder.login %></strong>
+                <span>(<%=h founder.display_name %>)</span>
+              </div>
+              <div class="delete">
+                <%= link_to_remote(image_tag("/images/delete.gif", 
+                      {:class => 'delete_btn', :alt => "Delete".t, :size => '12x12', :border => 0}), 
+                      {:url => {:controller => '/user', :action => 'make_founder_shy', :id => @user, :founder_id => founder.id}}
+                ) %>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </span>
+      </div>
+
+      
+      <p style="text-align: right; font-weight: bold;">
+        <%= "To show this host on Kroogi Page, go to %s tab" /  link_to ('Hosts'.t, :controller => '/user', :action => 'founders', :id => @user) %><br/>
+        <%= "and click the Change link under the host's name".t %> 
+      </p>
+    </td>
+    <td class="right white dotted_l">&nbsp;</td>
+  </tr>
+  <% end %>
+
+  <tr>
+    <td class="white left">&nbsp;</td>
+    <td class="white center" colspan="2">
+      <button class="button" type="submit" name="commit">
+        <span><%= 'Save'.t -%></span>
+      </button>
+    </td>
+  </tr>
+
+</table>
+<% end %>
+
+
+<script>
+Sortable.create("founder_list_id", {
+  constraint:'vertical',
+  handle: 'dragme',
+  tag: 'li',
+  onUpdate: function(){
+    new Ajax.Request('/user/founder_order/<%=js(h(@user.login)) -%>', 
+    {asynchronous:true, evalScripts:true, onComplete:function(request){new Effect.Highlight("founder_list_id",{});},
+    parameters:Sortable.serialize("founder_list_id")})}
+  });
+</script>
+

@@ -1,0 +1,261 @@
+/*
+    Settings center availability test.
+    Checks main settings center elements both for user and project.
+    Briefly checks that each settings page can be opened.
+
+    Out of scope:
+    - Wizard availability is tested in Wizard suite
+
+    Known bugs:
+    - #4015 Settings: missing 'Setup guide' div on 'Change display options' page
+
+    Test sequence:
+    - Open settings center for advanced user and check it's elements
+    - Check that each settings link open what they should and tabs available on each page
+    - Switch to project's tab and check page elements
+    - Check links and tabs for project, too
+    - Log out, login as basic user, open settings center and check it's elements
+    - Check that each settings link open what they should and tabs available on each page
+
+    Tear-down: no need to restore DB state after running this test
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Login as user and go to settings center
+user_login($joeUserName, $joeUserPass, "true", "main");
+_click(_link($settingsLink));
+
+// Check settings center elements
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_link($settingsEditDetailsLink));
+_assertExists(_link($settingsUploadPictureLink));
+_assertExists(_link($settingsManageAvatarsLink));
+_assertExists(_link($settingsAccountLink));
+_assertFalse(_link($settingsProjectAccountLink));
+_assertExists(_link($settingsCircleManagementLink));
+_assertExists(_link($settingsNotificationsLink));
+_assertExists(_link($settingsManageMoneyLink));
+_assertExists(_link($settingsProjectDisplayOptionsLink));
+_assertExists(_link($settingsLivejournalLink));
+
+// Check 'Edit details' page
+_click(_link($settingsEditDetailsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Upload new kroogi picture' page
+_click(_link($settingsUploadPictureLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsUploadPictureBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Manage avatars' page
+_click(_link($settingsManageAvatarsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsManageAvatarsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Account settings' page
+_click(_link($settingsAccountLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsAccountBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Circle management' page
+_click(_link($settingsCircleManagementLink));
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_tableHeader($circleManagementTableHeader1));
+_assertExists(_tableHeader($circleManagementTableHeader2));
+_assertExists(_tableHeader($circleManagementTableHeader3));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Email notifications' page
+_click(_link($settingsNotificationsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsNotificationsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Change display options' page
+_click(_link($settingsProjectDisplayOptionsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsProjectDisplayOptionsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertFalse(_div($settingsSetupGuideHeader));  //BUG, change after #4415 is fixed
+_click(_link($settingsBreadcrumb));
+
+// Check 'Livejournal connection settings' page
+_click(_link($settingsLivejournalLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsLivejournalBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Manage money activity' page
+_click(_link($settingsManageMoneyLink));
+_assertExists(_heading3($moneyPaySystemHeader));
+_assertExists(_heading3($moneyContribHeader));
+_assertExists(_span($moneyContribReceivedHeader));
+_assertExists(_span($moneyContribMadeHeader));
+_assertExists(_span($moneyWithdrawalsHeader));
+_click(_link($settingsLink));
+
+// Switch to project and check settings center elements
+_click(_span($joeProjectLinkNumber));
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_link($settingsEditDetailsLink));
+_assertExists(_link($settingsUploadPictureLink));
+_assertExists(_link($settingsManageAvatarsLink));
+_assertFalse(_link($settingsAccountLink));
+_assertExists(_link($settingsProjectAccountLink));
+_assertExists(_link($settingsCircleManagementLink));
+_assertExists(_link($settingsNotificationsLink));
+_assertExists(_link($settingsManageMoneyLink));
+_assertFalse(_link($settingsProjectDisplayOptionsLink));
+_assertExists(_link($settingsLivejournalLink));
+
+// Check 'Edit details' page
+_click(_link($settingsEditDetailsLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Upload new kroogi picture' page
+_click(_link($settingsUploadPictureLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsUploadPictureBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Manage avatars' page
+_click(_link($settingsManageAvatarsLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsManageAvatarsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Project settings' page
+_click(_link($settingsProjectAccountLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsProjectAccountBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Circle management' page
+_click(_link($settingsCircleManagementLink));
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_tableHeader($circleManagementTableHeader1));
+_assertExists(_tableHeader($circleManagementTableHeader2));
+_assertExists(_tableHeader($circleManagementTableHeader3));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Email notifications' page
+_click(_link($settingsNotificationsLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsNotificationsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Livejournal connection settings' page
+_click(_link($settingsLivejournalLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsLivejournalBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsProjectBreadcrumb));
+
+// Check 'Manage money activity' page
+_click(_link($settingsManageMoneyLink));
+_assertExists(_heading3($moneyPaySystemHeader));
+_assertExists(_heading3($moneyContribHeader));
+_assertExists(_span($moneyContribReceivedHeader));
+_assertExists(_span($moneyWithdrawalsHeader));
+
+// Log out
+user_logout();
+
+// Login as basic user and go to settings center
+user_login($basicUserName, $basicUserPass, "true", "main");
+_click(_link($settingsLink));
+
+// Check settings center elements
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_link($settingsEditDetailsLink));
+_assertFalse(_link($settingsUploadPictureLink));
+_assertExists(_link($settingsManageAvatarsLink));
+_assertExists(_link($settingsAccountLink));
+_assertFalse(_link($settingsProjectAccountLink));
+_assertFalse(_link($settingsCircleManagementLink));
+_assertExists(_link($settingsNotificationsLink));
+_assertFalse(_link($settingsManageMoneyLink));
+_assertFalse(_link($settingsProjectDisplayOptionsLink));
+_assertFalse(_link($settingsLivejournalLink));
+_assertExists(_link($settingsAdvancedUpgradeLink));
+
+// Check 'Edit details' page
+_click(_link($settingsEditDetailsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Manage avatars' page
+_click(_link($settingsManageAvatarsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsManageAvatarsBreadcrumb);
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Account settings' page
+_click(_link($settingsAccountLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsAccountBreadcrumb);
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Email notifications' page
+_click(_link($settingsNotificationsLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsNotificationsBreadcrumb);
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));
+
+// Check 'Upgrade to advanced account' page
+_click(_link($settingsAdvancedUpgradeLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsAdvancedUpgradeBreadcrumb);
+_assertFalse(_div($settingsSetupGuideHeader));
+_click(_link($settingsBreadcrumb));

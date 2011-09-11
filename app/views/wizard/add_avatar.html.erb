@@ -1,0 +1,44 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('Project Avatar'.t) do %>
+  <% form_for :content, :url => {:controller => 'submit', :action => 'upload' }, :html => { :multipart => true, :name => "upload_form", :onsubmit => 'return display_waiting(this);' } do |f| -%>
+    <%= hidden_field_tag 'content[user_id]', @user.id %>
+    <%= hidden_field_tag 'is_for_wizard', true %>
+    <%= hidden_field_tag 'next_step', 'add_picture' %>
+    <%= hidden_field_tag 'content[cat_id]', Content::CATEGORIES[:avatar][:id] %>
+    <% form_border(:subhead_title => skip_step_link(1,@user) + 'Select and Upload Avatar'.t) do %>
+      <%= error_messages_for :profile %>
+      <%= error_messages_for :content %>
+
+      <% if @user.profile.avatar %>
+        <%= avatar_md(@user,  {:no_link => true, :outer_class => 'founder_avatar'}) %> <br />
+        <br /><br /><br /><br />
+      <% end %>
+
+      <label for="avatar_file"><%= 'Avatar File'.t %></label>
+      <%= f.file_field :uploaded_data %>
+      <div class="default"><%= 'Picture will be automatically ajusted to 80 pixels size. You can add files of these formats: PNG, JPG, GIF'.t %>.</div>
+
+      <% if @user.project? && current_user.projects.count < 2 %>
+        <%= check_box_tag(:avatar_same_as_project, 1) %>&nbsp;&nbsp;
+        <label style="display: inline; font-weight: normal;"for="avatar_default"><%= 'Make my project and profile avatar the same'.t %></label>
+      <% end %>
+    <% end %>
+    <%= render :partial => "submit/buttons", :locals => { :upload => true,
+                  :disable_cancel => true,
+                  :ok_button_class => 'button wizard',
+                  :disable_float => true } %>
+  <% end %>
+  <br /><br /><br /><br />
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" charset="utf-8">
+    function display_waiting(el) {
+      if (el.content_uploaded_data.value == "") {
+        alert ('Please select a file to upload!');
+        return false;
+      }
+    };
+  </script>
+<% end %>

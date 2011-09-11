@@ -1,0 +1,32 @@
+<% controls = controls if defined?(controls) %>
+<% link_pic_to_content ||= false %>
+<div id="profile">
+  <% if controls %>
+    <%= image_tag(user_icon_filename(user, :large), :style => "margin: 0 10px 0 0; float:left;") %>
+  <% end %>
+  <div style="float:left">
+    <%= picture_profile(profile_picture(user, :zoom => true, :content_link => link_pic_to_content), profile_picture(user, :just_dimensions => true)[0] + 20, :center => true) %>
+    <% if !user.profile.userpic.nil? && !user.profile.userpic.comment_count.zero? %>
+      <div class="default right" style="margin:1px 5px 0 0;">
+        <%= tiny_comment_count_link(user.profile.userpic) %>
+      </div>
+    <% end %>
+    <% if user.profile.userpic.nil? && logged_in? && current_actor.is_self_or_owner?(user) %>
+      <div style="text-align: center; position: relative; top: -<%= user.project? ? '30' : '150' -%>px; white-space:nowrap"> <%= link_to('Add Profile Picture'.t, {:controller => 'submit', :action => 'upload_image', :user_id => user, :cat_id => Content::CATEGORIES[:userpic][:id]}, {:style => 'float:center; color:#000; text-decoration:underline;'}) %>
+      </div>
+    <% end %>
+  </div>
+  <div style="margin-left:280px;">
+    <% if controls %>
+      <%= render :partial => '/user/controls', :locals => {:user => user} %>
+    <% else %>
+      <%= render :partial => '/user/permanent_info', :locals => {:user => user} %>
+    <% end %>
+    <%= render :partial => '/user/permanent_info_details', :locals => {:profile => user.profile} %>
+    <div class="profile_fav">
+      <%= render :partial => '/user/profile_controls', :locals => {:user => user} unless controls %>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="orng_line"></div>
+</div>

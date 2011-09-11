@@ -1,0 +1,24 @@
+<%= 'Content languages:'.t %>
+<a href="#" onclick="$('content_languages_selector').show();"><%= current_content_languages %></a>
+<div id="content_languages_selector" class="selector" style="display:none;">
+  <% form_remote_tag :url => {:controller => 'user', :action => 'set_welcome_content_languages'},
+                     :before => "$('content_languages_wait').style.display = 'inline';",
+                     :failure => "$('content_languages_wait').hide();" do %>
+    <div class="label">
+      <%= 'Show me content adopted for languages:'.t %>
+    </div>
+    <% ['en', 'ru'].each do |code| %>
+      <div>
+        <%= check_box_tag "languages[]", code, current_content_languages_include?(code) %>
+        <label><%= APP_CONFIG.languages_short[code].t %></label>
+      </div>
+    <% end %>
+    <div class="buttons">
+      <button class="button" type="submit"><span><%= 'OK'.t %></span></button>
+      <span id="content_languages_wait" style="display:none;"><img src="/images/ajax-loader.gif" /></span>
+      <button class="button_gr" onclick="$('content_languages_selector').hide(); return false;" type="submit">
+        <span><%= 'Cancel'.t %></span>
+      </button>
+    </div>
+  <% end %>
+</div>

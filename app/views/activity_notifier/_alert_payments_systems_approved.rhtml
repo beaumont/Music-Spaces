@@ -1,0 +1,14 @@
+<p>
+<% if @content.user.is_a? Project %>
+<%= "%s's host %s has connected the project\'s contribution basket account." / [(h @content.project.login), (h @from_user.login)]-%>
+<% else %>
+  <%= "%s's contribution basket account has been connected." / (h @from_user.login) -%>
+<% end %>
+</p>
+
+<p>
+  <%= 'To view the details, follow the link'.t -%>:
+  <%= link_to "#{@url}/account_setting/manage_payment_systems/#{@activity.content.user_id}",
+              "#{@url}/account_setting/manage_payment_systems/#{@activity.content.user_id}" %>
+</p>
+

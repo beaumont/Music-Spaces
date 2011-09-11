@@ -1,0 +1,26 @@
+<% return unless logged_in? %>
+
+<% dialog_id = "#{dom_id(commentable)}" %>
+<% submit_url_options ||= {:controller=> 'comment', :action => 'add_comment', :id => commentable.id, :commentable_type => commentable.class } %>
+
+<div id="comment_form_block_<%= dialog_id %>" class="comment_form">
+  <span id="comment_form">
+    <% form_remote_tag(:url => url_for(submit_url_options), :before => "post_comment('comment_form_block_#{dialog_id}');") do %>
+      <%= hidden_field_tag 'curr_url', url_for( request.request_uri) %>
+      <%= hidden_field_tag 'commentable_type', commentable.class %>
+      <%= avatar_md(current_actor, {:class => "showAvatarComment", :skip_add_link => true}) %>
+      <div class="block_body">
+        <%= text_area("comment", "comment", {"id" => "comment_fld", "cols" => 50, "rows" => 10, :class => 'comment'}) %>
+        <%#<%= formatting_help %>
+        <div class="float_right">
+          <%= ajax_loader %>
+          <button class="button" type="submit" id="post_comment_<%= dialog_id %>"><span><%= 'Post ((button))'.t %></span></button>
+        </div> 
+        <div class="acting_as">
+         <%= render :partial => '/comments/avatar_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .showAvatarComment", :commentable => commentable} %>
+        <%= render :partial => '/comments/acting_as_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .selectAvatar", :commentable => commentable} %>  
+        </div>
+      </div>
+    <% end %>
+  </span>
+</div>

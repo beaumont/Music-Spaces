@@ -1,0 +1,35 @@
+<ul>
+  <% costs.each do |option| %>
+    <li style="border:0px;">
+      <script type="text/javascript">
+        function fb_dialog(data) { new Dialog().showMessage('Warning', data, button_confirm='ok', button_cancel='bye');  }
+        
+        function prepare_smscoin_transaction_form_<%=box%>_<%= option.id %>() {
+          var url = "<%= facebook_absolute_url("/donate/prepare_smscoin_transaction") %>";
+          var ajax = new Ajax();
+
+          ajax.responseType = Ajax.FBML;
+          ajax.requireLogin = true;
+          ajax.ondone = function(data) {
+            document.getElementById('fields_<%=box%>_<%= option.id %>').setInnerFBML(data);
+            document.getElementById('smscoin_form_<%=box%>_<%= option.id %>').submit();
+          }
+          var params = {"transaction":<%= @passthrough_params.merge(:cost_option_id => option.id).to_json %>}
+          ajax.post(url,params);
+         }
+      </script>
+
+      <form id="smscoin_form_<%=box%>_<%= option.id %>"
+            action="http://service.smscoin.com/bank/?s_country=<%= h(option.country_code)%>&s_provider=<%= h(option.provider_code) %>&s_language=<%= I18n.locale == 'en' ? 'english' : 'russian'%>"
+            method="post">
+        <div id="fields_<%=box%>_<%= option.id %>">
+        </div>
+         <%= link_to("<span class='fb_submit_btn'>" + "#{option.local_gross.to_f} #{option.currency}" + "</span>",
+                    "#",
+                    {:onclick=>"prepare_smscoin_transaction_form_#{box}_#{option.id}(); return false;",
+                     :clicktoshow => "spinner_#{box}_#{option.id}"} ) %>
+     <span id="spinner_<%=box%>_<%=option.id%>" style="display:none; vertical-align: middle;"><%= image_tag('ajax-loader.gif') %></span>
+      </form>
+    </li>
+  <% end %>
+</ul>

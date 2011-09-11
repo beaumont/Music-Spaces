@@ -1,0 +1,92 @@
+<% inbox_content = inbox_item %>
+<div class="user_block <%= inbox_content.class.name.underscore %>">
+  <div class="block_date"><%= datetime(inbox.get_connector(inbox_content).created_at) if inbox.get_connector(inbox_content) %></div>
+  <% cuser = inbox_content.is_a?(ProjectAsContent) ? inbox.get_connector(inbox_content).submitter : inbox_content.user %>
+  <div class="block_username"><%= user_link(cuser, :icon => true) %></div>
+  <%= avatar_md(cuser) %>
+  <div class="block_body">
+    <div class="block_one">
+      <%= render(:partial => 'content/gallery_item', :locals => {:content => inbox_content, :content_url_options => {:album_id => inbox.id}}) %>
+    </div>
+    <div class="block_two default_lg">
+      <% if inbox_content.is_a?(ProjectAsContent) %>
+        <%= user_link(inbox_content.body_project, :icon => true) %>
+        <%= "(#{inbox_content.body_project.display_name})" unless inbox_content.body_project.login == inbox_content.body_project.display_name %>
+      <% else %>
+        <%= content_link(inbox_content, {}, :album_id => inbox.id) %>
+      <% end %>
+
+      <% %w(artist album year).each do |label| %>
+        <%= "<strong>#{label.capitalize.t}</strong>: #{inbox_content.send(label)}<br/>" unless inbox_content.send(label).blank? %>
+      <% end %>
+      <% unless inbox_content.bitrate.blank? %>
+        <strong><%= 'Bitrate'.t %></strong>: <%= inbox_content.bitrate %> <%= 'Kbps'.t %><br/>
+      <% end %>
+      <% if inbox_content.is_a?(ProjectAsContent) %>
+        <% about_q = inbox_content.body_project.project? ? inbox_content.body_project.profile.profile_questions.by_name('about_project') : inbox_content.body_project.profile.profile_questions.by_name('bio') %>
+        <% if about_q && !about_q.answer.blank? %>
+          <div><%= kf_simple about_q.answer, {:characters => 100} %></div>
+        <% end %>
+      <% end %>
+      <% unless inbox_content.description.blank? %>
+        <div><%= formatted_description inbox_content, :length => 250 %></div>
+      <% end %>
+      <% unless inbox_content.post.blank? %>
+        <div><%= kf_simple inbox_content.post, {:characters => 300} %></div>
+      <% end %>
+    </div>
+    <div style="padding-bottom:7px;">
+      <% if current_user.is_self_or_owner?(inbox.user) %>
+        <% if inbox_content.taken_to_showcase?(inbox.user) %>
+          <strong><%= 'You have already taken this to your Kroogi'.t %></strong>
+        <% elsif inbox.get_connector(inbox_content) && inbox.get_connector(inbox_content).allow_take_to_showcase? %>       
+          <% form_tag({:controller => 'submit', :action => 'adopt_from_inbox', :id => inbox_content, :inbox_id => inbox}) do %>
+            <label for="target_id" style="font-weight: bold;"><%= 'Take to'.t -%>:</label>
+            <select name="target_id" id="target_for_<%= inbox_content.id -%>">
+              <option value=""><%= 'Content'.t %></option>
+              <%= options_for_select inbox.user.albums(:for_menu=>true, :content => inbox.get_connector(inbox_content).content) %>
+            </select>
+            <button type="submit" class="button_gr">
+              <span><%= 'OK'.t %></span>
+            </button>
+          <% end %>
+        <% else %>
+          <strong><%= 'You cannot take this to your Kroogi'.t %></strong>
+        <% end %>
+      <% end %>	
+    </div>
+    <div class="right">
+      <% unless inbox_content.is_a?(ProjectAsContent) %>
+        <div class="block_action">
+          <%= comment_action_links(inbox_content) %>
+        </div>
+      <% end %>
+      <span class="separator"></span>
+      <%= render :partial => '/voting/voting', :locals => {:entry => inbox.get_connector(inbox_content), :project_to_follow => inbox_content.user} %>
+
+      <% if current_user.is_self_or_owner?(inbox.user) %>
+        <span class="separator"></span>
+        <div class="block_action">
+          <span class="iconized i_delete"> 
+            <%= link_to 'Withdraw.content'.t, {:controller => 'submit', :action => 'remove_from_inbox', :id => inbox_content, :inbox_id => inbox}, :confirm => 'Are you sure you want to remove this item?'.t %>
+          </span>
+        </div>
+      <% elsif current_user.is_self_or_owner?(inbox_content.user) %>
+        <span class="separator"></span>
+        <div class="block_action">
+          <span class="iconized i_delete">
+            <%= link_to 'Remove'.t, {:controller => 'submit', :action => 'remove_from_inbox', :id => inbox_content, :inbox_id => inbox}, :confirm => 'Are you sure you want to remove this item?'.t %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+    <% unless inbox_content.is_a?(ProjectAsContent) %>
+      <div id="comments_<%= dom_id(inbox_content) %>" style="display:none;">
+        <%= render :partial => 'comment/comments', :locals => {:commentable => inbox_content} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% unless @inbox_items.last == inbox_item %>
+  <div class="grey_line2"></div>
+<% end %>

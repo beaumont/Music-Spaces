@@ -1,0 +1,18 @@
+
+<table class="list">
+   <tr>
+     <th><%= active_sort_class('Date'.t, 'created_at') %> <%= sort_link('created_at', params[:dir]) %></th>
+     <th><%= 'To'.t -%></th>
+     <th><%= active_sort_class('Purpose'.t, 'item_name') %> <%= sort_link('item_name', params[:dir]) %></th>
+     <th><%= active_sort_class('Amount (USD)'.t, 'gross_amount_usd') %> <%= sort_link( 'gross_amount_usd', params[:dir]) %></th>
+   </tr>
+   <% donations_made.each do |contrib| %>
+    <tr class="<%= "last" if donations_made.last == contrib %>">
+      <td><%= contrib.created_at.to_s(:date_only) %></td>
+      <td><%= user_link(contrib.receiver.user, :icon => true, :length => @truncate_to) %></td>
+      <td><%= contrib.content ? content_link(contrib.content, :length => @truncate_to) : user_link(contrib.receiver.user, :length => @truncate_to) %></td>
+      <td class="last">$<%= contrib.gross_amount_usd %></td>
+    </tr>
+   <% end -%>
+</table>
+

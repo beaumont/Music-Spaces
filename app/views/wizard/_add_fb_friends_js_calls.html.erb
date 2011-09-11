@@ -1,0 +1,31 @@
+<% reconnect_button_title ||= nil %>
+
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript">
+    FB.Event.subscribe('auth.login', function(response) {
+      suggest_friends_from_fb_friends();
+    });
+
+    function connect_fb_and_suggest_friends() {
+      FB.getLoginStatus(function(response) {
+        if (response.session) {
+          suggest_friends_from_fb_friends();
+        }
+      });
+    }
+
+    function suggest_friends_from_fb_friends() {
+      jQuery('.update_progress').show();
+      jQuery.get('/wizard/get_fb_friends', function(data) {
+        jQuery('#fb_friends').html(data);
+        jQuery('.active_checkbox').attr('checked', true);
+        jQuery('#nomatter').attr('checked', true);
+        <% if reconnect_button_title %>
+          jQuery('#find_fb_friends_dialog button span').html('<%= reconnect_button_title %>');
+        <% end %>
+        jQuery('.update_progress').hide();
+        FB.XFBML.parse();
+      });
+    }
+  </script>
+<% end %>

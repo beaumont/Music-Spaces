@@ -1,0 +1,16 @@
+<%# Bah ... somehow rjs kept rendering incorrectly, putting the redirect in even above the confirm %>
+<%# Ignore the .rhtml ending -- this is rendered with content type text/javascript from the controller %>
+<% if @already_sent %>
+  alert("<%= escape_javascript("You've already requested to download this item. Your link should appear in your messages tab.".t) -%>");
+<% elsif @track && @track.public? %>
+  <%
+    msg  = 'You have been sent a Kroogi message with a link to download the requested track ("%s").' / [@track.title_long]
+    msg += "\n\n" + 'Would you like to be taken to your messages page, so you can download the file now?'.t
+  %>
+  if (confirm('<%= escape_javascript(msg) -%>')) {
+    window.location = "/activity/list";
+  }
+<% else %>
+  alert("<%= 'Sorry, something went wrong and we were unable to generate the download link.'.t -%>");
+<% end %>
+

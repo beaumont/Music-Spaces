@@ -1,0 +1,10 @@
+<% form_border(:content_extra_class => 'question') do %>
+  <%= render(:partial => 'shared/question/answer', :locals => {:answer => answer})%>
+<% end %>
+<div style="float:right">
+  <%= link_to('<span>' + 'Forum'.t + '&nbsp;</span>', public_question_url(answer.question), :class => 'button') %>
+</div>
+<div>
+  <%= 'Go to Forum to read answers of other users and respond to more questions from {{artist}}' / h(truncate(answer.to_artist.display_name, :length => 20)) %>
+</div>
+

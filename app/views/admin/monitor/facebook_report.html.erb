@@ -1,0 +1,43 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Monitoring'.t %>
+
+<div class="admin">
+  <h3><%= link_to("Kroogi.com", :controller => "admin/monitor", :action => "index", :query => 'kroogi') %> &nbsp;<%= link_to("Kroogi Downloads", :controller => "admin/monitor", :action => "index", :query => 'facebook') %></h3>
+  <h4>Total Installs : <%= link_to(@users_total, :controller => 'admin/users') %>&nbsp;</h4>
+
+  <table class="admin">
+    <tr>
+      <th rowspan="2"><%= 'Date'.t %></th>
+      <th rowspan="2"><%= 'Installs'.t %></th>
+      <th rowspan="2"><%= 'Music Albums'.t %></th>
+
+      <th rowspan="2"><%= 'Downloads'.t %></th>
+      <th colspan="4" style="text-align:center"><%= 'Contributions'.t %></th>
+
+    </tr>
+    <tr>
+      <th>Num</th>
+      <th>USD</th>
+      <th>Avg</th>
+      <th>Fee</th>
+    </tr>
+
+    <% @monitoring_stats.each do |day, data| %>
+      <tr class="<%=cycle("light", "dark")%>">
+
+        <td style="white-space:nowrap;"><%= day.localize("%d %B %Y") %></td>
+        <td><%= data.users %></td>
+        <td><%= data.contents %></td>
+
+        <td><%= data.downloads.count %></td>
+
+        <td><%= data.contributions[0] ? link_to("#{data.contributions.count}", :controller => 'admin/money', :action=> 'query', :query => {:end_date => data.start_date, :start_date => data.start_date} ) : "$0.0"%></td>
+        <td><%= data.contributions[0] ? link_to("$#{data.contributions_total[0].gross_amount_usd}", :controller => 'admin/money', :action=> 'query', :query => {:end_date => data.start_date, :start_date => data.start_date} ) : "$0.0"%></td>
+        <td><%= data.contributions[0] ? link_to("$#{data.contributions_total[0].avg_gross_amount_usd}", :controller => 'admin/money', :action=> 'query', :query => {:end_date => data.start_date, :start_date => data.start_date} ) : "$0.0"%></td>
+        <td><%= data.contributions[0] ? "$#{data.contributions_total[0].handling_fee_usd}" : "$0.0" %></td>
+
+
+      </tr>
+    <% end %>
+  </table>
+</div>
+

@@ -1,0 +1,10 @@
+<div class="rightTitle"></div>
+<div class="rightBoxes">
+  <div class="boxContent">
+    <div class="albumStatistic">
+      <%if current_fb_user %>
+        <div class=""><%= fb_profile_pic(@friend.facebook_id, :size => :normal) %></div>
+      <%end%>
+    </div>
+  </div>
+</div>

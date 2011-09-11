@@ -1,0 +1,68 @@
+<% hidden ||= false
+   hide_title ||= false
+%>
+
+<% if logged_in? %>
+  <div id="reply_holder"></div>
+  <% if hidden %>
+    <div id="leave_comment_link" style="text-align: left; font-size: 1.4em; padding: 10px;">
+      <strong><%= link_to_function 'Click for new message to {{user_name}}' / user_name(to), "showCommentForm();" %></strong>
+    </div>
+  <% end %>
+  <span id="comment_form" style="<%= hidden ? 'display:none;' : 'display:inline-block;' -%>">
+    <div style="font-size: 1.4em; padding: 10px;">
+      <strong><%= 'New message from you ({{from_user}}) to {{to_user}}' / [user_name(from), user_name(to)] %></strong>
+    </div>
+    <% form_for(:content, Pvtmessage.new, :url => {:controller=> '/submit', :action => 'add_pvtmsg'}) do |f| -%>
+      <%= error_messages_for :content %>
+      <%= f.hidden_field :user_id, :value => from.id %>
+      <%= f.hidden_field :foruser_id, :value => to.id %>
+      <table width="100%" cellpadding="4" cellspacing="0" style="background-color:#e9e9e9;padding:4px;">
+        <tr valign="top">
+          <td rowspan="2" style="width: 60px;">
+            <%= avatar_md(current_actor, {:class => "showAvatarComment", :skip_add_link => true}) %>
+          </td>
+          <td align="left" style="vertical-align:middle; line-height: 150%;">
+            <% unless hide_title %>
+              <label for="content_title"><%= 'Subject'.t %>: </label>
+              <br />
+              <%= f.text_field(:title ) %>
+            <% end %>
+            <div style="margin-top:3px;">
+              <%# no sense in displaying field label if it's the only field %>
+              <% unless hide_title %>
+                <label for="content_title"><%= 'Message Text'.t %>: </label>
+                <br />
+              <% end %>
+              <%= f.text_area("post", {"cols" => 50, "rows" => 10, :class => 'comment', :style => defined?(boxstyle) ? boxstyle : nil}) %>
+              <%= formatting_help %>
+              <div style="margin: 5px 0px;">
+                <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                                      :disable_cancel => true,
+                                                                      :ok_label => 'Send'.t} %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </span>
+  <% if hidden %>
+  <script type="text/javascript" charset="utf-8">
+    function showCommentForm() {
+      $('leave_comment_link').hide();
+      $('comment_form').show();
+      $$('.comment_reply').each(function(form){form.hide();});
+      $$('.reply_lnk').each(function(link){link.show();});
+      $('comment_form').scrollTo();
+      $$("#comment_form textarea")[0].focus();
+    }
+    Event.observe(window, 'load', function(){
+      if (document.location.hash == '#comment_form') {
+        showCommentForm();
+      }
+    });
+  </script>
+  <% end %>
+<% end %>
+

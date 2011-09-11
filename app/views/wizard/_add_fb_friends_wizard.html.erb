@@ -1,0 +1,10 @@
+<div id="overlay_wizard">
+  <% form_tag(url_for(:controller => '/wizard', :action => :follow_fb_friends)) do %>
+    <%= render :partial => "/wizard/add_fb_friends_form_content" %>
+
+    <%= render :partial => "/wizard/buttons", 
+        :locals => {:back_function => "jQuery.ajax({url:'/wizard/tell_about_yourself', dataType: 'script'});jQuery('#add_fb_friends_overlay').dialog('destroy');#{dialog_js("tell_about_yourself_overlay")}"} %>
+  <% end %>
+</div>
+
+<%= render :partial => "/wizard/add_fb_friends_js_calls" %>

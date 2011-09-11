@@ -1,0 +1,21 @@
+<div class="pageTitle">Find Music</div>
+<div class="two_column">
+  <%= render :partial => 'shared/facebook/left_sidebar' %>
+  <div class="inner_right">
+    <div class="findMusic">
+      <div class="findContainer">
+        <div class="findHeader">
+          <div class="findHeaderH2">Meet the artists who believe that you, the listener, should decide what their music is worth.</div>
+          <div class="findHeaderH1"><%if params[:filter] == 'newest'%>Newest Artists on Kroogi Downloads<%else%>Most Popular Artists on Kroogi Downloads<%end%></div>
+          <div class="greyLine3"></div>
+          <ul class="searchByMenu">
+            <%= link_to_unless(params[:filter] == 'popular' || params[:filter].nil?, "Popular", {:controller => "facebook/search", :action => "artists", :filter=>'popular' }) %> | <%= link_to_unless(params[:filter] == 'newest', "New",  {:controller => "facebook/search", :action => "artists", :filter=>'newest' }) %>
+          </ul>
+        </div>
+        <div id="ajaxUpdater">
+          <%= render :partial => "artists", :locals => {:last_page => false}%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

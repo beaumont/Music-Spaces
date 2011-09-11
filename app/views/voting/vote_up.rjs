@@ -1,0 +1,6 @@
+x = ""
+x << %Q{jQuery("#voting_block_#{@ui_id} .vote_star .didnt").remove();}
+x << %Q{jQuery("#voting_block_#{@ui_id} .vote_star .did").show();}
+x << %Q{jQuery("#voting_block_#{@ui_id} .vote_number").html("&nbsp;#{@entry.up_votes.count}&nbsp;");}
+x << %Q{jQuery("#voting_block_#{@ui_id} .vote_text").removeClass('didnt').addClass('did').html("#{thanks_for_voting_caption}");}
+page << x

@@ -1,0 +1,35 @@
+<% embed_dlg_title = "Embed {{author_name}}'s TPS progress indicator" / [h(hat.user.display_name),
+                                                                         h(hat.title_short(30))]
+  disable_more_button ||= false
+%>
+<div style="display: none;" id="embed_thermometer_dialog" title="<%= embed_dlg_title %>">
+  <div id="embed_test" style="margin:10px auto" >
+    <textarea id="flash_code_box" class="embed_player_code_text" onclick="jQuery('#flash_code_box').select();" style="height:150px; margin:0; width: 488px;">
+      <%= h(render(:partial => "/shared/thermometer_flash", :locals => {:hat => hat, :locale => I18n.locale}).squish) %>
+    </textarea>
+  </div>
+  <%= render(:partial => '/shared/thermometer_flash', :locals => {:hat => hat, :locale => I18n.locale}) %>
+</div>
+<script type="text/javascript">
+  function show_embed_thermometer_dialog() {
+    var options = {
+      title: "<%= embed_dlg_title %>",
+      modal: true,
+      height: 'auto',
+      position: 'top',
+      width: 526,
+      open: function() {
+        jQuery('#flash_code_box').select();
+      },
+      close: function() {
+        jQuery("#embed_thermometer_dialog").dialog('destroy');
+      }
+    };
+    jQuery('#embed_thermometer_dialog').dialog(options);
+  }
+</script>
+
+<a href="javascript:void(0)" onclick='show_embed_thermometer_dialog(); return false;' <%= 'disabled="disabled"' if disable_more_button %>>
+  <div class="sharing_icon"><%= image_tag('icon_embed.gif') %></div>
+  <div class="sharing_label"><%= 'Embed This'.t %></div>
+</a>

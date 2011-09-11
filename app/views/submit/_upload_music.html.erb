@@ -1,0 +1,8 @@
+<% render(:layout => 'media') do %>
+  <div style="margin-bottom: 1em;"><strong><%= 'You can upload MP3 files only.'.t -%> <%= 'Please keep the file size below %s Mb.' / ['150'] -%> </strong></div>
+  <p>
+    <%= 'Make sure that compression quality is sufficient, and your track has ID3 tags for Artist and Title'.t -%>.
+    (<%= link_to('What is ID3 tag?'.t, :host => user_domain, :controller => '/home', :action => 'help', :anchor => 'tags') %>)
+  </p>
+<% end %>
+

@@ -1,0 +1,33 @@
+<span class="styled_select avatar_comment" style="padding-right:10px; white-space:nowrap;">
+  <b><%= 'Avatar'.t %></b>:
+
+  <% current_user.projects_allowed_to_see(commentable).each do |user| %>
+    <select id="selectAvatar_<%= commentable.id -%>_<%= user.id -%>"
+            class="selectAvatar selectAvatar_<%= user.id -%>"
+            name="placeholder_<%= user.id %>"
+            onChange="selectAvatar<%= commentable.id -%>(this);"
+            <%= 'style="display:none;"' unless user == current_user -%>>
+      <% avatars = user.basic_user? ? [user.profile.avatar].compact : user.profile.avatars %>
+      <% avatars.each do |avatar| %>
+        <option value="<%= avatar.id -%>" id="<%= h(avatar_filename(avatar)) -%>"<%= user.profile.avatar && avatar.id == user.profile.avatar.id ? ' selected="selected"' : '' -%>>
+          <%= kf_title(avatar.title_short(10)) -%>
+        </option>
+
+
+      <% end %>
+      <% if avatars.empty? %>
+        <option value="" id="<%= url_for(no_avatar_image_path(user)) -%>">
+          <%= 'No Avatar'.t -%>
+        </option>
+      <% end %>
+    </select>
+  <% end %>
+</span>
+<script type="text/javascript" charset="utf-8">
+  function selectAvatar<%= commentable.id -%>(selector) {
+    var curVal = selector.value;
+    var curAvatar = selector.options[selector.selectedIndex].id;
+    $$('<%= target -%>').each(function(e){e.src = curAvatar;});
+    $$('.selectAvatar').each(function(e){e.value = curVal;});
+  }
+</script>

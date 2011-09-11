@@ -1,0 +1,9 @@
+<div class="top_nav_content">
+	<div id="top_nav_search"><%= render :partial => '/layouts/shared/top_search' %></div>
+  	<div class="top_corner"><img src="/images/top_menu_left.gif" /></div>
+	<div id="directories_menu">
+		<div class="directories_menu"><%= root_directories.map {|login, title, icon| user_link(login, :title => title)}.join('<span class="separator">&nbsp;</span>') %></div>
+	</div>
+	<div class="top_corner"><img src="/images/top_menu_right.gif" /> </div>
+</div>
+

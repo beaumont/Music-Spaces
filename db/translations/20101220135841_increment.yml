@@ -1,0 +1,521 @@
+--- 
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Выйти
+  tr_key: "Sign out"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:14 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Аватар
+  tr_key: Avatar
+  tr_origin: /app/views/comments/_avatar_selector.html.erb
+  updated_at: 2010-12-13 22:12:53 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Готово!
+  tr_key: "Post Comment"
+  tr_origin: /app/views/comments/_comments_threaded.html.erb
+  updated_at: 2010-12-13 22:13:06 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Искать
+  tr_key: Go
+  tr_origin: /app/views/admin/translate/index.html.erb
+  updated_at: 2010-12-19 13:47:35 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: (Ответить)
+  tr_key: (Reply)
+  tr_origin: /app/views/comments/_comments_threaded.html.erb
+  updated_at: 2010-12-13 22:12:58 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Комментарий удалён"
+  tr_key: "Comment has been deleted"
+  tr_origin: /app/views/comments/_comments_threaded.html.erb
+  updated_at: 2010-12-13 22:13:10 +00:00
+- 
+  created_at: 2008-12-05 15:20:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мои проекты"
+  tr_key: "My Projects"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:14 +00:00
+- 
+  created_at: 2008-12-25 02:02:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кураторы проекта &mdash; это люди, которые его создали и поддерживают. Каждый из них может представлять проект. Кураторы могут добавлять и редактировать материалы проекта, а также общаться с другими от его лица."
+  tr_key: "Project Hosts are the people who created this project and run it. Each of the people listed can represent the project at any given time. They can post and edit content. They can also talk to others on behalf of the project."
+  tr_origin: /app/views/user/_founders_description.rhtml
+  updated_at: 2010-12-14 09:16:04 +00:00
+- 
+  created_at: 2009-01-14 13:59:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Аватара нет"
+  tr_key: "No Avatar"
+  tr_origin: /app/views/comments/_avatar_selector.html.erb
+  updated_at: 2010-12-13 22:13:09 +00:00
+- 
+  created_at: 2009-01-31 20:25:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать Материалы, создайте альбом"
+  tr_key: "Create Folder to Receive Content"
+  tr_origin: ~
+  updated_at: 2010-12-17 17:10:14 +00:00
+- 
+  created_at: 2009-08-24 07:10:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подключенные платёжные системы"
+  tr_key: "Connected Payment System"
+  tr_origin: ~
+  updated_at: 2010-12-15 08:11:51 +00:00
+- 
+  created_at: 2009-10-08 17:19:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чистая сумма USD (общая сумма USD)"
+  tr_key: "Net USD (Gross USD)"
+  tr_origin: ~
+  updated_at: 2010-12-15 08:11:51 +00:00
+- 
+  created_at: 2009-10-15 19:12:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Перевести средства на Ваш счёт {{payment_system_type}}?"
+  tr_key: "Withdraw to my {{payment_system_type}} account"
+  tr_origin: ~
+  updated_at: 2010-12-15 08:11:51 +00:00
+- 
+  created_at: 2009-11-30 17:44:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы Куратор этого проекта"
+  tr_key: "You are the Host of this project"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:40 +00:00
+- 
+  created_at: 2010-02-05 19:08:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Всё
+  tr_key: "Everything ((of friend feed))"
+  tr_origin: ~
+  updated_at: 2010-12-14 07:47:42 +00:00
+- 
+  created_at: 2010-03-10 16:43:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Коллекция {{project_name}}"
+  tr_key: "{{project_name}} collection"
+  tr_origin: /app/models/user.rb
+  updated_at: 2010-12-14 16:25:02 +00:00
+- 
+  created_at: 2008-08-23 18:36:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Директория
+  tr_key: Directory
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:17 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пометить как личное"
+  tr_key: "Make private"
+  tr_origin: /app/views/comments/_comments_threaded.html.erb
+  updated_at: 2010-12-13 22:13:02 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Личный комментарий"
+  tr_key: "Private Comment"
+  tr_origin: /app/views/comments/_comments_threaded.html.erb
+  updated_at: 2010-12-13 22:13:01 +00:00
+- 
+  created_at: 2010-05-18 08:31:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: ЖЖ
+  tr_key: LJ
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:19 +00:00
+- 
+  created_at: 2010-03-11 18:36:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Лента
+  tr_key: Feed
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:25 +00:00
+- 
+  created_at: 2008-08-22 00:55:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Дом
+  tr_key: "Home of"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:39 +00:00
+- 
+  created_at: 2010-06-23 08:38:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Дом
+  tr_key: Home
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:40 +00:00
+- 
+  created_at: 2010-06-23 08:38:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мой Дом"
+  tr_key: "My Home"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:39 +00:00
+- 
+  created_at: 2010-07-01 12:03:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Настройки
+  tr_key: Settings
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:37 +00:00
+- 
+  created_at: 2010-07-04 22:11:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Картинки заметок"
+  tr_key: "Pics ((from Notes))"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:32 +00:00
+- 
+  created_at: 2010-07-05 12:09:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пригласить ближе"
+  tr_key: "Invite Closer"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:11 +00:00
+- 
+  created_at: 2010-07-16 05:51:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Личное сообщение {{someone}} "
+  tr_key: "Private message to {{someone}} "
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:04 +00:00
+- 
+  created_at: 2010-07-16 05:51:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Личное сообщение кураторам {{someone}}"
+  tr_key: "Private message to {{someone}} hosts"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:21 +00:00
+- 
+  created_at: 2010-07-08 21:43:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} нет в кругах у {{project}}"
+  tr_key: "{{someone}} is not in any of the circles of {{project}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:05 +00:00
+- 
+  created_at: 2010-07-08 21:43:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} в круге {{circle_name}} проекта {{project}}"
+  tr_key: "{{someone}} is in {{circle_name}} circle of {{project}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:05 +00:00
+- 
+  created_at: 2010-07-08 21:43:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вас нет в кругах у {{someone}}"
+  tr_key: "You are not in any circles of {{someone}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:13 +00:00
+- 
+  created_at: 2010-07-08 21:43:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{project}} нет в кругах у {{someone}}"
+  tr_key: "{{project}} is not in any circles of {{someone}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:23 +00:00
+- 
+  created_at: 2010-07-08 21:43:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} в Вашем круге {{circle_name}}"
+  tr_key: "{{someone}} is in your {{circle_name}} circle"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:27 +00:00
+- 
+  created_at: 2010-07-08 21:43:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы в круге {{circle_name}} у {{someone}}"
+  tr_key: "You are in {{circle_name}} circle of {{someone}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:29 +00:00
+- 
+  created_at: 2010-07-08 21:43:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{project}} в круге {{circle_name}} у {{someone}}"
+  tr_key: "{{project}} is in {{circle_name}} circle of {{someone}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:32 +00:00
+- 
+  created_at: 2010-07-08 21:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} нет в Ваших кругах"
+  tr_key: "{{someone}} is not in any of your circles"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:36 +00:00
+- 
+  created_at: 2010-07-21 14:46:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "попросил приглашение в <b>"
+  tr_key: ", asked to be in <b>"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:20 +00:00
+- 
+  created_at: 2010-09-30 19:42:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Гостевой центр"
+  tr_key: "Visitors Center"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-14 16:25:30 +00:00
+- 
+  created_at: 2010-10-04 12:21:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_name}} куратор проекта {{project_name}}"
+  tr_key: "{{user_name}} is a host of {{project_name}}"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:32 +00:00
+- 
+  created_at: 2010-09-22 08:44:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Правами владеет"
+  tr_key: "This is who owns it"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2010-12-17 12:38:54 +00:00
+- 
+  created_at: 2009-11-20 20:33:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пригласите друзей"
+  tr_key: "Invite Friends"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:15 +00:00
+- 
+  created_at: 2010-12-01 08:28:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На этом месте должен быть наш загрузчик файлов. Либо у Вас не работает Flash, либо была остановлена загрузка страницы. "
+  tr_key: "Oops! Looks like Flash doesn't work in your browser, or page loading is terminated. Otherwise you would see our uploader tool here."
+  tr_origin: ~
+  updated_at: 2010-12-17 07:44:59 +00:00
+- 
+  created_at: 2010-11-20 10:02:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить несколько файлов"
+  tr_key: "Upload Multiple Files"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-16 17:42:32 +00:00
+- 
+  created_at: 2010-12-03 07:49:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить несколько картинок"
+  tr_key: "Upload Multiple Images"
+  tr_origin: /app/views/content/_multiuploaders_maybe.html.erb
+  updated_at: 2010-12-17 11:58:57 +00:00
+- 
+  created_at: 2010-12-03 07:49:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить несколько треков"
+  tr_key: "Upload Multiple Tracks"
+  tr_origin: /app/views/content/_multiuploaders_maybe.html.erb
+  updated_at: 2010-12-17 11:58:52 +00:00
+- 
+  created_at: 2010-07-21 14:46:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: ", приглашён в <b>"
+  tr_key: ", invited to <b>"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2010-12-14 16:25:36 +00:00
+- 
+  created_at: 2010-12-14 16:25:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Разместить Вконтакте"
+  tr_key: "Post on VKontakte"
+  tr_origin: ~
+  updated_at: 2010-12-14 20:42:49 +00:00
+- 
+  created_at: 2010-12-14 20:42:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Разместить на стене Вконтакте"
+  tr_key: "Post on your Vkontakte Wall"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-15 18:36:31 +00:00
+- 
+  created_at: 2010-12-15 08:11:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша платёжная система"
+  tr_key: "Your Payment System"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-15 18:36:39 +00:00
+- 
+  created_at: 2010-12-15 08:11:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Платёжная<br />система"
+  tr_key: "Payment<br />system"
+  tr_origin: /app/views/money/_donations_received.html.erb
+  updated_at: 2010-12-15 18:37:29 +00:00
+- 
+  created_at: 2010-12-17 11:01:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Выбрать
+  tr_key: Choose
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-17 11:58:13 +00:00
+- 
+  created_at: 2010-12-20 07:19:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Шаг {{number}}"
+  tr_key: "Step {{number}}"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-20 09:06:07 +00:00
+- 
+  created_at: 2010-12-20 07:19:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Снять деньги используя {{payment_system_type}}"
+  tr_key: "Withdraw to my {{payment_system_type}}"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-20 09:06:47 +00:00
+- 
+  created_at: 2010-12-20 07:19:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "простой загрузчик"
+  tr_key: "basic uploader"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2010-12-20 09:02:15 +00:00
+- 
+  created_at: 2010-12-20 07:19:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Браузер
+  tr_key: Browser
+  tr_origin: /app/views/admin/activity_logs/index.html.erb
+  updated_at: 2010-12-20 09:03:42 +00:00
+- 
+  created_at: 2010-12-20 07:19:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Больше не показывать"
+  tr_key: "Don't show again"
+  tr_origin: /app/views/shared/_system_message.html.erb
+  updated_at: 2010-12-20 09:04:08 +00:00
+- 
+  created_at: 2010-12-20 07:19:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Платформа
+  tr_key: Platform
+  tr_origin: /app/views/admin/activity_logs/index.html.erb
+  updated_at: 2010-12-20 09:03:49 +00:00
+- 
+  created_at: 2010-12-20 07:19:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Выбрать
+  tr_key: "Select one"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-20 10:27:43 +00:00
+- 
+  created_at: 2010-12-20 07:19:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Деньги
+  tr_key: "Money Center"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-20 09:04:29 +00:00
+- 
+  created_at: 2010-12-20 07:19:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ошибка: Flash неисправен либо отсутствует. Пожалуйста, реанимируйте свой Flash и повторите попытку или воспользуйтесь простым загрузчиком {{basic_uploader_link}}."
+  tr_key: "Error: Flash not found or not working properly on your device. Please try again or use our {{basic_uploader_link}} to add content."
+  tr_origin: /app/views/content/_multiuploaders_maybe.html.erb
+  updated_at: 2010-12-20 09:00:05 +00:00
+- 
+  created_at: 2010-12-20 07:19:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Новая папка \"Передано пользователями\""
+  tr_key: "New Submitted by Others Folder"
+  tr_origin: /app/views/submit/inbox.html.erb
+  updated_at: 2010-12-20 09:05:07 +00:00
+- 
+  created_at: 2010-12-20 07:20:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В какую папку Вы хотите загрузить файлы"
+  tr_key: "What folder do you want to upload files to"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-20 09:05:31 +00:00
+- 
+  created_at: 2010-12-20 07:20:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: IP
+  tr_key: IP
+  tr_origin: /app/views/admin/activity_logs/index.html.erb
+  updated_at: 2010-12-20 08:49:20 +00:00
+- 
+  created_at: 2010-12-20 07:20:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Последний шаг"
+  tr_key: "Last Step"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-20 09:20:20 +00:00

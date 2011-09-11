@@ -1,0 +1,26 @@
+#ATTENTION: don't change goodies identifiers! This list don't support reordering yet.
+content_id: <%= RAILS_ENV=='production' ? 797156 : (RAILS_ENV=='rc' ? 3346 : APP_CONFIG.env_id == 'artemv' ? 10218 : 7004) %>
+goodies:
+- identifier: 10
+  title_ru: LP "Супертанго"
+  title: '"Supertango" LP'
+  price: 28
+  left: 300
+  needs_address: true
+  needs_document: false
+
+- identifier: 30
+  title_ru: CD "Супертанго"
+  title: '"Supertango" CD'
+  price: 13
+  left:
+  needs_address: true
+  needs_document: false
+
+- identifier: 40
+  title_ru: Супертанго@Суперцифра - альбом "Супертанго" в цифровом виде максимального качества (wav/24бит/44.1 кГц), доступ к скачиванию после оплаты (виниловая пластинка не входит)
+  title: Supertango@Superdigit - "Supertango" album in digital form, maximum sound quality (wav/24bit/44.1kHz), available for download upon contribution (LP record album not included)
+  price: 13
+  downloadable_album_id: 969881
+  needs_address: false
+  needs_document: false

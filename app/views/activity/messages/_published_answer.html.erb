@@ -1,0 +1,9 @@
+<% answer = activity.content
+   question = answer.question 
+%>
+<%= "answered '{{answer}}' to question '{{question}}'" / [
+        activity_url_for(one_liner, activity, kf_title("#{activity.content.title_long}"), :id => activity.id, :type => 'content'),
+        content_link(question)
+]
+%>
+

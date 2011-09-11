@@ -1,0 +1,52 @@
+<% @title = build_title(@entry.user.login, @entry.title_long, 'Comments'.t) %>
+
+<table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border white">
+  <tr>
+    <td class="dotted_b" style="text-align: center;">
+      <p class="security_notice"><%= security_string(@entry) %></p>
+      <h2><%= 'Viewing Comments on %s' / [@entry.title_long] %> <%= "(Folder)".t if @entry.is_a?(Album) %></h2>
+      <div>[ <%= link_to 'back to content page'.t, content_url(@entry) %> ]</div>
+    </td>
+    <td rowspan="4" class="white dotted_l" style="text-align: center; width: 130px; vertical-align:top;">
+      <%= render :partial => 'content/gallery_item', :locals => {:content => @entry, :url => content_url(@entry)} %>
+    </td>
+  </tr>
+  <tr class="dotted_b">
+    <td><%= render :partial => '/shared/pager', :locals => {:results => @comments, :skip_padding => true} %></td>
+  </tr>
+
+  <% unless logged_in? %>
+    <tr>
+      <td>
+        <div class="login_to_comment">
+          <%= render :partial => '/shared/login_to_comment',
+                     :locals => {
+                             :user => @entry.user,
+                             :ids => ['login_to_comment_link', 'signup_to_comment_link'],
+                             :captions => ['You must have a Kroogi account to leave a comment.'.t,
+                                           "Log In to leave a comment".t,
+                                           'Log In to leave a comment'.t,
+                                           'Create Kroogi Account to leave a comment'.t,
+                                           'You will not be able to leave a comment until you activate your account.'.t,
+                                           ],
+                             :dialog_id_suffix => 'comment',
+                     } %>
+        </div>
+      </td>
+    </tr>
+  <%end%>
+
+  <tr>
+    <td class="center white centered" style="vertical-align:middle;">
+      <%= render :partial => "comments/comment_form", :locals => {:commentable => @entry, :hidden => true} %>
+      <%= render :partial => "comments/comments", :locals => {:user => @entry.user,  :commentable => @entry, :options => {:show_entry => true} } %>
+    </td>
+  </tr>
+
+
+  <tr class="dotted_t">
+    <td><%= render :partial => '/shared/pager', :locals => {:results => @comments, :skip_padding => true} %></td>
+  </tr>
+
+</table>
+

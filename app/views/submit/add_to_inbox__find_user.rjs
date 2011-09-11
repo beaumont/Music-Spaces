@@ -1,0 +1,37 @@
+page.show :submit_inbox_search
+page.show :submit_errors
+
+if @other_user.nil? || @avail_inboxes.blank?
+  page.replace_html :submit_errors, @other_user.nil? ? 'Kroogi name not found'.t : 'User has no folders available to you for this content type'.t
+  page.visual_effect :highlight, :submit_errors
+  page.replace_html :submit_inbox_search, ''
+  page['name'].select
+  page['name'].focus
+elsif @other_user.collection?
+  page.replace_html :submit_errors, 'You do not have an ability to submit content to collection'.t
+  page.visual_effect :highlight, :submit_errors
+  page.replace_html :submit_inbox_search, ''
+  page['name'].select
+  page['name'].focus
+else
+  page.replace_html :submit_errors, ''
+  page.replace_html :submit_inbox_search, render(:partial => 'add_to_inbox_select_form.html.erb')
+  js =<<-END_OF_JS
+
+  var forced_boxes = ['#{@avail_inboxes.select{|b| b.require_allowing_content_adoption?}.map(&:id).join("','")}'];
+  function updateATTSmsg() {
+    if (forced_boxes.indexOf($('inbox').value) == -1) {
+      $('atts_forced').hide();
+      $('atts_option').show();
+    } else {
+      $('atts_forced').show();
+      $('atts_option').hide();
+    }
+  }
+  updateATTSmsg();
+  $('inbox').observe('click', updateATTSmsg);
+
+  END_OF_JS
+  
+  page << js
+end

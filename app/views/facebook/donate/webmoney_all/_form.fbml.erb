@@ -1,0 +1,112 @@
+<script type="text/javascript">
+  function maybe_submit_webmoney_form_<%=box%>(form,currency) {
+    result_check = false
+    switch (currency) {
+      case 'rur':
+      result_check = verify_amount_webmoney_rur_<%=box%>();
+      break;
+      case 'usd':
+      result_check = verify_amount_webmoney_usd_<%=box%>();
+      break;
+      case 'eur':
+      result_check = verify_amount_webmoney_eur_<%=box%>();
+      break;
+    }
+    if (result_check == true) {
+      document.getElementById(form).submit();
+    }
+  }
+</script>
+<div class="contribution_option_body">
+    <form id="webmoney_rur_donation_form_<%= box %>" action="<%= WEBMONEY_CONFIG[:url] %>" accept-charset="windows-1251" method="post">
+      <input type="hidden" name="LMI_PAYMENT_DESC" value="<%= h(title) %>"/>
+      <input type="hidden" name="LMI_PAYEE_PURSE" value="<%= WEBMONEY_CONFIG[:purse_rur] %>"/>
+      <%= render :partial => "/facebook/donate/webmoney_common/common", :locals => {
+                   :p => p,
+                   :available_processor => true,
+                   :title => title,
+                   :karma_point_id => karma_point_id,
+                   :donor_id => donor_id,
+                   :content_id => content_id,
+                   :recipient_id => recipient_id,
+                   :return_url => return_url } %>
+      <span style="margin-top:10px;"><%= image_tag('rouble_inofficial_sign.png', :height => '8') %></span>
+      <span id="webmoney_rur_contribution_amount">
+        <%= text_field_tag :LMI_PAYMENT_AMOUNT, suggested_contribution_amount(@entry, 'rur'),
+                           :size=>"5",
+                           :id => "webmoney_rur_contribution_amount_field_#{box}",
+                           :style => "font-size:11px;"%>
+      </span>
+      <span class="donation_button" style="padding-left:8px">
+        <%= link_to("<span class='fb_submit_btn'>" + "WebMoney (RUR)".t + "</span>", 
+                    "#",
+                    {:onclick => "maybe_submit_webmoney_form_#{box}('webmoney_rur_donation_form_#{box}', 'rur');"}) %>
+      </span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="no_amount_warning_webmoney_rur_<%=box%>"><%= 'Please enter a valid number.'.t %></span></span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="min_contrib_warning_webmoney_rur_<%=box%>"><%= "Minimum contribution required here is #{suggested_contribution_amount(@entry, 'rur')} RUR".t %></span></span>
+      <%= validate_donation_form_script('webmoney_rur', 'webmoney_rur_contribution_amount_field', 'no_amount_warning_webmoney_rur', @entry, box) %>
+      <div style="clear:both"></div>
+    </form>
+    <hr style="border:none;color:#000; background-color:#888; height:1px;width:279px;" />
+    <form id="webmoney_usd_donation_form_<%= box %>" action="<%= WEBMONEY_CONFIG[:url] %>" accept-charset="windows-1251" method="post">
+      <input type="hidden" name="LMI_PAYMENT_DESC" value="<%= h(title) %>"/>
+      <input type="hidden" name="LMI_PAYEE_PURSE" value="<%= WEBMONEY_CONFIG[:purse_usd] %>"/>
+      <%= render :partial => "/facebook/donate/webmoney_common/common", :locals => {
+                   :p => p,
+                   :available_processor => true,
+                   :title => title,
+                   :karma_point_id => karma_point_id,
+                   :donor_id => donor_id,
+                   :content_id => content_id,
+                   :recipient_id => recipient_id,
+                   :return_url => return_url } %>
+      <span style="margin-top:10px;">$</span>
+      <span id="webmoney_usd_contribution_amount">
+        <%= text_field_tag :LMI_PAYMENT_AMOUNT, suggested_contribution_amount(@entry, p),
+                           :size=>"5",
+                           :id => "webmoney_usd_contribution_amount_field_#{box}",
+                           :style => "font-size:11px;"%>
+      </span>
+      <span class="donation_button" style="padding-left:8px">
+         <%= link_to("<span class='fb_submit_btn'>" + "WebMoney (USD)".t + "</span>", 
+                     "#",
+                     {:onclick => "maybe_submit_webmoney_form_#{box}('webmoney_usd_donation_form_#{box}', 'usd');"}) %>
+      </span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="no_amount_warning_webmoney_usd_<%=box%>"><%= 'Please enter a valid number.'.t %></span></span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="min_contrib_warning_webmoney_usd_<%=box%>"><%= "Minimum contribution required here is #{suggested_contribution_amount(@entry, 'usd')} USD".t %></span></span>
+      <%= validate_donation_form_script('webmoney_usd', 'webmoney_usd_contribution_amount_field', 'no_amount_warning_webmoney_usd', @entry, box) %>
+      <div style="clear:both"></div>
+    </form>
+    <hr style="border:none;color:#000; background-color:#888; height:1px;width:279px;" />
+    <form id="webmoney_eur_donation_form_<%= box %>" action="<%= WEBMONEY_CONFIG[:url] %>" accept-charset="windows-1251" method="post">
+      <input type="hidden" name="LMI_PAYMENT_DESC" value="<%= h(title) %>"/>
+      <input type="hidden" name="LMI_PAYEE_PURSE" value="<%= WEBMONEY_CONFIG[:purse_eur] %>"/>
+      <%= render :partial => "/facebook/donate/webmoney_common/common", :locals => {
+                   :p => p,
+                   :available_processor => true,
+                   :title => title,
+                   :karma_point_id => karma_point_id,
+                   :donor_id => donor_id,
+                   :content_id => content_id,
+                   :recipient_id => recipient_id,
+                   :return_url => return_url } %>
+
+      <span style="margin-top:10px;">€</span>
+      <span id="webmoney_eur_contribution_amount">
+        <%= text_field_tag :LMI_PAYMENT_AMOUNT, suggested_contribution_amount(@entry, 'eur'),
+                            :size=>"5",
+                            :id => "webmoney_eur_contribution_amount_field_#{box}",
+                            :style => "font-size:11px;"%>
+      </span>
+      <span class="donation_button" style="padding-left:8px">
+         <%= link_to("<span class='fb_submit_btn'>" + "WebMoney (EUR)".t + "</span>",
+                     "#",
+                     {:onclick => "maybe_submit_webmoney_form_#{box}('webmoney_eur_donation_form_#{box}', 'eur');"}) %>
+      </span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="no_amount_warning_webmoney_eur_<%=box%>"><%= 'Please enter a valid number.'.t %></span></span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="min_contrib_warning_webmoney_eur_<%=box%>"><%= "Minimum contribution required here is #{suggested_contribution_amount(@entry, 'eur')} EUR".t %></span></span>
+      <%= validate_donation_form_script('webmoney_eur', 'webmoney_eur_contribution_amount_field', 'no_amount_warning_webmoney_eur', @entry, box) %>
+      <div style="clear:both"></div>
+    </form>
+</div>
+<hr style="border:none;color:#000; background-color:#888; height:1px;width:279px;" />

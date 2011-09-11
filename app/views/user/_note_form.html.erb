@@ -1,0 +1,40 @@
+<div class="thought">
+  <% form_tag({:controller => 'submit', :action => 'add_announcement'},
+              :style=>"margin:0 !important;padding:0 !important;display:inline;", :multipart => true) do -%>
+    <div class="thought_header">
+      <b><%= 'Share a thought'.t %></b>
+      <% unless user.basic_user? %>
+        <div <%= user.collection? ? 'style="display:none;"' : 'style="float:right;"' %> >
+          <%= check_box_tag 'is_announcement', true, user.collection? %>
+          <label for="is_announcement"><%= 'Make Announcement'.t %></label>
+        </div>
+      <% end %>
+    </div>
+    <%= text_area("content", "post", {"cols" => 64, "rows" => 10, :class => 'comment'}) %>
+    <%= hidden_field("content", "user_id", :value => user.id) %>
+    <div style="margin: 4px 0 10px; float: right;">
+      <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                            :disable_cancel => true,
+                                                            :ok_label => 'Post ((button))'.t,
+                                                            :ok_button_class => 'button',
+                                                            :disable_float => true,
+                                                            :validate => "non_empty_form(submitted_button.up('form'))",
+      } %>
+    </div>
+	<div class="thought_image">
+      	<div class="thought_header" style="margin-top:5px;">
+	        <b><%= link_to_function 'Share a pic ((for note))'.t, "$(this).up('.thought_image').down('.file_container').show();" %></b>
+	      <span class="file_container" style="display:none;">
+        <input type="file" size="27" name="embedded_image[uploaded_data]" style="margin-left:5px; border:1px #7F9DB9 solid;"></span>
+      </div>
+    </div>
+	<% end %>
+</div>
+<script type="text/javascript" charset="utf-8">
+  function non_empty_form(form) {
+    if (form.down('textarea.comment').value != '') return true;
+    if (form.down('.file_container input').value != '') return true;
+    return false;
+  }
+</script>
+

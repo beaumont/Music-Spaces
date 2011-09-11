@@ -1,0 +1,6 @@
+<% project = activity.content.body_project %>
+<%= ('added %s' % project.entity_name_for_human).t -%>:
+<%# 'added music album'.t %>
+<%# 'added folder'.t %>
+<%= user_link(project, :use_both => !one_liner, :activity_id => activity.id, :frwrd_type => 'user', :public_context => one_liner) -%>
+

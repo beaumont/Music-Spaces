@@ -1,0 +1,31 @@
+<% if permitted?(user, :profile_edit) -%>
+<% elsif permitted?(user, :contact) %>
+	<%= render :partial => 'content/add_to_favorites_new', :locals => {:favorable => user} %>
+<% elsif !logged_in? %>
+    <div class="default" style="text-align:center;">
+      <%= render :partial => '/shared/login_signup_widget',
+                 :locals => {
+                         :user => @user,
+                         :login_link_id => "contact_log_in_link",
+                         :signup_link_id => "contact_sign_up_link",
+                         :action_caption => "to contact user".t,
+                         :title_caption => "Log In to contact user".t,
+                         :login_block_title_caption => "Log In to contact user".t,
+                         :signup_block_title_caption => 'Create Kroogi Account to contact user'.t,
+                         :fb_signup_block_title_caption => nil,
+                         :thanks_last_caption => 'You will not be able to contact user until you activate your account.'.t,
+                         :dialog_id_suffix => 'contact',
+                         :widget_function_name => "show_contact_login_signup_widget"
+                  } %>
+    </div>
+<% end %>
+  	
+<% unless user.collection? %>
+	<% if permitted?(current_actor, :moderate) && !user.admin? %>
+      	<% if user.active? && !current_user.is_self_or_owner?(user) %>
+        	<span style="padding-right:10px;" class="iconized i_no"><%= link_to 'Disable this user'.t, user_block_path(user) %></span>
+      	<% elsif user.blocked? %>
+        	<span style="padding-right:10px;" class="iconized i_yes"><%= link_to 'Enable this user'.t, user_restore_path(user) %></span>
+      	<% end %>
+	<% end %>
+<% end %>

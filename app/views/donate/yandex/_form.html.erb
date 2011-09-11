@@ -1,0 +1,51 @@
+<h3 <%= available_processor ? "" : "style='display:none'" %> ><a href="#"><%= p[:name].t %></a></h3>
+<div class="contribution_option_body">
+  <% remote_form_for :transaction, :url => {:controller => 'donate', :action => 'prepare_yandex_transaction'}, :type => :synchronous,
+                     :html => {:id => "prepare_yandex_transaction_form"} do |f| -%>
+    <%= f.hidden_field('Sum') %>
+    <%= f.hidden_field('donor_login', :value => @donor ? @donor.login : nil) %>
+    <%= f.hidden_field('content_id', :value => @content ? @content.id : nil) %>
+    <%= f.hidden_field('content_type', :value => @content ? @content.class.name : nil) %>
+    <%= f.hidden_field('recipient_id', :value => @recipient.id) %>
+    <%= f.hidden_field('karma_point_id', :value => karma_point_id) %>
+    <%= f.hidden_field('itemName', :value => title) %>
+    <%= f.hidden_field('follower_email') %>
+    <%= f.hidden_field('project_to_follow') %>
+    <%= f.hidden_field('return_url', :value => return_url) %>
+    <%= f.hidden_field('dialog_id_suffix', :value => params[:dialog_id_suffix]) %>
+    <%= f.hidden_field('download', :value => boolean_param_value(download)) %>
+  <% end %>
+  <form id="<%= p[:short_name] %>_donation_form" action="<%= yandex_config[:url] %>" accept-charset="windows-1251" method="post">
+    <div class="fields"></div>
+    <div id="<%= p[:short_name] %>_contribution_amount">
+      <label for="<%= p[:short_name] %>_contribution_amount_field"><%= "Amount (USD)".t %></label>
+      <%= text_field_tag "amount", suggested_contribution_amount(content, p),
+                         :id => "#{p[:short_name]}_contribution_amount_field" %>
+    </div>
+    <div class="donation_button">
+      <%= link_to(
+              "<span>" + "Contribute using".t + " " + p[:name].t + "</span>",
+              "#",
+              {:onclick=>"run_choice('#{p[:short_name]}', 'prepare_yandex_transaction_form()'); return false;", :class => 'button'}) %>
+      <%= wait_up_homie %>
+    </div>
+  </form>
+</div>
+<script>
+  function prepare_yandex_transaction_form() {
+    jQuery('#<%= p[:short_name] %>_donation_form .wait_up_homie').show();
+    start_following_form_id = '#start_following_<%= params[:dialog_id_suffix] %>';
+    if (jQuery(start_following_form_id + ' #start_following_flag').is(':checked')) {
+
+      jQuery('#prepare_yandex_transaction_form #transaction_project_to_follow').val(
+              jQuery(start_following_form_id + ' #start_following_project_id').val());
+
+      jQuery('#prepare_yandex_transaction_form #transaction_follower_email').val(
+              jQuery(start_following_form_id + ' #start_following_follower_email').val());
+    }
+    jQuery('#prepare_yandex_transaction_form #transaction_Sum').val(jQuery('#<%= p[:short_name] %>_contribution_amount_field').val());
+    jQuery('#prepare_yandex_transaction_form #transaction_Sum').attr('form').onsubmit();
+  }
+  <%= check_min_contribution_js_function(content, p) %>
+</script>
+

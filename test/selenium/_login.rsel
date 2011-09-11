@@ -1,0 +1,6 @@
+# Performs: Logging in
+
+type "login", user.is_a?(User) ? user.login : user
+type "top_password", 'password'
+click_and_wait "//form[@id='signin_form']//button/span"
+include_partial 'assert_logged_in'

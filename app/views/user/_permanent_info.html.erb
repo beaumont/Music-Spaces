@@ -1,0 +1,85 @@
+<%# Hidden Project %>
+<% if user.private? %>
+  <div style="background: #fbe098; border: 1px solid #f58f21; padding: 5px; margin: 0 10px 10px 0;">
+    <b><%= 'This project is currently hidden from new visitors!'.t -%></b>
+    <%= 'Only users who have already joined the project or have been invited to its circles can view its content.'.t -%>
+  <% if current_user.is_self_or_owner?(user) || current_user.admin? %>
+	<div style="float:right;margin:5px 0;">
+    <%= link_to('<span>'+'Open Project'.t+' </span>', {:controller => '/user', :action => 'unhide', :id => user}, {:class => 'button'}) %>
+	</div>
+	<div class="clear"></div>
+  <% end %>
+</div>
+<% end %>
+
+<%# Invitations %>
+<% if logged_in? %>
+  <% current_actor.invites.invites_to(user).pending.each do |open_invite| %>
+    <p><a href="<%= url_for(:controller => '/activity', :action => 'invitations') -%>">
+      <%= "%s is invited to the %s circle of %s" / [current_actor.login, user.circle_name(open_invite.circle_id), user.login] -%></a>
+    </p>
+  <% end %>
+<% end %>
+
+<%# member since %>
+<div class="default">
+  <%= user.project? ? ('Created on %s' / user.created_at.localize("%d %B %Y")) : ('Member since %s' / user.created_at.localize("%d %B %Y")) %>
+  <br/>
+  <% if user.preference.show_last_active? && !current_actor.guest? %>
+    <%= user.project? ? 'Last active'.t : 'Last login'.t -%>
+    <%= time_ago_in_words(user.last_active_at, true).t %> <%= 'ago'.t %>
+  <% end %>
+</div>
+
+<%# visitors %>
+<% if current_user.is_self_or_owner?(user) || current_user.admin? %>
+  <div class="default">
+    <strong><%= "Visitors".t %>:</strong>
+    <%= ContentStat.viewed_today(user) %> <%= "today".t %>,
+    <%= ContentStat.viewed(user) %> <%= "total".t %>
+    <%= link_to '(Details)'.t, :controller => 'user', :action => 'stats', :id => user %>
+  </div>
+<% end %>
+
+<%# host of %>
+<% projs = user.projects.select { |p| p.is_view_permitted? && !user.hide_project_membership?(p) } %>
+  <% list_limit = 16 %>
+  <% name_limit = 40 %>
+<% unless projs.blank? %>
+    <div class="default">
+      <strong><%= 'Host of'.t -%></strong><br/>
+      <%= projs[0..list_limit - 1].sort_by { |x| x.login.downcase }.collect { |p| user_link(p, :use_display_name => true, :icon => true, :limit => 30) }.join('&nbsp;&nbsp;') %>
+      <%= render :partial => 'more_user_links', :locals => {:list => projs, :limit => list_limit,
+                                                            :block_id => "more_hosts",
+                                                            :name_limit => name_limit,
+              } %>
+    </div>
+<% end %>
+
+<%# member of %>
+<% unless CollectionInclusion.of_child_project(user).empty? %>
+  <div class="default">
+    <strong><%= 'Member of ((collections))'.t %></strong><br/>
+    <% list = CollectionInclusion.of_child_project(user).with_projects.order_by_name.map { |inclusion| inclusion.parent } %>
+    <% list[0..list_limit - 1].each do |parent| %>
+      <%= user_link(parent, :use_display_name => true, :icon => true, :limit => 30) %>&nbsp;&nbsp;
+    <% end %>
+    <%= render :partial => 'more_user_links', :locals => {:list => list, :limit => list_limit,
+                                                          :block_id => "more_memberships",
+                                                          :name_limit => name_limit} %>
+  </div>
+<% end %>
+
+<%# location %>
+<div class="default"><%= user.profile.city_and_country %></div>
+
+<%# Tags %>
+<% limit = 16 %>
+<% unless @user.basic_user? %>
+  <% unless @tags.blank? %>
+    <div class="default">
+      <b><%= 'Tags'.t %></b><br />
+      <%= render :partial => "tags" %>
+    </div>
+  <% end %>
+<% end %>

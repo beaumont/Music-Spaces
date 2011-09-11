@@ -1,0 +1,109 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: content-related pages (showcase, content items, etc.)
+*/
+
+// Content page
+$contentPageHeader = "Content";
+
+// Elements that every content page should have
+$itemLikeLink = "Like";
+$itemCommentLink = "Leave Comment";
+$itemFbLink = "Post on your Wall";
+$itemTweetLink = "Tweet This";
+$itemDiggLink = "Digg This";
+$itemEditLink = "Edit";
+$itemDeleteLink = "Delete";
+$itemSubmitLink = "Submit to...";
+$itemActivityDiv = "Activity";
+$itemLowerCommentLink = "Click to Leave Comment";
+$itemDeleteConfirm = "Are you sure?";
+$itemEditingDoneMessage = "Update successful";
+
+// Values of 'Show to' field - every content form have it
+$itemShowEveryone = "Everyone";
+$itemShowInterested = "Interested and closer";
+$itemShowFriends = "Friends and closer";
+$itemShowOnlyMe = "Only Me";
+
+// 'Add Music album' form and other related elements
+$addMaFormHeader = "Music Album";
+
+// 'Add Track' form and other related elements
+$addTrackFormHeader = "Media";
+
+// 'Add Video' form and other related elements
+$addVideoFormHeader = "Video";
+$addVideoEmbedLabel = "Embed Code";
+$addVideoTitleLabel = "Title";
+$addVideoDescriptionLabel = "Description";
+$addVideoTagsLabel = "Tags";
+$addVideoOwnerLabel = "Copyright owner";
+$addVideoDonateLabel = "Request contributions for this item";
+$addVideoShowInLabel = "Show in";
+$addVideoFeatureLabel = "and feature on Profile page";
+$addVideoShowToLabel = "Show to";
+$addVideoEmbedField = /content\[.*\]\[post\]/;
+$addVideoTitleField = /content\[.*\]\[_title\]/;
+$addVideoDescriptionField = /content\[.*\]\[_description\]/;
+$addVideoTagsField = /content\[.*\]\[tag_list\]/;
+$addVideoOwnerField = /content\[.*\]\[owner\]/;
+$addVideoDonateCheckbox = /content\[.*\]\[show_donation_button\]/;
+$addVideoShowInSelect = /content\[.*\]\[album_id\]/;
+$addVideoFeatureCheckbox = /content\[.*\]\[is_in_startpage\]/;
+$addVideoShowToSelect = /content\[.*\]\[relationshiptype_id\]/;
+$addVideoPostButton = "Post";
+$addVideoSaveButton = "Save";
+$addVideoCancelButton = "Cancel";
+$videoDeletedMessage = "Video was successfully deleted";
+
+// 'Add Picture' form and other related elements
+$addPictureFormHeader = "Media";
+
+// 'Add Writing' form and other related elements
+$addWritingFormHeader = "Writing";
+$addWritingTitleLabel = "Title";
+$addWritingBodyLabel = "Body";
+$addWritingFormatPostLink = "Format your post";
+$addWritingTagsLabel = "Tags";
+$addWritingOwnerLabel = "Copyright owner";
+$addWritingDonateLabel = "Request contributions for this item";
+$addWritingDisplayHeader = "Display Settings";
+$addWritingShowInLabel = "Show in";
+$addWritingFeatureLabel = "and feature on Profile page";
+$addWritingShowToLabel = "Show to";
+$addWritingTitleField = /content\[.*\]\[_title\]/;
+$addWritingBodyField = /content\[.*\]\[_post\]/;
+$addWritingTagsField = /content\[.*\]\[tag_list\]/;
+$addWritingOwnerField = /content\[.*\]\[owner\]/;
+$addWritingDonateCheckbox = /content\[.*\]\[show_donation_button\]/;
+$addWritingShowInSelect = /content\[.*\]\[album_id\]/;
+$addWritingFeatureCheckbox = /content\[.*\]\[is_in_startpage\]/;
+$addWritingShowToSelect = /content\[.*\]\[relationshiptype_id\]/;
+$addWritingPostButton = "Post";
+$addWritingSaveButton = "Save";
+$addWritingCancelButton = "Cancel";
+$writingDeletedMessage = "Writing was successfully deleted";
+
+// 'Add Folder' form and other related elements
+$addFolderFormHeader = "Folder";
+
+// 'Edit Note/Announcement' form and other related elements
+$editNoteFormHeader = "Announcement";                       // It's a bug really that this form is always called 'Announcement' even when it's just note.
+$editNoteFormatPostLink = "Format your post";
+$editNoteTextLabel = "Text";
+$editNoteTagsLabel = "Tags";
+$editNotePictureLabel = "Change picture";
+$editNoteDonateLabel = "Request contributions for this item";
+$editNoteShowToLabel = "Show to";
+$editNotePinLabel = "Make Announcement";
+$editNoteTextField = "content[_post]";
+$editNoteTagsField = "content[tag_list]";
+$editNotePictureField = "embedded_image[uploaded_data]";
+$editNoteDonateCheckbox = "content[show_donation_button]";
+$editNoteShowToSelect = "content[relationshiptype_id]";
+$editNotePinCheckbox = "content[priority]";
+$editNoteSaveButton = "Save";
+$editNoteCancelButton = "Cancel";
+$noteDeletedMessage = "Note was successfully deleted";
+$noteDeleteProfileConfirm = "Are you sure you want to delete this note?";

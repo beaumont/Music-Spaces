@@ -1,0 +1,24 @@
+<% if locale == 'en' %>
+  <span id="title_<%= question.id %>">
+    <%= render :partial => '/shared/in_place_value', :object => question.read_attribute(:text) %>
+  </span>
+  <%= in_place_editor "title_#{question.id}",
+    :url => { :action => :set_question_attrib, 
+              :id => question.id,
+              :attrib => 'text'},
+    :load_text_url => url_for({ :action => :question_attrib, :id => question.id, :attrib => 'text' }),
+    :rows => 2
+  %>
+<% else %>
+  <span id="title_ru_<%= question.id %>">
+    <%= render :partial => '/shared/in_place_value', :object => question.read_attribute(:text_ru) %>
+  </span>
+  <%= in_place_editor "title_ru_#{question.id}",
+    :url => { :action => :set_question_attrib, 
+              :id => question.id,
+              :attrib => 'text_ru'},
+    :load_text_url => url_for({ :action => :question_attrib, :id => question.id, :attrib => 'text_ru' }),
+    :rows => 2
+  %>
+<% end %>
+

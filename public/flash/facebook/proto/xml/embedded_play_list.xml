@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<play_list language="en"
+  
+	play_button = "Play"
+	pause_button = "Pause"
+	total_time_label = "Total time"
+	time_played_label = "Time played"
+	time_left_label = "Time left"
+	tag_line_label="Meet the artists. Download. Contribute."
+	thumb_url="http://d30voi5vlani95.cloudfront.net/content/thumbs/15001/Anya_7004_cover_thumb.jpg"
+	year=""
+	kroogi_url="http://brainmaggot.org/share/7004"
+	title="I Said Dance in The Desert"
+	donate_url="http://brainmaggot.org/share/7004"
+	content_url="http://brainmaggot.org/share/7004"
+	user="Anya in The Sky22"
+	support_button="See this Album at Kroogi"
+	embed_code="&lt;object id=&quot;kroogi_player_7004&quot; width=&quot;396&quot; height=&quot;270&quot;&gt; &lt;param name=&quot;wmode&quot; value=&quot;transparent&quot; /&gt; &lt;param name=&quot;movie&quot; value=&quot;http://brainmaggot.org/flash/Kroogi_MP3_Player.swf&quot; /&gt; &lt;param name=&quot;flashvars&quot; value=&quot;playlist_url=http%253A%252F%252FAnya.brainmaggot.org%252Fplayer%252Fembedded_play_list.xml%253Falbum_id%253D7004%2526amp%253Blocale%253Den%2526width%253D400&amp;player_mode=embedded&quot; /&gt; &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot; /&gt; &lt;embed name=&quot;kroogi_player_7004&quot; src=&quot;http://brainmaggot.org/flash/Kroogi_MP3_Player.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;396&quot; height=&quot;270&quot; flashvars=&quot;playlist_url=http%253A%252F%252FAnya.brainmaggot.org%252Fplayer%252Fembedded_play_list.xml%253Falbum_id%253D7004%2526amp%253Blocale%253Den%2526width%253D400&amp;player_mode=embedded&quot; allowScriptAccess=&quot;always&quot; wmode=&quot;transparent&quot;&gt; &lt;/embed&gt; &lt;/object&gt;"
+	embed_id = "kroogi_player_7004"
+	download_music_link = "http://brainmaggot.org/share/7004"
+	facebook_share = "http://www.facebook.com/"
+	tweeter_share = "http://twitter.com/"
+	vkontakte_share = "http://vkontakte.ru/"
+	digg_share = "http://digg.com/"
+	embed_label="Embed:"	
+	download_btn_label = "Download"
+	donate_btn_label = "Contribute"
+	download_music_label = "You can download this music directly from Kroogi."
+	thank_artist_label = "You can thank the artist by contributing any amount directly to him."
+	share_label = "Share:"
+	text_copied_label = "Text Copied to Clipboard"
+	
+	
+>
+    <song>
+      <trackid>7012</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Water</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7012/86231b5d8d827b0ec19e0bef994b88c62d7ccb1a.mp3</songurl>
+      
+      
+           <songduration>8:15</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7013</trackid>
+      
+        <songartist>System 7</songartist>
+      
+      <songtitle>Planet 7 (Original Mix)</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7013/455d5826ab0f5d340e6e8490ac7c09cf216a58c1.mp3</songurl>
+      
+      
+           <songduration>7:49</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7014</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Trustafari</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7014/ceec1752504097bbb0ec4d65e7fa91137223a6c1.mp3</songurl>
+      
+      
+           <songduration>6:53</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7030</trackid>
+      
+        <songartist>Kraftwerk</songartist>
+      
+      <songtitle>Pocket Calculator/Dentaku</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7030/2912e58c1f654268145e4869e8ccbc17d5192853.mp3</songurl>
+      
+      
+           <songduration>6:13</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7031</trackid>
+      
+        <songartist>Frivolous</songartist>
+      
+      <songtitle>Good-Bye Regrets - Original Mix</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7031/0b3cf2b6b25e743b4818349938880b672f81e853.mp3</songurl>
+      
+      
+           <songduration>6:12</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7032</trackid>
+      
+        <songartist>Kraftwerk</songartist>
+      
+      <songtitle>Tour Da France</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7032/b083953a5c74397e11b096f6faa2e5a9ee8ab994.mp3</songurl>
+      
+      
+           <songduration>6:18</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7033</trackid>
+      
+        <songartist>Shulman</songartist>
+      
+      <songtitle>Mia Nihta Mono Den Ftani</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7033/5104a74c88df56ba308285bf16899b9fb14d302b.mp3</songurl>
+      
+      
+           <songduration>10:07</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7034</trackid>
+      
+        <songartist>Vibrasphere</songartist>
+      
+      <songtitle>San Pedro</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7034/f716dbfce8c60e4d9ad463a3b351f0d8d34dcac1.mp3</songurl>
+      
+      
+           <songduration>9:24</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7035</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Alpha Return</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7035/a79c182954fda95925b75cc083505cbf81bd8109.mp3</songurl>
+      
+      
+           <songduration>4:59</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7037</trackid>
+      
+        <songartist>Mr Rogers</songartist>
+      
+      <songtitle>Life</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7037/8713b81626fa4cc36d1ab8e910ffeafc678ca9ae.mp3</songurl>
+      
+      
+           <songduration>7:17</songduration>
+      
+    </song>
+  
+	<!-- ADDED ++ TRACKS -->
+		
+    <song>
+      <trackid>7012</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Water</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7012/86231b5d8d827b0ec19e0bef994b88c62d7ccb1a.mp3</songurl>
+      
+      
+           <songduration>8:15</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7013</trackid>
+      
+        <songartist>System 7</songartist>
+      
+      <songtitle>Planet 7 (Original Mix)</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7013/455d5826ab0f5d340e6e8490ac7c09cf216a58c1.mp3</songurl>
+      
+      
+           <songduration>7:49</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7014</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Trustafari</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7014/ceec1752504097bbb0ec4d65e7fa91137223a6c1.mp3</songurl>
+      
+      
+           <songduration>6:53</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7030</trackid>
+      
+        <songartist>Kraftwerk</songartist>
+      
+      <songtitle>Pocket Calculator/Dentaku</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7030/2912e58c1f654268145e4869e8ccbc17d5192853.mp3</songurl>
+      
+      
+           <songduration>6:13</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7031</trackid>
+      
+        <songartist>Frivolous</songartist>
+      
+      <songtitle>Good-Bye Regrets - Original Mix</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7031/0b3cf2b6b25e743b4818349938880b672f81e853.mp3</songurl>
+      
+      
+           <songduration>6:12</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7032</trackid>
+      
+        <songartist>Kraftwerk</songartist>
+      
+      <songtitle>Tour Da France</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7032/b083953a5c74397e11b096f6faa2e5a9ee8ab994.mp3</songurl>
+      
+      
+           <songduration>6:18</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7033</trackid>
+      
+        <songartist>Shulman</songartist>
+      
+      <songtitle>Mia Nihta Mono Den Ftani</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7033/5104a74c88df56ba308285bf16899b9fb14d302b.mp3</songurl>
+      
+      
+           <songduration>10:07</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7034</trackid>
+      
+        <songartist>Vibrasphere</songartist>
+      
+      <songtitle>San Pedro</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7034/f716dbfce8c60e4d9ad463a3b351f0d8d34dcac1.mp3</songurl>
+      
+      
+           <songduration>9:24</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7035</trackid>
+      
+        <songartist>Medicine Drum</songartist>
+      
+      <songtitle>Alpha Return</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7035/a79c182954fda95925b75cc083505cbf81bd8109.mp3</songurl>
+      
+      
+           <songduration>4:59</songduration>
+      
+    </song>
+  
+    <song>
+      <trackid>7037</trackid>
+      
+        <songartist>Mr Rogers</songartist>
+      
+      <songtitle>Life</songtitle>
+      <songurl>http://d30voi5vlani95.cloudfront.net/content/audio/7037/8713b81626fa4cc36d1ab8e910ffeafc678ca9ae.mp3</songurl>
+      
+      
+           <songduration>7:17</songduration>
+      
+    </song>		
+</play_list>

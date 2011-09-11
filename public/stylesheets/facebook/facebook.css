@@ -1,0 +1,1378 @@
+/* ------------------------------------------------
+* ------------------------------------------------
+* GLOBAL STYLES
+* ------------------------------------------------
+*/
+.clear {clear: both;}
+.clear_left {clear: left;}
+.clear_right {clear: right;}
+
+.inputsubmit {
+    background-color:#3B5998;
+    border-color:#D9DFEA #0E1F5B #0E1F5B #D9DFEA;
+    border-style:solid;
+    border-width:1px;
+    color:#FFFFFF;
+    padding:2px 15px 3px;
+    text-align:center;
+}
+
+.inputaux {
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    background:#F0F0F0 none repeat scroll 0 0;
+    border-color:#E7E7E7 #666666 #666666 #E7E7E7;
+    color:#000000;
+}
+
+.fb_submit_btn {
+  padding: 2px 15px 3px 15px;
+  border-style: solid;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-top-color: #D9DFEA;
+  border-left-color: #D9DFEA;
+  border-bottom-color: #0e1f5b;
+  border-right-color: #0e1f5b;
+  background-color: #3b5998;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  text-align: center; }
+
+/* ------------------------------------------------
+* ------------------------------------------------
+* STRUCTURES
+* ------------------------------------------------
+* /
+
+/* ------------------------------------------------
+* 3 Column layout
+*/
+
+.content .three_column {
+}
+
+.content .three_column .left_sidebar {
+    width: 150px;
+    float: left;
+    margin: 10px 0px 10px 0px;
+}
+
+.content .three_column .right_sidebar {
+    width: 150px;
+    float: right;
+    margin: 10px 0px 10px 0px;
+}
+
+.content .three_column .inner {
+    width: 440px;
+    float: left;
+    margin: 10px;
+}
+
+/* ------------------------------------------------
+* 2 Column layout
+*/
+
+.content .two_column {
+}
+
+.content .two_column .left_sidebar {
+    width: 150px;
+    float: left;
+}
+
+.content .two_column .inner {
+    width: 510px;
+    float: left;
+}
+
+.content .two_column .inner_right {
+
+    margin-left:150px;
+}
+
+.content .two_column .right_sidebar {
+    width: 240px;
+    float: right;
+    margin: 0px 0px 10px 10px;
+}
+
+
+.footer {
+    clear:both;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+* STYLES
+* ----------------------------------------------------
+*-----------------------------------------------------
+
+
+/*temporary for veiw outside of facebook*/
+
+.mainContent {
+    width:760px;
+    margin:0;
+    padding:0 0 40px 0;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+
+img {
+    border:0;
+}
+
+a {
+    color:#3B5998;
+    text-decoration:none;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+header, logo, search form */
+
+.headerTitle {
+    width:760px;
+    padding:0;
+    margin:0;
+    height:67px;
+}
+
+.kroogiLogo {
+    float:left;
+    margin-left:7px;
+    width:212px;
+}
+
+.headerLinks {
+    float:left;
+    margin-left:282px;
+    margin-top:35px;
+}
+
+.tab_headerLinks {
+    float:left;
+    font-weight:bold;
+    margin-left:282px;
+    margin-top:41px;
+}
+
+.search {
+    float:right;
+    margin:15px 7px 0 0;
+}
+
+.searchBox {
+    float:left;
+    margin:0;
+    padding:0;
+    width:120px;
+}
+
+.searchBox input {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#999;
+    height:16px;
+}
+
+.searchButton {
+    margin:0 0 0 128px;
+    padding:0;
+}
+
+.searchSpinner {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#999;
+    padding: 10px;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+kroogi menu and artist entrance */
+
+.kroogiMenu ul {
+    list-style:none;
+    padding:10px 0;
+    margin:0;
+    font-weight:bold;
+}
+
+.kroogiMenu ul li {
+    display:inline;
+    margin-left:10px;
+}
+
+.artEntrance {
+    float:right;
+}
+
+li.artEntrance {
+    margin-right:10px;
+}
+
+.greyLine {
+    font-size:0;
+    border-top:1px #B8B3AB solid;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Album Page*/
+
+.boxes {
+    float: left;
+}
+
+.albumsContainer {
+    float: left;
+    margin: 8px 0px 10px 20px;
+}
+
+.arrow {
+    padding:10px 8px 10px 10px;
+    float:left;
+}
+
+.arrowText {
+    margin-left:33px;
+    padding-top:9px;
+    font-weight: bold;
+}
+
+.albums .cover {
+    float: left;
+    margin: 10px 0px;
+}
+
+.title {
+    width:260px;
+    font-weight: bold;
+    font-size: 18px;
+    color:#333;
+}
+
+.artist {
+    font-weight: bold;
+    font-size: 12px;
+    color:#666;
+}
+
+.style {
+    font-weight: normal;
+    font-size: 11px;
+    color:#666;
+}
+
+.moreFrom {
+    padding:5px 0;
+}
+
+.donatebox {
+    background-color: #F7F7F7;
+    border:1px #CCC solid;
+    margin: 4px 0px 0px 0px;
+    font-size: 11px;
+    width:330px;
+}
+
+
+.downloadbox {
+    background-color: #F7F7F7;
+    border:1px #CCC solid;
+    margin: 4px 0px 0px 0px;
+    font-size: 11px;
+    width:330px;
+}
+
+.description {
+    clear: both;
+    margin: 0 20px 20px 20px;
+    padding-top:10px;
+    width: 470px;
+    font-size: 11px;
+    color:#666;
+}
+
+/*placeholder for player*/
+.player {
+    width:500px;
+}
+
+.downloadboxContent {
+    margin-left:33px;
+    padding:8px 0;
+}
+
+.donateboxContent {
+    margin-left:33px;
+    padding:9px 0;
+}
+
+.downloadFile {
+    font-weight:bold;
+    display:block;
+    padding-bottom:8px;
+}
+
+.artistName {
+    font-weight:bold;
+}
+
+.donateForm {
+    float:left;
+    padding-bottom:10px;
+}
+
+.donateBox {
+    font-size:11px;
+    vertical-align:middle;
+    margin-top:10px;
+}
+
+.donateButton {
+    vertical-align:middle;
+    margin-left:4px;
+    margin-top:10px;
+}
+
+.paypalInfo {
+    margin-left:6px;
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.more_mps_link {
+    padding-left:8px;
+}
+.thankYou {
+    font-weight:bold;
+    margin-bottom:4px;
+    padding-top:0;
+}
+
+/* inner footer*/
+.innerFooter {
+    clear: both;
+    margin: 20px;
+    width: 470px;
+    font-size: 11px;
+    color:#666;
+}
+
+.innerFooterTitle {
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.sentFrom {
+    display:inline-block;
+    width:150px;
+    float:left;
+    padding-top:8px;
+}
+
+.noAlbum {
+    font-weight:bold;
+    margin-bottom:10px;
+    color:#333;
+}
+
+.noAlbumInfo .title {
+    font-size:12px;
+    color:#999;
+}
+
+.noAlbumInfo .artist {
+    color:#999;
+}
+
+.noAlbumInfo .lastAction {
+    color:#999;
+}
+
+.noAlbumInfo .style {
+    color:#999;
+}
+
+
+.noAlbumInfo {
+    color:#999;
+}
+
+.noAlbumInfo a {
+    color:#999;
+}
+
+.noAlbumMessage {
+    font-size:18px;
+    font-weight:bold;
+    color:#666;
+    padding-top:10px;
+}
+
+.opacity {
+    opacity: 0.5;
+}
+/* ---------------------------------------------------
+* ----------------------------------------------------
+right sidebar for all pages!!!*/
+.rightTitle {
+    font-size:12px;
+    font-weight:bold;
+    color:#666;
+    margin-top:13px;
+    margin-bottom:14px;
+}
+
+.rightBoxes {
+    background-color:#F7F7F7;
+    font-size:11px;
+    color:#666;
+    border:1px #EEE solid;
+}
+
+.boxContent {
+}
+
+.boxContentBtn {
+}
+
+.boxContent2 {
+    background-color:#EEE;
+}
+
+.veiwMore {
+    padding:10px;
+}
+
+.albumStatistic {
+    padding:10px;
+}
+
+.friendUserpic {
+    float:left;
+    padding-right:10px;
+}
+
+.userpic {
+    float:left;
+    padding-right:10px;
+}
+
+.requests {
+    padding-bottom:5px;
+}
+
+.donations {
+    padding-bottom:5px;
+}
+
+.quantity {
+    font-weight:bold;
+}
+
+.name {
+}
+
+.date {
+    color:#666;
+}
+
+.action {
+    padding-bottom:5px;
+}
+
+.rightButton {
+    padding-left:35px;
+
+}
+
+.greyLine2 {
+    font-size:0;
+    width:218px;
+    margin:0 auto;
+    padding:0;
+    border-top:1px #EEE solid;
+}
+
+.greyLine3 {
+    font-size:0;
+    margin:0 auto;
+    padding:0;
+    border-top:1px #EEE solid;
+}
+
+.sendResult {
+    padding:10px;
+}
+
+.sendToFriendBtn {
+    padding: 10px 10px 0px 10px;
+}
+
+.publishBtn {
+    padding:0px 10px 10px 10px;
+}
+
+.ctaBtn {
+    padding:4px 4px 4px 10px;
+}
+
+.thisAlbumStatistic {
+    padding:10px;
+    font-weight:bold;
+}
+
+.friends {
+    padding:10px 10px 0px 10px;
+}
+
+.seeAllLinkWrapper {
+    display:block;
+    padding:10px 10px 0px 10px;
+}
+
+.SeeAllLink {
+    padding-right:11px;
+}
+
+.topAlbums {
+    padding:10px;
+}
+
+.topAlbums .cover {
+    float:left;
+    padding-right:10px;
+}
+
+.topAlbumsContent {
+    margin-left:42px;
+}
+
+.topAlbums .yourAlbumStatistic {
+    margin:0 0 10px 0 ;
+}
+
+.friendsDownloads {
+    padding:10px;
+}
+
+.friendsDownloads .cover {
+    float:left;
+    padding-right:10px;
+}
+
+.friendsDownloadsContent {
+    margin-left:42px;
+}
+
+.friendsDownloads .artist {
+    font-weight:normal;
+}
+
+.friendsDownloadsStatistic {
+    padding-top:8px;
+}
+
+.noRightTitle {
+    height:43px;
+}
+
+.yourFriendsAlbums {
+    padding:10px;
+    font-weight:bold;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+My Albums*/
+
+.collectionContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+
+.pageTitle {
+    margin:10px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.collectionHeader {
+    margin:10px;
+    font-weight:bold;
+    color:#666;
+}
+
+.whiteBox {
+    background-color: #FFF;
+    border: 1px #DDD solid;
+    margin: 10px;
+    font-size: 11px;
+    padding-bottom:10px;
+}
+
+.whiteBox .cover {
+    float: left;
+    margin:10px 10px 0 10px;
+}
+
+.whiteBoxContent {
+    margin-left:120px;
+    margin-top:10px;
+}
+
+.lastAction {
+    float:right;
+    padding-right:10px;
+    color:#333;
+}
+
+.whiteBoxContent .name{
+}
+
+.whiteBoxContent .title {
+    width:100%;
+    padding:8px 0;
+}
+
+.whiteBoxContent .title a {
+    font-size:13px;
+}
+
+.whiteBoxContent .artist {
+    font-weight:normal;
+    font-size:11px;
+}
+
+.whiteBoxContent .style {
+    font-weight:bold;
+}
+
+.actionLinks {
+    padding-left:0;
+    margin:8px 0 0 0;
+}
+
+.actionLinks li {
+    display:inline;
+}
+
+.yourAlbumStatistic {
+    margin:8px 0 0 0;
+    color:#333;
+}
+
+.yourDonation {
+    font-weight:bold;
+    margin-top:10px;
+    color:#333;
+    padding-bottom:10px;
+}
+
+.albumImpact {
+    color:#333;
+}
+
+.empty {
+    font-size:18px;
+    font-weight:bold;
+    color:#666;
+    padding:10px 10px 0 10px;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Artist Page*/
+
+.artistPage .cover {
+    float: left;
+    margin: 10px 0px;
+}
+
+.artistPageContainer {
+    float: left;
+    margin: 8px 0px 10px 20px;
+}
+
+.artistPageContainer .artist {
+    font-weight: bold;
+    font-size: 18px;
+    color:#333;
+}
+
+.country {
+    padding-top:6px;
+    font-size:12px;
+    color:#666;
+}
+
+.toKroogi {
+    font-weight:bold;
+    padding:10px 0;
+}
+
+.artistAlbums {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0px;
+    font-size: 11px;
+}
+
+.artistAlbumsHeader {
+    margin:10px 10px 0px 10px;
+    font-weight:bold;
+    color:#666;
+}
+
+.more {
+    margin:10px 10px 0px 10px;
+    float:right;
+}
+
+.albumInfo {
+    display:inline-block;
+    width:240px;
+    float:left;
+}
+
+.albumInfo .cover {
+    width:75px;
+    float: left;
+}
+
+.albumInfo .title {
+    width:143px;
+    padding:10px 30px 8px 0px;
+    line-height:80%;
+}
+
+.albumInfo .title a {
+    font-size:13px;
+}
+
+.albumInfo .artist {
+    font-size:11px;
+    font-family:arial;
+    font-weight:normal;
+}
+
+.albumInfo .style {
+    width:140px;
+    font-weight:bold;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Home*/
+.home
+.homeHeader {
+    margin:20px 0 10px 0;
+}
+
+.homeH1 {
+    font-size:18px;
+    font-weight:bold;
+    color:#B8B3AB;
+}
+
+.homeH2 {
+    font-size:14px;
+    font-weight:bold;
+    color:#666;
+    margin-right:100px;
+}
+.moreMusic {
+    float:right;
+}
+
+.greyLine3 {
+    font-size:0;
+    border-top:1px #DEDEDE solid;
+}
+
+.homeContent .cover {
+    width:150px;
+    padding:20px 20px 10px 0;
+    float:left;
+    text-align:right;
+}
+
+.homeContent .artist {
+    padding-top:15px;
+}
+
+.homeContent .artist a {
+    font-size:18px;
+    font-weight:bold;
+}
+
+.homeContent .country {
+    font-size:12px;
+}
+.homeContent .style  {
+    font-size:12px;
+    font-weight:bold;
+}
+.homeContent .moreAlbums {
+    padding:10px 0;
+}
+
+.friendsKroogi .friendUserpic {
+    margin-top:10px;
+    padding-right:0;
+    float:left;
+}
+
+.friendsKroogiContent {
+    margin-left:44px;
+}
+
+.friendsKroogiDownloads {
+    padding-top:10px;
+    font-size:11px;
+    color:#666;
+}
+
+.albumName a {
+    font-weight:bold;
+}
+.goTo {
+    padding:6px 0 10px 0;
+}
+
+.goTo a {
+    font-weight:bold;
+}
+
+.greyLine4 {
+    font-size:0;
+    width:218px;
+    margin-left:44px;
+    border-top:1px #EEE solid;
+}
+
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Sent By Friends*/
+
+.sentbyAlbums {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+
+.greyLine5 {
+    font-size:0;
+    border-top:1px #CCC solid;
+    margin-right:10px;
+}
+
+.sentbyAlbums .whiteBox .whiteBoxContent .title {
+    padding-top:0px;
+    padding-bottom:6px;
+}
+
+.sentbyAlbums .whiteBox .whiteBoxContent .style {
+    padding-bottom:6px;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Find Music*/
+
+ul.leftMenu {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    border-top:1px #DDD solid;
+    border-left:1px #DDD solid;
+}
+
+.leftMenu li {
+    padding:6px 10px;
+    border-bottom:1px #DDD solid;
+}
+
+.leftMenu a {
+    font-size:11px;
+    font-weight:bold;
+}
+
+.leftMenu li.selected {
+    background-color:#F7F7F7;
+}
+
+.leftMenu .selected a {
+    color:#666;
+}
+
+
+.findContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+
+.findContainer .whiteBox .whiteBoxContent .title {
+    padding-top:0px;
+}
+
+.findContainer .whiteBox .whiteBoxContent .year {
+    color:#666;
+    padding-bottom:10px;
+}
+
+.findHeader {
+    margin:10px 10px 0 10px;
+    color:#666;
+}
+
+.findHeaderH1 {
+    font-size:18px;
+    font-weight:bold;
+    color:#333;
+    padding:9px 0 10px;
+}
+
+.findHeaderH2 {
+    color:#666;
+    font-weight:bold;
+}
+
+ul.searchByMenu {
+    text-align:left;
+    margin:8px 0;
+}
+
+.searchByMenu li {
+    display:inline;
+}
+
+.searchByMenu li a {
+    color:#666;
+}
+
+.searchByMenu li.selected a {
+    color:#3B5998;
+}
+
+.findFooter {
+    padding-left:10px;
+    padding-bottom:10px;
+
+}
+
+.artistContent .cover {
+    padding:0;
+    float:left;
+    text-align:right;
+}
+
+.artistContent .artist {
+    padding-top:8px;
+}
+
+.artistContent .artist a {
+    font-size:14px;
+    font-weight:bold;
+}
+
+.artistContent .country {
+    font-size:11px;
+    font-family:arial;
+    font-weight:normal;
+}
+.artistContent .style  {
+    font-weight:bold;
+}
+.artistContent .moreAlbums {
+    padding:10px 0;
+}
+
+/* profile */
+.add_to_profile {
+    background:#FFFBE2 none repeat scroll 0 0;
+    border:1px solid #FFE222;
+    color:#222222;
+    padding:10px;
+}
+
+.add_to_profile p {
+    margin-bottom:5px;
+    margin-top:0;
+}
+
+.profile_box {
+    background-color:#EEE;
+}
+
+.profile_box .title {
+    color:#666;
+    font-family:Tahoma,Geneva,sans-serif;
+    padding:5px 5px 5px 10px;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.profile_box .subtitle {
+    padding: 0px 0px 5px 10px;
+}
+
+.profileContainer {
+    padding:10px 10px 4px 10px;
+}
+
+.profilecover {
+    padding:0px 10px 4px 0px;
+    float:left;
+}
+
+.profileTitle {
+    font-weight:bold;
+}
+
+.add_to_bookmark {
+    background:#FFFBE2 none repeat scroll 0 0;
+    border:1px solid #FFE222;
+    color:#222222;
+    padding:10px;
+}
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Artist Entrance*/
+
+.artistContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size: 11px;
+}
+
+.artistHeader {
+    margin:10px 10px 0 10px;
+    color:#666;
+}
+
+.artistHeaderH1 {
+    font-weight:bold;
+    padding-bottom:10px;
+}
+
+.artistHeaderH2 a {
+    font-weight:bold;
+}
+
+.artistContainer .whiteBox {
+    padding-bottom:0px;
+    padding-top:10px;
+}
+
+.singUp {
+    padding:0 0 10px 10px;
+}
+
+.singUp a {
+    font-size:18px;
+    font-weight:bold;
+}
+
+.logIn {
+    float:right;
+    color:#666;
+    padding-top:7px;
+    padding-right:10px;
+}
+
+.logIn a {
+    font-weight:bold;
+}
+
+.kroogiPages {
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.artistKroogiInfo {
+    margin-bottom:10px;
+}
+
+ul.art_entrance_list {
+    color:#666;
+    padding-top:5px;
+    padding-left:35px;
+}
+
+li.art_entrance_list_li {
+    padding-top:5px;
+}
+
+.kroogiInfoH2 {
+    color:#666;
+    font-weight:bold;
+    padding-left:10px;
+    padding-top:25px;
+}
+
+.steps {
+    padding:0 10px;
+}
+
+.startHere {
+    padding:10px;
+}
+
+.artistNote {
+    padding:10px;
+    font-weight:bold;
+}
+
+.br10 {
+    height:10px;
+}
+
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Help Page*/
+
+.technology {
+    cursor: hand;
+    cursor: pointer;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    margin: 10px 20px;
+    color: #3A5998;
+}
+
+.thelanguage {
+    border: 1px solid #eeeeee;
+    background-color:#F7F7F7;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#666;
+    padding:10px;
+    margin-left:40px;
+}
+.helpArrow {padding-right:6px;
+}
+
+.questionsRight {
+    padding: 0pt 10px;
+}
+
+/* ---------------------------------------------------
+* ----------------------------------------------------
+Search Page*/
+
+
+.searchMenu ul {
+    list-style:none;
+    margin:10px 0 0 0;
+    padding: 0 0 3px 0;
+}
+
+.searchMenu ul li {
+    display:inline;
+    border-top:1px solid #DDD;
+    border-left:1px solid #DDD;
+    border-right:1px solid #DDD;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#CCC;
+    margin-bottom:12px;
+    padding:3px 10px 4px 10px;
+}
+
+.searchResult {
+    float:right;
+    margin-right:10px;
+}
+
+.searchResult li {
+    list-style:none;
+    display:inline;
+    padding-left:3px;
+}
+
+.searchResult a:hover {
+    text-decoration:underline;
+}
+
+.searchResult .selected {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.searchWord {
+    font-weight:bold;
+}
+
+.searchMenu li.selected {
+    background-color:#F7F7F7;
+    color:#666;
+    font-weight:bold;
+}
+
+.searchContainer {
+    background-color: #F7F7F7;
+    border:1px #DDD solid;
+    margin:0;
+    font-size:11px;
+}
+
+.searchHeader {
+    margin:10px 20px;
+    color:#666;
+}
+
+ul.question {
+    color:#666;
+    padding:0;
+    margin:0;
+    list-style:none;
+    width:60px;
+    float:left;
+}
+
+ul.question li {
+    padding-bottom:4px;
+}
+
+ul.result {
+    color:#666;
+    padding:0;
+    margin:0;
+    list-style:none;
+    float:left;
+}
+
+ul.result li {
+    padding-bottom:4px;
+}
+
+.result .album {
+    font-weight:bold;
+    color:#3B5998;
+    font-size:13px;
+    line-height:90%;
+    vertical-align:top;
+}
+
+.result .from {
+    color:#3B5998;
+    vertical-align:top;
+}
+
+ul.searchRight {
+    width:200px;
+    float:right;
+    padding:0;
+    margin:0;
+    margin-right:10px;
+    list-style:none;
+}
+
+ul.searchRight li {
+    border-bottom:1px solid #DEDEDE;
+    padding:2px 0;
+}
+
+.searchFooter .searchResult {
+    margin:0 10px 10px 0;
+}
+
+.shortLi {
+    line-height:90%;
+}
+
+.noResult {
+    margin:10px;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    color:#666;
+}
+
+.anotherSearch {
+    margin-top:10px;
+}
+.header_text_input {
+    width:530px;
+}
+.header_text_submit_btn {
+  width:537px;
+  padding-top:4px;
+}
+/* ---------------------------------------------------
+* TAB - Public Pages and Private Profile            */
+/*--------------------------------------------------*/
+
+.tab {
+    width: 662px;
+}
+
+.tab .artistPage {
+    margin-left:120px;
+}
+
+.header_text {
+    padding-top:10px;
+}
+.tab .artistPage .artistPageContainer {
+    float: left;
+    margin: 0px 0px 10px 20px;
+}
+
+.tab .artistPage .artistPageContainer .artist {
+    font-weight: bold;
+    font-size: 18px;
+    color:#333;
+    font-size:28px;width:350px;
+}
+
+.tab .artistPage .artistPageContainer .bio {
+    width:300px;
+    padding-top:15px;color:#666;
+}
+
+.tab .artistPage .collectionContainer .whiteBox .cover {
+    float: left;
+    margin:10px 10px 10px 10px;
+}
+
+.tab .artistPage .collectionContainer .whiteBox .whiteBoxContent .title {
+    font-size:12px;
+    font-weight:bold;
+}
+
+.tab .artistPage .collectionContainer .whiteBox .whiteBoxContent .artist {
+    padding:5px 0px 5px 0px;
+}
+.mainContent .tabsearchForm {
+    width: 662px;
+    margin-left:120px;
+}
+.mainContent .tabsearchForm .header{
+    width: 662px;
+    font-size:28px;
+    padding:10px 0px 10px 0px;
+}
+
+.mainContent .tabsearchForm .searchFromContainer {
+    width:612px;
+}

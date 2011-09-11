@@ -1,0 +1,168 @@
+# == Schema Information
+# Schema version: 20081216224705
+#
+# Table name: preferences
+#
+#  id                   :integer(11)     not null, primary key
+#  user_id              :integer(11)     default(1), not null
+#  email_notifications  :integer(4)      default(2), not null
+#  name_context         :string(255)     default("general")
+#  email_locale         :string(255)     default("en")
+#  anonymous_stats      :boolean(1)
+#  shy_founders_ids     :string(255)
+#  show_founders_tab    :boolean(1)      default(TRUE)
+#  show_founders_module :boolean(1)      default(TRUE)
+#  active_circle_ids    :string(255)     default("--- []")
+#  show_last_active     :boolean(1)      default(TRUE)
+#  getting_around_open  :boolean(1)      default(TRUE)
+#
+
+anonymous:
+  email_locale: en
+  active_circle_ids: |
+    --- 
+    - 1
+    - 2
+    - 5
+
+  anonymous_stats: "0"
+  show_founders_module: "1"
+  id: "1"
+  shy_founders_ids: 
+  user_id: "1"
+  name_context: general
+  email_notifications: "0"
+  show_founders_tab: "1"
+
+chief:
+  email_locale: en
+  active_circle_ids: |
+    --- 
+    - 1
+    - 2
+    - 5
+
+  anonymous_stats: "0"
+  show_founders_module: "1"
+  id: "2"
+  shy_founders_ids: 
+  user_id: "2"
+  name_context: general
+  email_notifications: "0"
+  show_founders_tab: "1"
+  current_locale: 'en'
+
+joe:
+  email_locale: en
+  active_circle_ids: |
+    --- 
+    - 1
+    - 2
+    - 5
+
+  anonymous_stats: "0"
+  show_founders_module: "1"
+  id: "3"
+  shy_founders_ids: 
+  user_id: "3"
+  name_context: general
+  email_notifications: "0"
+  show_founders_tab: "1"
+
+
+kroogi:
+  email_locale: en
+  active_circle_ids: |
+    --- 
+    - 1
+    - 2
+    - 5
+
+  anonymous_stats: "0"
+  show_founders_module: "1"
+  id: "4"
+  shy_founders_ids: 
+  user_id: "4"
+  name_context: general
+  email_notifications: "0"
+  show_founders_tab: "1"
+
+one_without_settings:
+  email_locale: en
+  active_circle_ids: |
+    --- 
+    - 1
+    - 2
+    - 5
+  anonymous_stats: "0"
+  show_founders_module: "1"
+  id: "5"
+  shy_founders_ids: 
+  user_id: "5"
+  name_context: general
+  email_notifications: "0"
+  show_founders_tab: "1"
+
+joy_division:
+  id: 8
+  user_id: 8
+  active_circle_ids: |
+    ---
+    - 1
+    - 4
+    - 5
+
+kroogi-music:
+  id: 9
+  user_id: 9
+
+ian_curtis:
+  id: 11
+  user_id: 11
+
+empty_collection:
+  id: 12
+  user_id: 13
+
+dub:
+  id: 13
+  user_id: 15
+
+ambient-dub:
+  id: 14
+  user_id: 16
+
+not_activated:
+  id: 15
+  user_id: 6
+
+matisyahu:
+  id: 16
+  user_id: 21
+
+matisyahu1:
+  id: 17
+  user_id: 24
+
+post-punk:
+  id: 18
+  user_id: 12
+
+basic_user1:
+  email_locale: en
+  active_circle_ids: |
+    ---
+    - 2
+    - 5
+    
+  id: 28
+  user_id: 28
+
+bad_login:
+  email_locale: en
+  active_circle_ids: |
+    ---
+    - 1
+
+  id: 29
+  user_id: 29

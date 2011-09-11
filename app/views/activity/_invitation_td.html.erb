@@ -1,0 +1,20 @@
+<div class="<%= invite.is_a?(Invite) ? 'invite' : 'request' -%>">
+  <div class="message_center user_block">
+    <div class="block_date">        
+      <%= invite.updated_at.localize("%d %B %Y %l:%M %p") %>
+    </div>
+    <div class="block_username">     
+      <%= user_link(invite.from_user, :icon => true) %>
+    </div>    
+    <%= avatar_md(invite.from_user) %>
+    <div class="block_body">	
+      <%= invite.is_a?(InviteRequest) ? 'Request for Invitation'.t : 'Invitation'.t %> 
+      <%= 'To join'.tdown %> 
+      <%= link_to invite.circle_name, :controller => 'kroogi', :action => :show, :id => invite.is_a?(Invite) ? invite.from_user : invite.wants_to_join, :type => invite.circle_id %>
+      <% if invite.is_a?(Invite) && !invite.invitation.blank? %>
+        <%= kf_simple(invite.invitation) %>
+      <% end %>
+      <%= render :partial => 'invite/respond_actions', :locals => {:invite => invite} %>  
+    </div>
+  </div>
+</div>

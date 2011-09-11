@@ -1,0 +1,64 @@
+<%
+dialog_id_suffix ||= 1
+dialog_id_suffix = "fb_#{dialog_id_suffix}"
+title ||= 'Use your Facebook Account to Download for Free'.t
+project_to_follow_id = project_to_follow ? project_to_follow.id : nil
+content_to_like ||= nil
+reset_form ||= false
+%>
+
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<script type="text/javascript">
+  
+  function checkSignupCheckBoxes_<%= dialog_id_suffix %>() {
+    if ($('tos_<%= dialog_id_suffix %>').checked == false)
+    {
+      alert ('<%= 'You must read and accept Terms of Service to create an account.'.t -%>');
+      return false;
+    }
+    else if (jQuery('#signupForm_<%= dialog_id_suffix %> #birthdate_<%= dialog_id_suffix %>').val() == '') {
+      alert ('<%= 'Please enter a your birthday.'.t -%>');
+      return false;
+    }
+    else
+    {
+      var birthdate = jQuery('#signupForm_<%= dialog_id_suffix %> #birthdate_<%= dialog_id_suffix %>').val().split("-");
+      var age = 13;
+      var mydate = new Date();
+      mydate.setFullYear(parseInt(birthdate[0]), parseInt(birthdate[1]) -1, parseInt(birthdate[2]));
+
+      var currdate = new Date();
+      currdate.setFullYear(currdate.getFullYear() - age);
+      if ((currdate - mydate) < 0){
+        alert('<%= 'Please note that this Site is not aimed at users under thirteen (13) years of age. Users thirteen (13) years or younger are required to have a parent or guardian review and complete any registration process, which may include age verification steps in addition to the standard process.'.t %>');
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+</script>
+
+<h3>
+  <a href="#"><%= image_tag('connect_logo_small_F.png') %>&nbsp;<%= title %></a>
+</h3>
+<div>
+    <div id="fb_connect_content_<%=dialog_id_suffix%>">
+      <%= render :partial => '/shared/facebook/connect/widget_form',
+                    :locals => {:dialog_id_suffix => dialog_id_suffix,
+                                :project_to_follow => project_to_follow_id,
+                                :content_to_like => content_to_like,
+                                :start_following => start_following,
+                                :restore_submit_button_state => restore_submit_button_state} %>
+    </div>
+</div>
+
+<%= render :partial => '/shared/facebook/connect/widget_js_calls',
+              :locals => { :dialog_id_suffix => dialog_id_suffix,
+                           :project_to_follow_id => project_to_follow_id,
+                           :content_to_like => content_to_like,
+                           :start_following => start_following} %>

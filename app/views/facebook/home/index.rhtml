@@ -1,0 +1,106 @@
+<div class="banner"><fb:iframe src="<%= facebook_absolute_url('html/facebook/ad_home_top_middle.html') %>" width="760" height="120" frameborder="0" scrolling="no"></fb:iframe></div>
+<div class="two_column">
+  <% cache(:home_content_section, :expires_in => 15.minutes) do %>
+    <div class="inner">
+      <div class="home">
+        <div class="homeHeader">
+          <div class="homeH1">Download Albums From These Artists</div>
+          <div class="homeH2">and contribute as much as you see fit</div>
+        </div>
+        <div class="artistAlbums">
+          <div class="more"><%= link_to 'More >>', {:controller => 'facebook/search/albums'} %></div>
+          <div class="artistAlbumsHeader">Most Popular</div>
+          <div class="whiteBox">
+            <% @popular_ma.each_with_index do |music_album,i| -%>
+              <% if i % 2 == 0 %><div class="clear"></div><%end%>
+              <div class="albumInfo">
+                <div class="cover">
+                  <% if music_album.cover_art %>
+                    <%= link_to(image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+                        :border => 0, :width => 75,
+                        :alt => h(music_album.cover_art.thumb(:thumb).filename)),
+                      {:controller => 'content', :action => 'show', :id => music_album.id}) %>
+                  <%else%>
+                    <%= image_tag('no-cover.png') %>
+                  <% end %>
+                </div>
+                <div style="width:140px;float:left;">
+                  <div class="title"><%= link_to(truncate(h(music_album.title), :length => 45),{:controller => 'content', :action => 'show', :id => music_album.id}) %></div>
+                  <div class="artist">
+                    <% if music_album.artist.blank? && music_album.year.blank? %>
+                      &nbsp;
+                    <%else%>
+                      <%= "#{music_album.artist}" unless music_album.artist.blank? -%>
+                      <%= " / " unless music_album.artist.blank? || music_album.year.blank?%>
+                      <%= "#{music_album.year}" unless music_album.year.blank? -%>
+                    <%end%>
+                  </div>
+                  <div class="style"><%= h(music_album.genre) unless music_album.genre.blank? %></div>
+                </div>
+              </div>
+            <%end%>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <br />
+        <div class="artistAlbums">
+          <div class="more"><%= link_to 'More >>', {:controller => 'facebook/search/albums', :filter => 'new'} %></div>
+          <div class="artistAlbumsHeader">Just Added</div>
+          <div class="whiteBox">
+            <% @newest_ma.each_with_index do |music_album,i| -%>
+              <% if i % 2 == 0 %><div class="clear"></div><%end%>
+              <div class="albumInfo">
+                <div class="cover">
+                  <% if music_album.cover_art %>
+                    <%= link_to(image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+                        :border => 0, :width => 75,
+                        :alt => h(music_album.cover_art.thumb(:thumb).filename)),
+                      {:controller => 'content', :action => 'show', :id => music_album.id}) %>
+                  <%else%>
+                    <%= image_tag('no-cover.png') %>
+                  <% end %>
+                </div>
+                <div style="width:140px;float:left;">
+                  <div class="title"><%= link_to(truncate(h(music_album.title), :length => 45),{:controller => 'content', :action => 'show', :id => music_album.id}) %></div>
+                  <div class="artist">
+                    <% if music_album.artist.blank? && music_album.year.blank? %>
+                      &nbsp;
+                    <%else%>
+                      <%= "#{music_album.artist}" unless music_album.artist.blank? -%>
+                      <%= " / " unless music_album.artist.blank? || music_album.year.blank?%>
+                      <%= "#{music_album.year}" unless music_album.year.blank? -%>
+                    <%end%>
+                  </div>
+                  <div class="style"><%= h(music_album.genre) unless music_album.genre.blank? %></div>
+                </div>
+              </div>
+            <%end%>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <br />
+        <div class="homeHeader">
+          <div class="more"><%= link_to 'More >>', {:controller => 'facebook/search/artists'} %></div>
+          <div class="homeH2">Popular Artists</div>
+        </div>
+        <% @projects.each do |p| %>
+          <div class="greyLine3"></div>
+          <div class="homeContent">
+            <div class="cover"><%= link_to(fb_profile_picture(p, {:max_width => 150, :max_height => 150, :content_link => nil}), :controller => 'project', :action => 'show', :id => p.id) %></div>
+            <div class="homeArtists">
+              <div class="artist"><a href=""> <%= link_to p.display_name, :controller => 'project', :action => 'show', :id => p.id %></a></div>
+              <div class="country"><%= p.profile.city_and_country %></div>
+              <div class="style"></div>
+              <div class="moreAlbums">
+                <% music_album_size_pluralized = pluralize(p.ma_count, 'album') %>
+                <%= link_to "Download #{music_album_size_pluralized} >>", {:controller => 'project', :action => 'show', :id => p.id} %>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <%end%>
+  <%= render :partial => 'shared/facebook/right_sidebar', :locals => {:box => ['influence_home', 'add_to_profile', 'my_albums', 'my_friends']} %>
+</div>

@@ -1,0 +1,16 @@
+
+<p><%= 'Hi %s,' / h(@user.display_name) %></p>
+
+<p><%= 'You are receiving this mail because you requested a reset of your Kroogi.com password. Please log in using the following credentials'.t -%>:</p>
+
+<p>
+  <%= 'Username'.t -%>: <%= @user.login %><br/>
+  <%= 'Password'.t -%>: <%= @password %>
+</p>
+
+<%= "If it wasn't you who requested the password reset, please just ignore this message. The reset will be cancelled once you log in.".t %>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+<%= 'The Kroogi Team'.t -%>
+</p>

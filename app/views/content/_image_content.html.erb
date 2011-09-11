@@ -1,0 +1,34 @@
+<div class="centered snug">
+  <div style="width: <%= thumb_dim(entry, :preview, :width) + 14 -%>px; margin: 7px auto;" id="main_img_border">
+    <%= render :partial => 'image_block_for_image_content', :locals => {
+            :image => entry,
+            :link_url => @navigation ? content_url(@navigation[:next], @url_params.merge(:anchor => @navigation[:next].id)) : nil,
+            :link_title => @navigation ? "Click to see next item: '{{title}}'" / @navigation[:next].title : nil
+    } %>
+  </div>
+</div>
+
+<div class="default centered">
+  <%= link_to (image_tag('/images/img_download.gif', {:border => 0})) + ' ' + 'View Original Size'.t + " (#{entry.width} X #{entry.height})", entry.public_filename, {:target => 'new'} %>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  <%#
+  change focus to avator on upload, note relies on flashbox being present and it's
+  body containing text success (for example in class name)
+  %>
+  var flashbox = document.getElementById('flashbox');
+  if(flashbox && flashbox.innerHTML.indexOf('success') > -1) {
+    function changeFocus() {
+      var mainImg = document.getElementById('main_img');
+      if (mainImg) {
+        var yPos = findPosition(mainImg)[1] - 10;
+        window.scrollTo(0, yPos);
+      }
+    }
+    Element.observe(window, 'load', changeFocus);
+  }
+
+
+</script>

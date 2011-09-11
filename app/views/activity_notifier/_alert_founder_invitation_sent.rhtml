@@ -1,0 +1,18 @@
+
+<p>
+  <strong>
+    <%= 'Kroogi project %s (%s) has invited you to become one of its hosts.' / [@from_user.login,@from_user.display_name] -%>
+  </strong>
+</p>
+
+<% unless @content.invitation.blank? %>
+  <p><blockquote><%= kf_simple @content.invitation %></blockquote></p>
+<% end %>
+
+<p>
+	<%= link_to 'Open invitation to join or reject', "#{@url}/activity/invitations" -%><br/>
+	<%= link_to 'Open %s Kroogi Page' / [@from_user.login], "#{@url}/user/#{@from_user.login}" -%><br/>
+</p>
+
+<p><%= 'Project hosts have a joint ownership of the project. Each project host can act on behalf of the project and can post, edit, and delete entries. Project hosts can communicate to others under the name of project.'.t -%></p>
+

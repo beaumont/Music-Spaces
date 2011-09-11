@@ -1,0 +1,42 @@
+<% contents = entry.contents %>
+<% tracks ||= contents.select {|c| c.is_a?(Track)} %>
+<div class="typographical" id="<%= "content_items_#{entry.id}" %>">
+  <% if entry.album_contents.blank? -%>
+      <div class="section_empty"><%= no_contents_text -%></div>
+  <% else %>
+    <div class="for_folders" style="width:505px;">
+      <% unless tracks.empty? %>
+        <%= render :partial => 'tracks_player', :locals => {:data_options => {:album_id => entry.id, :tracks => tracks},
+                                                            :player_id => "album_player_#{entry.id}",
+                                                            :before_player => local_assigns[:before_player],
+                                                            :after_player => local_assigns[:after_player],
+                                                            :css_class => ''} %>
+      <% end %>
+      <% iterrator = 0 %>
+      <% contents.select {|c| c.class == Textentry}.each do |preview| %>
+        <%= render(:partial => 'content/text_in_folder', :locals => {:text_content => preview}) %>
+        <% iterrator = iterrator + 1 %>
+      <% end %>
+      <% contents.reject {|c| [Textentry, Track].include?(c.class)}.each do |preview| %>
+        <%= render(:partial => 'content/gallery_item.html.erb', :locals => {:content => preview, :show_comment => true}) %>
+        <% iterrator = iterrator + 1 %>
+      <% end %>
+      <% if iterrator != 0 %>
+        <div style="clear:left;"></div>
+      <% end %>
+
+    </div>
+  <% end -%>
+  <% content_for :js do %>
+    <script type="text/javascript">
+      function update_contents() {
+        jQuery('#<%= "content_items_#{entry.id}" %> .update_progress').show();
+        jQuery.ajax({url: '<%= url_for(:action => 'fresh_contents', :id => entry.id) %>', dataType: "script"})
+      }
+    </script>
+  <% end %>
+  <div class="update_progress" style="display:none;vertical-align: middle;"><img src="/images/ajax-loader.gif" />
+    <%= 'Updating the page'.t %>...
+  </div>
+</div>
+

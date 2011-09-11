@@ -1,0 +1,20 @@
+/*
+    This file contains list of all include files.
+    When new include file is created, add it to this list.
+    Main idea is that you can include only this file to each test.
+*/
+
+//  Functions
+
+_include("functionsCommon.sah");
+_include("functionsForms.sah");
+
+//  Variables
+
+_include("variablesUiContent.sah");
+_include("variablesUiError.sah");
+_include("variablesUiMain.sah");
+_include("variablesUiProfile.sah");
+_include("variablesUiSettings.sah");
+_include("variablesUiWidgets.sah");
+_include("variablesUser.sah");

@@ -1,0 +1,51 @@
+<script type="text/javascript">
+  function showDownloadFeedForm(text,album_url,image_path,image_link) {
+    var attachment = {
+      'name': text,
+      'href': album_url,
+      'caption':'',
+      'description':'The Kroogi Downloads application is your only source on Facebook for downloading full music albums and contributing directly to the artist.',
+      'media':[
+        {'type': 'image',
+          'src': image_path,
+          'href': image_link},
+      ]
+    };
+    var actionLinks = [
+          { "text": "Listen", "href": album_url},
+          { "text": "Download", "href": album_url},
+          { "text": "Contribute", "href": album_url}
+        ];
+    var user_message_prompt = "Speak up! Support the artists by sharing:"
+
+    Facebook.streamPublish('', attachment,actionLinks,null,user_message_prompt);
+  }
+
+  function showPublishFeedForm(text,album_url,image_path,image_link,publish_url) {
+    var attachment = {
+      'name': text,
+      'href': album_url,
+      'caption':'',
+      'description':'The Kroogi Downloads application is your only source on Facebook for downloading full music albums and contributing directly to the artist.',
+      'media':[
+        {'type': 'image',
+          'src': image_path,
+          'href': image_link},
+      ]
+    };
+    var actionLinks = [
+          { "text": "Listen", "href": album_url},
+          { "text": "Download", "href": album_url + "?expand=downloadboxContent"},
+          { "text": "Contribute", "href": album_url + "?expand=donateboxContent"}
+        ];
+    var user_message_prompt = "Speak up! Share music with the world:"
+
+    Facebook.streamPublish('', attachment,actionLinks,null,user_message_prompt,
+                            function callback (post_id, exception) {
+                              if(post_id) {
+                                document.setLocation(publish_url);
+                              }
+                           }
+    );
+  }
+</script>

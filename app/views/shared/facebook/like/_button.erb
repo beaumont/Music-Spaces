@@ -1,0 +1,14 @@
+<!--This file deal with the implementation of the Facebook 'Like' plugin.-->
+<% return if !content_is_safe_to_fb_like(@entry) %>
+
+<%
+show_faces ||= false
+layout ||= 'button_count'
+width ||= 200
+%>
+
+<fb:like href="<%="#{content_url(@entry)}"%>"
+         show-faces="<%= show_faces %>"
+         layout="<%= layout %>"
+         width="<%= width %>"></fb:like>
+

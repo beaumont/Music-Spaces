@@ -1,0 +1,177 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Feedback from users'.t %>
+
+<div class="feedbacks">
+
+
+<h2><%= 'Feedback from users'.t %></h2>
+
+<% form_tag({:action => :index}, {:method => :get}) do %>
+  <%= check_box(:filter, :show_junk) %>
+  <label for="filter_show_junk"><%= 'Show junk'.t%></label>
+  <%= submit_tag('Apply'.t) %>
+<% end %>
+
+<div class="paging_status">
+  <%= @paging_header %>
+</div>
+<table class="feedbacks">
+  <tr>
+    <th class="date"><%= '%s / %s' % ['Date'.t, 'Time'.t] %>
+    <th class="user"><%= 'User'.t %></th>
+    <th class="feedback_col"><%= 'Feedback'.t %></th>
+    <th class="sentfrom"><%= 'Sent from'.t %></th>
+  </tr>
+  
+<% @feedbacks.each  do |feedback| %>
+  <% row_class = cycle("light", "dark")
+    reply = @replies[feedback.id]
+    title = I18n.with_locale(feedback.user.email_locale) {'Thank you for Feedback'.t}
+    reply ||= Pvtmessage.new(:title => title)
+    reply_error = reply && !reply.errors.blank?
+    show_reply_form = reply_error %>
+  <tr class="<%= row_class %>" id="feedback_row_<%= feedback.id %>">
+    <td><%= datetime(feedback.created_at) %></td>
+    <td><strong><%= user_link(feedback.user, :icon => true) %></strong></td>
+	<td>
+      <%= feedback.complaint %>
+      <% if current_actor.is_kroogi_dev? %>
+        <div class="junk">
+          <img src="/images/tp.gif" alt="" height="16" width="0" />
+          <span class="as_junk" style="<%= feedback.junk? ? 'display:none;' : '' %>">
+            <%= link_to_remote('Mark as junk'.t,
+              :failure => '$(\'feedback_row_%s\').select(\'.as_junk\')[0].innerHTML = \'%s\'' % [feedback.id, 'Failed to mark message as junk'.t],
+              :loading => 'junk_progress(%s, \'.as_junk\');' % feedback.id,
+              :url => {:action => "mark_as_junk", :id => feedback.id}, :method => :post ) %>
+          </span>
+          <span class="as_not_junk" style="<%= feedback.junk? ? '' : 'display:none;'%>" >
+            <span><%= 'This message is marked as junk.' %></span>
+            <%= link_to_remote('Mark as not junk'.t,
+              :failure => '$(\'feedback_row_%s\').select(\'.as_not_junk\')[0].innerHTML = \'%s\'' % [feedback.id, 'Failed to mark message as not junk'.t],
+              :loading => "junk_progress(%s, '.as_not_junk a');" % feedback.id,
+              :url => {:action => "mark_as_not_junk", :id => feedback.id}, :method => :post ) %>
+          </span>
+          <span class="progress" style="display:none;"><img src="/images/ajax-loader.gif" alt="" /><%= '%s...' % 'Please wait'.t %></span>
+        </div>
+      <% end %>
+      <br/><br/>
+      <%= link_to_function(image_tag(show_reply_form ? 'GroupOpen.gif': 'GroupClosed.gif',
+          :style => 'padding-right: 5px',
+          :id => "reply_form_switcher_img_#{feedback.id}") + " " + 'Reply'.t,
+        "toggleReplyBlock('reply_form_switcher_img_#{feedback.id}', 'reply_form_#{feedback.id}')") if current_actor.is_kroogi_dev? %>
+      &nbsp;&nbsp;&nbsp;
+      <%= link_to_function(image_tag('GroupClosed.gif',
+          :style => 'padding-right: 5px',
+          :id => "details_switcher_img_#{feedback.id}") + " " + 'Details'.t,
+        "toggleBlock('details_switcher_img_#{feedback.id}', 'details_#{feedback.id}')") %>
+    </td>
+	<td><%= link_to feedback.sent_from, feedback.sent_from if feedback.sent_from %></td>
+  </tr>
+  <tr style="display:none;" class="<%= row_class %> continued" id="details_<%= feedback.id%>">
+    <td colspan="4">
+      <div class="long">
+        <%= h feedback.environment %>
+      </div>
+    </td>
+  </tr>
+
+  <% feedback.replies.each do |r| %>
+    <tr class="<%= row_class %> continued">
+      <td colspan="2"/>
+      <td colspan="2">
+      <% artifacts = {}; comment_link = leave_comment_link(r, :artifacts => artifacts) %>
+      <%= link_to_function(image_tag('GroupClosed.gif',
+          :style => 'padding-right: 5px',
+          :id => "reply_switcher_img_#{r.id}") + " #{datetime(r.created_at)}",
+        "toggleBlock('reply_switcher_img_#{r.id}', 'reply_body_#{r.id}')") %>
+        &nbsp;&nbsp;
+        <%= user_link(r.user, :icon => true) +
+          " (" + user_link(r.created_by, :icon => true) + ")" %>
+        <%= '  ' + '%d comments' / artifacts[:comments_count] if artifacts[:comments_count] && artifacts[:comments_count] > 0 %>
+        <div id="<%= "reply_body_#{r.id}"%>" style="display:none;">
+          <strong><%= "Title".t %>:</strong> <%= h r.title %>
+          <br />
+          <strong><%= "Message".t %>:</strong> <%= kf_simple(r.post) %>
+          <br/><br/>
+          <%= comment_link %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  <tr style="<%= show_reply_form ? '' : 'display:none;' %>"
+      class="<%= row_class %> continued reply"
+      id="reply_form_<%= feedback.id%>">
+    <td colspan="2"/>
+    <td colspan="2">
+      <%= error_messages_for 'reply_validation' if reply_error %>
+      <% form_for :reply, reply, :url => {:action => 'reply', :id => feedback.id } do |f| -%>
+        <input type="hidden" value="<%= @controller.params[:page]%>" name="page" />
+        <table>
+          <tr>
+            <td class="right">
+              <label for="title"><%= 'Private message title'.t %></label>
+            </td>
+            <td>
+              <%= f.text_field(:title, "size" => 30)  %>
+            </td>
+          </tr>
+          <tr>
+            <td class="right">
+              <label for="post"><%= 'Message'.t %></label>
+            </td>
+            <td>
+              <%= f.text_area(:post, "cols" => 50, "rows" => 5)  %>
+            </td>
+          </tr>
+          <tr>
+            <td class="right">
+            </td>
+            <td>
+              <button class="button" type="submit">
+                <span><%= 'Send'.t %></span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      <% end -%>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= render :partial => '/shared/pager', :locals => {:results => @feedbacks,
+  :skip_padding => true} %>
+<div class="clear_floats"></div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  function toggleBlock(switcher_img_id, block_id){
+    block = $(block_id);
+    block.toggle();
+    if (block.visible()) {
+      $(switcher_img_id).src = "<%= image_path('GroupOpen.gif') -%>";
+    } else {
+      $(switcher_img_id).src = "<%= image_path('GroupClosed.gif') -%>";
+    }
+    return block.visible();
+  }
+  
+  function toggleReplyBlock(switcher_img_id, block_id){
+    block = $(block_id);
+    toggleBlock(switcher_img_id, block_id);
+    if (block.visible()) {
+      block.select('input#reply_title')[0].activate();
+    }
+  }
+
+  function junk_progress(feedback_id, command_selector) {
+    $('feedback_row_' + feedback_id).select(command_selector)[0].hide();
+    $('feedback_row_' + feedback_id).select('.progress')[0].show();
+  }
+
+  function toggle_junk_commands(feedback_id, to_hide, to_show) {
+    $('feedback_row_' + feedback_id).select('.progress')[0].hide();
+    $('feedback_row_' + feedback_id).select(to_hide)[0].hide();
+    $('feedback_row_' + feedback_id).select(to_show)[0].show();
+    $('feedback_row_' + feedback_id).select(to_show + ' a')[0].show();
+  }
+  
+</script>
+

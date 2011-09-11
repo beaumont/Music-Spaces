@@ -1,0 +1,13 @@
+<% main_block(:header_title => 'Create Kroogi Account'.t) do %>
+  <% form_border(:subhead_title => 'Email Confirmation'.t) do %>
+    <div class="default"><b><%= 'Thank you for joining Kroogi!'.t -%></b></div>
+    <div class="default">
+      <%= 'Your account is not activated yet'.t %>.<br />
+      <%= "Please check your email (%s) for instructions" / h(params[:email]) %>.
+    </div>
+    <div class="default">
+      <%= 'After you sign in, you will be able to switch between your project and personal account using the drop-down in the top-right corner.'.t %>
+    </div>
+    <%= image_tag("thanks_project_info_#{I18n.locale}.png") %>
+  <% end %>
+<% end %>

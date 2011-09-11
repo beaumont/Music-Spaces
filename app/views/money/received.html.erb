@@ -1,0 +1,28 @@
+
+<% @title = current_actor.login + " :: " + "Money".t + " :: " + title_for_money_collection(controller.action_name)%>
+  
+<div><%= image_tag('960_o_top.gif') %></div>
+<div class="white_block_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= title_for_money_collection(controller.action_name) %></div>
+  </div>
+  <div class="white_body">
+	<div id="paged_money_table">
+	  <p class="security_notice">
+<%# tranny hints
+  "%d donations found" / 3
+  'No donations'.t
+  end %>
+		    <%= @paging_header %><br/>
+		    <%= @usd_sum.to_s + " USD<br/>" if @usd_sum %>
+		  </p>
+      <%= render :partial => controller.action_name, :object => @monetary_donations %>	  
+	</div>	
+  <%= render :partial => '/shared/pager', :locals => {
+    :results => @monetary_donations,
+    :query_params => {:controller => @controller.request.path, :action => nil, :content_id => @content}} %>
+
+	  </div>
+	</div>
+	<div class="shadow"><%= image_tag('960_w_btm.gif') %></div>
+

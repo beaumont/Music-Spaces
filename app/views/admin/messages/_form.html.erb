@@ -1,0 +1,41 @@
+
+<% @admin_flash = AdminFlash.new unless @admin_flash %>
+<p>
+  <%= f.label :message, 'English Message'.t %><br/>
+  <%= f.text_field :message %>
+</p>
+
+<p>
+  <%= f.label :message_ru, 'Russian Version'.t %><br/>
+  <%= f.text_field :message_ru %>
+</p>
+
+<p>
+  <%= f.label :shown %><br/>
+  <%= f.check_box :shown %>
+</p>
+
+<div>
+  <p><%= 'Just leave these blank to ignore. Note - in UTC (or whatever server is set to)'.t %></p>
+  <p><%= 'Note as well that these are cached, so start and end dates have some uncertainty (seconds): '.t %><%= AdminFlash::CACHE_FOR %></p>
+
+
+  <p>
+    <%= f.label :start %><br/>
+    <%= calendar_date_select_tag "admin_flash[start]", @admin_flash.start, :embedded => false, :time => true %>
+  </p>
+
+  <p>
+    <%= f.label :end %><br/>
+    <%= calendar_date_select_tag "admin_flash[end]", @admin_flash.end, :embedded => false, :time => true %>
+  </p>
+</div>
+
+<% if false # ToDo: implement this %>
+<div>
+  <p>
+    <%= f.label :priority %><br/>
+    <%= f.select :priority, (0..5) %>
+  </p>
+</div>
+<% end %>

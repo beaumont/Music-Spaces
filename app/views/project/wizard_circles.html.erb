@@ -1,0 +1,86 @@
+<% @title = current_actor.login + ' :: ' + 'Setup Project Circles'.t %>
+
+
+<div id="centered_modules">
+
+  <div class="module_thin_padding">
+    <div class="left_noborder profile_text white" style="padding: 10px;">
+
+
+      <h2 class="dotted_b"><%= 'Step 2'.t + ' - ' + 'Setup Project Circles'.t %></h2>
+      <div>
+        <p>
+          <%= 'Your Kroogi circles are your way to organize your fanbase around you.'.t %>
+          <%= 'The closer a circle is to you, the more rights its members receive.'.t %>
+          <strong>
+            <%= 'We pre-set circles according to the project type you selected.'.t %>
+            <%= 'You can always change these settings later.'.t %>
+          </strong>
+        </p>
+      </div>
+
+      <% form_for :user, :url => {:controller => 'project', :action => 'wizard_circles', :id => @project, :type => @type } do |f| -%>
+        <%= error_messages_for :user %>
+
+        <table cellspacing="0" cellpadding="5" class="project_creation" style="width: 100%;">
+          <% @kroogs.each do |kroog| %>
+            <tr class="dotted_t">
+              <td>&nbsp;</td>
+              <td><h2><%= kroog.circle_id %>. <%= "%s Circle" / @project.generic_circle_name(kroog.circle_id) %></h2></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td><%= Relationshiptype.find(kroog.circle_id).explanation %></td>
+            </tr>
+
+            <% fields_for kroog, 'user_kroog[]' do |krg| %>
+              <tr>
+                <th><%= 'Status'.t %></th>
+                <td>
+                  <% if kroog.circle_id == Relationshiptype.interested %>
+                    <%= 'This circle is enabled'.t %>
+                  <% else %>
+                    <label>
+                      <%= radio_button_tag "use[#{kroog.circle_id}]", "true", true, :style => 'width: auto;', :onclick => "$$('.circle_fields_#{kroog.circle_id}').each(function(e){e.show();});" %>
+                      <%= 'Use this circle'.t %>
+                    </label>
+
+                    <label>
+                      <%= radio_button_tag "use[#{kroog.circle_id}]", "false", false, :style => 'width: auto;', :onclick => "$$('.circle_fields_#{kroog.circle_id}').each(function(e){e.hide();});" %>
+                      <%= 'Do not use this circle'.t %>
+                    </label>
+                  <% end %>
+                </td>
+              </tr>
+              <tr class="circle_fields_<%= kroog.circle_id -%>">
+                <th class="circle_fields_<%= kroog.circle_id -%>"><%= 'Pre-set'.t %></th>
+                <td class="circle_fields_<%= kroog.circle_id -%>">
+                  <%= circle_preset_values(kroog) %>
+                </td>
+              </tr>
+              <tr class="circle_fields_<%= kroog.circle_id -%>">
+                <th class="circle_fields_<%= kroog.circle_id -%>"><%= 'Circle Name'.t %></th>
+                <td class="circle_fields_<%= kroog.circle_id -%>"><%= krg.text_field :name, :value => kroog.name, :index => kroog.id, :style => 'width:115px', :maxlength => 16 %></td>
+              </tr>
+              <tr class="circle_fields_<%= kroog.circle_id -%>">
+                <th class="circle_fields_<%= kroog.circle_id -%>"><%= 'Info for Non-Members'.t %></th>
+                <td class="circle_fields_<%= kroog.circle_id -%>">
+                  <%= text_area "teasers", kroog.id, :style => 'width: 100%; height: 100px;', :value => kroog.teaser.blank? ? render(:partial => 'kroogi/noaccess') : kroog.teaser %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+          <tr class="dotted_t">
+            <td colspan="2" style="text-align: center;">
+              <button class="button" name="commit" type="submit">
+                <span><%= 'Next &gt;'.t -%></span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

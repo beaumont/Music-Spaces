@@ -1,0 +1,16 @@
+<% view_all_link ||= false %>
+<% unless [tracks + texts + others].all? {|x| x.blank?} %>
+  
+  <%= render(:partial => '/content/tracks_player', :locals => {:data_options => {:tracks => tracks},
+                                                               :player_id => "favorite_tracks_player"}) %>
+  <% texts.each do |text_content| %>
+    <%= render(:partial => 'content/text_in_folder', :locals => {:text_content => text_content}) %>
+  <% end %>
+  <%= render(:partial => "content_stream_new", :locals => {:stream => others, :show_owner_b => true}) %>
+<% else %>
+    <div class="section_empty"><%= 'No content was favorited yet'.t %></div>
+<% end %>
+<% if view_all_link %>
+	<div class="orng_line"></div>
+    <div class="subtopic_right"><%= link_to "#{'View All'.t} >>", {:controller => 'user', :action => 'favorites', :id => @user} %></div>
+  <% end %>

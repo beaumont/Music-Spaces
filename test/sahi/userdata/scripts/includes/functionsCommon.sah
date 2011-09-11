@@ -1,0 +1,59 @@
+/*
+    Common functions being used in tests
+*/
+
+/*
+    Login procedure.
+    Special variables conditions:
+    $success variable can be 'true' or 'false', depending on whether we expect successfull login or not
+    $source variable can be 'main' (logging in from header) or 'separate' (from separate login page)
+*/
+function user_login($usr, $pwd, $success, $source ){
+    _setValue(_textbox($loginField), $usr);
+    _setValue(_password($passwordField), $pwd);
+
+    if ($source == "main"){
+        _click(_submit($signInButton));
+    }
+
+    if ($source == "separate"){
+       _click(_submit($loginPageEnterButton));
+    }
+
+    if ($success == "true"){
+        _assertExists(_link($feedLink));
+    }
+
+    if ($success == "false"){
+        _assertExists(_span($loginPageErrorMessage));
+        _assertFalse(_link($feedLink));
+    }
+}
+
+// Log out and check that we logged out
+function user_logout(){
+    _click(_link($signOutLink));
+    _assertExists(_textbox($loginField));
+    _assertExists($passwordField);
+}
+
+// This second log out function must be used at beginning of the tests to log out if user is logged in.
+function initial_user_logout() {
+    if (_condition(_exists(_link($signOutLink)))){
+        user_logout();
+    }
+}
+
+//  This tiny function checks if our e-mail is shown correctly on 'Awaiting E-mail confirmation' page
+function register_email_text($email) {
+    $signUpDoneEmailInfoText = $signUpDoneEmailInfoTextLeft + $email + $signUpDoneEmailInfoTextRight;
+    _assertExists(_div($signUpDoneEmailInfoText));
+}
+
+//  This tiny function makes concatenation of two strings into breadcrumb and checks result (now used for settings page)
+function breadcrumb_verify($string1, $string2) {
+    $breadcrumb_result = $string1 + " > " + $string2;
+    _assertExists(_div($breadcrumb_result));
+}
+
+

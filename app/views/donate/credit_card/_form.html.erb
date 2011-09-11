@@ -1,0 +1,35 @@
+<h3 <%= available_processor ? "" : "style='display:none'" %> ><a href="#"> <%= p[:name].t %> </a></h3>
+  <div class="contribution_option_body">
+    <form id="<%= p[:short_name] %>_donation_form" name="_xclick" action="<%= PAYPAL_CONFIG[:url] %>" encoding="utf-8">
+      <input type="hidden" name="business" value="<%= PAYPAL_CONFIG[:email] %>" />
+      <input type="hidden" name="cancel_return" value="<%= cancel_url %>" />
+      <input type="hidden" name="notify_url" value="<%= PAYPAL_CONFIG[:ipn_url] %>" />
+      <input type="hidden" name="cbt" value="Return to Kroogi" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="cmd" value="_donations" />
+      <input type="hidden" name="currency_code" value="USD" />
+      <input type="hidden" name="item_name" value="<%= h(title) %>" />
+      <input type="hidden" name="no_note" value="1" />
+      <input type="hidden" name="no_shipping" value="1" />
+      <input type="hidden" name="return" value="<%= return_url %>" />
+      <input type="hidden" name="custom" value="<%= CGI.escape("#{recipient_id};#{content_id};#{donor_id};#{karma_point_id};#{@is_goodie ? 1 : 0};#{download ? 1 : 0}") %>" />
+      <div class="error">
+      </div>
+      <div id="paypal_contribution_amount">
+        <label for="<%= p[:short_name] %>_contribution_amount_field"><%= "Amount ($ USD)".t%></label>
+        <%= text_field_tag :amount, suggested_contribution_amount(content, p),
+          :id => "#{p[:short_name]}_contribution_amount_field" %>
+      </div>
+      <div class="donation_button">
+        <%= link_to(
+          "<span>" + "Contribute using a Credit Card".t + "</span>",
+          "#",
+          {:onclick=>"run_choice('#{p[:short_name]}'); return false;",
+           :class => 'button' } ) %>
+        <%= wait_up_homie %>
+      </div>
+    </form>
+  </div>
+<script type="text/javascript">
+  <%= check_min_contribution_js_function(content, p) %>
+</script>

@@ -1,0 +1,26 @@
+<% in_development(authorized?) do %>
+  <%= form_tag(url_for(:controller => "/auto_login", :action => "switch_user"), {:id => "switch_user_form", :style => "clear:both;"}) -%>
+  <%= 'Switch Users'.t -%>
+  : <%= select_tag "login_id", options_for_select(User.active.find(:all, :conditions => ["users.type in (?)", [BasicUser.name, AdvancedUser.name]], :select => "id,login,type", :order => "login ASC").collect { |u| [u.login, u.id] }.unshift(['Guest', -1]), current_actor.id), :id => "switch_user_select" %>
+  <%= hidden_field_tag :return_url, request.request_uri %>
+  <% if super_user %>
+    <strong><%= "Switch back to %s" / link_to(super_user.login, :controller => "auto_login", :action => "clear") %></strong>
+  <% end -%>
+  <script type="text/javascript" charset="utf-8">
+    $("switch_user_select").observe("change", function() {
+      $("switch_user_form").submit();
+    });
+  </script>
+  </form>
+  <% content_for :css do %>
+    <style type="text/css" media="screen">
+      pre {
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+      }
+    </style>
+  <% end -%>
+<% end -%>

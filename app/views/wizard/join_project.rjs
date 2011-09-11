@@ -1,0 +1,1 @@
+page << "jQuery('#follow_project_#{@subdir_id}_form .progress').hide();"

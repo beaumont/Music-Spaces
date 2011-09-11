@@ -1,0 +1,16 @@
+<% passthrough = @passthrough_params.merge(:filters => filters) %>
+<ul>
+  <% providers.each do |country_code, provider_code, provider_name| %>
+    <% costs = Smscoin::Version.provider_options(country_code, provider_code, filters) %>
+    <% next if costs.blank? %>
+    <li class="provider_<%= provider_code %>">
+      <%= link_to_remote(provider_name,
+        :loading => "jQuery('#{smscoin_element_selector} .provider_#{provider_code} .progress').show();",
+        :url => passthrough.merge(:action => "load_smscoin_costs", :country => country_code, :provider => provider_code, 
+                                  :dialog_id_suffix => params[:dialog_id_suffix]),
+        :method => :post) %>
+      <span class="progress" style="display:none;vertical-align: middle;"><img src="/images/ajax-loader.gif" /></span>
+    </li>
+  <% end %>
+</ul>
+

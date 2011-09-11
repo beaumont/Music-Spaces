@@ -1,0 +1,24 @@
+
+<script type="text/javascript" charset="utf-8">
+  function update_options(){
+    $$('#form_table .contextual_label').each(function(e){ e.hide();});  // Hide all by default
+
+    name_context_array = '';
+    if ($$('name_context_input').length) { name_context_array = $$('name_context_input'); }
+    else { name_context_array = new Array($('kroogi_settings_form').name_context); }
+
+    curContext = $A(name_context_array).find(function(e){return e.checked;})
+    if (curContext == undefined) {
+      curContext = $('name_context_general');
+      curContext.checked = 'checked';
+    }
+    curContextClass = curContext.value;
+    numPaid = 0;
+    checkboxes = $A($$('#kroogi_settings_form input[type=checkbox]'));
+    $$("#form_table ."+curContextClass).each(function(label) {
+      set_identifier = $A(label.classNames())[3];
+    });
+    return true;
+  }
+  Event.observe(window, 'load', update_options, false);
+</script>

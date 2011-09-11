@@ -1,0 +1,317 @@
+/*
+    Settings center > 'Edit details' form test.
+    Checks that all 'Edit details' form elements are accessible and form can be saved for both user types and project.
+    Verifies added data on profile page.
+
+    Not done yet:
+    - Those fields, where two languages are available - only checking english tab for now
+    - Only form, no checking on profile page yet..
+
+    Known bugs:
+    - #4123 Project 'Edit details' form - change label
+
+    Test sequence:
+    - Login as advanced user and go to 'Edit details' page
+    - Check elements' presence and default fields' values, then check this values on profile page
+    - Edit form - change all fields, save, re-open form to check that fields were saved successfully
+    - Open profile page and check values
+    - Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+    - Check Birthdate field validation rules and check that fields' values are not reset after errors
+        1) birthday is not entered
+        2) age validation fails (<13 years)
+        3) nonsence is entered for birthday
+    - Check several birthday transformation algorythms.
+    - Enter default values on form (so we can not reset DB after test)
+    - Switch to project and go to 'Edit details' page
+    - Check elements' presence and default fields' values, then check them on profile page
+    - Edit form - change all fields, save, re-open form to check that fields were saved successfully
+    - Open profile page and check values
+    - Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+    - Enter default values on form (so we can not reset DB after test)
+    - Login as basic user and go to 'Edit details' page
+    - Check elements' presence and default fields' values, then check this values on profile page
+    - Edit form - change all fields, save, re-open form to check that fields were saved successfully
+    - Open profile page and check values
+    - Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+    - Check Birthdate field validation rules and check that fields' values are not reset after errors
+        1) birthday is not entered
+        2) age validation fails (<13 years)
+        3) nonsence is entered for birthday
+    - Check several birthday transformation algorythms.
+    - Enter default values on form (so we can not reset DB after test)
+
+    Tear-down: no need to restore DB state after running this test
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Login as advanced user and go to 'Edit details' page
+user_login($joeUserName, $joeUserPass, "true", "main");
+_click(_link($settingsLink));
+_click(_link($settingsEditDetailsLink));
+
+// Check elements' presence and default fields' values
+breadcrumb_verify($settingsBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_div($editDetailsHeaderLabel));
+_assertExists(_cell($editDetailsContactInfoLabel));
+_assertExists(_cell($editDetailsMoreInfoLabel));
+_assertFalse(_cell($editDetailsProjectContactInfoLabel));
+_assertFalse(_cell($editDetailsProjectMoreInfoLabel));
+_assertExists(_cell($editDetailsDisplayNameLabel));
+_assertExists(_cell($editDetailsMottoLabel));
+_assertExists(_cell($editDetailsOccupationLabel));
+_assertFalse(_cell($editDetailsProjectTypeLabel));
+_assertExists(_cell($editDetailsCountryLabel));
+_assertExists(_cell($editDetailsCityLabel));
+_assertExists(_cell($editDetailsBirthdateLabel));
+_assertExists(_cell($editDetailsShowBirthdateCheckboxLabel));
+_assertExists(_cell($editDetailsGenderLabel));
+_assertExists(_cell($editDetailsLanguageLabel));
+_assertExists(_cell($editDetailsWebsiteLabel));
+_assertExists(_cell($editDetailsAboutLabel));
+_assertFalse(_cell($editDetailsAboutProjectLabel));
+_assertExists(_cell($editDetailsTagsLabel));
+_assertExists(_cell($editDetailsSkypeLabel));
+_assertExists(_cell($editDetailsYahooLabel));
+_assertExists(_cell($editDetailsAolLabel));
+_assertExists(_cell($editDetailsLjLabel));
+_assertExists(_cell($editDetailsIcqLabel));
+_assertExists(_cell($editDetailsGtalkLabel));
+_assertExists(_cell($editDetailsMsnLabel));
+_assertExists(_cell($editDetailsMyspaceLabel));
+_assertExists(_cell($editDetailsCustomQuestionLabel));
+_assertExists(_cell($editDetailsCustomAnswerLabel));
+user_details_form_verify($joeUserDisplayName, "live and let live", "user", "Germany", "Berlin", $joeBirthdate, "yes", "male", "en", "http://www.kroogi.com", "I'm very nice guy.", "music, computers, web", "HumboldtUniversity", "joe303", "joooe", "joooe", "joe-magnificient", "123456789", "joe", "joe-joe", "joe303", "Default question 1", "Default answer 1", "Default question 2", "Default answer 2", "Default question 3", "Default answer 3", "Default question 4", "Default answer 4");
+
+// Check default values on profile page
+
+// Edit form - change all fields, save, re-open form to check that fields were saved successfully
+user_details_form_fill("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "1984-10-22", "no", "female", "ru", "www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+user_details_form_verify("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "1984-10-22", "no", "female", "ru", "http://www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+
+// Open profile page and check values
+
+// Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+user_details_form_fill($joeUserDisplayName, "live and let live", "user", "Germany", "Berlin", $joeBirthdate, "yes", "male", "en", "www.kroogi.com", "I'm very nice guy.", "music, computers, web", "HumboldtUniversity", "joe303", "joooe", "joooe", "joe-magnificient", "123456789", "joe", "joe-joe", "joe303", "Default question 1", "Default answer 1", "Default question 2", "Default answer 2", "Default question 3", "Default answer 3", "Default question 4", "Default answer 4");
+_click(_submit($editDetailsCancelButton));
+_click(_link($settingsEditDetailsLink));
+user_details_form_verify("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "1984-10-22", "no", "female", "ru", "http://www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+
+// Check Birthdate field validation rules and check that fields' values are not reset after errors (entering only birthday field for more speed)
+// Check Case 1: birthday is not entered
+_setValue(_textbox($editDetailsBirthdateField), "");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsNoBirthdayError));
+_assertExists(_listItem($editDetailsTooYoungError));
+user_details_form_verify("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "", "no", "female", "ru", "http://www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+
+// Check Case 2: age validation fails (<13 years)
+_setValue(_textbox($editDetailsBirthdateField), "1998-12-31");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsTooYoungError));
+user_details_form_verify("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "1998-12-31", "no", "female", "ru", "http://www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+
+// Check Case 3: nonsence is entered for birthday
+_setValue(_textbox($editDetailsBirthdateField), "11 january");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsNoBirthdayError));
+_assertExists(_listItem($editDetailsTooYoungError));
+user_details_form_verify("joe-another-name", "test and let test", "advanced user", "Russia", "Moscow", "", "no", "female", "ru", "http://www.google.com", "I'm nasty guy.", "girls, drugs, rocknroll", "MSU", "joe404", "jo0oe", "jo0oe", "joe-ordinary", "987654321", "joe333", "joejoe", "joe505", "Another question 1", "Another answer 1", "Another question 2", "Another answer 2", "Another question 3", "Another answer 3", "Another question 4", "Another answer 4");
+
+// Check several birthday transformation algorythms (entering and verifying only birthday field for more speed)
+_setValue(_textbox($editDetailsBirthdateField), "7 june 1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "1982-6-7");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "07.06.1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "06/07/1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+
+// Enter default values on form (so we can not reset DB after test
+user_details_form_fill($joeUserDisplayName, "live and let live", "user", "Germany", "Berlin", $joeBirthdate, "yes", "male", "en", "www.kroogi.com", "I'm very nice guy.", "music, computers, web", "HumboldtUniversity", "joe303", "joooe", "joooe", "joe-magnificient", "123456789", "joe", "joe-joe", "joe303", "Default question 1", "Default answer 1", "Default question 2", "Default answer 2", "Default question 3", "Default answer 3", "Default question 4", "Default answer 4");
+_click(_submit($editDetailsSaveButton));
+
+// Switch to project and go to 'Edit details' page
+_click(_span($joeProjectLinkNumber));
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_click(_link($settingsEditDetailsLink));
+
+// Check elements' presence and default fields' values
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_div($editDetailsProjectHeaderLabel));
+_assertExists(_cell($editDetailsProjectContactInfoLabel));
+_assertExists(_cell($editDetailsProjectMoreInfoLabel));
+_assertFalse(_cell($editDetailsContactInfoLabel));
+_assertFalse(_cell($editDetailsMoreInfoLabel));
+_assertExists(_cell($editDetailsDisplayNameLabel));
+_assertExists(_cell($editDetailsMottoLabel));
+_assertExists(_cell($editDetailsProjectTypeLabel));
+_assertFalse(_cell($editDetailsOccupationLabel));
+_assertExists(_cell($editDetailsCountryLabel));
+_assertExists(_cell($editDetailsCityLabel));
+_assertFalse(_cell($editDetailsBirthdateLabel));
+_assertFalse(_cell($editDetailsShowBirthdateCheckboxLabel));
+_assertFalse(_cell($editDetailsGenderLabel));
+_assertFalse(_cell($editDetailsLanguageLabel));
+_assertExists(_cell($editDetailsWebsiteLabel));
+_assertFalse(_cell($editDetailsAboutLabel));
+_assertExists(_cell($editDetailsAboutProjectLabel));
+_assertExists(_cell($editDetailsTagsLabel));
+_assertExists(_cell($editDetailsSkypeLabel));
+_assertExists(_cell($editDetailsYahooLabel));
+_assertExists(_cell($editDetailsAolLabel));
+_assertExists(_cell($editDetailsLjLabel));
+_assertExists(_cell($editDetailsIcqLabel));
+_assertExists(_cell($editDetailsGtalkLabel));
+_assertExists(_cell($editDetailsMsnLabel));
+_assertExists(_cell($editDetailsMyspaceLabel));
+_assertExists(_cell($editDetailsCustomQuestionLabel));
+_assertExists(_cell($editDetailsCustomAnswerLabel));
+project_details_form_verify($joeProjectName, "save navi!", "fundraising", "Germany", "Berlin", "http://www.avatarband.com", "Visit our site to learn more.", "avatar, band, navi", "avatar-band", "avatar", "avataar", "avatar303", "333444555", "avatar_", "avatar", "avavatar", "Question 1", "Answer 1", "Question 2", "Answer 2", "Question 3", "Answer 3", "Question 4", "Answer 4");
+
+// Check default values on profile page
+
+// Edit form - change all fields, save, re-open form to check that fields were saved successfully
+project_details_form_fill("avatar-another-name", "kill earth dwellers", "weapon-selling", "USA", "SF", "www.microsoft.com", "We do not tell much", "mp5, ak47, t34", "fnab", "crub", "zebb", "dsf303", "555444333", "ratava", "taatava", "drambamban", "Question 11", "Answer 11", "Question 22", "Answer 22", "Question 33", "Answer 33", "Question 44", "Answer 44");
+_click(_submit($editDetailsSaveButton));
+
+// Open profile page and check values
+_click(_link($settingsEditDetailsLink));
+project_details_form_verify("avatar-another-name", "kill earth dwellers", "weapon-selling", "USA", "SF", "http://www.microsoft.com", "We do not tell much", "mp5, ak47, t34", "fnab", "crub", "zebb", "dsf303", "555444333", "ratava", "taatava", "drambamban", "Question 11", "Answer 11", "Question 22", "Answer 22", "Question 33", "Answer 33", "Question 44", "Answer 44");
+
+// Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+project_details_form_fill($joeProjectName, "save navi!", "fundraising", "Germany", "Berlin", "http://www.avatarband.com", "Visit our site to learn more.", "avatar, band, navi", "avatar-band", "avatar", "avataar", "avatar303", "333444555", "avatar_", "avatar", "avavatar", "Question 1", "Answer 1", "Question 2", "Answer 2", "Question 3", "Answer 3", "Question 4", "Answer 4");
+_click(_submit($editDetailsCancelButton));
+_click(_link($settingsEditDetailsLink));
+project_details_form_verify("avatar-another-name", "kill earth dwellers", "weapon-selling", "USA", "SF", "http://www.microsoft.com", "We do not tell much", "mp5, ak47, t34", "fnab", "crub", "zebb", "dsf303", "555444333", "ratava", "taatava", "drambamban", "Question 11", "Answer 11", "Question 22", "Answer 22", "Question 33", "Answer 33", "Question 44", "Answer 44");
+
+// Enter default values on form (so we can not reset DB after test)
+project_details_form_fill($joeProjectName, "save navi!", "fundraising", "Germany", "Berlin", "http://www.avatarband.com", "Visit our site to learn more.", "avatar, band, navi", "avatar-band", "avatar", "avataar", "avatar303", "333444555", "avatar_", "avatar", "avavatar", "Question 1", "Answer 1", "Question 2", "Answer 2", "Question 3", "Answer 3", "Question 4", "Answer 4");
+_click(_submit($editDetailsSaveButton));
+
+// Log out
+user_logout();
+
+// Login as basic user and go to 'Edit details' page
+user_login($basicUserName, $basicUserPass, "true", "main");
+_click(_link($settingsLink));
+_click(_link($settingsEditDetailsLink));
+
+// Check elements' presence and default fields' values
+breadcrumb_verify($settingsBreadcrumb, $settingsEditDetailsBreadcrumb);
+_assertContainsText($basicUserName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_div($editDetailsHeaderLabel));
+_assertFalse(_cell($editDetailsContactInfoLabel));
+_assertFalse(_cell($editDetailsMoreInfoLabel));
+_assertFalse(_cell($editDetailsProjectContactInfoLabel));
+_assertFalse(_cell($editDetailsProjectMoreInfoLabel));
+_assertExists(_cell($editDetailsDisplayNameLabel));
+_assertExists(_cell($editDetailsMottoLabel));
+_assertFalse(_cell($editDetailsOccupationLabel));
+_assertFalse(_cell($editDetailsProjectTypeLabel));
+_assertFalse(_cell($editDetailsCountryLabel));
+_assertFalse(_cell($editDetailsCityLabel));
+_assertExists(_cell($editDetailsBirthdateLabel));
+_assertFalse(_cell($editDetailsShowBirthdateCheckboxLabel));
+_assertFalse(_cell($editDetailsGenderLabel));
+_assertFalse(_cell($editDetailsLanguageLabel));
+_assertFalse(_cell($editDetailsWebsiteLabel));
+_assertFalse(_cell($editDetailsAboutLabel));
+_assertFalse(_cell($editDetailsAboutProjectLabel));
+_assertFalse(_cell($editDetailsTagsLabel));
+_assertFalse(_cell($editDetailsSkypeLabel));
+_assertFalse(_cell($editDetailsYahooLabel));
+_assertFalse(_cell($editDetailsAolLabel));
+_assertFalse(_cell($editDetailsLjLabel));
+_assertFalse(_cell($editDetailsIcqLabel));
+_assertFalse(_cell($editDetailsGtalkLabel));
+_assertFalse(_cell($editDetailsMsnLabel));
+_assertFalse(_cell($editDetailsMyspaceLabel));
+_assertFalse(_cell($editDetailsCustomQuestionLabel));
+_assertFalse(_cell($editDetailsCustomAnswerLabel));
+buser_details_form_verify($basicUserDisplayName, "basic motto", $basicBirthdate);
+
+// Check default values on profile page
+
+// Edit form - change all fields, save, re-open form to check that fields were saved successfully
+buser_details_form_fill("another basic name", "another basic motto", "1984-10-22");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+buser_details_form_verify("another basic name", "another basic motto", "1984-10-22");
+
+// Open profile page and check values
+
+// Open form, enter other values and click 'Cancel', open form again to be sure that nothing will be saved again
+buser_details_form_fill($basicUserDisplayName, "basic motto", $basicBirthdate);
+_click(_submit($editDetailsCancelButton));
+_click(_link($settingsEditDetailsLink));
+buser_details_form_verify("another basic name", "another basic motto", "1984-10-22");
+
+// Check Birthdate field validation rules and check that fields' values are not reset after errors (entering only birthday field for more speed)
+// Check Case 1: birthday is not entered
+_setValue(_textbox($editDetailsBirthdateField), "");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsNoBirthdayError));
+_assertExists(_listItem($editDetailsTooYoungError));
+buser_details_form_verify("another basic name", "another basic motto", "");
+
+// Check Case 2: age validation fails (<13 years)
+_setValue(_textbox($editDetailsBirthdateField), "1998-12-31");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsTooYoungError));
+buser_details_form_verify("another basic name", "another basic motto", "1998-12-31");
+
+// Check Case 3: nonsence is entered for birthday
+_setValue(_textbox($editDetailsBirthdateField), "11 january");
+_click(_submit($editDetailsSaveButton));
+_assertExists(_listItem($editDetailsNoBirthdayError));
+_assertExists(_listItem($editDetailsTooYoungError));
+buser_details_form_verify("another basic name", "another basic motto", "");
+
+// Check several birthday transformation algorythms (entering and verifying only birthday field for more speed)
+_setValue(_textbox($editDetailsBirthdateField), "7 june 1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "1982-6-7");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "07.06.1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+_setValue(_textbox($editDetailsBirthdateField), "06/07/1982");
+_click(_submit($editDetailsSaveButton));
+_click(_link($settingsEditDetailsLink));
+_assertEqual("1982-06-07", _textbox($editDetailsBirthdateField).value);
+
+// Enter default values on form (so we can not reset DB after test
+buser_details_form_fill($basicUserDisplayName, "basic motto", $basicBirthdate);
+_click(_submit($editDetailsSaveButton));

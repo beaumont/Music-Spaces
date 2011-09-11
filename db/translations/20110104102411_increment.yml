@@ -1,0 +1,235 @@
+--- 
+- 
+  created_at: 2010-07-20 13:24:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У {{project}} сейчас нет к вам вопросов"
+  tr_key: "{{project}} doesn't have any Questions now"
+  tr_origin: /app/views/public_question/index.html.erb
+  updated_at: 2011-01-04 10:22:33 +00:00
+- 
+  created_at: 2010-02-12 12:02:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Прежде чем скачивать материалы, вам необходимо принять следующие условия"
+  tr_key: "You must agree to following conditions before downloading"
+  tr_origin: /app/views/shared/_require_terms.html.erb
+  updated_at: 2011-01-04 10:22:25 +00:00
+- 
+  created_at: 2010-09-07 06:12:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Привет {{user}}, что вам особенно интересно?"
+  tr_key: "Hello {{user}}, Tell Us WHAT You Like"
+  tr_origin: ~
+  updated_at: 2011-01-04 10:23:22 +00:00
+- 
+  created_at: 2010-09-07 06:12:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: |-
+      Круги это сообщество, объединяющее самые разные виды творчества. Мы очень хотим, чтобы интересные для ВАС материалы находили вас как можно быстрее.
+      Для этого нам нужно знать, что именно вам нравится...
+  tr_key: "Kroogi is content community.<br/>We want to bring the best possible content, that interests YOU.<br/>For that, you need to tell us what you like..."
+  tr_origin: /app/views/wizard/_what_you_like_widget.html.erb
+  updated_at: 2011-01-04 10:22:12 +00:00
+- 
+  created_at: 2010-09-10 14:55:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Что нравится вам?"
+  tr_key: "Tell us WHAT you like"
+  tr_origin: /app/views/wizard/_what_you_like_widget.html.erb
+  updated_at: 2011-01-04 10:21:55 +00:00
+- 
+  created_at: 2010-09-06 09:34:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Расскажите друзьям о том, что нравится вам"
+  tr_key: "Share artistic taste with your friends"
+  tr_origin: ~
+  updated_at: 2011-01-04 10:23:18 +00:00
+- 
+  created_at: 2010-09-06 09:34:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "А кто интересен вам?"
+  tr_key: "Tell Us WHO You Like"
+  tr_origin: ~
+  updated_at: 2011-01-04 10:23:03 +00:00
+- 
+  created_at: 2010-09-10 14:55:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто вам интересен"
+  tr_key: "Select who would you like to follow"
+  tr_origin: /app/views/invite/_select_kroogi_users_to_follow.html.erb
+  updated_at: 2011-01-04 10:21:41 +00:00
+- 
+  created_at: 2010-04-05 10:29:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Между вами и {{user_name}} ещё не было переписки."
+  tr_key: "There were no messages between you and {{user_name}}"
+  tr_origin: ~
+  updated_at: 2011-01-04 10:22:51 +00:00
+- 
+  created_at: 2010-12-07 20:32:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы узнать кем интересуется %s, вам необходимо активировать свой аккаунт. "
+  tr_key: "You will not be able to see who %s follows until you activate your account."
+  tr_origin: /app/views/user/_follows_body.html.erb
+  updated_at: 2011-01-04 10:21:14 +00:00
+- 
+  created_at: 2010-12-07 20:32:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы общаться с пользователем, вам необходимо активировать свой аккаунт."
+  tr_key: "You will not be able to contact user until you activate your account."
+  tr_origin: /app/views/user/_profile_controls.html.erb
+  updated_at: 2011-01-04 10:21:19 +00:00
+- 
+  created_at: 2010-12-09 22:07:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы увидеть e-mail адрес вам нужно включить JavaScript"
+  tr_key: "Please enable JavaScript to see the e-mail address"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-01-04 10:21:10 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Возможно, вам стоит что-нибудь здесь написать"
+  tr_key: "You should probably post something here"
+  tr_origin: /app/models/blog.rb
+  updated_at: 2011-01-04 10:19:36 +00:00
+- 
+  created_at: 2008-09-18 14:55:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "открыл вам доступ в круг \"%s\""
+  tr_key: "has granted you access to %s Circle"
+  tr_origin: /app/views/activity/messages/_getcloser_granted.html.erb
+  updated_at: 2011-01-04 10:19:32 +00:00
+- 
+  created_at: 2008-10-10 20:44:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы сохранить эту форму, вам потребуется ввести пароль."
+  tr_key: "In order to save this form, you will need to enter your Kroogi password."
+  tr_origin: /app/helpers/password_helper.rb
+  updated_at: 2011-01-04 10:19:14 +00:00
+- 
+  created_at: 2008-10-17 21:41:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чем ближе к вам находится круг, тем больше прав доступа есть у его участников."
+  tr_key: "The closer a circle is to you, the more rights its members receive."
+  tr_origin: /app/views/project/wizard_circles.html.erb
+  updated_at: 2011-01-04 10:20:37 +00:00
+- 
+  created_at: 2008-12-15 15:06:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "прислал вам ссылку для загрузки %s \"%s\""
+  tr_key: "sent you a link to download the %s \"%s\""
+  tr_origin: /app/views/activity/messages/_content_download_initiated.html.erb
+  updated_at: 2011-01-04 10:19:56 +00:00
+- 
+  created_at: 2008-12-27 16:34:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы отправить сообщение об ошибке, вам необходимо зарегистрироваться в Кругах"
+  tr_key: "You need to be member of Kroogi to be able to reply a feedback"
+  tr_origin: /app/controllers/admin/feedback_controller.rb
+  updated_at: 2011-01-04 10:20:53 +00:00
+- 
+  created_at: 2009-10-29 19:07:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не удалось отклонить запрос: он уже был принят вами "
+  tr_key: "Couldn't reject this request: it's already accepted"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-04 10:20:20 +00:00
+- 
+  created_at: 2009-11-26 19:01:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Получается, вам нравятся большие номера страниц?"
+  tr_key: "So you like big page numbers?"
+  tr_origin: /app/controllers/tag_controller.rb
+  updated_at: 2011-01-04 10:20:49 +00:00
+- 
+  created_at: 2010-03-10 16:43:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Удачи вам"
+  tr_key: "Good luck and have fun"
+  tr_origin: /app/views/project/create.html.erb
+  updated_at: 2011-01-04 10:20:12 +00:00
+- 
+  created_at: 2010-04-07 04:23:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{project_name}} является проектом. Чтобы управлять им, вам необходимо войти в систему в качестве куратора проекта."
+  tr_key: "{{project_name}} is a Project. You need to log in as one of its hosts to manage it."
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-04 10:19:52 +00:00
+- 
+  created_at: 2010-05-31 17:05:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У {{artist_name}} есть к вам вопрос"
+  tr_key: "{{artist_name}} has a question for you"
+  tr_origin: /app/views/shared/_question_widget.html.erb
+  updated_at: 2011-01-04 10:19:29 +00:00
+- 
+  created_at: 2010-06-07 18:38:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_name}}, у {{artist_name}} есть к вам вопрос."
+  tr_key: "Meanwhile, {{user_name}}, {{artist_name}} has a question for you."
+  tr_origin: /app/views/content/_download_donate_widget.html.erb
+  updated_at: 2011-01-04 10:20:33 +00:00
+- 
+  created_at: 2010-06-09 03:51:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_name}}, у {{artist_name}} есть к вам вопрос."
+  tr_key: "{{user_name}}, {{artist_name}} has a question for you."
+  tr_origin: /app/views/content/_download_donate_widget.html.erb
+  updated_at: 2011-01-04 10:20:16 +00:00
+- 
+  created_at: 2009-08-23 08:06:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать деньги, вам необходимо подключить платёжные системы PayPal и/или WebMoney"
+  tr_key: "In order to accept contributions you will need to set up a PayPal or WebMoney account"
+  tr_origin: ~
+  updated_at: 2011-01-04 10:22:46 +00:00
+- 
+  created_at: 2010-06-24 06:59:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы пока не вошли в систему. Как Гость, вы можете писать сообщения в этом форуме, но мы не сможем сообщить вам об ответах других пользователей на ваши комментарии. "
+  tr_key: "You are not signed in. You can still post entries to this forum as a guest user, however, you will not be notified when other participants respond to you."
+  tr_origin: /app/views/public_question/_answers.html.erb
+  updated_at: 2011-01-04 10:18:25 +00:00
+- 
+  created_at: 2010-07-04 14:50:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В данный момент вы являетесь стандартным пользователем. Вы можете получить мастер-аккаунт, который предоставит вам дополнительные возможности:"
+  tr_key: "You are currently a Basic User. In this section you can convert your basic user account to advanced user account. The additional features of the advanced version will enable you to:"
+  tr_origin: /app/views/profile/upgrade_account.html.erb
+  updated_at: 2011-01-04 10:18:44 +00:00
+- 
+  created_at: 2008-09-12 12:16:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Владелец авторских прав должен быть указан. Введите имя держателя прав или своё имя в Кругах, если правообладатель это вы"
+  tr_key: "Copyright owner field cannot be empty. Please enter either your Kroogi name, or the name of the copyright holder"
+  tr_origin: /app/views/submit/writing.html.erb
+  updated_at: 2011-01-04 10:17:50 +00:00

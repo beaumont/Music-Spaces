@@ -1,0 +1,17 @@
+<tr>
+	<div class="default"><b><%= 'Upload Cover Art'.t %></b></div>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="center">
+    <% if @content.respond_to?(:cover_art) && @content.cover_art %>
+      <div style="margin-bottom: 15px;"><%= image_tag(@content.cover_art.thumb(:thumb).public_filename, :border => 0, :alt => h(@content.cover_art.thumb(:thumb).filename))%></div>
+    <% elsif @content.respond_to?(:pending_cover_art) && @content.pending_cover_art %>
+      <div style="margin-bottom: 15px;"><%= image_tag(@content.pending_cover_art.thumb(:thumb).public_filename, :border => 0, :alt => h(@content.pending_cover_art.thumb(:thumb).filename))%></div>
+    <% end %>
+    <%= file_field :cover_art, :uploaded_data %>
+    <div class="instructions"><%= 'Square images work best, at least 150x150, and they will be resized'.t %></div>
+    <%= hidden_field_tag 'redirect_to', url_for(contest_edit_part_path(@content, 'add_originals')) %>
+  </td>
+</tr>
+

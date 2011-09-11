@@ -1,0 +1,32 @@
+pseudo:
+  id: 1
+  name: Pseudo
+  allow_donation: true
+  allow_donations_in_regions: RU
+  allow_withdrawal: true
+  display_order: 0
+
+paypal:
+  id: 2
+  name: PayPal
+  short_name: paypal
+  allow_donation: true
+  allow_donations_in_regions: NA EU OTHER
+  allow_withdrawal: true
+  display_order: 0
+
+webmoney:
+  id: 3
+  name: Webmoney
+  allow_donation: true
+  allow_donations_in_regions: NA EU OTHER
+  allow_withdrawal: true
+  display_order: 0
+
+sms:
+  id: 4
+  name: SMS
+  allow_donation: false
+  allow_donations_in_regions: RU
+  allow_withdrawal: false
+  display_order: 0

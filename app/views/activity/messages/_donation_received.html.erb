@@ -1,0 +1,6 @@
+<%
+  donation = activity.content
+  item_link = donation.content ? content_link(donation.content) : user_link(donation.receiver.user)
+%>
+<%= "has contributed %s to %s" / [link_to("$#{number_with_precision(donation.gross_amount_usd, 2)}", money_url(activity.user_id)), item_link] %>
+

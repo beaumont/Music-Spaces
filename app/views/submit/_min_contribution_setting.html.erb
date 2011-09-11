@@ -1,0 +1,32 @@
+<script type="text/javascript" charset="utf-8">
+  function check_min_contribution(){
+    if ($('contribution_setting_amount').value > 0) {
+      if (!$('content_<%= @content.id %>_show_donation_button').checked) {
+        alert("<%= "Please check the '{{request_contributions_label}}' flag if you set minimal or recommended contribution amount." / 'Request contributions for this item'.t %>");
+        return false;
+      }
+    }
+    return true;
+  }
+</script>
+<% fields_for :contribution_setting, setting do |f| %>
+  <%= error_messages_for 'contribution_setting', :object => setting %>
+  <div class="form_center">
+    <% AccountSetting::CURRENCIES.each do |cur| %>
+      <b><%= cur.upcase -%></b>
+      <%= f.text_field :amount, :style => 'width:60px;', :maxlength => "6" %>
+      <% end -%>
+    <label for="recommended">
+      <%= f.radio_button :is_minimum, false, :class => 'auto_width', :onclick => "$('min_contrib_warning').hide();" %>
+      <%= 'Recommended contribution (payment is optional)'.t %>
+    </label>
+    <label for="minimal">
+      <%= f.radio_button :is_minimum, true, :class => 'auto_width', :onclick => "$('min_contrib_warning').show();"%>
+      <%= 'Minimum contribution (payment is mandatory)'.t %>
+    </label>
+    <div class="red" style=" padding:5px 0; <%= 'display:none;' unless (setting && setting.min_amount) %>" id="min_contrib_warning">
+      <%= 'Remember, if you choose to forgo the "Pay What You Want" model, your audience may turn to illegal sites for your music.'.t %>
+    </div>
+  </div>
+<% end %>
+

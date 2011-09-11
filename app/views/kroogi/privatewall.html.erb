@@ -1,0 +1,52 @@
+
+<% 
+  current_type = params[:type].to_i if @menu.detect{|item| params[:type] == Invite::TYPES[item][:id].to_s}
+  current_item = current_type ? @user.circle_name(current_type) : 'Followers'.t
+  @title = @user.login + ' :: ' + ('%s - Forum' / [current_item]) 
+%>
+
+<div class="screenwide_bordered">
+  <div class="border_offset">
+    <div class="subtopic_h1">
+      <span class="subtopic_left"><%= 'Messages for %s Circle of %s' / [current_item, @user.login] -%></span>
+    </div>
+  </div>
+<br />
+  <table class="offwhite" width="100%">
+	<tr>
+	  <td width="70%">
+	      <%= render :partial => "comments/comment_form", :locals => {:commentable => @kroog, :hide_privacy => true} %>
+      </td><td width="30%">
+	    <p class="centered">
+	      <br /><%= 'Visible only to members of the %s and closer circles' / [current_item] -%><br /><br />
+	      <%= 'Posts so far'.t + ': ' + (@kroog.comment_count != 0 ? @kroog.comment_count.to_s : 'None'.t) -%>
+	      <%= ("(%d private)" / [@kroog.comment_count(true)]) unless @kroog.comment_count(true).zero? %>
+	    </p>
+	  </td>
+    </tr>
+  </table>
+</div>
+
+<% if @kroog.comment_count != 0 %>
+<div class="screenwide_bordered">
+  <div class="border_offset">
+    <div class="subtopic_h1">
+      <span class="subtopic_left"><%= 'Forum posts'.t -%></span>
+    </div>
+  </div>
+<br />
+	<div class="entries">
+	      <%= render :partial => "/comments/comments",
+                     :locals => { :user => @user, :commentable => @kroog,
+                                  :options => {:show_entry => false, :threaded => false},
+                                  :paging => {:page_size => setpagesize, :page => params[:page]} } %>
+
+          <%= render :partial => '/shared/pager',
+                     :locals => {:results => @comments_list} %>
+
+	</div>
+	
+<% end %>
+
+</div>
+

@@ -1,0 +1,17 @@
+<h2><%= (is_edit? ? 'Edit Topic' : 'Submit Topic') %></h2>
+
+<%= error_messages_for :content %>
+
+<% form_for 'content[]', @content, :url => { :controller => 'submit', :action => (is_edit? ? 'update' : 'add_topic'), :html => { }} do |f| -%>
+	<%= f.hidden_field 'foruser_id' %>
+	<%= f.hidden_field("id") if is_edit? %>
+	<%= render :partial => "metawriting", :locals => { :f => f } %>
+
+	<p><label for="post">Topic</label><br/>
+	<p><%= f.text_area('post', "cols" => 60, "rows" => 20)  %></p>
+
+	<%= render :partial => "permissions", :locals => { :f => f, :content => @content } %>
+
+	<p><%= submit_tag :Submit %></p>
+<% end -%>
+

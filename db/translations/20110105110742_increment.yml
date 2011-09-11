@@ -1,0 +1,121 @@
+--- 
+- 
+  created_at: 2008-12-25 02:02:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "пройдите по ссылке \"Настроить\" возле раздела \"Кураторы\""
+  tr_key: "go to that project's Kroogi Page and click the Hosts Tab, then follow the \"Display Options\" link"
+  tr_origin: /app/views/preference/project_display.html.erb
+  updated_at: 2011-01-05 11:07:11 +00:00
+- 
+  created_at: 2010-05-28 06:36:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы не указали название проекта."
+  tr_key: "Please enter a project name."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:44 +00:00
+- 
+  created_at: 2010-06-11 19:33:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Регистрация пользователей тринадцати (13) лет и младше должна проходить под присмотром родителей или законных опекунов. При этом могут потребоваться дополнительные действия для подтверждения возраста пользователей."
+  tr_key: "Users thirteen (13) years or younger are required to have a parent or guardian review and complete any registration process, which may include age verification steps in addition to the standard process."
+  tr_origin: /app/models/user.rb
+  updated_at: 2011-01-05 10:07:45 +00:00
+- 
+  created_at: 2010-06-11 19:35:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Обратите внимание, что этот сайт (Kroogi) не предназначен для пользователей младше тринадцати (13) лет. "
+  tr_key: "Please note that this Site is not aimed at users under thirteen (13) years of age."
+  tr_origin: /app/models/user.rb
+  updated_at: 2011-01-05 10:07:48 +00:00
+- 
+  created_at: 2010-06-16 18:45:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: гггг-мм-дд
+  tr_key: yyyy-mm-dd
+  tr_origin: ~
+  updated_at: 2011-01-05 10:07:56 +00:00
+- 
+  created_at: 2010-09-06 14:49:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Каким видом творчества вы занимаетесь?"
+  tr_key: "Please choose which kind of Artist are you."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:30 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: чтобы проверить отображается ли ваше имя в списке кураторов на странице проекта"
+  tr_key: "Note: to control whether a given project lists you as a host on the project's Kroogi Page"
+  tr_origin: /app/views/preference/project_display.html.erb
+  updated_at: 2011-01-05 10:46:05 +00:00
+- 
+  created_at: 2010-06-11 19:34:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название вашего проекта и ваш личный логин должны различаться."
+  tr_key: "Your Project Kroogi Name needs to differ from Personal Login."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:43 +00:00
+- 
+  created_at: 2010-06-11 19:34:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста, введите дату рождения."
+  tr_key: "Please enter Your Birthday."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:42 +00:00
+- 
+  created_at: 2011-01-04 19:24:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш e-mail адрес"
+  tr_key: "Please enter Your Email Address."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:30 +00:00
+- 
+  created_at: 2011-01-04 19:24:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подтверждение пароля"
+  tr_key: "Please enter Confirm Password."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:30 +00:00
+- 
+  created_at: 2011-01-04 19:24:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш личный логин"
+  tr_key: "Please enter Your Personal Login Name."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:37 +00:00
+- 
+  created_at: 2011-01-04 19:24:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Дата вашего рождения"
+  tr_key: "Please enter Your Birthday.."
+  tr_origin: ~
+  updated_at: 2011-01-05 10:07:56 +00:00
+- 
+  created_at: 2011-01-04 19:24:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пароли не совпадают"
+  tr_key: "Password doesn't match confirmation."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:46 +00:00
+- 
+  created_at: 2011-01-04 19:24:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш пароль"
+  tr_key: "Please enter Your Password."
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-05 10:07:48 +00:00

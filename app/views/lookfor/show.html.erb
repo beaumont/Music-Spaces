@@ -1,0 +1,34 @@
+
+<% @title = 'Network Search Results'.t %>
+<% @content_kind_displayname = @title %>
+
+
+<div class="screenwide_bordered">
+  <div class="border_offset">
+    <div class="subtopic_h1">
+      <span class="subtopic_left"><%= "Searched for".t -%>: <strong><%=h @search_string %></strong></span>
+    </div>
+  </div>
+
+<%	if @matched_users && @matched_users.size > 0 %>
+<table border="0" cellpadding="8">
+        <% @matched_users.each do |matched_user| %>
+            <tr>
+                <td valign="top">
+                    <%= avatar(matched_user) %>
+                </td>
+                <td valign="top">
+                    <%= user_link(matched_user, :icon => true) %> 
+                    <% unless matched_user.login == matched_user.display_name%> (<%= user_link(matched_user, :use_display_name => true) %>)<% end %>
+                    <br/>
+                    <strong><%= matched_user.project? ? "Project Type".t : "Occupation".t %>:</strong> <%= h(matched_user.profile.occupation_value || "Unknown".tdown) %><br/>
+                    <%= '%d followers' / [matched_user.relationships.followers.count] %>
+                </td>
+            </tr>
+        <% end %>
+</table>
+<% else %>
+    <div class="section_empty"><%= "Sorry, but your search didn't return any results.".t -%></div>
+<% end %>
+
+</div>

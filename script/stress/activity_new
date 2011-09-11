@@ -1,0 +1,15 @@
+def activity_new_test(n)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+User.find(:all, :limit => n, :order => "popularity desc", :conditions => "state = 'active' and private = FALSE and type = 'User'").each do |u|
+  `wget "localhost:3000/activity/new?user=#{u.login}"`
+end;
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+end
+
+activity_new_test 5

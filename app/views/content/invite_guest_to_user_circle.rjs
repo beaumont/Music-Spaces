@@ -1,0 +1,7 @@
+if @guest_invite.errors.blank?
+  page.replace_html("guest_invite_wrapper", :partial => "guest_invited" ,
+    :locals => {:invite => @guest_invite})
+else
+  page.replace_html("guest_invite_wrapper" , :partial => "guest_invite_form" ,
+    :locals => {:user => @guest_invite.inviter})
+end

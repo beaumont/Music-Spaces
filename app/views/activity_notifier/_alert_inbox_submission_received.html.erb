@@ -1,0 +1,10 @@
+<p>
+	<strong>
+	  <%= "%s submitted the %s '%s' to %s's folder %s" / [@content.content.user.login, @content.content.display_type.tdown, @content.content.title_long, @content.inbox.user.login, @content.inbox.title_long] -%>.
+	</strong>
+</p>
+
+<p>
+  <%= link_to ("Open '%s'" / [@content.content.title_long]), "#{@url}/content/show/#{@content.content.id}" %>
+</p>
+

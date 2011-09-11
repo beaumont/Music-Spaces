@@ -1,0 +1,11 @@
+
+<% profile.trivia_questions.each do | question | %>
+  <tr>
+    <td class="right">
+      <strong><%= kf_simple(question.question) %></strong>
+    </td>
+    <td>
+      <%= kf_simple(question.answer) %>
+    </td>
+  </tr>
+<% end %>

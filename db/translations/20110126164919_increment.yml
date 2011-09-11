@@ -1,0 +1,329 @@
+--- 
+- 
+  created_at: 2010-03-30 18:23:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Минимальный платёж - {{amount}}$"
+  tr_key: "Minimal necessary contribution - ${{amount}}"
+  tr_origin: ~
+  updated_at: 2011-01-26 11:18:59 +00:00
+- 
+  created_at: 2010-01-15 01:31:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Код вставки"
+  tr_key: "Embed Music"
+  tr_origin: ~
+  updated_at: 2011-01-26 16:35:25 +00:00
+- 
+  created_at: 2010-01-14 09:35:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Отклонить
+  tr_key: Withdraw
+  tr_origin: ~
+  updated_at: 2011-01-26 16:35:25 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить картинку"
+  tr_key: "Upload Image"
+  tr_origin: ~
+  updated_at: 2011-01-26 16:35:25 +00:00
+- 
+  created_at: 2010-02-25 12:51:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Монитор активности"
+  tr_key: Activity
+  tr_origin: ~
+  updated_at: 2011-01-26 11:18:59 +00:00
+- 
+  created_at: 2010-12-03 21:23:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сбор средств для этого Кредита Порога Доверия окончен, но вы можете приобрести добряки на странице проекта {{project}}"
+  tr_key: "This pledge is over but you can still get the goodies on {{project}} Goodies page"
+  tr_origin: /app/views/content/sidebar/_right_main_sidebar.html.erb
+  updated_at: 2011-01-26 11:18:54 +00:00
+- 
+  created_at: 2010-07-01 12:03:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Эта картинка используется в объявлении. Удалив её, вы оставите объявление без иллюстрации. Удалить картинку?"
+  tr_key: "This image is embedded in an Anouncement. If you delete it the Anouncement will become pictureless. Are you sure?"
+  tr_origin: ~
+  updated_at: 2011-01-26 16:35:25 +00:00
+- 
+  created_at: 2011-01-07 22:12:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подключите Facebook к своему профилю, пусть ваши друзья по FB узнают, что \"Вам нравится\" в Кругах."
+  tr_key: "Connect your Facebook account to your Kroogi account to reconnect with your FB friends and share your Kroogi \"Likes.\""
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2011-01-26 14:07:35 +00:00
+- 
+  created_at: 2011-01-18 13:05:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Я ознакомился и принял условия   "
+  tr_key: "I have read and agree to the"
+  tr_origin: ~
+  updated_at: 2011-01-25 16:01:02 +00:00
+- 
+  created_at: 2011-01-18 13:05:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Полное имя и адрес участника"
+  tr_key: "Participant’s full name and address"
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-25 16:00:39 +00:00
+- 
+  created_at: 2011-01-18 13:05:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Просмотр
+  tr_key: Preview
+  tr_origin: /app/helpers/tps_setup_helper.rb
+  updated_at: 2011-01-25 16:00:46 +00:00
+- 
+  created_at: 2011-01-18 13:05:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Всего доступно:"
+  tr_key: "Total quantity available:"
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-25 16:00:47 +00:00
+- 
+  created_at: 2011-01-18 13:05:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Без ограничения по времени"
+  tr_key: "No time limit"
+  tr_origin: /app/models/tps/content.rb
+  updated_at: 2011-01-25 16:00:49 +00:00
+- 
+  created_at: 2011-01-18 17:43:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: N/A
+  tr_key: N/A
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-25 16:00:47 +00:00
+- 
+  created_at: 2011-01-18 17:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользовательское соглашение"
+  tr_key: "Terms of Service"
+  tr_origin: ~
+  updated_at: 2011-01-25 16:01:02 +00:00
+- 
+  created_at: 2011-01-18 20:14:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: ""
+  tr_key: "Short Description"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-26 13:58:36 +00:00
+- 
+  created_at: 2011-01-20 19:25:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Основное описание"
+  tr_key: "Long Description"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-25 16:00:40 +00:00
+- 
+  created_at: 2011-01-24 12:33:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сумма взноса за этот добряк:"
+  tr_key: "Contribution amount for this goodie:"
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-25 16:00:37 +00:00
+- 
+  created_at: 2011-01-24 12:33:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация необходимая для доставки этого добряка:"
+  tr_key: "Information required to deliver this goodie:"
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-25 16:00:44 +00:00
+- 
+  created_at: 2011-01-26 13:35:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Установки КПД"
+  tr_key: "TPS Setup"
+  tr_origin: /app/views/admin/users/list.html.erb
+  updated_at: 2011-01-26 14:11:34 +00:00
+- 
+  created_at: 2011-01-26 13:35:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда и как будут доставляться добряки?"
+  tr_key: "When and how will the goodies be delivered?"
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-26 14:11:15 +00:00
+- 
+  created_at: 2011-01-26 13:35:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "30 дней"
+  tr_key: "30 days"
+  tr_origin: /app/models/tps/content.rb
+  updated_at: 2011-01-26 14:11:47 +00:00
+- 
+  created_at: 2011-01-26 13:35:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Имя и номер документа (группа Б)"
+  tr_key: "Name and ID (Group B)"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-26 14:12:22 +00:00
+- 
+  created_at: 2011-01-26 13:35:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Имя и адрес (группа А)"
+  tr_key: "Name and Address (Group A)"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-26 14:12:40 +00:00
+- 
+  created_at: 2011-01-26 13:35:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваши добряки"
+  tr_key: "Your goodies"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-26 14:13:08 +00:00
+- 
+  created_at: 2011-01-26 13:35:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Полное имя участника и номер документа, удостоверяющего его личность"
+  tr_key: "Participant’s full name and identification document "
+  tr_origin: /app/views/tps_setup/_goodie_form.html.erb
+  updated_at: 2011-01-26 14:13:43 +00:00
+- 
+  created_at: 2011-01-26 13:36:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Минимальный необходимый взнос {{amount}}$"
+  tr_key: "Minimum necessary contribution ${{amount}}"
+  tr_origin: /app/views/content/_download_donate_widget.html.erb
+  updated_at: 2011-01-26 14:14:29 +00:00
+- 
+  created_at: 2011-01-26 13:36:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста загрузите изображение."
+  tr_key: "Please upload Image before."
+  tr_origin: /app/controllers/tps_setup_controller.rb
+  updated_at: 2011-01-26 14:15:13 +00:00
+- 
+  created_at: 2011-01-26 13:36:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Без данных (группа В)"
+  tr_key: "Nothing (Group C)"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-26 14:15:29 +00:00
+- 
+  created_at: 2011-01-26 13:36:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сведения "
+  tr_key: "((tps setup page)) Summary"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-26 13:46:42 +00:00
+- 
+  created_at: 2011-01-26 13:36:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "до скончания века"
+  tr_key: "Never ends"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-26 14:15:55 +00:00
+- 
+  created_at: 2011-01-26 13:36:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Подсказки
+  tr_key: Tips
+  tr_origin: /app/views/tps_setup/_right_column.html.erb
+  updated_at: 2011-01-26 14:18:29 +00:00
+- 
+  created_at: 2011-01-26 13:36:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Кол-во
+  tr_key: Qty.
+  tr_origin: /app/views/tps_setup/previews/_goodies.html.erb
+  updated_at: 2011-01-26 14:19:05 +00:00
+- 
+  created_at: 2011-01-26 13:36:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить ещё добряк"
+  tr_key: "Add another goodie"
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-26 14:26:29 +00:00
+- 
+  created_at: 2011-01-26 13:36:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Отключён
+  tr_key: Disabled
+  tr_origin: /app/views/admin/users/list.html.erb
+  updated_at: 2011-01-26 14:26:06 +00:00
+- 
+  created_at: 2011-01-26 13:36:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Начало
+  tr_key: "((tps setup page)) Introduction"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-26 13:45:55 +00:00
+- 
+  created_at: 2011-01-26 13:36:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "90 дней"
+  tr_key: "90 days"
+  tr_origin: /app/models/tps/content.rb
+  updated_at: 2011-01-26 14:26:21 +00:00
+- 
+  created_at: 2011-01-26 13:36:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Укажите правообладателя этого файла."
+  tr_key: "Identify who own copyrights to this file."
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-26 14:27:51 +00:00
+- 
+  created_at: 2011-01-26 13:36:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Способ доставки"
+  tr_key: "Delivery Method"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-01-26 13:59:14 +00:00
+- 
+  created_at: 2011-01-26 13:36:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста добавьте краткое описание."
+  tr_key: "Please add Short Description before."
+  tr_origin: /app/controllers/tps_setup_controller.rb
+  updated_at: 2011-01-26 13:48:34 +00:00
+- 
+  created_at: 2011-01-26 13:36:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "60 дней"
+  tr_key: "60 days"
+  tr_origin: /app/models/tps/content.rb
+  updated_at: 2011-01-26 13:50:13 +00:00

@@ -1,0 +1,9 @@
+
+<%=
+ if content.circle.user.project?
+  'has accepted your project {{project}} invitation to join his {{circle}} circle.' / [user_link(content.circle.user, :icon => true), content.circle_name]
+ else
+  'has accepted your invitation to join your {{circle}} circle.' / content.circle_name
+ end
+%>
+

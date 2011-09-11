@@ -1,0 +1,6 @@
+<div class="form_line">
+  <div class="form_left"><%= 'Copyright owner'.t %></div>
+  <div class="form_right">
+    <%= f.text_field(:owner, :size => 56, :maxsize => 200, :value => @content.new_record? ? current_actor.login : @content.owner) %>
+  </div>
+</div>

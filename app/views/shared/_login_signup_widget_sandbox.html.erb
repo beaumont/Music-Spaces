@@ -1,0 +1,107 @@
+<%
+   first_info_string ||= nil
+   thanks_title ||= "Waiting for Email Confirmation".t
+   thanks_header ||= 'Thank you for joining Kroogi!'.t
+   dialog_id_suffix ||= 1
+   project_to_follow ||= nil
+   content_to_like ||= nil
+   dont_start_following ||= false
+   project_to_follow = nil if project_to_follow && project_to_follow.anonymous?
+   reload_after ||= false
+%>
+<div style="display: none;" id="ask_for_login_or_signon_<%= dialog_id_suffix %>" title="<%= title %>">
+  <p class="info">
+    <strong>
+      <%= first_info_string %>
+      <%= 'Please log in or create an account first'.t %>
+    </strong>
+  </p>
+  <% if project_to_follow %>
+    <%= hidden_field_tag 'project_to_follow', project_to_follow.id %>
+    <%= check_box_tag "start_following", true, !dont_start_following, :id => "start_following_#{dialog_id_suffix}",
+                      :onclick => "jQuery('#ask_for_login_or_signon_#{dialog_id_suffix} .start_following').val(this.checked);" %>
+    <label for="start_following_<%= dialog_id_suffix %>">
+      <strong><%= 'And start following {{project_name}}' / truncate_with_hint(project_to_follow.display_name, :length => 16) -%></strong>
+    </label>
+  <% end %>
+  <div class="accordion">
+    <%= render :partial => '/shared/login_widget',
+               :locals => {:title => login_block_title,
+                           :dialog_id_suffix => dialog_id_suffix,
+                           :project_to_follow => project_to_follow, 
+                           :content_to_like => content_to_like,
+                           :start_following => !dont_start_following,
+                           } %>
+    <%= render :partial => '/shared/signup_widget',
+               :locals => {:title => signup_block_title, :dialog_id_suffix => dialog_id_suffix,
+                           :project_to_follow => project_to_follow, :start_following => !dont_start_following,
+                           :restore_submit_button_state => !reload_after,
+                           } %>
+    <%= render :partial => '/shared/signup_widget_fb_connect',
+               :locals => {:title => fb_signup_block_title,
+                           :dialog_id_suffix => dialog_id_suffix,
+                           :project_to_follow => project_to_follow,
+                           :start_following => !dont_start_following,
+                           :content_to_like => content_to_like,
+                           :restore_submit_button_state => !reload_after,
+                           } %>
+  </div>
+</div>
+
+<div style="display: none;" id="thanks_for_joining_<%= dialog_id_suffix %>" title="<%= thanks_title %>">
+  <div class="info">
+    <h3><%= thanks_header %></h3>
+    <%= 'Your account is not activated yet.'.t %>
+    <%= 'Please check your email for activation instructions.'.t %>
+    <%= thanks_last %>
+  </div>
+  <div class="button_wrapper">
+    <button class="button" type="button" onclick="jQuery('#thanks_for_joining_<%= dialog_id_suffix %>').dialog('destroy');">
+      <span><%= 'Close'.t -%></span>
+    </button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var ask_for_login_or_signon_dialog_opts_<%= dialog_id_suffix %> = {
+    modal: true,
+    height: 'auto',
+    position: 'middle',
+    dialogClass: 'login_widget',
+    close: function() {
+      jQuery("#ask_for_login_or_signon_<%= dialog_id_suffix %>").dialog('destroy');
+    }
+  };
+
+  var thanks_for_joining_dialog_opts_<%= dialog_id_suffix %> = {
+    modal: true,
+    height: 'auto',
+    position: 'middle',
+    width: 300,
+    minWidth: 300,
+    close: function() {
+      jQuery("#thanks_for_joining_<%= dialog_id_suffix %>").dialog('destroy');
+    }
+  };
+
+  function after_user_created_<%= dialog_id_suffix %>() {
+    <% if reload_after %>
+      jQuery("form.signup .wait_up_homie").show();
+      document.location.reload(false);
+    <% else %>
+      //clean the form - user can invoke it again
+      clean_form('form.signup');
+      jQuery("#ask_for_login_or_signon_<%= dialog_id_suffix %>").dialog('destroy');
+      jQuery("#thanks_for_joining_<%= dialog_id_suffix %>").dialog(thanks_for_joining_dialog_opts_<%= dialog_id_suffix %>);
+    <% end %>
+  }
+
+  function after_fb_user_created_<%= dialog_id_suffix %>() {
+      //clean the form - user can invoke it again
+      clean_form('form.signup');
+      jQuery("#ask_for_login_or_signon_<%= dialog_id_suffix %>").dialog('destroy');
+      document.location.reload(false);
+  }
+
+
+</script>

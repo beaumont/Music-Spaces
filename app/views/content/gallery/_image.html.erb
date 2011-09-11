@@ -1,0 +1,3 @@
+<%= link_to image_tag( content.thumb(:thumb).public_filename, :border => 0,
+            :style => css_cropping_for(content.thumb(:thumb), :image, false),
+            :alt => h(content.title_short), :title => h(content.title_short)), url %>

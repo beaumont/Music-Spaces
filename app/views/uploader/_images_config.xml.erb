@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+		<MainView>
+			<browse_files><%= 'Browse Files'.t %></browse_files>
+			<no_space_msg><%= 'Limit exceeded. Please remove some items'.t %>.</no_space_msg>
+			<end_screen_msg><%= 'You files were successfully uploaded'.t %>.</end_screen_msg>
+			<files_ready_msg><%= 'Files are ready to be uploaded'.t %>.</files_ready_msg>
+			<selected_f_size><%= 'Selected file size'.t %>:</selected_f_size>
+			<available_space_after_up><%= 'Remaining space after upload'.t %>:</available_space_after_up>
+			<available_space><%= 'Available space'.t %>:</available_space>
+			<upload_more_files><%= 'Upload More Files'.t %></upload_more_files>
+			<done><%= 'Done'.t %></done>
+		</MainView>
+		
+		<ImagesPage>
+			 <images><%= 'Images'.t %></images>
+			 <cancel><%= 'Cancel'.t %></cancel>
+			 <loading><%= 'Uploading...'.t %></loading>
+			 <clear><%= 'Clear All'.t %></clear>
+			 <add_info><%= 'Add Info and Upload'.t %></add_info>
+			 <max_file_size><%= 'File size must not exceed'.t %>:</max_file_size>
+			 <folowing_files><%= 'These files cannot be uploaded'.t %>:</folowing_files>
+		</ImagesPage>
+		
+		<ErrorMessage>
+			<file_uploaded><%= 'Your files were successfully uploaded'.t %></file_uploaded>
+			<file_failed><%= 'File is invalid'.t %></file_failed>
+			<copywrite_ownership><%= "You have to certify that you own copyrights to this file, or have the owner's permission.".t %></copywrite_ownership>			
+		</ErrorMessage>
+		
+		<ThumbItem>
+			 <Title><%= 'Title'.t %></Title>
+			 <Size><%= 'Size'.tdown %></Size>
+			 <Loading><%= 'Uploading...'.t.chars.upcase %></Loading>
+			 <Uploaded><%= 'Uploaded'.t.chars.upcase %></Uploaded>
+			 <Failed><%= 'Failed'.t.chars.upcase %></Failed>
+		</ThumbItem>
+		
+		<InfoPage>
+			<images_info><%= 'Images Info'.t %></images_info>
+			<tags_label><%= 'Tags'.t %>:</tags_label>
+			<show_in_label><%= 'Show in'.t %>:</show_in_label>
+			<contributions_label><%= 'Request contributions for these items'.t %></contributions_label>
+			<copy_own_label><%= 'Copyright ownership (Required)'.t %>:</copy_own_label>
+			<radio_btns>
+				<radio><![CDATA[<%= "I don’t own copyright to this work, nor do I have permission to upload it".t %>]]></radio>
+				<radio><![CDATA[<%= "I own copyright to this work".t %>]]></radio>
+				<radio><![CDATA[<%= "I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked".t %>.]]></radio>
+			</radio_btns>
+			<ownit_label><%= "The copyright owner is".t %>:</ownit_label>
+			<error_msg><%= 'PLEASE FILL OUT ALL REQUIRED FIELDS'.t %></error_msg>
+			<error_msg_free><%= 'NOT ENOUGH SPACE TO UPLOAD YOUR IMAGES. PLEASE REMOVE SOME FILES.'.t %></error_msg_free>
+			<error_msg_no_items><%= 'PLEASE SELECT FILES YOU WISH TO UPLOAD. CLICK "BROWSE" TO VIEW FILES.'.t %></error_msg_no_items>
+			<clear><%= 'Clear All'.t %></clear>
+			<upload><%= 'Upload Files'.t %></upload>
+		</InfoPage>
+</config>

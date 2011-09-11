@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="verify-v1" content="PsAOZ5U2zmEBFLiZ8WTYXxkg0lqwRa+FmqKtZwvlmOM=" />
+<meta name="Author" content="Kroogi" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<script src="/javascripts/prototype.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/classes.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/application.js?1266262828" type="text/javascript"></script>
+<!-- , :cache => 'cache/all' -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> jQuery.noConflict(); </script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/ui-lightness/jquery-ui.css" />
+<link href="/stylesheets/jquery_dialog_overrides.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/javascripts/ui.stars.min.js?1266262828" type="text/javascript"></script>
+<link href="/stylesheets/ui.stars.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+
+      $("#rating_block_1 .stars_wrapper.avg").stars({
+          oneVoteOnly: true,
+          callback: function(ui, type, value){
+            $("#rating_block_1 form.rate").trigger("onsubmit")
+          }                  
+      });
+      $("#rating_block_1 .stars_wrapper.user").stars();
+    });
+  </script>
+<link href="../stylesheets/style-old.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]><link href="/stylesheets/style-ie.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if lte IE 6]><link href="/stylesheets/style-ie6.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<link href="../stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+<title>sign up as artist</title>
+<meta name="keywords" content="download music, donate, art, kroogi, kroogi.com" />
+<meta name="description" content="Support your favorite artist when you download and checkout music and art at Kroogi, the best place to discover the best content and donate to support the best artists." />
+<script type="text/javascript" src="http://test1.konfero.com/embeddedkonfero/embeddedKonfero?kroogiMode=true&chatRoomUrl=http%3A%2F%2Fanya.kroogi.com%3A3333&chatRoomTitle=Kroogi+rc%3A+chat+room+%22miro%22&locale=en"></script>
+</head>
+<body>
+<div id="main">
+  <div id="main_content_bg">
+    <div class="shadow"><img src="../images/960_w_btm.gif" /></div>
+    <div id="main_content_left">
+      <div><img src="../images/732_o_top.gif" /></div>
+      <div class="main_side_sdw">
+        <div class="main_header">
+          <div class="main_header_title">About Me</div>
+        </div>
+        <div class="main_left">
+          <div class="main_left_tabs wizard"> <a href="">Create Kroogi Account</a> </div>
+          <div class="main_left_tabs wizard"> <a href="avatar_picture.html">Add Avatar and Kroogi Picture</a> </div>
+          <div class="main_left_tabs wizard"> <a href="about_project.html">About My Project</a></div>
+          <div class="main_left_tabs wizard selected"> <a href="about_me.html">About Me</a></div>
+          <div class="main_left_tabs wizard"> <a href="connect_money.html">Connect Money System</a></div>
+          <div class="main_left_tabs wizard"> <a href="add_content.html">Add Content</a></div>
+        </div>
+        <div class="main_body">
+          <div><img src="../images/form_top.gif" /></div>
+          <div class="form_side_sdw">
+            <div class="form_content">
+              <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+                <tr>
+                  <td colspan="2"><div class="tabs_container" id="tabs_container_1">
+                      <ul class="tabs-nav">
+                        <li class="round"><a href="#tab_english_translation_1"><span>English </span></a></li>
+                        <li class="round"><a href="#tab_russian_translation_1"><span>Русский</span></a></li>
+                      </ul>
+                      <div class="box" id="tab_english_translation_1">
+                        <table>
+                          <tr>
+                            <td class="left"><strong>Display name </strong></td>
+                            <td class="center"><input id="user__display_name" maxsize="200" name="user[_display_name]" size="30" type="text" value="" /></td>
+                          </tr>
+                          <tr>
+                            <td class="left"><strong>Motto </strong></td>
+                            <td class="center"><input id="profile__tagline" maxsize="200" name="profile[_tagline]" size="30" type="text" value=":P" /></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="box" id="tab_russian_translation_1">
+                        <table>
+                          <tr>
+                            <td class="left"><strong>Имя </strong></td>
+                            <td class="center"><input id="user_display_name_ru" maxsize="200" name="user[display_name_ru]" size="30" type="text" /></td>
+                          </tr>
+                          <tr>
+                            <td class="left"><strong>Девиз </strong></td>
+                            <td class="center"><input id="profile_tagline_ru" maxsize="200" name="profile[tagline_ru]" size="30" type="text" /></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div></td>
+                </tr>
+                
+                <tr>
+                  <td class="left"> Country </td>
+                  <td class="center"><input id="profile_country_answer" maxsize="200" name="profile[country][answer]" size="30" type="text" value="" /></td>
+                </tr>
+                <tr>
+                  <td class="left"> City </td>
+                  <td class="center"><input id="profile_city_answer" maxsize="200" name="profile[city][answer]" size="30" type="text" value="" /></td>
+                </tr>
+                <tr>
+                  <td class="left"> Birth date </td>
+                  <td class="center"><input id="profile_birthdate_question_key" name="profile[birthdate][question_key]" type="hidden" value="birthdate" />
+                    <input id="profile_birthdate_answer" maxsize="200" name="profile[birthdate][answer]" size="30" type="text" />
+                    <div>
+                      <label>
+                        <input class="auto_width" id="profile_birthdate_show_on_kroogi_page" name="profile[birthdate][show_on_kroogi_page]" type="checkbox" value="1" />
+                        <input name="profile[birthdate][show_on_kroogi_page]" type="hidden" value="0" />
+                        Show on Kroogi page </label>
+                    </div></td>
+                </tr>
+                
+                <tr>
+                  <td colspan="2"><input id="profile_bio_question_key" name="profile[bio][question_key]" type="hidden" value="bio" />
+                    <div class="tabs_container" id="tabs_container_2">
+                      <ul class="tabs-nav">
+                        <li class="round"><a href="#tab_english_translation_2"><span>English </span></a></li>
+                        <li class="round"><a href="#tab_russian_translation_2"><span>Русский</span></a></li>
+                      </ul>
+                      <div class="box" id="tab_english_translation_2">
+                        <table>
+                          <tr>
+                            <td class="left"><strong>About </strong></td>
+                            <td class="center"><textarea cols="50" id="profile_bio__answer" name="profile[bio][_answer]" rows="10"></textarea></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="box" id="tab_russian_translation_2">
+                        <table>
+                          <tr>
+                            <td class="left"><strong>Обо мне </strong></td>
+                            <td class="center"><textarea cols="50" id="profile_bio_answer_ru" name="profile[bio][answer_ru]" rows="10"></textarea></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div>
+                      <label>
+                        <input class="auto_width" id="profile_bio_show_on_kroogi_page" name="profile[bio][show_on_kroogi_page]" type="checkbox" value="1" />
+                        <input name="profile[bio][show_on_kroogi_page]" type="hidden" value="0" />
+                        Show on Kroogi page </label>
+                    </div></td>
+                </tr>
+                
+                
+              </table>
+            </div>
+          </div>
+          <div class="shadow"><img src="../images/form_btm.gif" /></div>
+          <button class="button_lg wizard" type="submit" name="commit"> <span>&nbsp;Save&nbsp;</span> </button>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="shadow"><img src="../images/732_gw_btm.gif" /></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  </div>
+</div>
+</body>
+</html>

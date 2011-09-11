@@ -1,0 +1,5 @@
+<% rows ||= 10 %>
+<%= render :partial => "shared/translatable_fields", :locals => {:f => f, :content => @content, 
+        :fields => [["Description", 'description', {"rows" => rows}]]} %>
+
+

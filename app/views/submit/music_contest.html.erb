@@ -1,0 +1,60 @@
+<% unless defined?(@part_allowed)
+  @part_allowed = true
+end
+%>
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<% left_block = capture do %>
+  <% ['header', "change_image", "add_originals"].each do |part| %>
+    <div class="main_left_tabs spaced_out <%= maybe_selected_class(:action => contest_edit_part_info(part)[0]) %>">
+      <%= maybe_link_to_contest_edit_page(part, :current => @partial) %>
+    </div>
+  <% end %>
+<% end %>
+
+<% main_block(:header_title => 'Edit Contest'.t, :left_block => left_block) do %>
+  <% form_for 'content[]', @content, :url => {:controller => 'submit', :action => (is_edit? ? 'update' : 'add_music_contest')},
+              :html => {:multipart => true} do |f| -%>
+    <%= f.hidden_field("id") if is_edit? %>
+    <%= f.hidden_field 'user_id' %>
+    <table cellpadding="8" cellspacing="0" border="0" class="white edit_basic_info cell">
+      <% unless @content.errors.blank? && is_edit? %>
+        <tr>
+          <td colspan="2" style="padding-bottom: 0; padding-top: 0;">
+            <%= error_messages_for :content %>
+            <% unless is_edit? %>
+              <div class="explanation">
+                <%= 'Start music contest and receive mp3 files from the members of Kroogi Community. Use "Add Originals" to upload original tracks for remixes.'.t %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+      <%= render :partial => "/submit/music_contest/#{@partial}", :locals => {:f => f} %>
+
+      <% if @part_allowed %>
+        <tr>
+          <td colspan="2">
+            <br/>
+
+            <div class="orng_line"></div>
+            <% done_button = %Q{
+              <button class="button" onClick="$('redirect_to').value = '[show_content]'; button_submit1(this);" style="margin-left: 20px;">
+              <span>&nbsp#{'Done'.t}</span>
+              </button>
+              #{wait_up_homie}
+            } %>
+            <%= render :partial => "buttons", :locals => {:is_editing => true, :center => true, :upload => true,
+                                                          :ok_label => '((button)) Next'.t, :disable_cancel => !@content.new?,
+                                                          :render_after_submit => done_button, :use_button_submit => true,
+                                                          :local_referer => @content.new? ? user_url_for(current_user) : content_url(@content)} %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+#monetary_processor_chooser img { height: 70px; vertical-align: middle; }
+#monetary_processor_chooser .buttons { text-align: left; }
+#donation_dialog_error_messages { margin: 5px; color: #f00; }
+.ui-accordion .ui-accordion-content { padding: 5px 10px; }

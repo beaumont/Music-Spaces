@@ -1,0 +1,11 @@
+<% if viewer_stat_new.user_id.to_i > 1 %>
+  <%= user_link(viewer_stat_new.user) %>,
+<% elsif viewer_stat_new.user_id.to_i == 1 %>
+  <%= 'Anonymous'.t %>,
+<% else %>
+  <%= 'Guest User'.t %>,
+<% end %>
+<%= viewer_stat_new.created_at.localize("%d %B %Y") %>
+<%= 'at'.t %>
+<%= viewer_stat_new.created_at.localize("%H:%M") %>
+<br />

@@ -1,0 +1,142 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Money contributions'.t %>
+
+<div class="money" id="money">
+
+
+<h2><%= 'Money contributions'.t %></h2>
+
+<% form_for :query, :url => {:action => :query}, :html => {:method => :get, :class => 'query_params'} do |f| %>
+  <table>
+    <col class="label"/><col class="value"/>
+    <col class="label"/><col class="value"/>
+    <tr>
+      <td class="label"><%= f.label :start_date %></td>
+      <td><%= calendar_date_select_tag "query[start_date]", @query.start_date, :time => false %></td>
+      <td class="label"><%= f.label :end_date %></td>
+      <td><%= calendar_date_select_tag "query[end_date]", @query.end_date, :time => false %></td>
+      <td class="label"><%= f.label :currency %></td>
+      <td><%= select_tag "query[currency]",
+        options_for_select(top_select_items + AccountSetting::CURRENCIES, @query.currency),
+        :class => 'currencies' %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= f.label :from_user %></td>
+      <td><%= text_field_tag "query[sender_name]", @query.sender_name, :class => 'user_select' %></td>
+      <td class="label"><%= f.label :to_user %></td>
+      <td><%= text_field_tag "query[receiver_name]", @query.receiver_name, :class => 'user_select' %></td>
+      <td class="label"><%= f.label :payment_type %></td>
+      <td><%= select_tag "query[payment_type]",
+        options_for_select(top_select_items + (MonetaryProcessor.all.map{|m| m.short_name}) , @query.payment_type),
+        :class => 'payment_types' %></td>
+      <td><%= submit_tag 'Submit'.t, :class => 'button' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<h3><%= 'Default Pending Period'.t %></h3>
+<%= form_tag url_for(:action => 'update_waiting_period'), :method => :post %>
+<table style="width:1%">
+  <col class="label"/><col class="value"/><col class="value"/>
+  <tr>
+    <td class="label"><%= label_tag :waiting_period %></td>
+    <td><%= text_field_tag :waiting_period, Configuration[:default_number_of_waiting_days], :size => 6 %> <%= 'Days'.tdown %></td>
+	  <td><%= submit_tag 'Update Waiting Period'.t, :confirm => 'Changing this value will change the pending period for all new contributions from now on.  Click OK to proceed.'.t%>
+  </tr>
+</table>
+</form>
+
+
+<h3><%= 'Totals'.t %></h3>
+<table class="totals">
+  <tr>
+    <th><%= 'Amount transferred'.t %></th>
+    <th><%= 'Amount received'.t %></th>
+    <th><%= 'Processor Fee'.t %></th>
+    <th><%= 'Our Fee'.t %></th>
+  </tr>
+  <tr class="<%= cycle("light", "dark") %>">
+    <td class="currency">$<%= @total.gross_amount_usd %></td>
+    <td class="currency">$<%= @total.payable_amount_usd %></td>
+    <td class="currency">$<%= @total.monetary_processor_fee_usd %></td>
+    <td class="currency">$<%= @total.handling_fee_usd %></td>
+  </tr>
+</table>
+
+
+
+<%= export_to_csv_link %>
+<div class="paging_status">
+  <%= @paging_header %>
+</div>
+<%= render :partial => '/shared/pager', :locals => {:results => @contributions,
+  :skip_padding => true} %>
+  <br />
+<table>
+  <tr style="line-height:14px">
+    <th class="date"><%= '%s / %s' % ['Date'.t, 'Time'.t] %>
+    <th class="user"><%= 'From'.t %></th>
+    <th class="user"><%= 'To'.t %></th>
+    <th><%= 'Purpose'.t %></th>
+    <th><%= 'Transaction'.t %></th>
+    <th><%= 'Processor'.t %></th>
+    <th><%= 'Type'.t %></th>
+    <th><%= 'Gross'.t %></th>
+    <th><%= 'Gross USD'.t %></th>
+    <th><%= 'Processor Fee'.t %></th>
+    <th><%= 'XG Rate'.t %></th>
+    <th><%= 'Net USD'.t %></th>
+    <th><%= 'Our Fee'.t %></th>
+    <th><%= 'Payable'.t %></th>
+  </tr>
+<% @contributions.each  do |contrib| %>
+  <tr class="<%= cycle("light", "dark") %>" id=<%= "donation%s" % contrib.id %>>
+
+    <td><%= datetime(contrib.created_at) + ' ' +
+      link_to('[%s]' % 'that day'.t, {:action => :query,
+        'query[start_date]' => contrib.created_at.to_date,
+        'query[end_date]' => contrib.created_at.to_date},
+        :title => 'show all contributions of that day'.t,
+        :class => 'restrict_query') %></td>
+        
+    <td><%= money_user_link(contrib.sender.try(:user), :param => :sender_name,
+              :label => 'from that user'.t,
+              :title => 'show all contributions from that user'.t) rescue ''%></td>
+    <td><%= money_user_link(contrib.receiver.user, :param => :receiver_name,
+              :label => 'to that user'.t,
+              :title => 'show all contributions to that user'.t) rescue ''%>
+        <%= money_balance_link(contrib.receiver.user, :label => 'Balance Sheet'.tdown) rescue ''%>
+        <%= link_to 'webmoney log', :controller => 'admin/money', :action => 'webmoney', :login => contrib.receiver.user.login rescue '' %>
+    </td>
+    <td><%= purpose(contrib) rescue 'Unknown'.t%></td>
+    <td style="font-size:0.8em"><%= h(contrib.token) %></td>
+    <td><%= contrib_processor_name(contrib) + ' ' +
+        link_to('[%s]' % 'that payment type'.t, {:action => :query,
+          'query[payment_type]' => contrib.processor_name || -1},
+          :title => 'show all contributions with that payment type'.t,
+          :class => 'restrict_query') rescue 'Not specified'.t %></td>
+    <td><%= contrib.currency %></td>
+    <td class="currency"><%= number_to_currency(contrib.gross_amount, :unit => '') %></td>
+    <td class="currency">$<%= (contrib.gross_amount_usd) %></td>
+    <td class="currency">$<%= (contrib.monetary_processor_fee_usd) %></td>
+    <td class="currency"><%= contrib.conversion_rate %></td>
+    <td class="currency">$<%= (contrib.net_amount_usd) %></td>
+    <td class="currency">$<%= (contrib.handling_fee_usd) %></td>
+    <td class="currency">$<%= (contrib.payable_amount_usd) %></td>
+<!--        <th><%= 'Gross'.t %></th>
+        <th><%= 'Gross USD'.t %></th>
+        <th><%= 'Processor Fee'.t %></th>
+        <th><%= 'XG Rate'.t %></th>
+        <th><%= 'Net USD'.t %></th>
+        <th><%= 'Handling Fee'.t %></th>
+        <th><%= 'Payable'.t %></th>
+         -->
+  </tr>
+<% end %>
+</table>
+<%= render :partial => '/shared/pager', :locals => {:results => @contributions,
+  :skip_padding => true} %>
+<div class="clear_floats"></div>
+<%= export_to_csv_link %>
+
+</div>
+

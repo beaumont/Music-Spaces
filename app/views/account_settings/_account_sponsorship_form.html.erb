@@ -1,0 +1,28 @@
+<% unless @account_setting.has_an_approved_account_set? || (defined?(context) && context == :wizard) -%>
+  <div class="form_center">
+    <%= "In order to accept contributions you will need to set up a PayPal or WebMoney account <a {{attribs}}>here</a>" / "href=#{money_path(user.id)}" %>
+  </div>
+<% else -%>
+  <div class="form_center">
+  	<%= f.check_box :show_donation_basket, :id => "donation_show", :class => "feedback_form auto_width" %> 
+    <b><%= 'Include Contributions Module on Kroogi Page'.t -%></b>
+    </div>
+     <%= render :partial => "shared/translatable_fields", :locals => {
+           :f => f, 
+           :content => @account_setting, 
+           :fields => [["Module Text",  :donation_request_explanation, {:id => "donation_text", :class => "feedback_input", :rows => 5} ],
+                       ["Button Label<br/>(15 characters maximum)", :donation_button_label, { :string => true, 
+                                                                                          :id => "donation_label", 
+                                                                                          :class => "feedback_input", 
+                                                                                          :maxlength => "15"} ]] } %>
+  <% if defined?(context) && context == :wizard %>
+    <%= render(:partial => 'account_settings/wizard_form_footer') %>
+  <% else %>
+    <div class="form_head">&nbsp;</div>
+    <div class="form_buttons">
+      <button class="button" name="commit" type="submit"><span><%= 'Save'.t -%></span></button>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% end %>
+

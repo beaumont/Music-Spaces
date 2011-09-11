@@ -1,0 +1,16 @@
+<% follower_of = @user.followed_projects(:limit => 4) %>
+
+<% if follower_of && follower_of.size > 3 %>
+  <% if @user == current_user %>
+    <%= 'Content from projects and users you are following' / @user.display_name %>
+  <% else %>
+    <%= 'Content from projects and users {{project_name}} is following' / @user.display_name %>
+  <% end %>
+<% elsif follower_of.empty? %>
+  <%= 'You are not following anyone'.t %>
+<% else %>
+  <% project_list = follower_of.map(&:display_name).sort_by {|x| x.chars.downcase}.
+          map {|x| truncate_with_hint(x, :length => 20)}.to_sentence(:connector => 'and'.t, :skip_last_comma => true) %>
+  <%= 'Content from {{project_list}}' / project_list %>
+<% end %>
+

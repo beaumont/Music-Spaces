@@ -1,0 +1,41 @@
+--- 
+- 
+  created_at: 2010-09-10 14:55:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Что нравится вам?"
+  tr_key: "Tell us what you like"
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-24 11:42:39 +00:00
+- 
+  created_at: 2011-01-24 12:33:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сумма взноса за этот добряк:"
+  tr_key: "Contribution amount for this goodie:"
+  tr_origin: /app/views/tps_setup/_goody_form.html.erb
+  updated_at: 2011-01-24 19:21:58 +00:00
+- 
+  created_at: 2011-01-24 12:33:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация необходимая для доставки этого добряка:"
+  tr_key: "Information required to deliver this goodie:"
+  tr_origin: /app/views/tps_setup/_goody_form.html.erb
+  updated_at: 2011-01-24 19:21:29 +00:00
+- 
+  created_at: 2011-01-24 14:26:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста поблагодарите {{project_name}} за '{{content_title}}'."
+  tr_key: "Please reward {{project_name}} for '{{content_title}}'."
+  tr_origin: /app/views/donate/choose.html.erb
+  updated_at: 2011-01-24 19:20:31 +00:00
+- 
+  created_at: 2011-01-24 20:53:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Пропустить
+  tr_key: Skip
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-25 00:19:59 +00:00

@@ -1,0 +1,11 @@
+<% @title = @user.login + ' :: ' + 'Join Circles'.t %>
+<% @content_kind_displayname = 'Join Circles'.t %>
+
+<% right_column_block(:white_top => true) do %>
+  <%= render :partial => force_bulktext_render('join_circles_bulktext') %>
+<% end %>
+
+<% main_block(:header_title => 'What circle do you want to join?'.t, :white_body => true) do %>
+  <% @seen_my_circle = false %>
+  <%= render :partial => 'join_this_kroog', :locals => {:show_circle_number => true}, :collection => @user.circles %>
+<% end %>

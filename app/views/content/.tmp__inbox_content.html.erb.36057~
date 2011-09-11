@@ -1,0 +1,84 @@
+<div class="inbox">
+  <div class="main_body_subhead"><%= @entry.tagline %></div>
+  <div class="default">
+    <% unless @entry.archived? %>
+      <% if @inbox_items.empty? %>
+        <%= 'No Submissions'.t %>
+      <% else %>
+        <%= '%d items' / [@inbox_items.count] -%>,
+        <%= ('Last added on %s' / @entry.last_added.to_s(:date_only)).chars.downcase %>
+      <% end %>
+    <% end %>
+    <%= formatted_description @entry %>
+  </div>
+  <div class="orng_line"></div>
+  <% if @entry.archived? || inbox_post_opts(@entry).blank? %>
+    <div class="special_notice" style="width: 70%; padding: 5px; margin: 0 auto; text-align: center;">
+      <%= 'This folder is not accepting new submissions.'.t %>
+    </div>
+  <% else %>
+    <div id="how_submit_switch">
+      <a href="#" onclick="toggleHowSubmit(); return false;" style="font-weight: bold;">
+        <%= "#{image_tag('GroupClosed.gif', :style => 'padding-right: 5px', :id => 'how_submit_image')}" %> 
+        <%= 'How to submit an item from your profile'.t -%>...
+      </a>
+      <div id="how_submit_pane_wrapper" style="display:none; padding-top: 10px; padding-left: 25px; color: #666;">
+        <strong style="color: #333;"><%= 'Submitting to %s' / [user_link(@entry.user, :icon => true)] %></strong>
+        <% if @entry.user.collection? %>
+          <p>
+            <%= 'To add a link to a Kroogi User or Project page, enter their Kroogi name here'.t -%>:
+            <%= form_tag url_for(:controller => 'submit', :action => 'add_user_to_collection_inbox', :id => @entry, :inbox => @entry) %>
+              <%= text_field_tag :login, '', :style => 'width: 150px; padding: 3px;' %>
+              <button type="submit" class="button_gr"><span><%= 'Submit'.t %></span></button>
+            </form>
+          </p>
+        <% else %>
+          <p>
+            <%= 'To submit an item to this folder'.t -%>,
+            <%= "go to your Kroogi Content, open an item you've previously added,".t %>
+            <%= 'and use the %s tool in the right sidebar' / ["<b>#{'Submit To...'.t}</b>"] -%>.
+          </p>
+          <p>
+            <%= 'You can only submit public items (viewable by everyone)'.t -%>.
+            <%= "Once an item is submitted, you cannot change its security until all its submissions have been withdrawn.".t %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="orng_line" style="margin-top:10px;"></div>
+  <% if @inbox_items.blank? -%>
+      <div class="section_empty"><%= 'No items have been submitted to this folder'.t -%></div>
+  <% else %>
+    <div class="right" style="margin-bottom: 10px;">
+      <%= 'Sort by'.t %>:
+      <%= link_to_unless_current 'Date Added'.t, content_url(@entry, :order => nil) %> 
+      <span class="separator">&nbsp;</span>
+      <%= link_to_unless_current 'Popularity'.t, content_url(@entry, :order => 'popularity') %>
+    </div>
+    <%= render :partial => 'inbox_item', :collection => @inbox_items, :locals => {:inbox => @entry} %>
+    <%= render :partial => '/shared/pager', :locals => {:results => @inbox_items,
+                :skip_padding => true} %>
+  <% end %>
+  <div class="clear"></div>
+</div>
+
+<% content_for :js  do %>
+  <script type="text/javascript" charset="utf-8">
+    var howSubmitOpen = false;
+    function toggleHowSubmit() {
+      if (howSubmitOpen) {
+        $('how_submit_image').src = "<%= image_path('GroupClosed.gif') -%>";
+        $('how_submit_pane_wrapper').hide();
+        howSubmitOpen = false;
+      } else {
+        $('how_submit_image').src = "<%= image_path('GroupOpen.gif') -%>";
+        $('how_submit_pane_wrapper').show();
+        howSubmitOpen = true;
+      }
+    }
+    if (document.location.hash == '#show_how_submit') {
+      toggleHowSubmit();
+    }
+  </script>
+<% end %>

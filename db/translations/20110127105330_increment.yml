@@ -1,0 +1,65 @@
+--- 
+- 
+  created_at: 2010-07-01 12:03:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вам нравится"
+  tr_key: "You like it"
+  tr_origin: /app/helpers/voting_helper.rb
+  updated_at: 2011-01-27 10:53:24 +00:00
+- 
+  created_at: 2010-01-27 18:03:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Закрыть
+  tr_key: Close
+  tr_origin: /app/views/system_messages/_connect_fb_account.html.erb
+  updated_at: 2011-01-26 20:55:14 +00:00
+- 
+  created_at: 2010-12-22 08:12:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{username}}, вы хотите подключить аккаунт в Кругах к своему Facebook профилю? Это можно сделать <a {{attribs}}>здесь</a>."
+  tr_key: "{{username}}, do you know that you can connect your Kroogi and Facebook accounts? It's <a {{attribs}}>here</a>."
+  tr_origin: ~
+  updated_at: 2011-01-26 20:56:08 +00:00
+- 
+  created_at: 2011-01-24 08:10:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Найти друзей"
+  tr_key: "Find your friends"
+  tr_origin: /app/views/wizard/_add_fb_friends_form_content.html.erb
+  updated_at: 2011-01-26 20:55:07 +00:00
+- 
+  created_at: 2011-01-24 08:10:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите продолжить общение со своими друзьями в пространстве Кругов, нажмите пожалуйста на кнопку \"Найти друзей\":"
+  tr_key: "If you would like to reconnect with your friends please click 'Find your friends' button:"
+  tr_origin: /app/views/wizard/_add_fb_friends_form_content.html.erb
+  updated_at: 2011-01-26 20:55:13 +00:00
+- 
+  created_at: 2011-01-26 20:55:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Найти друзей"
+  tr_key: Reconnect
+  tr_origin: /app/views/system_messages/_connect_fb_account.html.erb
+  updated_at: 2011-01-26 21:06:36 +00:00
+- 
+  created_at: 2011-01-26 20:56:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите продолжить в Кругах общение со своими друзьями по Facebook, нажмите кнопку \"Найти друзей\". "
+  tr_key: "Click Reconnect if you would like to reconnect with your friends."
+  tr_origin: /app/views/system_messages/_connect_fb_account.html.erb
+  updated_at: 2011-01-26 21:08:21 +00:00
+- 
+  created_at: 2011-01-26 20:56:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Эта картинка используется в объявлении. Удалив её, вы оставите объявление без иллюстрации. Удалить картинку?"
+  tr_key: "This image is embedded in an Announcement. If you delete it the Announcement will become pictureless. Are you sure?"
+  tr_origin: /app/views/content/sidebar/_edit_content.html.erb
+  updated_at: 2011-01-26 21:05:11 +00:00

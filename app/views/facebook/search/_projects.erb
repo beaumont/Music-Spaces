@@ -1,0 +1,36 @@
+<% @entry.each do |p|%>
+  <div class="album">
+    <div class="cover" style="width:100px;">
+      <%= profile_picture(p, {:max_width => 100, :max_height => 100, :content_link => nil}) %>
+    </div>
+    <div class="inner">
+      <div class="artist">
+        <%= link_to p.display_name, :controller => 'project', :action => 'show', :id => p.id %>
+      </div>
+      <div class="style">
+        [MUSIC STYLE]
+      </div>
+      <div class="latest">
+        <div class="cover">
+          <%# p.contents.music_albums.select{|ma| !ma.bundles.empty? && ma.is_view_permitted?}.each do |music_album| -%>
+          <%# if music_album.cover_art %>
+          <%#= link_to image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+          :border => 0,:width => 25, :class => "cover_art",
+          :alt => h(music_album.cover_art.thumb(:thumb).filename)),
+          {:controller => 'content', :action => 'show', :id => music_album.id} %>
+          <%# end %>
+          <%#end%>
+          <span class="view_all">
+            <%= link_to "Details >", {:controller => 'project', :action => 'show', :id => p.id} %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clear">
+  </div>
+  <br /><br />
+<%end%>
+<div class="more_albums">
+  <%= link_to "More Artists >", {:controller => "search", :action => "index", :page => @projects.next_page } %>
+</div>

@@ -1,0 +1,21 @@
+<h2>
+<%= (is_edit? ? 'Edit LiveJournal Post'.t : 'Submit LiveJournal Post'.t) %>
+</h2>
+
+<%= error_messages_for :content %>
+
+<% form_for 'content[]', @content, :url => { :controller => 'submit', :action => (is_edit? ? 'update' : 'add_blog')}, :html => { } do |f| -%>
+	<%= f.hidden_field("id") if is_edit? %>
+	<%= render :partial => "metawriting", :locals => { :f => f } %>
+
+	<p><label for="description">Post</label><br/>
+	<p><%= f.text_area('post', "cols" => 60, "rows" => 20)  %></p>
+
+	<%= render :partial => "permissions", :locals => { :f => f, :content => @content } %>
+
+	<p><%= f.check_box('is_in_gallery', {}, true, false) %> <%= 'Include in gallery'.t %>
+	<p><%= f.check_box('is_in_startpage', {}, true, false) %> <%= 'Include in start page gallery widget'.t %>
+
+	<p><%= submit_tag :Submit %></p>
+<% end -%>
+

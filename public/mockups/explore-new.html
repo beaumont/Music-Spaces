@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="verify-v1" content="PsAOZ5U2zmEBFLiZ8WTYXxkg0lqwRa+FmqKtZwvlmOM=" />
+<meta name="Author" content="Kroogi" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<script src="/javascripts/prototype.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/classes.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/application.js?1266262828" type="text/javascript"></script>
+<!-- , :cache => 'cache/all' -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> jQuery.noConflict(); </script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/ui-lightness/jquery-ui.css" />
+<link href="/stylesheets/jquery_dialog_overrides.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/javascripts/ui.stars.min.js?1266262828" type="text/javascript"></script>
+<link href="/stylesheets/ui.stars.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+
+      $("#rating_block_1 .stars_wrapper.avg").stars({
+          oneVoteOnly: true,
+          callback: function(ui, type, value){
+            $("#rating_block_1 form.rate").trigger("onsubmit")
+          }                  
+      });
+      $("#rating_block_1 .stars_wrapper.user").stars();
+    });
+  </script>
+<link href="../stylesheets/style-old.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]><link href="/stylesheets/style-ie.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if lte IE 6]><link href="/stylesheets/style-ie6.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<link href="../stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+<title>Explore Kroogi</title>
+<meta name="keywords" content="download music, donate, art, kroogi, kroogi.com" />
+<meta name="description" content="Support your favorite artist when you download and checkout music and art at Kroogi, the best place to discover the best content and donate to support the best artists." />
+<script type="text/javascript" src="http://test1.konfero.com/embeddedkonfero/embeddedKonfero?kroogiMode=true&chatRoomUrl=http%3A%2F%2Fanya.kroogi.com%3A3333&chatRoomTitle=Kroogi+rc%3A+chat+room+%22miro%22&locale=en"></script>
+</head>
+<body>
+<div id="main">
+	<div id="main_content_bg">
+		<div id="header">
+			<div id="topNav">
+				<div class="topNavLeft"> <a href="">Home of</a>
+					<form name="name" style="width:80px; display:inline;">
+						<select style="font-size:11px ;color:#012756; font-family:Arial, Helvetica, sans-serif; font-weight:bold; background-color:#ffffff; border:1px #FFF solid;" name="menu">
+							<option value="http://">Vasya</option>
+							<option value="http://">Petya</option>
+							<option value="http://">Konstantin</option>
+						</select>
+					</form>
+					<a href="">Friend Feed</a> | <a href="">Messages (8 unread)</a> | <a href="">My Projects</a> | <a href="">Sign Out</a> </div>
+				<div class="language"> <a href="http://www.google.com/" class="eng_selected"><img src="../images/spacer.gif" /></a> <a href="http://www.google.com/" class="rus"><img src="../images/spacer.gif" /></a> </div>
+				<div class="topNavRight"> <a href="">Music</a> | <a href="">Art</a> | <a href="">Photo</a> | <a href="">Written</a> | <a href="">Other</a> | <a href="">About</a> </div>
+			</div>
+			<div id="topNavContent">
+				<div id="logo"><a href="http://kroogi.com/explore"> <img src="../images/logo.png" alt="Kroogi" id="logo" class="tp"/></a></div>
+				<div id="topNavSearch">
+					<form action="/search" method="post" style="margin:0; padding:0; position:relative;">
+						<div style="margin:0;padding:0">
+							<input name="authenticity_token" type="hidden" value="" />
+						</div>
+						<input class="topbar" id="tag" name="tag" style="font-size:12px ;color:#999; font-family:Arial, Helvetica, sans-serif; background-color:#ffffff; border:1px #999 solid;" onFocus="if(this.value == 'Search for Artist or Title') this.value='';" size="20" type="text" value="Search for Artist or Title" />
+						<button class="button_gr" type="submit" onClick="if(document.getElementById('tag').value==''){return false}"> <span>&nbsp;Go&nbsp;</span> </button>
+					</form>
+				</div>
+			</div>
+			<div id="topNavFooter">
+				<p>Kultprosvet: Download new album by Lyapis Trubetskoy exclusively from Kroogi</p>
+			</div>
+		</div>
+		<div class="shadow"><img src="../images/960_w_btm.gif" /></div>
+		<!-- NEW EXPLORE BANNER - class shadow just give 7px margin at the bottom -->
+		<div class="shadow"><a href="sign_up_wizard-2.html"><img src="../images/sign_up_eng.jpg" /></a></div>
+		<!--RIGHT COLUMN starts here -->
+		<div id="right_column">
+			<div class="explore_subcat"> <a href="">Music</a><a href="">Art</a><a href="">Photo</a><a href="">Written</a></div>
+			<div><img src="../images/222_o_top.gif" /></div>
+			<div class="column_side_sdw">
+				<div class="column_header_body">
+					<div class="column_header">Weekly Top</div>
+				</div>
+				<div class="column_body">
+					<div class="number">1.</div>
+					<div class="cover_small">
+						<div class="layer1">
+							<div class="layer2">
+								<div class="layer3"><img class="thumbnail" src="../images/thumbnails-stage.jpg" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="album_info">
+						<div class="album_name"><a href="">Album Name here</a></div>
+						<div class="artist_name"><a href="">Artist name / Year</a></div>
+						<div class="clear"></div>
+					</div>
+					<div class="grey_line2"></div>
+					<div class="number">2.</div>
+					<div class="cover_small">
+						<div class="layer1">
+							<div class="layer2">
+								<div class="layer3"><img class="thumbnail" src="../images/thumbnails-stage.jpg" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="album_info">
+						<div class="album_name"><a href="">Album Name here long name</a></div>
+						<div class="artist_name"><a href="">Artist name / Year</a></div>
+						<div class="clear"></div>
+					</div>
+					<div class="grey_line2"></div>
+					<div class="number">3.</div>
+					<div class="cover_small">
+						<div class="layer1">
+							<div class="layer2">
+								<div class="layer3"><img class="thumbnail" src="../images/thumbnails-stage.jpg" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="album_info">
+						<div class="album_name"><a href="">Album Name here</a></div>
+						<div class="artist_name"><a href="">Artist name long long name / Year</a></div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div class="shadow"><img src="../images/222_w_btm.gif" /></div>
+			<div><img src="../images/222_w_top.gif" /></div>
+			<div class="networks">
+				<div><img src="../images/networks_top.gif" /></div>
+				<div class="networks_buttons"> <a href=""><img src="../images/icon_facebook.png" /></a> <a href=""><img src="../images/icon_twitter.png" /></a> <a href=""><img src="../images/icon_rss.png" /></a> </div>
+				<div class="shadow"><img src="../images/networks_btm.gif" /></div>
+				<div class="networks_links"><a href="">Kroogi on Facebook</a></div>
+				<div class="networks_links"><a href="">Kroogi on Twitter</a></div>
+				<div class="networks_links"><a href="">Subscribe to RSS</a></div>
+				<div class="clear"></div>
+			</div>
+			<div class="shadow"><img src="../images/222_w_btm.gif" /></div>
+		</div>
+		<!--RIGHT COLUMN ends here -->
+		<!--SECOND, CONTENT BANNER starts here -->
+		<div id="banner_content">
+			<div><img src="../images/732_w_top.gif" /></div>
+			<div class="banner_side_sdw"> <img class="banner" src="../images/banner-stage.png" /> </div>
+			<div class="shadow"><img src="../images/732_w_btm.gif" /></div>
+		</div>
+		<!--BANNER ends here -->
+		<!--MAIN BODY starts here -->
+		<div id="main_content_left">
+			<div><img src="../images/732_o_top.gif" /></div>
+			<div class="white_side_sdw">
+				<div class="main_header">
+					<div class="main_header_title">Meet the artists. Download. Contribute what you can.</div>
+				</div>
+				<!-- HERE we use the same js as we have on the existing explore page, the only look of it is changed. let me know if you have any problems, i coded existing explore page, so i can help you with this js, as i remember it was pretty complicated -->
+				<div class="explore_tabs">
+					<div class="buttonwrapper"> <a class="explore_button_selected" href="#"><span>Kroogi Recommends</span></a> <a class="explore_button" href="#" style="margin-left: 10px"><span>New</span></a> <a class="explore_button" href="#" style="margin-left: 10px"><span>Downloads</span></a> <a class="explore_button" href="#" style="margin-left: 10px"><span>Popular</span></a> <br />
+					</div>
+				</div>
+				<div class="white_body"> <br />
+					<br />
+					<br />
+				</div>
+				<br style="clear:left;" />
+			</div>
+			<div class="shadow"><img src="../images/732_w_btm.gif" /></div>
+		</div>
+		<!--MAIN BODY ends here -->
+		<!-- temporary, so bottom is not covered by Konfero-->
+		<div class="clear"></div>
+		<br />
+		<br />
+		<br />
+		<br />
+	</div>
+</div>
+</body>

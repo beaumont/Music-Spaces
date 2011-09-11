@@ -1,0 +1,66 @@
+<span id="favorites">
+  <% unless current_user.projects.blank? %>
+    <div style="display: none;" id="manage_favs_dialog" title="<%= "Favorites".t %>">
+      <div class="ui-helper-reset ui-state-active ui-corner-top">
+        <%= "Keep '{{title}}' as favorite for the following ((users and projects))" / favorite_title(favorable) %>:
+      </div>
+      <div class="ui-widget-content ui-corner-bottom">
+        <% form_tag url_for(:controller => 'user', :action => 'projects_have_favorite', :id => favorable, :type => favorable.is_a?(User) ? 'User' : nil), :method => 'post', :id => 'favorites_form' do %>
+          <ul class="checkboxes">
+            <% ([[current_user.login, current_user]] + current_user.projects.sort_by(&:login).collect{|project| [h(project.login), project]}).each do |caption, project| %>
+              <% checkbox_id = "favs_user_ids_#{project.id}" %>
+              <li class="checkbox">
+                <%= check_box_tag "favs[]", project.id, project.has_favorite?(favorable), :id => checkbox_id %>
+                <label for="<%= checkbox_id %>"><%= user_link(project, :no_link => true, :icon => true) %></label>
+              </li>
+            <% end %>
+          </ul>
+          <div class="buttons">
+            <button class="button" type="submit">
+              <span>  <%= 'Done'.t -%>  </span>
+            </button>
+
+            <button class="button_gr" onclick="jQuery('#manage_favs_dialog').dialog('destroy');return false;">
+              <span>  <%= 'Cancel'.t -%>  </span>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function show_favs_dialog() {
+        jQuery('#manage_favs_dialog').dialog({
+          title: "<%= "Favorites".t %>",
+          modal: true,
+          height: 'auto',
+          position: 'middle',
+          width: 400,
+          minWidth: 360,
+          close: function() {
+            jQuery("#manage_favs_dialog").dialog('destroy');
+          }
+        });
+      }
+    </script>
+    <a href="#" onclick='show_favs_dialog(); return false;'>
+      <div class="sharing_icon" style="padding-top:2px;"><%= image_tag('icon_fav_add.png') %></div> 
+	  <div class="sharing_label"><%= 'Favorites'.t %></div>
+    </a>
+
+  <% else %>
+  <div class="sharing_label_favs">
+    <% if current_user.has_favorite?(favorable)%>
+      <%= link_to_remote image_tag('/images/icon_fav_rem.gif', {:border => 0, :class=>'favorites_icon_share'}) + ' ' + 'Remove from Favorites'.t, {
+          :url => {:controller => 'user', :action => 'favorite_remove', :id => favorable, :type => favorable.is_a?(User) ? 'User' : nil},
+          :loading => "$('favorites').innerHTML = '<div class=\"sharing_label_favs\"> #{image_tag('/images/icon_fav_rem.gif', {:border => 0, :class=>'favorites_icon_share'})} #{'Removing now...'.t} </div>'",
+          :success => "$('favorites').innerHTML = '#{'Failed'.t}'"} %>
+    <% else %>
+      <%= link_to_remote image_tag('/images/icon_fav_add.png', {:border => 0, :class=>'favorites_icon_share'}) + ' ' + 'Add to Favorites'.t, {
+          :url => {:controller => 'user', :action => 'favorite_add', :id => favorable, :type => favorable.is_a?(User) ? 'User' : nil},
+          :loading => "$('favorites').innerHTML = '<div class=\"sharing_label_favs\"> #{image_tag('/images/icon_fav_add.png', {:border => 0, :class=>'favorites_icon_share'})} #{'Adding now...'.t} </div>'",
+          :success => "$('favorites').innerHTML = '#{'Failed'.t}'"} %>
+    <% end %>
+  </div>
+  <% end %>
+</span>
+

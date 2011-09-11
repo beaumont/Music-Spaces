@@ -1,0 +1,102 @@
+<% activity ||= nil
+   hide_comment ||= false
+   no_like ||= false
+   no_description ||= false
+   donate_button_donor ||= nil
+%>
+
+
+
+<% if !content.is_a?(Album) && content.respond_to?(:embedded_image) && (image = content.embedded_image) %>
+  <div class="<%= 'announcement_bgr' if content.is_a?(Board) && content.announcement? %>">
+    <div class="block_one image_sm_layer1">
+      <%= link_to image_tag( image.thumb(:thumb).public_filename,
+                    :border => 0, :style => css_cropping_for(image.thumb(:thumb), :image, false),
+                    :alt => h(content.title_short), :title => h(content.title_short)),
+                  content_url(content) %>
+    </div>
+    <% if content.respond_to?(:post) && !content.post.blank? %>
+      <div class="default block_two">
+        <%= kf_content(content.post.chars,
+                      {:ignore => 'kroogi-cut',
+                       :characters => 256,
+                       :skip_tags => %w( img ),
+                       :inplace_link => true}) %>
+        <% post_done = true %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if content.is_a?(User) %>
+  <div class="default"><b><%= (activity && activity.keyname == :added_as_favorite) ? (content.project? ? 'Favorited project'.t : 'Favorited user'.t) : 'New project created'.t -%>
+      :</b>
+    <%= content.display_name -%>
+  </div>
+<% elsif content.is_a?(Track) %>
+  <div class="default">
+    <% fields = [] %>
+    <% (fields << "<b>#{'Artist'.t}:</b> " + content.artist) unless content.artist.blank? %>
+    <% (fields << "<b>#{'Album'.t}:</b> " + content.album) unless content.album.blank? || content.music_contest_item? %>
+    <%= fields.join('<br/>') %>
+  </div>
+<% end %>
+
+<% if !post_done && content.respond_to?(:post) && !content.post.blank? %>
+  <div class="default_text <%= "announcement_bgr" if content.is_a?(Board) && content.announcement? %>">
+    <% if content.is_a?(Blog) %>
+      <%= content.blogentry.event_cut rescue content.post %>
+    <% else -%>
+    <div class="<%= 'video_container' if content.is_a?(Video) -%>">
+      <%= kf_content(content.post.chars,
+                    {:ignore => 'kroogi-cut',
+                     :characters => 256,
+                     :skip_tags => %w( img ), 
+                     :inplace_link => true}) %>
+    </div>
+    <% end -%>
+  </div>
+  <% if content.is_a?(Blog) %>
+    <div class="default"><a href="<%= content.post_url %>" target="_blank"><%= 'View in LiveJournal'.t -%></a></div>
+  <% end -%>
+<% end %>
+<% if !no_description && content.respond_to?(:description) && !content.description.blank? %>
+  <div class="default_lg">
+    <%= formatted_description(content) %>
+  </div>
+<% end %>
+
+<% if content.is_a?(Project) && content.profile.occupation && !content.profile.occupation.answer.blank? %>
+<div class="default"><%= 'Project type:'.t %> <%= h content.profile.occupation.answer %></div>
+<% end %>
+<% if content.is_a?(User) %>
+  <% num_followers = content.relationships.followers.count %>
+<div class="default"><%= 'Popularity:'.t %> <%= link_to '%d followers' / [num_followers], user_kroogs_path(content) -%></div>
+<% end %>
+
+<% tags = if content.is_a?(User) then
+  content.profile.tag_list.join(', ')
+else
+  profile_tags(content.user, content.tag_list)
+end
+%>
+<% if donate_button_donor && content.is_a?(Content) %>
+  <%= render :partial => "/content/download_donate_widget", :locals => { :content => content, :recipient => content.user, :donor => donate_button_donor } %>
+<% end %>
+
+
+<div class="right">
+  <% unless hide_comment %>
+    <div class="block_action">
+      <%= comment_action_links(content) %>
+    </div>
+  <% end %>
+  <% if !no_like && content.is_a?(Content) && !content.is_a?(ProjectAsContent) && !content.is_a?(Pvtmessage) %>
+    <span class="separator">&nbsp;</span>
+    <%= render :partial => 'voting/voting', :locals => {:entry => content} %>
+  <% end %>
+</div>
+
+<div id="comments_<%= dom_id(content) %>" style="display:none;">
+  <%= render :partial => 'comment/comments', :locals => {:commentable => content} %>
+</div>

@@ -1,0 +1,74 @@
+<% @title = @user.login + ' :: ' + 'The Scoop'.t %>
+<% @content_kind_displayname = 'The Scoop'.t %>
+
+<% right_column_block(:header_title => "Message center of".t) do %>
+
+  <% @projects_info.each do |project, counts| %>
+    <div class="account_tabs <%= 'selected' if project == @user %>">
+      <%= avatar_lg(project) %>
+        <div class="project_info">
+          <div class="project_name">
+            <%= link_to truncate_with_hint(project.display_name, :length => 10),
+                        {:controller => 'activity', :host => user_host(project.login), :action => 'list'} -%>
+          </div>
+          <%= "#{'Notifications'.t} (#{counts[:messages]})" %><br />
+            <%= "#{'Private ((messages))'.t} (#{counts[:private_messages]})" %><br />
+            <%= "#{'Invitations and Requests'.t} (#{counts[:invites_and_requests]})" %><br />
+            <%= "#{'Goodies Notifications'.t} (#{counts[:tps_messages]})" %><br />
+        </div>
+      </div>
+  <% end %>
+<% end %>
+
+<% left_block = capture do %>
+  <div class="main_left_tabs selected"><%= link_to("#{'Notifications'.t} (#{@current_user_counts[:messages]})", '#', :id => 'notifications') %></div>
+  <div class="main_left_tabs"><%= link_to("#{'Private ((messages))'.t} (#{@current_user_counts[:private_messages]})", '#', :id => 'private_messages') %></div>
+  <div class="main_left_tabs"><%= link_to("#{'Invitations and Requests'.t} (#{@current_user_counts[:invites_and_requests]})", '#', :id => 'invitations') %></div>
+  <div class="main_left_tabs"><%= link_to("#{'Goodies Notifications'.t} (#{@current_user_counts[:tps_messages]})", '#', :id => 'tps_messages') %></div>
+<% end %>
+
+<% main_block(:header_title => "Message Center".t, 
+              :left_block => left_block,
+              :tab_container => 'tabs_container', 
+              :content_head => truncate_with_hint(@user.display_name, :length => 40)) do %>
+  <div id="tabs_content">
+    <div id="notifications_tab_body" class="tab_body">
+      <%= render :partial => 'messages', :locals => {:messages => @messages, 
+                                                    :remove_message_title => 'this removes the message from your message center'.t } %>
+    <div class="clear_left"></div>
+    </div>
+    <div id="private_messages_tab_body" class="tab_body" style="display:none">
+      <%= render :partial => 'messages', :locals => {:messages => @private_messages, 
+                                                      :view_dialogue => true, 
+                                                      :view_all_url => '/activity/private',
+                                                      :remove_message_title => "this removes the message from your message center (but not from your correspondent)".t} %>
+    <div class="clear_left"></div>
+    </div>
+    <div id="invitations_tab_body" class="tab_body" style="display:none">
+      <%= render :partial => 'invites' %>
+    <div class="clear_left"></div>
+    </div>  
+    <div id="tps_messages_tab_body" class="tab_body" style="display:none">
+      <%= render :partial => 'tps_messages', :locals => {:list => @tps_messages} %>
+    <div class="clear_left"></div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery(".main_left_tabs a").click(function(event) {
+        jQuery(".main_left_tabs").removeClass('selected');
+        jQuery(this).parent().addClass('selected');
+        var tab_body_id = '#' + jQuery(this).attr('id') + '_tab_body';
+        jQuery('.tab_body').hide();
+        jQuery(tab_body_id).show();
+      })
+
+      jQuery('.replaceable_link').click(function() {
+        jQuery(this).replaceWith('<%= js wait_up_homie(:display => true) %>')
+      })
+    });
+  </script>
+<% end %>

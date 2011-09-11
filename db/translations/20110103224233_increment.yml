@@ -1,0 +1,2773 @@
+--- 
+- 
+  created_at: 2009-02-12 20:26:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы не получили файл, который вы попытались загрузить. Пожалуйста, попробуйте ещё раз."
+  tr_key: "We did not get the file you tried to upload, please try again."
+  tr_origin: /vendor/plugins/plugin_hacks/lib/attachment_fu_hack.rb
+  updated_at: 2011-01-03 18:55:23 +00:00
+- 
+  created_at: 2010-07-19 19:23:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пока ваш архив пуст"
+  tr_key: "You doesn't have any Questions archived now"
+  tr_origin: /app/views/public_question/archive.html.erb
+  updated_at: 2011-01-03 22:39:04 +00:00
+- 
+  created_at: 2010-07-20 13:24:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сейчас у вас нет вопросов"
+  tr_key: "You don't have any Questions now"
+  tr_origin: /app/views/public_question/index.html.erb
+  updated_at: 2010-12-30 11:01:16 +00:00
+- 
+  created_at: 2010-07-22 05:52:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Что происходит, когда вы отправляете приглашение?"
+  tr_key: "What happens after you send Invitation?"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 18:55:01 +00:00
+- 
+  created_at: 2010-08-12 14:04:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если в папке включена функция \"Согласиться с правилами\", то вы не можете получать за неё взносы."
+  tr_key: "Album cannot be donatable if terms acceptance is required."
+  tr_origin: /app/models/album.rb
+  updated_at: 2011-01-03 18:54:41 +00:00
+- 
+  created_at: 2008-10-21 19:06:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите пригласить кого-то в проект Круги, А ТАКЖЕ в свою зрительскую аудиторию"
+  tr_key: "If you'd like to invite users to join the network AND your circles"
+  tr_origin: /app/views/invite/new.html.erb
+  updated_at: 2011-01-03 18:53:47 +00:00
+- 
+  created_at: 2010-08-17 16:03:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проект {{project_name}} просит вас принять условия Правил конкурса, прежде чем скачивать файлы"
+  tr_key: "{{project_name}} asks you to accept the Contest Terms before downloading the files"
+  tr_origin: /app/views/shared/_require_terms.html.erb
+  updated_at: 2010-12-30 11:01:12 +00:00
+- 
+  created_at: 2010-08-18 19:01:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Такой объём превысит допустимый для вас лимит"
+  tr_key: "This upload would exceed your quota"
+  tr_origin: /app/models/content.rb
+  updated_at: 2010-12-30 11:01:06 +00:00
+- 
+  created_at: 2008-09-03 13:23:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это сообщение больше не актуально, оно исчезнет после обновления страницы"
+  tr_key: "This message has expired, and will be removed with the next refresh"
+  tr_origin: /app/views/user/activity.html.erb
+  updated_at: 2011-01-03 18:54:05 +00:00
+- 
+  created_at: 2010-08-23 09:01:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если приём платежей через PayPal в вашей стране невозможен, используйте WebMoney. Если это не ваш случай, продолжайте."
+  tr_key: "If payments cannot be received through PayPal in your country, try using Webmoney. Otherwise, proceed."
+  tr_origin: /app/views/monetary_processor_accounts/paypal/_attachment_form.html.erb
+  updated_at: 2011-01-03 22:38:59 +00:00
+- 
+  created_at: 2010-08-24 10:04:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: вы можете использовать счета, имеющие {{start_strong}}Начальный аттестат{{end_strong}} или выше. "
+  tr_key: "Note that you can only use accounts with {{start_strong}}Initial Passport{{end_strong}} or higher."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:53:22 +00:00
+- 
+  created_at: 2009-10-07 08:09:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не удалось перевести деньги. Похоже, вы ввели неверную сумму."
+  tr_key: "Unable to complete withdrawal. Invalid withdrawal amount"
+  tr_origin: /app/controllers/withdrawals_controller.rb
+  updated_at: 2011-01-03 18:52:57 +00:00
+- 
+  created_at: 2009-10-14 17:39:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Процесс перевода денег на счёт вашей платёжной системы запущен. Это может занять несколько минут..."
+  tr_key: "Your withdrawal is been processed. Please allow a few minutes for the transfer to complete."
+  tr_origin: /app/controllers/withdrawals_controller.rb
+  updated_at: 2011-01-03 22:38:39 +00:00
+- 
+  created_at: 2009-10-14 17:39:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Прежде чем снимать деньги, вы должны подтвердить счёт своей платёжной системы."
+  tr_key: "You must verify your account before you may withdraw funds."
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2011-01-03 18:52:52 +00:00
+- 
+  created_at: 2010-05-25 14:09:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нам не удалось перевести деньги на ваш счёт. Пожалуйста, попробуйте еще раз позже, или свяжитесь с нами, если проблема повторится."
+  tr_key: "We are unable to complete your withdrawal at this time. Please try again later, or contact us if the issue remains."
+  tr_origin: /app/controllers/withdrawals_controller.rb
+  updated_at: 2011-01-03 22:38:32 +00:00
+- 
+  created_at: 2010-08-26 11:34:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы обналичить сумму превышающую {{limit}}$, вам нужно присоединить счёт с Персональным аттестатом или выше."
+  tr_key: "To withdraw more than ${{limit}} you'll need to attach Personal Passport or higher."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:53:06 +00:00
+- 
+  created_at: 2010-08-26 11:34:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш лимит для снятия средств {{amount}}$. Чтобы увеличить лимит, вам нужно получить Персональный аттестат WebMoney и подключить свой кошелёк к Кругам ещё раз; или связаться с нашей службой поддержки."
+  tr_key: "Your summary withdrawal limit is ${{amount}}. You must obtain Personal Passport, and re-attach Webmoney pursue or contact Customer Service to make more withdrawals."
+  tr_origin: /app/helpers/money_helper.rb
+  updated_at: 2011-01-03 22:38:16 +00:00
+- 
+  created_at: 2008-10-10 11:46:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s %s приглашает вас присоединиться к кругу \"%s\" в сети \"Круги\""
+  tr_key: "Kroogi %s %s invited you to join their %s Circle on Kroogi"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:37:28 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы не можете кого-то найти, введите e-mail адрес. Приглашенный сможет присоединиться к вашему кругу после регистрации в Кругах."
+  tr_key: "If you can not find people, you can invite them by entering their email address. Upon joining Kroogi, they will be able to accept your invitation."
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 18:52:11 +00:00
+- 
+  created_at: 2009-10-29 19:07:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Похоже, вы ошиблись при вводе e-mail адреса. Может быть Вы случайно использовали кириллицу или иероглифы?"
+  tr_key: "The email address you've entered appears to be invalid. Maybe you've entered some non-latinic symbols?"
+  tr_origin: /app/controllers/monetary_processor_accounts/paypal_controller.rb
+  updated_at: 2011-01-03 18:52:31 +00:00
+- 
+  created_at: 2010-09-06 14:49:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Каким видом творчества вы занимаетесь?"
+  tr_key: "Please choose which kind of Artist are you."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-03 18:51:59 +00:00
+- 
+  created_at: 2009-06-19 11:57:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Разрешите зрителям скачивать этот альбом и они окажут материальную поддержку вам и вашему творчеству."
+  tr_key: "Click on this button to allow others to download this album and give you money in return"
+  tr_origin: /app/views/content/sidebar/_edit_content.html.erb
+  updated_at: 2011-01-03 22:38:07 +00:00
+- 
+  created_at: 2010-09-05 19:52:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{%n}} из ваших друзей уже находятся в Кругах."
+  tr_key: "We found {{%n}} of your friends that are already on Kroogi."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:42:26 +00:00
+- 
+  created_at: 2010-09-06 14:49:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "К кому из друзей вы хотели бы присоединиться:"
+  tr_key: "Select who would you like to follow:"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:32:17 +00:00
+- 
+  created_at: 2010-09-08 15:45:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Возможно, вы ошиблись при вводе e-mail адреса. Или нам показалось?"
+  tr_key: "You have misspeled your email. Please be careful."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:31:57 +00:00
+- 
+  created_at: 2010-09-16 06:37:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ошибка: нам не удалось подключиться к вашему почтовому серверу. Возможно возникла проблема с подключением к Интернет сети."
+  tr_key: "Error: we cannot reach yout email server at this time. Maybe this is due to internet problem."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:41:56 +00:00
+- 
+  created_at: 2010-09-20 18:36:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Убедитесь, что ваш e-mail адрес введён верно."
+  tr_key: "Make sure you entered your email address correctly."
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 22:37:46 +00:00
+- 
+  created_at: 2010-09-20 18:37:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нам не удалось отправить все или некоторые из ваших приглашений "
+  tr_key: "Unable to send some or all of your invites"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 22:37:40 +00:00
+- 
+  created_at: 2010-09-20 18:37:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нам не удалось установить связь с вашим почтовым сервером."
+  tr_key: "We were unable to establish connection with your email server."
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 18:51:43 +00:00
+- 
+  created_at: 2010-09-20 18:37:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это адреса вашей адресной книги. Выберите тех, с кем бы вы хотели разделить свои интересы в Кругах."
+  tr_key: "Here are your contacts from address book.Please select who you want to share the Kroogi experience with."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:31:22 +00:00
+- 
+  created_at: 2010-09-06 09:35:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Адресная книга вашей почты подскажет, кто из ваших друзей уже находится в Кругах"
+  tr_key: "Searching your email account is the fastest way to find people you already know on Kroogi"
+  tr_origin: ~
+  updated_at: 2011-01-03 22:41:46 +00:00
+- 
+  created_at: 2010-09-22 08:44:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Адресная книга вашей почты {{account}} пуста. Попробуйте другой e-mail."
+  tr_key: "Your address book at {{account}} is empty. Please try another email."
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 22:37:35 +00:00
+- 
+  created_at: 2009-01-31 20:25:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Создайте свой первый альбом"
+  tr_key: "Create your first folder"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:31:13 +00:00
+- 
+  created_at: 2009-04-08 20:53:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кнопка появится на вашей странице, если вы отметите флажком опцию \"и представить на странице Kroogi\" в разделе 'Настройки показа' ниже"
+  tr_key: "This will be shown on your Kroogi page if you have 'feature on Kroogi Page' checkbox set below"
+  tr_origin: /app/views/submit/_download_options.html.erb
+  updated_at: 2011-01-03 18:50:58 +00:00
+- 
+  created_at: 2009-02-04 12:15:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы не хотите задавать собственные правила, выбирайте из предложенных нами или снимите флажок с опции \"Необходимо принять правила\""
+  tr_key: "If you don't want to add your own, select one of our preset terms or uncheck the 'Require Terms Acceptance' checkbox."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:31:01 +00:00
+- 
+  created_at: 2010-04-22 06:13:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы отправим приглашение на ваш e-mail адрес. Проследовав по ссылке и пройдя регистрацию, вы присоединитесь к проекту {{project_name}}"
+  tr_key: "We'll send you an invite, and once you follow the link in email and sign up, you will follow {{project_name}}"
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-01-03 18:51:23 +00:00
+- 
+  created_at: 2010-09-30 18:57:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите скрыться от поисковой системы, снимите этот флажок:"
+  tr_key: "To hide from such searches, un-click this box:"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:30:52 +00:00
+- 
+  created_at: 2010-10-01 12:55:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: |-
+      Регистрация производится по желанию, но если вы создадите аккаунт на Кругах
+       <b>ссылка на скачивание '{{name}}' будет долговременной и вы сможете воспользоваться ей несколько раз – если решите загрузить альбом повторно или если скачанный файл пострадает.</b>
+  tr_key: "It is optional, but if you choose to create an account, <b>your download link for '{{name}}' will get preserved, in case you want to re-download, or if the download breaks</b>"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:30:39 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить портрет"
+  tr_key: "Add Kroogi Picture"
+  tr_origin: /app/views/user/_full_profile_project.rhtml.bak
+  updated_at: 2011-01-03 12:20:21 +00:00
+- 
+  created_at: 2010-09-30 19:41:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы вышлем вам приглашение в Круги на ваш e-mail адрес. Регистрация в Кругах бесплатная."
+  tr_key: "It is free to create an account, we will email you an invitation to join Kroogi."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:28:30 +00:00
+- 
+  created_at: 2010-10-01 18:14:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: |-
+      Регистрация производится по желанию, но если вы создадите аккаунт на Кругах,
+       у вас появится <b>долговременная ссылка на скачивание '{{content_title}}', которой вы сможете воспользоваться, если решите загрузить альбом еще раз или если скачанный файл пострадает.</b>
+  tr_key: "It is optional, but if you choose to create an account, <b>your download link for '{{content_title}}' will get preserved, in case you want to re-download, or if the download breaks</b>"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:29:09 +00:00
+- 
+  created_at: 2010-10-04 19:28:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы можете <a {{login_link_attribs}}>войти в систему</a>  или оставить свой e-mail адрес для регистрации в Кругах (приглашение будет выслано по указанному адресу). "
+  tr_key: "You can <a {{login_link_attribs}}>login</a> or enter your email address below to create an account (invitation to join Kroogi will be emailed to you)."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-01-03 18:50:44 +00:00
+- 
+  created_at: 2010-10-04 19:28:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Будет здорово, если вы заплатите {{project_name}}, прежде чем скачать '{{content_title}}'."
+  tr_key: "Please reward {{project_name}} before downloading '{{content_title}}'."
+  tr_origin: /app/views/donate/choose.html.erb
+  updated_at: 2011-01-03 18:50:17 +00:00
+- 
+  created_at: 2010-09-06 09:34:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "такой профиль мы создадим для вас в Кругах на основе вашей Facebook страницы... "
+  tr_key: "this is a Kroogi profile that we will create for you based on your FB data....."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:39:26 +00:00
+- 
+  created_at: 2010-09-01 19:39:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: " Внимание! Мы не храним, не продаём и даже не запоминаем ваши логин и пароль. "
+  tr_key: "Attention! We do not store, save, sale and even remember your password."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:41:08 +00:00
+- 
+  created_at: 2010-10-01 12:55:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш профиль Facebook уже подключён к вашему аккаунту в Кругах"
+  tr_key: "you already have a Kroogi account associated with your Facebook Account."
+  tr_origin: /app/views/shared/facebook/connect/_widget_form.erb
+  updated_at: 2011-01-03 22:37:15 +00:00
+- 
+  created_at: 2010-10-08 06:58:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "создать аккаунт на Кругах, используя информацию из вашего профиля на Facebook."
+  tr_key: "to allow us to create a Kroogi account using your FB info."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:41:13 +00:00
+- 
+  created_at: 2010-10-08 06:58:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите установить связь с Facebook, вам необходимо войти в систему под своим FB логином, вот кнопка:"
+  tr_key: "In order to authenticate via Facebook please login to your Facebook account using this button:"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:28:19 +00:00
+- 
+  created_at: 2010-10-19 09:12:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание! Мы не храним, не продаём и даже не запоминаем ваши логин и пароль. "
+  tr_key: "Attention! We do not store, save, sell and even remember your password."
+  tr_origin: /app/views/invite/_add_friends_wizard.html.erb
+  updated_at: 2011-01-03 22:37:09 +00:00
+- 
+  created_at: 2010-10-19 09:11:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уже оплатили этот добряк. Если вы хотите приобрести ещё один, пожалуйста обновите страницу."
+  tr_key: "You already paid for this goodie. Please refresh the page if you want to buy more."
+  tr_origin: /app/controllers/application.rb
+  updated_at: 2011-01-03 18:50:09 +00:00
+- 
+  created_at: 2008-08-22 18:30:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показывать владельцам, что вы смотрели их материалы"
+  tr_key: "Show my name to content owners when I view their content"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:26:36 +00:00
+- 
+  created_at: 2008-08-22 18:30:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показывать посетителям, когда вы заходили на свою страницу последний раз"
+  tr_key: "Show my visitors the time when I last logged in"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:26:49 +00:00
+- 
+  created_at: 2010-09-06 20:20:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{count}} из ваших друзей уже находится в Кругах."
+  tr_key: "We found {{count}} of your friends that are already on Kroogi."
+  tr_origin: /app/views/invite/_select_kroogi_users_to_follow.html.erb
+  updated_at: 2011-01-03 12:21:26 +00:00
+- 
+  created_at: 2010-09-06 20:20:49 +00:00
+  language_id: 5556
+  pluralization_index: 2
+  text: "{{count}} из ваших друзей уже находится в Кругах."
+  tr_key: "We found {{count}} of your friends that are already on Kroogi."
+  tr_origin: /app/views/invite/_select_kroogi_users_to_follow.html.erb
+  updated_at: 2011-01-03 12:21:37 +00:00
+- 
+  created_at: 2010-09-06 20:20:49 +00:00
+  language_id: 5556
+  pluralization_index: 3
+  text: "{{count}} из ваших друзей уже находится в Кругах."
+  tr_key: "We found {{count}} of your friends that are already on Kroogi."
+  tr_origin: /app/views/invite/_select_kroogi_users_to_follow.html.erb
+  updated_at: 2011-01-03 12:21:41 +00:00
+- 
+  created_at: 2010-09-30 19:41:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Помните, что те, кому УЖЕ ИЗВЕСТЕН ваш e-mail смогут найти вас в нашей поисковой системе по этому адресу."
+  tr_key: "However, your friends who ALREADY know your email, will be able to find you on Kroogi by searching for this email."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:36:07 +00:00
+- 
+  created_at: 2010-09-30 19:41:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если такой вариант не для вас, вот флажок в помощь."
+  tr_key: "If you do not want it, this is the box to control it."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:36:32 +00:00
+- 
+  created_at: 2010-09-30 19:42:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы обещаем не показывать ваш e-mail адрес другим пользователям, если только вы сами не захотите его открыть."
+  tr_key: "We will never display your email to anyone, unless you reveal it yourself."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:28:00 +00:00
+- 
+  created_at: 2010-10-01 12:55:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: " Мы обещаем не показывать ваш e-mail адрес другим пользователям, если только вы сами не захотите его открыть. "
+  tr_key: "We will never display your email to anyone, unless you reveal it yourself"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:27:47 +00:00
+- 
+  created_at: 2010-10-01 12:55:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Помните, что те, кому УЖЕ ИЗВЕСТЕН ваш e-mail смогут найти вас в нашей поисковой системе по этому адресу. "
+  tr_key: "However, your friends who ALREADY know your email, will be able to find you on Kroogi by searching for this email"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:35:49 +00:00
+- 
+  created_at: 2010-08-12 14:03:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Текст вашего приглашения"
+  tr_key: "Your invitation message"
+  tr_origin: /app/views/invite/_select_emails_to_invite.html.erb
+  updated_at: 2011-01-03 22:36:54 +00:00
+- 
+  created_at: 2010-09-22 08:43:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это адреса вашей адресной книги. Выберите тех, с кем бы вы хотели разделить свои интересы в Кругах. "
+  tr_key: "Here are your contacts from address book. Please select who you want to share the Kroogi experience with."
+  tr_origin: /app/views/invite/_select_emails_to_invite.html.erb
+  updated_at: 2011-01-03 18:49:52 +00:00
+- 
+  created_at: 2010-10-27 18:41:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Открывая проект, вы делаете его видимым для всех пользователей."
+  tr_key: "Opening the project will make all its content public."
+  tr_origin: /app/views/preference/account.html.erb
+  updated_at: 2011-01-03 18:49:30 +00:00
+- 
+  created_at: 2010-10-11 06:42:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У вас уже есть <b>Мастер-аккаунт</b> Kroogi, объединённый с вашим профилем Facebook."
+  tr_key: "you already have a <b>Advanced</b> Kroogi account associated with your Facebook Account."
+  tr_origin: ~
+  updated_at: 2011-01-03 19:35:40 +00:00
+- 
+  created_at: 2010-10-19 09:12:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы войти в Facebook под другим именем, вам нужно выйти из FB системы."
+  tr_key: "If you want to use a different Facebook account, please logout from Facebook."
+  tr_origin: /app/views/shared/facebook/connect/_widget_form.erb
+  updated_at: 2011-01-03 18:49:07 +00:00
+- 
+  created_at: 2010-10-27 19:36:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{login}}, у вас уже есть аккаунт на Кругах, объединённый с этим FB профилем, вы можете войти в систему Кругов, используя это имя пользователя (\"{{krooginame}}\") и пароль."
+  tr_key: "{{login}}, you already have a Kroogi account associated with this Facebook account, and this account can login, using its username (\"{{krooginame}}\") and password."
+  tr_origin: /app/views/home/connect/form/_signup.erb
+  updated_at: 2010-12-30 11:00:06 +00:00
+- 
+  created_at: 2010-10-28 04:29:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы являетесь пользователем Facebook, поэтому оставьте это поле пустым"
+  tr_key: "As a Facebook User, leave this blank the first time you change it"
+  tr_origin: /app/views/preference/account.html.erb
+  updated_at: 2011-01-03 18:48:49 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Также будут удалены ваши личные проекты"
+  tr_key: "Your following personal projects will be deleted as well"
+  tr_origin: ~
+  updated_at: 2011-01-03 22:41:03 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Все ваши материалы"
+  tr_key: "All your"
+  tr_origin: ~
+  updated_at: 2011-01-03 22:40:40 +00:00
+- 
+  created_at: 2010-03-19 19:46:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "<b>{{user_name}}</b> пригласил вас присоединиться к кругу {{circle_name}}"
+  tr_key: "<b>{{user_name}}</b> invited you to join {{circle_name}}"
+  tr_origin: /app/views/activity/_invites.html.erb
+  updated_at: 2010-12-30 10:59:58 +00:00
+- 
+  created_at: 2010-09-30 19:41:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы никогда не передадим ваш e-mail адрес третьей стороне. Мы сохраним его под грифом <a {{link_attributes}}>\"Секретно\"</a>."
+  tr_key: "We will never give your email address to any third party organization. We will always keep it <a {{link_attributes}}>private</a>."
+  tr_origin: ~
+  updated_at: 2011-01-03 22:40:35 +00:00
+- 
+  created_at: 2010-10-27 09:04:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваши друзья смогут найти вас в Кругах по точному e-mail адресу."
+  tr_key: "When your friends search for you on Kroogi, they will need to enter your exact email address in order to find you."
+  tr_origin: /app/views/preference/account.html.erb
+  updated_at: 2010-12-30 10:59:53 +00:00
+- 
+  created_at: 2010-10-27 09:04:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это не значит, что ваш e-mail станет виден всем."
+  tr_key: "This WILL NOT make your email address public."
+  tr_origin: /app/views/preference/account.html.erb
+  updated_at: 2011-01-03 22:36:49 +00:00
+- 
+  created_at: 2010-11-17 08:07:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы никогда не передадим ваш e-mail адрес третьей стороне. Мы сохраним его под грифом <a {{link_attributes}}>\"Секретно\"</a>."
+  tr_key: "We will never share your email address with third parties. Your information will be kept <a {{link_attributes}}>private</a>."
+  tr_origin: /app/views/shared/_we_will_keep_your_email_private_wording.html.erb
+  updated_at: 2011-01-03 22:36:33 +00:00
+- 
+  created_at: 2010-11-17 08:07:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Потверждение в вашей почте"
+  tr_key: "Email Confirmation"
+  tr_origin: /app/views/home/thanks_user.html.erb
+  updated_at: 2011-01-03 22:36:27 +00:00
+- 
+  created_at: 2010-11-17 09:17:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Друзья смогут находить вас в Кругах по e-mail адресу."
+  tr_key: "Allow friends to search for you on Kroogi using your email address."
+  tr_origin: /app/views/shared/_we_will_keep_your_email_private_wording.html.erb
+  updated_at: 2010-12-30 10:59:47 +00:00
+- 
+  created_at: 2010-11-22 10:05:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "После загрузки у вас останется"
+  tr_key: "Remaining space after upload"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2010-12-30 10:59:05 +00:00
+- 
+  created_at: 2010-03-11 21:23:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_name}}: новости проектов и пользователей вашей ленты"
+  tr_key: "Content from projects and users {{user_name}} is following"
+  tr_origin: ~
+  updated_at: 2011-01-03 22:40:29 +00:00
+- 
+  created_at: 2010-11-28 22:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Материалы людей и проектов, за которыми вы наблюдаете"
+  tr_key: "Content from projects and users you are following"
+  tr_origin: /app/views/activity/_header.html.erb
+  updated_at: 2011-01-03 18:46:45 +00:00
+- 
+  created_at: 2010-03-30 00:44:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Помните, что отказываясь от модели \"Плати, сколько считаешь нужным\", вы помогаете пиратским сайтам приумножать свои доходы. "
+  tr_key: "Remember, if you are abandoning \"pay what you want\" model, you can be outbid by pirates."
+  tr_origin: ~
+  updated_at: 2011-01-03 18:57:27 +00:00
+- 
+  created_at: 2010-03-31 10:39:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Этот файл смогут загружать другие пользователи, и в ответ будут поддерживать вас суммой, которую они сочтут уместной или той, которую определите вы сами. "
+  tr_key: "This file will be available for others to download and pay you the price you determined or they see fit."
+  tr_origin: ~
+  updated_at: 2011-01-03 18:57:49 +00:00
+- 
+  created_at: 2010-12-02 08:45:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Помните, что отказываясь от модели \"Плати, сколько считаешь нужным\", вы помогаете пиратским сайтам приумножать свои доходы. "
+  tr_key: "Remember, if you choose to forgo the \"Pay What You Want\" model, your audience may turn to illegal sites for your music."
+  tr_origin: /app/views/submit/_min_contribution_setting.html.erb
+  updated_at: 2011-01-03 18:46:38 +00:00
+- 
+  created_at: 2010-11-09 20:19:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Срок сбора средств истёк. Если вы всё же хотите принять участие, пожалуйста отправьте <a {{link_attributes}}>личное сообщение</a> проекту {{project_name}}."
+  tr_key: "The time period for funds collection is over. If you still want to participate please send <a {{link_attributes}}>private message</a> to {{project_name}}."
+  tr_origin: ~
+  updated_at: 2011-01-03 18:55:54 +00:00
+- 
+  created_at: 2010-11-15 07:53:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} просит вас предоставить информацию (для КПД) : {{question}}"
+  tr_key: "{{user}} asked you about your personal tps info: {{question}}"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:35:24 +00:00
+- 
+  created_at: 2010-11-15 09:25:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша личная информация уже была отправлена. Если вы хотите внести в неё изменения, отправьте личное сообщение проекту {{project}}."
+  tr_key: "Your information is already fulfilled. Please write a private message to {{project}} if you want to correct it."
+  tr_origin: /app/controllers/goodies_controller.rb
+  updated_at: 2011-01-03 18:46:18 +00:00
+- 
+  created_at: 2010-12-03 20:55:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за вашу поддержку!"
+  tr_key: "Thank you for your support!"
+  tr_origin: /app/views/goodies/thank_you.html.erb
+  updated_at: 2011-01-03 22:36:12 +00:00
+- 
+  created_at: 2010-12-03 20:55:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} запрашивает дополнительную информацию о вас для доставки добряка: {{question}}"
+  tr_key: "{{user}} asked you about your personal info for goodies receiving: {{question}}"
+  tr_origin: /app/views/activity_notifier/_alert_tps_participant_was_questioned.rhtml
+  updated_at: 2010-12-30 10:59:16 +00:00
+- 
+  created_at: 2010-12-03 20:55:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда ваш платёж будет подтверждён, вам придёт запрос на почтовые данные."
+  tr_key: "Once your payment is confirmed, you will receive a shipping information request."
+  tr_origin: /app/views/goodies/thank_you.html.erb
+  updated_at: 2011-01-03 18:46:01 +00:00
+- 
+  created_at: 2010-12-03 20:55:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы обзавелись добряком и тем самым оказали поддержку нашей музыке {{album}}, спасибо вам."
+  tr_key: "Thank you for supporting our music by paying for goodie of {{album}}."
+  tr_origin: /app/views/goodies/participant_dialogue.html.erb
+  updated_at: 2011-01-03 18:46:08 +00:00
+- 
+  created_at: 2010-12-03 20:55:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы обзавелись добряком и тем самым оказали поддержку нашей музыке {{album}}, спасибо вам."
+  tr_key: "Thank you for supporting our music by paying for a goodie from {{album}}."
+  tr_origin: /app/views/activity_notifier/_alert_tps_participant_info_request_sent.rhtml
+  updated_at: 2011-01-03 18:46:13 +00:00
+- 
+  created_at: 2010-12-03 20:54:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: " Вы обзавелись добряком и тем самым оказали поддержку нашей музыке {{album}}, спасибо вам. "
+  tr_key: "Thank you for supporting our music by paying for goodie from {{album}}."
+  tr_origin: /app/views/goodies/submit_info.html.erb
+  updated_at: 2011-01-03 18:45:36 +00:00
+- 
+  created_at: 2010-12-03 21:23:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сбор средств для этого Кредита Порога Доверия окончен, но вы можете приобрести добряки на странице проекта {{project}}"
+  tr_key: "This pledge is over but you can still get the goodies on {{project}} Goodies page"
+  tr_origin: /app/views/content/show.html.erb
+  updated_at: 2011-01-03 18:45:29 +00:00
+- 
+  created_at: 2010-09-05 16:22:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_or_project}} {{name}} приглашает вас присоединиться к их кругу \"{{circle_name}}\" сообщества Kroogi.com"
+  tr_key: "Kroogi {{user_or_project}} {{name}} wants you to join their circle of \"{{circle_name}}\" in Kroogi community"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:35:20 +00:00
+- 
+  created_at: 2010-12-09 08:45:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user_or_project}} {{name}} приглашает вас присоединиться к их кругу \"{{circle_name}}\" сообщества Kroogi"
+  tr_key: "Kroogi {{user_or_project}} {{name}} wants you to join their \"{{circle_name}}\" circle on Kroogi"
+  tr_origin: /app/views/invite_notifier/invite_notification.text.plain.erb
+  updated_at: 2010-12-30 10:59:11 +00:00
+- 
+  created_at: 2009-02-26 11:13:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "станет невидимым для всех пользователей. Кроме тех, кто получит от вас приглашение, и тех, кто уже находится в ваших кругах"
+  tr_key: "will become hidden from all users who aren't either invited or already in your circles:"
+  tr_origin: ~
+  updated_at: 2011-01-03 19:35:07 +00:00
+- 
+  created_at: 2009-10-15 19:12:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Перевести средства на ваш счёт {{payment_system_type}}?"
+  tr_key: "Withdraw to my {{payment_system_type}} account"
+  tr_origin: ~
+  updated_at: 2011-01-03 22:40:23 +00:00
+- 
+  created_at: 2010-07-08 21:43:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} в вашем круге {{circle_name}}"
+  tr_key: "{{someone}} is in your {{circle_name}} circle"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2011-01-03 22:35:59 +00:00
+- 
+  created_at: 2010-07-08 21:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{someone}} нет в ваших кругах"
+  tr_key: "{{someone}} is not in any of your circles"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2011-01-03 22:35:54 +00:00
+- 
+  created_at: 2010-12-01 08:28:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На этом месте должен быть наш загрузчик файлов. Либо у вас не работает Flash, либо была остановлена загрузка страницы. "
+  tr_key: "Oops! Looks like Flash doesn't work in your browser, or page loading is terminated. Otherwise you would see our uploader tool here."
+  tr_origin: ~
+  updated_at: 2010-12-30 11:01:22 +00:00
+- 
+  created_at: 2010-12-20 07:20:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В какую папку вы хотите загрузить файлы"
+  tr_key: "What folder do you want to upload files to"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2011-01-03 18:45:03 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Удалить из ваших кругов"
+  tr_key: "Remove from your Kroogi"
+  tr_origin: /app/views/user/edit_founder.html.erb
+  updated_at: 2011-01-03 22:32:34 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы должны поручиться, что владеете авторскими правами на этот материал, или что у вас есть разрешение владельца авторских прав."
+  tr_key: "You have to certify that you own copyrights to this file, or have the owner's permission."
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2010-12-30 10:48:55 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пригласить в ваши Kруги"
+  tr_key: "Invite to your Circles"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 19:42:03 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Перетаскивая имена, вы можете расположить элементы в нужном порядке"
+  tr_key: "Drag name to change position on Kroogi Page"
+  tr_origin: /app/views/user/founders_display_options.html.erb
+  updated_at: 2011-01-03 12:44:32 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если приглашение принято, получатель становится вашим зрителем и получает доступ ко всем материалам, доступным этому кругу."
+  tr_key: "Upon acceptance, they will join your circle and will have access to everything that is available to the circle members."
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 12:32:18 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за то время, которое вы провели с нами."
+  tr_key: "Thank you for the time you spent with us."
+  tr_origin: /app/views/user_notifier/account_deleted.rhtml
+  updated_at: 2011-01-03 12:38:51 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "К какому кругу вы хотели бы присоединиться?"
+  tr_key: "What circle do you want to join?"
+  tr_origin: /app/views/kroogi/join_circles.html.erb
+  updated_at: 2011-01-03 18:44:13 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У вас нет доступа к этому материалу"
+  tr_key: "You are not permitted to view that content"
+  tr_origin: /app/controllers/kroogi_controller.rb
+  updated_at: 2010-12-30 10:47:31 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Поменять названия ваших кругов."
+  tr_key: "Change names of your circles."
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-03 19:41:39 +00:00
+- 
+  created_at: 2008-08-22 01:10:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s приглашает вас присоединиться к этому кругу"
+  tr_key: "%s has invited you to join this circle"
+  tr_origin: /app/views/kroogi/_join_this_kroog.html.erb
+  updated_at: 2010-12-30 10:58:24 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s уже находится в вашем ближайшем кругу"
+  tr_key: "%s is already in your innermost circle"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 21:58:34 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Каким образом вы хотели бы получать уведомления?"
+  tr_key: "How do you want to receive email notifications?"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-03 12:48:36 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запрос не был отправлен: вы уже находитесь в ближайшем круге"
+  tr_key: "No request sent: you are already as close as you can get"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 12:35:08 +00:00
+- 
+  created_at: 2008-08-21 18:24:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Какие уведомления вы бы хотели получать электропочтой?"
+  tr_key: "What email notifications do you want to receive?"
+  tr_origin: /app/views/preference/emails.html.erb
+  updated_at: 2011-01-03 12:39:52 +00:00
+- 
+  created_at: 2008-08-21 18:24:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш новый пароль был отправлен по указанному адресу"
+  tr_key: "Your password has been reset and emailed to the address you provided"
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-03 12:40:33 +00:00
+- 
+  created_at: 2008-08-22 18:30:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Использовать как портрет"
+  tr_key: "Use as Kroogi picture"
+  tr_origin: ~
+  updated_at: 2011-01-03 12:20:26 +00:00
+- 
+  created_at: 2008-09-03 13:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У вас нет полномочий для выполнения этой операции"
+  tr_key: "You don't have permission to access that action"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2010-12-30 10:48:19 +00:00
+- 
+  created_at: 2008-09-03 13:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "отклонил приглашение в ваш круг \"%s\""
+  tr_key: "declined the invitation to your %s Circle"
+  tr_origin: /app/views/activity/messages/_invite_denied.html.erb
+  updated_at: 2011-01-03 22:15:04 +00:00
+- 
+  created_at: 2008-09-08 08:18:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В благодарность за ваш взнос, %s дарит вам свой альбом!"
+  tr_key: "Your contribution to %s has earned you a music album!"
+  tr_origin: /app/views/activity_notifier/content_purchase.rhtml
+  updated_at: 2011-01-03 19:44:39 +00:00
+- 
+  created_at: 2008-09-08 19:50:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "После того, как вы войдёте в систему, вы найдёте инструкции на странице %s."
+  tr_key: "Once you have successfully signed in, please return to \"%s\" for download instructions."
+  tr_origin: /app/views/invite_notifier/siteinvite_notification.rhtml
+  updated_at: 2011-01-03 12:51:52 +00:00
+- 
+  created_at: 2008-09-10 15:48:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ссылка на файлы появится в разделе  \"Сообщения\" вашего профиля."
+  tr_key: "A link to download the content is on your messages page."
+  tr_origin: /app/controllers/content_controller.rb
+  updated_at: 2011-01-03 22:21:43 +00:00
+- 
+  created_at: 2008-09-12 12:16:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Владелец авторских прав должен быть указан. Введите имя держателя прав или своё имя в Кругах, если права принадлежат Вам"
+  tr_key: "Copyright owner field cannot be empty. Please enter either your Kroogi name, or the name of the copyright holder"
+  tr_origin: /app/views/submit/writing.html.erb
+  updated_at: 2011-01-03 22:23:38 +00:00
+- 
+  created_at: 2008-09-17 01:05:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выберите свою страну из списка внизу"
+  tr_key: "Select your country from the list below"
+  tr_origin: /app/views/donate/movable_broker/_form.html.erb
+  updated_at: 2011-01-03 12:38:30 +00:00
+- 
+  created_at: 2008-09-18 14:55:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s открыл вам доступ в свой круг \"%s\""
+  tr_key: "%s has granted you access to their %s Circle."
+  tr_origin: /app/views/activity_notifier/_alert_getcloser_granted.html.erb
+  updated_at: 2011-01-03 12:36:22 +00:00
+- 
+  created_at: 2008-09-22 10:38:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо, ваш отзыв отправлен"
+  tr_key: "Thanks, your report's been submitted"
+  tr_origin: /app/controllers/moderate_controller.rb
+  updated_at: 2011-01-03 19:42:43 +00:00
+- 
+  created_at: 2008-10-09 23:09:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша регистрация активирована, вы вошли на сайт."
+  tr_key: "Your account is activated, and you have been logged in."
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-03 12:31:18 +00:00
+- 
+  created_at: 2008-10-10 20:34:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша регистрационная запись была удалена из Кругов"
+  tr_key: "Your account, %s, has been deleted from the Kroogi Network."
+  tr_origin: /app/views/user_notifier/account_deleted.rhtml
+  updated_at: 2011-01-03 19:44:26 +00:00
+- 
+  created_at: 2008-10-17 21:41:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: все функции, свзанные с переводом денег, будут отключены до тех пор, пока Круги не проверят подлючение ваших платёжных систем."
+  tr_key: "Note: all money-related functionality will be turned off until your payment system connection information is validated by Kroogi."
+  tr_origin: /app/views/account_settings/_wizard_form_footer.html.erb
+  updated_at: 2011-01-03 12:35:38 +00:00
+- 
+  created_at: 2008-10-17 21:41:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваши круги &mdash; это способ собрать ваших зрителей вокруг вас."
+  tr_key: "Your Kroogi circles are your way to organize your fanbase around you."
+  tr_origin: /app/views/project/wizard_circles.html.erb
+  updated_at: 2010-12-30 10:57:34 +00:00
+- 
+  created_at: 2008-10-17 21:41:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы настроили ваши круги в соответствии с тем типом проекта, который вы выбрали."
+  tr_key: "We pre-set circles according to the project type you selected."
+  tr_origin: /app/views/project/wizard_circles.html.erb
+  updated_at: 2011-01-03 18:39:41 +00:00
+- 
+  created_at: 2008-10-06 22:52:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы никого не выбрали &mdash; пожалуйста, попробуйте ещё раз."
+  tr_key: "No users selected to invite -- please try again"
+  tr_origin: /app/controllers/invite_controller.rb
+  updated_at: 2011-01-03 12:56:33 +00:00
+- 
+  created_at: 2008-10-06 22:52:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы должны выбрать или ввести причину вашей жалобы"
+  tr_key: "Must either select or describe the reason for your report"
+  tr_origin: /app/models/moderation/event.rb
+  updated_at: 2011-01-03 12:57:37 +00:00
+- 
+  created_at: 2008-10-06 22:52:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Уже приглашён в ваш круг \"%s\" или ближе (повторное приглашение не высылается)"
+  tr_key: "Already invited to your %s Circle or closer (will not be reinvited)"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 18:37:07 +00:00
+- 
+  created_at: 2008-10-06 22:52:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Уже в вашем круге \"%s\" или ближе (приглашение не выслано)"
+  tr_key: "Already in your %s Circle or closer (will not be invited)"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 12:42:32 +00:00
+- 
+  created_at: 2008-10-06 22:52:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы пользоваться Кругами, вы должны подтвердить свой e-mail адрес, завершив активацию"
+  tr_key: "To use Kroogi, you must verify your email address by completing the activation step"
+  tr_origin: /app/views/home/activate.html.erb
+  updated_at: 2011-01-03 12:45:42 +00:00
+- 
+  created_at: 2008-10-10 11:46:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "приглашает ваш проект %s"
+  tr_key: "has invited your project %s"
+  tr_origin: /app/views/activity_notifier/_alert_invitation_sent.rhtml
+  updated_at: 2011-01-03 21:56:18 +00:00
+- 
+  created_at: 2008-10-10 11:46:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "поставил закладку на материал (%s \"%s\") вашего проекта %s"
+  tr_key: "added the %s %s from your project %s as a favorite"
+  tr_origin: /app/views/activity_notifier/_alert_favorite.rhtml
+  updated_at: 2011-01-03 22:24:24 +00:00
+- 
+  created_at: 2008-10-10 11:46:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "приглашает вас"
+  tr_key: "has invited you"
+  tr_origin: /app/views/activity_notifier/_alert_invitation_sent.rhtml
+  updated_at: 2010-12-30 10:56:45 +00:00
+- 
+  created_at: 2008-10-10 11:46:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "оставил приветствие на стене вашего проекта %s"
+  tr_key: "left a greeting on the Wall of your project %s"
+  tr_origin: /app/views/activity_notifier/_alert_greeting.rhtml
+  updated_at: 2011-01-03 22:35:39 +00:00
+- 
+  created_at: 2008-10-10 11:46:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ответил на ваш комментарий на %s %s %s"
+  tr_key: "replied to your comment on %s %s %s"
+  tr_origin: /app/views/activity_notifier/_alert_comment_reply.rhtml
+  updated_at: 2011-01-03 22:17:50 +00:00
+- 
+  created_at: 2008-10-10 11:46:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "к кругу %s вашего проекта %s."
+  tr_key: "the %s circle of your project %s."
+  tr_origin: /app/views/activity_notifier/_alert_getcloser.rhtml
+  updated_at: 2011-01-03 22:08:18 +00:00
+- 
+  created_at: 2008-10-10 11:46:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Открыть ваш круг \"%s\""
+  tr_key: "View your %s Circle"
+  tr_origin: /app/views/activity_notifier/_alert_friend.rhtml
+  updated_at: 2011-01-03 12:28:50 +00:00
+- 
+  created_at: 2008-10-10 11:46:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ответил на ваш комментарий на: %s %s %s, оставленный вашим проектом %s"
+  tr_key: "replied to a comment on %s %s %s, left by your project %s"
+  tr_origin: /app/views/activity_notifier/_alert_comment_reply.rhtml
+  updated_at: 2011-01-03 19:42:38 +00:00
+- 
+  created_at: 2008-10-10 14:52:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "оставил приветствие на стене вашей %s"
+  tr_key: "left a greeting on the Wall of your %s"
+  tr_origin: /app/views/activity_notifier/_alert_greeting.rhtml
+  updated_at: 2011-01-03 22:23:58 +00:00
+- 
+  created_at: 2008-10-13 16:39:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ссылка на ваш профиль в Кругах опубликована на странице %s"
+  tr_key: "Your Kroogi is featured on the %s page"
+  tr_origin: /app/views/activity/messages/_project_featured.html.erb
+  updated_at: 2011-01-03 22:18:40 +00:00
+- 
+  created_at: 2008-10-14 17:36:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "повторно приглашает ваш проект %s"
+  tr_key: "has reinvited your project %s"
+  tr_origin: /app/views/activity_notifier/_alert_invitation_sent.rhtml
+  updated_at: 2011-01-03 19:42:59 +00:00
+- 
+  created_at: 2008-10-14 17:36:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "повторно приглашает вас"
+  tr_key: "has reinvited you"
+  tr_origin: /app/views/activity_notifier/_alert_invitation_sent.rhtml
+  updated_at: 2010-12-30 10:51:17 +00:00
+- 
+  created_at: 2008-10-15 15:16:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница проекта вновь доступна, вы снова сможете действовать от лица проекта"
+  tr_key: "The project's Kroogi Page is now accessible to anyone, and you will be able to act on its behalf"
+  tr_origin: /app/views/user_notifier/account_restored.rhtml
+  updated_at: 2011-01-03 12:44:58 +00:00
+- 
+  created_at: 2008-10-15 15:16:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница проекта будет недоступна для посетителей и вы больше не сможете действовать от лица проекта\n"
+  tr_key: "The project's Kroogi Page will no longer be accessible to anyone, and you will no longer be able to act on its behalf"
+  tr_origin: /app/views/user_notifier/account_blocked.rhtml
+  updated_at: 2011-01-03 13:01:20 +00:00
+- 
+  created_at: 2008-10-15 15:16:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша страница вновь доступна, вы снова можете входить в систему, когда захотите"
+  tr_key: "Your Kroogi Page is now accessible, and you can log in whenever you'd like"
+  tr_origin: /app/views/user_notifier/account_restored.rhtml
+  updated_at: 2011-01-03 12:45:06 +00:00
+- 
+  created_at: 2008-10-15 15:16:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша страница будет недоступна для посетителей, вы не можете заходить в систему и регистрироваться заново"
+  tr_key: "Your Kroogi Page will no longer be accessible to anyone, and you will be unable to log in or create another account"
+  tr_origin: /app/views/user_notifier/account_blocked.rhtml
+  updated_at: 2011-01-03 12:35:22 +00:00
+- 
+  created_at: 2008-10-15 17:03:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Активировать регистрацию не удалось. Пожалуйста, проверьте код активации (его можно ввести вручную)&hellip; а может быть, ваша регистрация уже активирована?"
+  tr_key: "Unable to activate the account.  Please check again or enter manually... or have you already completed activation?"
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-03 19:40:22 +00:00
+- 
+  created_at: 2008-10-17 16:46:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s %s присоединился к кругу \"%s\" вашего проекта %s"
+  tr_key: "%s %s has joined the \"%s\" circle of your project %s"
+  tr_origin: /app/views/activity_notifier/_alert_friend.rhtml
+  updated_at: 2011-01-03 19:41:05 +00:00
+- 
+  created_at: 2008-10-21 19:06:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s%s приглашает вас присоединиться к сети \"Круги\""
+  tr_key: "You have been invited to join the Kroogi Network by %s%s"
+  tr_origin: /app/views/invite_notifier/siteinvite_notification.rhtml
+  updated_at: 2010-12-30 10:56:15 +00:00
+- 
+  created_at: 2008-10-21 19:06:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Приглашения будут от вашего лица, но не в какой-либо из Ваших кругов &mdash; просто в сеть"
+  tr_key: "The invite will be from you, but it won't ask them to join any of your circles &mdash; just the network in general"
+  tr_origin: /app/views/invite/new.html.erb
+  updated_at: 2011-01-03 22:19:55 +00:00
+- 
+  created_at: 2008-11-03 16:56:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "ответил на вашу запись в форуме круга \"%s\" %s"
+  tr_key: "replied to your forum post in %s circle of %s"
+  tr_origin: /app/views/activity/messages/_comment_made_or_replied_to.html.erb
+  updated_at: 2011-01-03 19:40:46 +00:00
+- 
+  created_at: 2008-11-25 05:01:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вопросы по поводу этой услуги вы можете задать на %s."
+  tr_key: "If you have any problems using this service, you can get help at the %s."
+  tr_origin: /app/views/donate/movable_broker/_form.html.erb
+  updated_at: 2011-01-03 12:57:10 +00:00
+- 
+  created_at: 2008-11-07 16:31:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы представляем вашу страницу посетителям"
+  tr_key: "Your Kroogi has been featured by the Kroogi admins"
+  tr_origin: /app/views/activity_notifier/_alert_project_featured.rhtml
+  updated_at: 2011-01-03 22:31:37 +00:00
+- 
+  created_at: 2008-11-19 17:01:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Все зрители из этого и ближних кругов получат сообщение и уведомление электропочтой. Некоторые наверняка не обрадуются, если вы станете злоупотреблять этой возможностью. Вы настаиваете, что это необходимо?"
+  tr_key: "All members of this and closer circles will receive a Kroogi message and an email notification. Some of the viewers might get annoyed with you, if this feature is overused. Are you sure you want to send this broadcast?"
+  tr_origin: /app/views/comments/_comment_form.rhtml
+  updated_at: 2011-01-03 18:36:56 +00:00
+- 
+  created_at: 2008-11-29 14:02:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выберите, какие проекты вы хотите показывать посетителям своей страницы в Кругах"
+  tr_key: "Select which projects to show on your Kroogi Page"
+  tr_origin: /app/views/preference/project_display.html.erb
+  updated_at: 2011-01-03 12:47:14 +00:00
+- 
+  created_at: 2008-12-10 00:40:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "поэтому ваша учётная запись может появляться не сразу"
+  tr_key: "so your account may not appear immediately"
+  tr_origin: /app/views/activity_notifier/_alert_project_featured.rhtml
+  updated_at: 2011-01-03 19:42:13 +00:00
+- 
+  created_at: 2008-12-10 00:41:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы подключить ЖЖ, нам понадобятся ваши имя пользователя и пароль"
+  tr_key: "In order to integrate your LiveJournal blog, we will need your credentials"
+  tr_origin: /app/views/blog/_user_text.rhtml
+  updated_at: 2011-01-03 21:56:41 +00:00
+- 
+  created_at: 2008-12-10 00:41:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы подключить ЖЖ вашего сообщества, нам понадобятся название сообщества, а также имя и пароль одного из модераторов"
+  tr_key: "In order to integrate your LJ blog, you will need to provide your moderator LJ credentials here and the community which you would like to import"
+  tr_origin: /app/views/blog/_project_text.html.erb
+  updated_at: 2011-01-03 22:32:15 +00:00
+- 
+  created_at: 2008-12-10 21:53:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы начать или приостановить рассылку этого проекта на ваше имя, перейдите к настройкам на вашей %s странице"
+  tr_key: "To start or stop receiving email on behalf of this project, visit your own %s page"
+  tr_origin: /app/views/preference/project_emails.html.erb
+  updated_at: 2011-01-03 21:55:48 +00:00
+- 
+  created_at: 2008-12-15 15:06:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вам было выслано сообщение с ссылкой на интересующий вас трек (\"%s\"). "
+  tr_key: "You have been sent a Kroogi message with a link to download the requested track (\"%s\")."
+  tr_origin: /app/views/content/download.rhtml
+  updated_at: 2011-01-03 12:55:05 +00:00
+- 
+  created_at: 2008-12-18 23:17:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выберите пожалуйста какие записи своего ЖЖ  вы %s хотели бы показывать, и кто сможет их просматривать."
+  tr_key: "Please select which type of LiveJournal entries you %s would like to display, and who may view them."
+  tr_origin: /app/views/blog/_lj_comm_account.rhtml
+  updated_at: 2011-01-03 12:39:13 +00:00
+- 
+  created_at: 2008-12-20 00:47:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На данный момент у вас нет ни одной просьбы о приглашении, соответствующей запросу"
+  tr_key: "You have no matching invitation requests at the moment"
+  tr_origin: /app/views/activity/invitations.html.erb
+  updated_at: 2010-12-30 10:58:13 +00:00
+- 
+  created_at: 2008-12-20 00:47:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На данный момент у вас нет ни одной просьбы о приглашении, соответствующей запросу"
+  tr_key: "You have no matching invitations at the moment"
+  tr_origin: /app/views/activity/invitations.html.erb
+  updated_at: 2010-12-30 10:53:42 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда вы зарегистрируетесь и примете это приглашение, Вы станете совладельцем проекта \"%s\", наряду с остальными его кураторами"
+  tr_key: "Once you join and accept this invitation, you will have joint ownership of the project \"%s\" with other hosts"
+  tr_origin: /app/views/invite_notifier/invite_founder_notification.rhtml
+  updated_at: 2011-01-03 12:41:41 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проект %s (%s) приглашает вас стать одним из его кураторов."
+  tr_key: "Kroogi project %s (%s) has invited you to become one of its hosts."
+  tr_origin: /app/views/activity_notifier/_alert_founder_invitation_sent.rhtml
+  updated_at: 2010-12-30 10:50:48 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: чтобы настроить отображение вашего имени на странице проекта в списке \"Кураторы проекта\""
+  tr_key: "Note: to control whether a given project lists you as a host on the project's Kroogi Page"
+  tr_origin: /app/views/preference/project_display.html.erb
+  updated_at: 2011-01-03 21:57:25 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проект %s, куратором которого вы являлись, был удалён."
+  tr_key: "Project %s, of which you were a host, has been deleted."
+  tr_origin: /app/views/user_notifier/project_deleted.rhtml
+  updated_at: 2011-01-03 12:39:19 +00:00
+- 
+  created_at: 2008-12-25 02:02:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проект %s приглашает вас стать его куратором"
+  tr_key: "Kroogi project %s invited you to be a project host"
+  tr_origin: /app/views/invite_notifier/invite_founder_notification.rhtml
+  updated_at: 2010-12-30 10:57:40 +00:00
+- 
+  created_at: 2008-12-25 02:02:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Здесь вы можете выбрать, какие проекты будут видны на странице профиля в списке \"Куратор проектов\""
+  tr_key: "Control which projects are shown on your Kroogi Page under \"Host Of\""
+  tr_origin: /app/views/preference/project_display.html.erb
+  updated_at: 2011-01-03 12:53:58 +00:00
+- 
+  created_at: 2008-12-25 19:38:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Поздравляем, вы присоединились к сети Круги!"
+  tr_key: "You've successfully joined the Kroogi Network!"
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-03 18:40:16 +00:00
+- 
+  created_at: 2009-01-07 02:19:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В свою очередь, мы вышлем такую же сумму вам."
+  tr_key: "In return we will send the same amount to you."
+  tr_origin: /app/views/monetary_processor_accounts/paypal/verify.html.erb
+  updated_at: 2011-01-03 12:27:24 +00:00
+- 
+  created_at: 2009-01-12 17:36:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за ваш отзыв"
+  tr_key: "Thank you for Feedback"
+  tr_origin: /app/views/admin/feedback/index.html.erb
+  updated_at: 2011-01-03 22:33:42 +00:00
+- 
+  created_at: 2009-01-19 22:56:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не забудьте присоединить файл для загрузки вашего альбома!"
+  tr_key: "Don't forget to attach a file to be downloaded!"
+  tr_origin: /app/controllers/submit_controller.rb
+  updated_at: 2011-01-03 22:35:34 +00:00
+- 
+  created_at: 2009-01-22 11:59:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Просмотр этого события для вас не доступен"
+  tr_key: "You are not authorized to see this event"
+  tr_origin: /app/views/user/activity.html.erb
+  updated_at: 2010-12-30 10:50:42 +00:00
+- 
+  created_at: 2009-01-28 08:59:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не удаётся получить информацию о вашем счёте WebMoney"
+  tr_key: "Unable to update your WebMoney account information"
+  tr_origin: /app/controllers/monetary_processor_accounts/webmoney_controller.rb
+  updated_at: 2011-01-03 19:45:33 +00:00
+- 
+  created_at: 2009-01-31 20:25:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "передал %s '%s' в ваш альбом '%s'"
+  tr_key: "submitted the %s '%s' to your folder '%s'"
+  tr_origin: /app/views/activity/messages/_inbox_submission_received.html.erb
+  updated_at: 2011-01-03 22:34:47 +00:00
+- 
+  created_at: 2009-01-31 20:25:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если материал передан в альбомы других участников, вы не сможете поменять уровень доступа до тех пор, пока материал находится в чужих альбомах."
+  tr_key: "Once an item is submitted, you cannot change its security until all its submissions have been withdrawn."
+  tr_origin: /app/views/content/_inbox_content.html.erb
+  updated_at: 2011-01-03 12:42:38 +00:00
+- 
+  created_at: 2009-02-04 12:15:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "При добавлении ваших собственных правил произошла ошибка"
+  tr_key: "Error adding your new terms!"
+  tr_origin: /app/controllers/admin/digital_download_controller.rb
+  updated_at: 2011-01-03 12:51:33 +00:00
+- 
+  created_at: 2009-02-04 12:15:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить свои собственные правила"
+  tr_key: "Added your new terms"
+  tr_origin: /app/controllers/admin/digital_download_controller.rb
+  updated_at: 2011-01-03 12:49:10 +00:00
+- 
+  created_at: 2009-02-12 11:03:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Разрешить %s использовать это в своих материалах (упоминая вас, как владельца оригинала)"
+  tr_key: "Allow %s to use this content in their showcase (with text noting you as the original owner)"
+  tr_origin: /app/views/submit/_permissions.rhtml
+  updated_at: 2010-12-30 10:51:12 +00:00
+- 
+  created_at: 2009-02-25 23:13:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш платёж был получен – теперь ваш счёт ожидает подтверждения"
+  tr_key: "Your payment has been received - now waiting for an admin to verify your account"
+  tr_origin: /app/views/monetary_processor_accounts/paypal/_show_admin.html.erb
+  updated_at: 2011-01-03 22:35:19 +00:00
+- 
+  created_at: 2009-02-25 23:13:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уже отправили деньги Кругам. Ваш счёт ожидает подтверждения администрацией сайта."
+  tr_key: "You've already sent money to Kroogi. Now waiting for admins to verify your account."
+  tr_origin: /app/controllers/monetary_processor_accounts/paypal_controller.rb
+  updated_at: 2011-01-03 12:52:51 +00:00
+- 
+  created_at: 2009-02-25 23:13:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "При попытке отсоединить ваш PayPal произошла ошибка"
+  tr_key: "Error disconnecting your PayPal account"
+  tr_origin: /app/controllers/account_settings_controller.rb
+  updated_at: 2011-01-03 22:15:15 +00:00
+- 
+  created_at: 2009-02-25 23:13:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы уже отправляли нам $0.02 USD, пожалуйста не делайте этого снова."
+  tr_key: "If you already sent us $0.02 USD, please do not send it again."
+  tr_origin: /app/views/monetary_processor_accounts/paypal/verify.html.erb
+  updated_at: 2011-01-03 12:45:53 +00:00
+- 
+  created_at: 2009-02-25 23:13:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нельзя включить коллекцию '%s' в '%s'. Последняя является частью той коллекции, которую вы попытались присоединить. Нам ведь не нужен замкнутый круг? Порядок влючения: %s."
+  tr_key: "Cannot add collection '%s' to '%s'. The later is already included in former indirectly so that would create a circular dependency. Inclusion path: %s."
+  tr_origin: /app/models/project_as_content.rb
+  updated_at: 2011-01-03 12:43:04 +00:00
+- 
+  created_at: 2009-02-25 23:13:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш WebMoney кошелёк был присоединён, для завершения введите свой код активации."
+  tr_key: "Your WebMoney purse has been attached, please enter your activation code to complete the process."
+  tr_origin: /app/controllers/monetary_processor_accounts/webmoney_controller.rb
+  updated_at: 2011-01-03 19:43:31 +00:00
+- 
+  created_at: 2009-02-25 23:13:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нельзя включить коллекцию '%s' в '%s'. Последняя является частью той коллекции, которую вы попытались присоединить. Нам ведь не нужен замкнутый круг?"
+  tr_key: "Cannot add collection '%s' to '%s'. The later is already included in former so that would create a circular dependency."
+  tr_origin: /app/models/project_as_content.rb
+  updated_at: 2011-01-03 12:27:08 +00:00
+- 
+  created_at: 2009-02-28 03:46:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Введите имена в Кругах, реальные имена или адреса электропочты, через запятые. Обратите внимание, что вы не можете высылать приглашения Коллекциям."
+  tr_key: "Enter Kroogi names, display names, or email addresses, separated by commas. Note that you cannot invite a Collection"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-03 18:43:45 +00:00
+- 
+  created_at: 2009-02-28 15:54:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s говорит вам спасибо за оказанную поддержку и предлагает скачать '%s'"
+  tr_key: "%s thanks you for your contribution and has allowed you to download '%s'"
+  tr_origin: /app/views/user_notifier/inrainbows_email_notification.html.erb
+  updated_at: 2011-01-03 12:32:56 +00:00
+- 
+  created_at: 2009-03-10 13:06:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "поставил закладку на ваш %s материал %s "
+  tr_key: "added your %s %s as a favorite"
+  tr_origin: /app/views/activity_notifier/_alert_favorite.rhtml
+  updated_at: 2011-01-03 21:56:08 +00:00
+- 
+  created_at: 2009-03-12 11:47:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это уже находится в ваших Кругах"
+  tr_key: "You have already taken this to your Kroogi"
+  tr_origin: /app/views/content/_inbox_item.html.erb
+  updated_at: 2011-01-03 22:34:52 +00:00
+- 
+  created_at: 2009-03-17 14:47:02 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: владелец альбома сможет распоряжаться на своё усмотрение любыми переданными материалами (упоминая вас, как владельца оригинала) "
+  tr_key: "Note: This folder's owner will be able to take any item submitted as their own (with text noting you as the original owner)"
+  tr_origin: /app/views/submit/_permissions.rhtml
+  updated_at: 2010-12-30 10:47:13 +00:00
+- 
+  created_at: 2009-03-19 13:58:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нам не удалось авторизовать вас. Проверьте верны ли ваши имя и пароль."
+  tr_key: "We could not log you in. Are you sure you specified correct Kroogi Name and Password?"
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2010-12-30 10:56:49 +00:00
+- 
+  created_at: 2009-03-19 13:58:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "%s разместил ваш %s материал '%s'  у себя"
+  tr_key: "%s adopted your old %s '%s' as their own content item"
+  tr_origin: /app/views/activity_notifier/_alert_content_item_adopted.rhtml
+  updated_at: 2011-01-03 22:23:19 +00:00
+- 
+  created_at: 2009-03-19 13:58:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "благодарит вас за поддержку, оказанную %s"
+  tr_key: "thanks you for your contribution made for %s"
+  tr_origin: /app/views/activity/messages/_content_purchased.html.erb
+  updated_at: 2010-12-30 10:50:52 +00:00
+- 
+  created_at: 2009-03-19 13:58:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нам не удалось вас авторизовать. Введите своё имя в Кругах."
+  tr_key: "We could not log you in. Received Kroogi Name is empty."
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2010-12-30 10:48:24 +00:00
+- 
+  created_at: 2009-03-26 19:53:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста укажите свой почтовый адрес, если вы хотите присоединиться к %s"
+  tr_key: "Please leave your email address here if you wish to get connected to %s"
+  tr_origin: /app/views/content/_guest_invite_form.html.erb
+  updated_at: 2011-01-03 12:52:44 +00:00
+- 
+  created_at: 2009-04-14 19:39:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "К сожалению, нам не удалось обновить данные вашего ЖЖ, пожалуйста попробуйте повторить позднее."
+  tr_key: "Unable to update your LiveJournal account at this time, please try again later."
+  tr_origin: /app/controllers/blog_controller.rb
+  updated_at: 2011-01-03 22:32:41 +00:00
+- 
+  created_at: 2009-04-30 16:34:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Такое действие для вас недопустимо"
+  tr_key: "You don't have permissions to do that"
+  tr_origin: /app/controllers/user_controller.rb
+  updated_at: 2010-12-30 10:51:22 +00:00
+- 
+  created_at: 2009-06-13 13:42:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пароль пользователя был изменён. Пожалуйста запомните старый пароль (%s) если вы планируете вернуться к нему впоследствии."
+  tr_key: "User's password was changed. Please remember old crypted password (%s) if you consider reverting it back later."
+  tr_origin: /app/controllers/admin/users_controller.rb
+  updated_at: 2011-01-03 18:37:40 +00:00
+- 
+  created_at: 2009-06-13 13:42:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запрашиваемая функция пока недоступна. Как только она будет доработана, вы сможете ей воспользоваться"
+  tr_key: "The feature you requested is not yet complete.  It will be made available as soon as it is stable"
+  tr_origin: /app/controllers/admin/money_controller.rb
+  updated_at: 2011-01-03 12:37:21 +00:00
+- 
+  created_at: 2009-07-15 09:43:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Извините, нам не удалось активировать ваш счёт."
+  tr_key: "Sorry, we are unable to activate your account at this time."
+  tr_origin: /app/controllers/monetary_processor_accounts/webmoney_controller.rb
+  updated_at: 2011-01-03 19:41:21 +00:00
+- 
+  created_at: 2009-08-13 12:14:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "По адресам, которые вы укажете здесь, будут разосланы приглашения в сеть Круги"
+  tr_key: "Owners of the email addresses entered here will receive an invitation to join the Kroogi Network"
+  tr_origin: /app/views/invite/new.html.erb
+  updated_at: 2011-01-03 12:56:59 +00:00
+- 
+  created_at: 2009-08-23 18:09:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша копилка будет располагаться на странице вашего профиля в Кругах и позволит зрителям делать прямые денежные переводы на Ваши счета Paypal или Webmoney."
+  tr_key: "Your contribution basket will be located on your Kroogi Page and will allow your followers to make direct contributions to your PayPal or WebMoney account."
+  tr_origin: /app/views/account_settings/donation_basket.html.erb
+  updated_at: 2011-01-03 22:18:16 +00:00
+- 
+  created_at: 2009-08-23 18:09:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за вашу поддержку"
+  tr_key: "Thank you for your contribution"
+  tr_origin: /app/models/donation_setting.rb
+  updated_at: 2011-01-03 21:55:35 +00:00
+- 
+  created_at: 2009-08-23 18:09:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройте свою копилку"
+  tr_key: "Set up your contribution basket"
+  tr_origin: /app/views/account_settings/donation_basket.html.erb
+  updated_at: 2011-01-03 19:43:16 +00:00
+- 
+  created_at: 2009-08-24 13:43:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ссылку для загрузки вы найдёте на своей странице {{messages}}, или можно пройти по ссылке ниже"
+  tr_key: "You can find the download link on your {{messages}} page, or click the link below"
+  tr_origin: /app/helpers/content_helper.rb
+  updated_at: 2011-01-03 12:58:01 +00:00
+- 
+  created_at: 2009-08-24 15:25:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Модуль платежей на странице вашего профиля позволяет её посетителям делать однократные денежные взносы в поддержку Вашего творчества."
+  tr_key: "The Contribution Module on your Kroogi Page gives visitors an opportunity to make a one-time contribution to you."
+  tr_origin: /app/views/project/wizard_donations.html.erb
+  updated_at: 2011-01-03 22:34:22 +00:00
+- 
+  created_at: 2009-08-24 15:25:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подключите свои Kroogi к платёжным системам, если вы хотите получать финансовую поддержку."
+  tr_key: "Connect your Kroogi to online payment systems if you would like to receive contributions."
+  tr_origin: /app/views/project/wizard_payment.html.erb
+  updated_at: 2011-01-03 18:38:21 +00:00
+- 
+  created_at: 2009-08-24 15:25:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за вашу поддержку!"
+  tr_key: "Thank you for your contribution!"
+  tr_origin: /app/models/monetary_transaction_observer.rb
+  updated_at: 2011-01-03 22:22:27 +00:00
+- 
+  created_at: 2009-08-26 11:15:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователей, оказавших вам поддержку, можно пригласить в один из своих кругов."
+  tr_key: "You may invite users to one of your circles after they contribute."
+  tr_origin: /app/views/account_settings/_account_sponsorship_form.html.erb
+  updated_at: 2011-01-03 22:35:11 +00:00
+- 
+  created_at: 2009-08-26 17:23:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Обратите внимание, вы можете использовать только те счета, которые имеют статус {{start_strong}}Персонального Аттестата{{end_strong}} или выше."
+  tr_key: "Note that you can only use accounts with {{start_strong}}Personal Passport{{end_strong}} or higher."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:36:41 +00:00
+- 
+  created_at: 2009-08-26 17:23:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Теперь проверьте свои  {{start_strong}}WebMoney входящие, там находится письмо с кодом активации{{end_strong}}."
+  tr_key: "Now check your {{start_strong}}WebMoney Inbox for a message with activation code{{end_strong}}."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 22:23:15 +00:00
+- 
+  created_at: 2009-08-26 18:30:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "копилка %s подключена к платёжной системе"
+  tr_key: "%s's contribution basket account has been connected to a payment service"
+  tr_origin: /app/views/activity_notifier/_alert_donation_account_added.rhtml
+  updated_at: 2011-01-03 12:33:10 +00:00
+- 
+  created_at: 2009-09-01 13:40:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "была активирована. Теперь вы можете подключить платёжные системы (например, PayPal) и настроить приём взносов на своей странице, а также размещать объявления с прямыми ссылками на страницы оплаты."
+  tr_key: "have been activated. You may now add payment systems (e.g. PayPal) to your account, set up a contribution area on the Kroogi Page. or create announcements containing direct donation options."
+  tr_origin: /app/views/user_notifier/donations_approved.rhtml
+  updated_at: 2011-01-03 18:42:53 +00:00
+- 
+  created_at: 2009-09-01 13:40:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы благодарны вам за взнос в пользу %s и  приглашаем вас присоедниться к нашему сообществу"
+  tr_key: "We appreciate your contribution to %s, and would like to invite you to join our network"
+  tr_origin: /app/views/invite_notifier/invite_from_donation.rhtml
+  updated_at: 2010-12-30 10:49:36 +00:00
+- 
+  created_at: 2009-09-01 13:40:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователей, оказавших вам поддержку, можно пригласить в один из своих кругов."
+  tr_key: "You may invite users to one of your circles after contributing."
+  tr_origin: /app/views/admin/digital_download/new.html.erb
+  updated_at: 2011-01-03 22:14:44 +00:00
+- 
+  created_at: 2009-09-01 13:40:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать деньги, вам нужно настроить платежные системы Paypal или Webmoney!"
+  tr_key: "You need to set up PayPal or Webmoney in your account in order to allow contributions!"
+  tr_origin: /app/models/board.rb
+  updated_at: 2011-01-03 12:32:31 +00:00
+- 
+  created_at: 2009-09-05 15:13:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: вы можете использовать счета, имеющие {{start_strong}}Аттестат псевдонима{{end_strong}} или выше. "
+  tr_key: "Note that you can only use accounts with {{start_strong}}Anonymous Passport{{end_strong}} or higher."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:44:07 +00:00
+- 
+  created_at: 2009-09-05 15:13:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: вы можете использовать счета, имеющие {{start_strong}}Аттестат продавца{{end_strong}} или выше. "
+  tr_key: "Note that you can only use accounts with {{start_strong}}Merchant Passport{{end_strong}} or higher."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:38:53 +00:00
+- 
+  created_at: 2009-09-05 15:13:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание: вы можете использовать счета, имеющие любой тип аттестата. "
+  tr_key: "Note that you can use account with any Passport level."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 12:50:59 +00:00
+- 
+  created_at: 2009-09-05 15:13:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "К сожалению, нам не удалось активировать ваш WebMoney счёт, используя введённый вами WMID и код активации. "
+  tr_key: "Sorry, we were unable to activate your account with the provided WMID and activation code."
+  tr_origin: /app/controllers/monetary_processor_accounts/webmoney_controller.rb
+  updated_at: 2011-01-03 19:43:38 +00:00
+- 
+  created_at: 2009-09-07 05:58:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Во время рассмотрения вашего запроса возникли проблемы"
+  tr_key: "Sorry, we encountered a problem with your request."
+  tr_origin: /app/controllers/monetary_processor_accounts/webmoney_controller.rb
+  updated_at: 2011-01-03 19:45:04 +00:00
+- 
+  created_at: 2009-09-17 16:32:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "По истечении этого периода, вы сможете снять средства со счёта, используя свою платёжную систему"
+  tr_key: "Once the waiting period is over, you will be able to withdraw your contributions into attached payment system account"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 18:44:52 +00:00
+- 
+  created_at: 2009-09-17 16:32:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Из соображений безопасности ваши средства проведут на Kroogi счетах не менее 30 дней "
+  tr_key: "Kroogi will hold your contributions for 30 days or more for security reasons"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 22:33:37 +00:00
+- 
+  created_at: 2009-09-17 16:32:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Kroogi должны убедиться в том, что вы можете принимать платежи на свой счёт PayPal. Для этого мы отправим вам сумму $0.02, после того как получим такую же сумму ($0.02) от вас. Эта операция подтвердит, что ваш PayPal счёт <strong>верифицирован</strong>."
+  tr_key: "Kroogi wants to make sure that you can receive contributions to your PayPal account. We do it by sending you $0.02. But first we need to receive those $0.02 from you to make sure that your account is <strong>verified</strong>."
+  tr_origin: /app/views/monetary_processor_accounts/paypal/_attachment_form.html.erb
+  updated_at: 2010-12-30 10:53:37 +00:00
+- 
+  created_at: 2009-09-17 16:32:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Эту опцию всегда можно изменить, если вы захотите снимать деньги с другого счёта"
+  tr_key: "You can change your withdrawal account at any moment"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 12:54:15 +00:00
+- 
+  created_at: 2009-09-18 08:42:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы обзавелись кодом активации, вставьте его сюда."
+  tr_key: "If you have your activation code ready, just paste it here."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2011-01-03 18:43:52 +00:00
+- 
+  created_at: 2009-09-18 08:42:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "отправленный вами текст идентифицирует вашу транзакцию; мы не сможем узнать назначение вашего платежа, если вы ошибётесь при вводе СМС."
+  tr_key: "the text you send is used to link your payment with this transaction; if you mistype, there is no way for us to know the purpose of the payment."
+  tr_origin: /app/views/donate/movable_broker/_form.html.erb
+  updated_at: 2011-01-03 12:28:17 +00:00
+- 
+  created_at: 2009-09-21 08:43:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Круги будут получать платежи PayPal, WebMoney и SMS через Kroogi.com и платежи PayPal через Kroogi Downloads от вашего лица"
+  tr_key: "Kroogi will receive contributions on your behalf via PayPal, Webmoney, and SMS through Kroogi.com and PayPal through Kroogi Downloads"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 22:24:18 +00:00
+- 
+  created_at: 2009-09-21 08:53:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда все необходимые условия будут приняты, а платёжные системы (PayPal или WebMoney) подключены – с вашими Кругами произойдёт следующая метаморфоза:"
+  tr_key: "Once you validate your acceptance and successfully attach PayPal or Webmoney account the following will take place:"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 22:34:41 +00:00
+- 
+  created_at: 2009-09-22 17:06:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нажмите на кнопку, чтобы получить доступ к кошелькам. Вы будете <b>переадресованы на страницу WebMoney</b>, где выберете необходимый кошелёк (Z) и отметите маркеры со всеми доступами. После завершения операции вас переведут обратно на страницу Kroogi."
+  tr_key: "Click on the button below to set purse permissions. You will be <b>directed to WebMoney screen</b> where you will select purse and set its permissions. You must enable all available permissions. Once done you will be directed back to Kroogi."
+  tr_origin: /app/views/monetary_processor_accounts/webmoney_usd/_attachment_form.html.erb
+  updated_at: 2010-12-30 10:49:26 +00:00
+- 
+  created_at: 2009-09-22 17:06:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста, убедитесь в том, что ваш счёт верифицирован и способен отправлять и получать платежи."
+  tr_key: "Please make sure your account is verified and can send and receive payments."
+  tr_origin: /app/views/monetary_processor_accounts/paypal/_attachment_form.html.erb
+  updated_at: 2011-01-03 19:40:41 +00:00
+- 
+  created_at: 2009-09-29 15:00:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш модуль платежей появится на этом месте, когда Kroogi администраторы подтвердят ваши настройки."
+  tr_key: "Your contribution module will appear here once the Kroogi admins enable your money settings"
+  tr_origin: /app/views/user/_donation_basket.html.erb
+  updated_at: 2011-01-03 22:17:46 +00:00
+- 
+  created_at: 2009-09-29 15:00:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш модуль платежей появится на этом месте, когда вы настроите свои платёжные системы {{here}}"
+  tr_key: "Your contribution module will appear here once you have set up your money accounts {{here}}"
+  tr_origin: /app/views/user/_donation_basket.html.erb
+  updated_at: 2011-01-03 12:40:08 +00:00
+- 
+  created_at: 2009-09-29 15:00:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш модуль платежей появится на этом месте, когда вы включите функцию \"Взносы\" на странице профиля {{here}}"
+  tr_key: "Your contribution module will appear here once you allow one-time contributions on Kroogi page {{here}}"
+  tr_origin: /app/views/user/_donation_basket.html.erb
+  updated_at: 2011-01-03 12:36:17 +00:00
+- 
+  created_at: 2009-10-07 08:09:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Включить сумму взносов на рассмотрении в общую сумму вашего баланса."
+  tr_key: "Apply all pending transactions to balance"
+  tr_origin: /app/views/admin/money/balance.html.erb
+  updated_at: 2011-01-03 22:22:10 +00:00
+- 
+  created_at: 2009-10-14 12:36:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Время действия указанной вами ссылки истекло. Пожалуйста, используйте обновлённую ссылку для скачивания."
+  tr_key: "The URL you specified has expired. Please use fresh download link."
+  tr_origin: /app/controllers/content_controller.rb
+  updated_at: 2011-01-03 12:28:37 +00:00
+- 
+  created_at: 2009-10-15 19:11:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Введите своё имя в Кругах"
+  tr_key: "Enter your Kroogi Name here"
+  tr_origin: /app/views/layouts/shared/_top_nav.html.erb
+  updated_at: 2011-01-03 22:32:03 +00:00
+- 
+  created_at: 2009-10-15 19:11:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Введите свой пароль"
+  tr_key: "Enter your password here"
+  tr_origin: /app/views/layouts/shared/_top_nav.html.erb
+  updated_at: 2011-01-03 22:23:45 +00:00
+- 
+  created_at: 2009-10-15 20:51:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нажмите ОК, и ваши средства в размере <b>${{amount}}</b> будут переведены на ваш  <b>{{provider}}</b>"
+  tr_key: "Click OK to have <b>${{amount}}</b> sent to you via <b>{{provider}}</b>"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2011-01-03 22:22:47 +00:00
+- 
+  created_at: 2009-11-03 07:11:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У вас уже есть подключенный счёт. Отключите его, чтобы подключить новый."
+  tr_key: "You already has an attached account. Delete it first if you want to attach another one."
+  tr_origin: /app/controllers/monetary_processor_accounts/paypal_controller.rb
+  updated_at: 2010-12-30 10:49:44 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить аватар"
+  tr_key: "Add Avatar"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-01-03 12:20:02 +00:00
+- 
+  created_at: 2009-12-08 23:32:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На этом месте должен быть наш медиа плеер. Либо у вас не работает Flash, либо была остановлена загрузка страницы."
+  tr_key: "Oops! Looks like Flash doesn't work in your browser, or page loading is terminated. Otherwise you would see our tracks player here."
+  tr_origin: /app/views/content/_tracks_player.html.erb
+  updated_at: 2010-12-30 10:47:43 +00:00
+- 
+  created_at: 2009-12-14 11:45:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{project_name}} не является вашим проектом"
+  tr_key: "{{project_name}} is not your project"
+  tr_origin: /app/models/user.rb
+  updated_at: 2011-01-03 19:44:02 +00:00
+- 
+  created_at: 2009-10-12 08:50:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вместе с Музыкальным альбомом будет безвозвратно удалено всё его содержимое. Материалы будут стёрты из ваших Кругов и исчезнут из Facebook приложения <a {{link_attributes}}>Kroogi Downloads</a>. Готовы к этому? "
+  tr_key: "Deleting this Music Album will permanently remove it and all its contents from your Kroogi page and from <a {{link_attributes}}>Kroogi Downloads</a> Facebook application"
+  tr_origin: /app/views/submit/_delete_ma_confirmation.html.erb
+  updated_at: 2011-01-03 22:20:16 +00:00
+- 
+  created_at: 2009-12-25 08:55:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы попытались загрузить неверный тип файла – %s. Пожалуйста загрузите MP3 файл.\n"
+  tr_key: "The file you uploaded is not a valid track file. We accept only MP3s and you've supplied %s."
+  tr_origin: /app/models/track.rb
+  updated_at: 2011-01-03 13:00:58 +00:00
+- 
+  created_at: 2009-09-17 16:32:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Как только ваш Музыкальный альбом станет доступным для скачивания, он незамедлительно поступит на Facebook через приложение Kroogi Downloads"
+  tr_key: "Your Music Albums with Downloads option turned on will instantly become available on Kroogi Downloads application for Facebook users"
+  tr_origin: /app/views/account_settings/invoice_agreement.html.erb
+  updated_at: 2011-01-03 19:44:59 +00:00
+- 
+  created_at: 2010-01-11 21:19:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Изменив данное значение, вы автоматически измените период ожидания для всех последующих взносов. Нажмите OK, чтобы продолжить."
+  tr_key: "Changing this value will change the pending period for all new contributions from now on.  Click OK to proceed."
+  tr_origin: /app/views/admin/money/index.html.erb
+  updated_at: 2011-01-03 12:48:11 +00:00
+- 
+  created_at: 2010-01-13 11:33:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы воспользоваться этой функцией, вам необходимо подключить свои платёжные системы"
+  tr_key: "Sorry, this feature is unavailable for you until you attach money"
+  tr_origin: /app/views/submit/music_contest/_add_originals.html.erb
+  updated_at: 2011-01-03 12:31:49 +00:00
+- 
+  created_at: 2010-12-20 11:02:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы не получили от вас ни одного файла. Может быть его не существует, а может быть у вас нет доступа к файлу."
+  tr_key: "No file came from you. Possibly it's inexistent now or you have no read access to it."
+  tr_origin: /app/controllers/submit_controller.rb
+  updated_at: 2010-12-30 10:49:00 +00:00
+- 
+  created_at: 2010-01-27 23:16:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы писать на стене, вам необходимо зарегистрироваться в Кругах."
+  tr_key: "You must have a Kroogi account to make a Wall Post."
+  tr_origin: /app/views/user/comments.html.erb
+  updated_at: 2011-01-03 12:47:51 +00:00
+- 
+  created_at: 2008-10-06 22:52:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проверьте свою почту – скорее всего вы уже получили письмо с кодом активации; введите этот код, чтобы запустить настройки."
+  tr_key: "You should have received an activation code in your email; enter it below to get started!"
+  tr_origin: /app/views/home/activate.html.erb
+  updated_at: 2011-01-03 12:55:37 +00:00
+- 
+  created_at: 2010-02-10 23:49:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо! Теперь подключите наиболее удобную для вас платёжную систему и получайте зрительские взносы! "
+  tr_key: "Thank you!  Please attach your preferred payment system to start receiving contributions!"
+  tr_origin: /app/controllers/account_settings_controller.rb
+  updated_at: 2010-12-30 10:48:14 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы зарегистрироваться, вы должны ознакомиться и согласиться с Пользовательским Соглашением"
+  tr_key: "You must read and accept Terms of Service to create an account."
+  tr_origin: /app/views/shared/_signup_widget_fb_connect.erb
+  updated_at: 2011-01-03 12:42:59 +00:00
+- 
+  created_at: 2010-02-25 12:51:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это имя будет частью URL-адреса вашего проекта (MyProject.kroogi.com)."
+  tr_key: "This name will be used as part of your project URL (MyProject.kroogi.com)."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-03 21:56:12 +00:00
+- 
+  created_at: 2010-02-26 09:17:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Войдя в систему, воспользуйтесь выпадающим меню в правом верхнем углу, чтобы переключиться со страницы проекта на свою персональную страницу."
+  tr_key: "After you sign in, you will be able to switch between your project and personal account using the drop-down in the top-right corner."
+  tr_origin: /app/views/home/thanks_project.html.erb
+  updated_at: 2011-01-03 12:46:12 +00:00
+- 
+  created_at: 2010-02-27 20:38:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отправить отзыв"
+  tr_key: "Send Feedback"
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:37 +00:00
+- 
+  created_at: 2010-02-27 20:38:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отзывы о сайте"
+  tr_key: "Site feedback"
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:49 +00:00
+- 
+  created_at: 2010-02-27 20:38:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Есть мысли о Кругах?"
+  tr_key: "Have some feedback about Kroogi?"
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:13 +00:00
+- 
+  created_at: 2010-02-27 20:38:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Поделитесь ими с нами!"
+  tr_key: "Share it with us!"
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:42 +00:00
+- 
+  created_at: 2010-02-27 20:38:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Хотите отправить отзыв?"
+  tr_key: "Have feedback? Email us at"
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:45 +00:00
+- 
+  created_at: 2010-03-10 16:43:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Создайте свой Kroogi проект и покажите всем, ЧТО вы сотворили"
+  tr_key: "Create a Kroogi Project to showcase your art worldwide"
+  tr_origin: /app/views/project/create.html.erb
+  updated_at: 2011-01-03 12:56:07 +00:00
+- 
+  created_at: 2010-03-10 16:43:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Это имя будет частью URL-адреса вашего проекта (MyProject.kroogi.com)"
+  tr_key: "This name will be used as a part of your project URL (MyProject.kroogi.com)"
+  tr_origin: /app/views/project/create.html.erb
+  updated_at: 2011-01-03 22:22:22 +00:00
+- 
+  created_at: 2010-03-11 18:36:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не удалось скопировать '%s' в ваши Материалы - произошла ошибка."
+  tr_key: "Error attempting to copy '%s' to your Content"
+  tr_origin: /app/controllers/submit_controller.rb
+  updated_at: 2011-01-03 22:32:20 +00:00
+- 
+  created_at: 2010-03-11 18:37:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Не удалось скопировать '%s' в ваши Материалы - произошла ошибка."
+  tr_key: "Error attempting to copy '%s' to your Content: %s"
+  tr_origin: /app/controllers/submit_controller.rb
+  updated_at: 2011-01-03 22:21:56 +00:00
+- 
+  created_at: 2010-03-11 18:37:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перейдите к своим материалам, откройте  добавленный вами элемент, "
+  tr_key: "go to your Kroogi Content, open an item you've previously added,"
+  tr_origin: /app/views/content/_inbox_content.html.erb
+  updated_at: 2011-01-03 19:41:15 +00:00
+- 
+  created_at: 2008-09-23 17:16:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уверены, что хотите отсоединить свой Живой Журнал от регистрационной записи в Кругах?"
+  tr_key: "This operation will disconnect your LiveJournal account from Kroogi. Are you sure you want this to happen?"
+  tr_origin: /app/views/blog/settings.html.erb
+  updated_at: 2011-01-03 18:39:58 +00:00
+- 
+  created_at: 2010-03-12 13:40:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пусть ваш проект на Кругах будет успешным!"
+  tr_key: "How to set up a successful Kroogi project"
+  tr_origin: /app/views/home/help.html.erb
+  updated_at: 2011-01-03 19:41:44 +00:00
+- 
+  created_at: 2010-03-10 16:43:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы также можете отправить нам <b>личное сообщение</b> или оставить <b>сообщение на стене</b> на нашем <a href=\"{{kroogi_forum_link}}\">Kroogi Форуме</a> (убедитесь, что вы вошли в систему)"
+  tr_key: "You may also send us a <b>private message</b> or leave a <b>message on the wall</b> at <a href=\"{{kroogi_forum_link}}\">Kroogi Forum</a> (you have to be logged in)"
+  tr_origin: /app/views/home/contact.html.erb
+  updated_at: 2011-01-03 18:37:56 +00:00
+- 
+  created_at: 2010-03-25 09:17:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "у вас {{count}} сообщение"
+  tr_key: "you received {{count}} messages"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2010-12-30 10:46:09 +00:00
+- 
+  created_at: 2010-03-25 09:17:35 +00:00
+  language_id: 5556
+  pluralization_index: 2
+  text: "у вас {{count}} сообщения"
+  tr_key: "you received {{count}} messages"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2010-12-30 10:46:21 +00:00
+- 
+  created_at: 2010-03-25 09:17:35 +00:00
+  language_id: 5556
+  pluralization_index: 3
+  text: "у вас {{count}} сообщений"
+  tr_key: "you received {{count}} messages"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2010-12-30 10:46:26 +00:00
+- 
+  created_at: 2010-03-25 09:17:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У вашего проекта {{project_name}} {{count}} сообщение"
+  tr_key: "you received {{count}} messages for your project {{project_name}}"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2011-01-03 19:38:50 +00:00
+- 
+  created_at: 2010-03-25 09:17:38 +00:00
+  language_id: 5556
+  pluralization_index: 2
+  text: "У вашего проекта {{project_name}} {{count}} сообщения"
+  tr_key: "you received {{count}} messages for your project {{project_name}}"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2011-01-03 19:39:04 +00:00
+- 
+  created_at: 2010-03-25 09:17:38 +00:00
+  language_id: 5556
+  pluralization_index: 3
+  text: "У вашего проекта {{project_name}} {{count}} сообщений"
+  tr_key: "you received {{count}} messages for your project {{project_name}}"
+  tr_origin: /app/views/activity_notifier/alert_digest.text.html.erb
+  updated_at: 2011-01-03 19:39:09 +00:00
+- 
+  created_at: 2009-10-12 08:51:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пока ваш Музыкальный альбом находится в режиме редактирования, его нельзя скачать и заплатить за него автору"
+  tr_key: "While in editing mode, this Music Album will not be available for donations and downloads"
+  tr_origin: /app/views/submit/_edit_ma_dialog.html.erb
+  updated_at: 2011-01-03 22:17:29 +00:00
+- 
+  created_at: 2010-01-21 11:36:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Когда вы переместите этот трек на уровень вверх, то понизить его в звании вам уже не удастся. Если вы тверды в своём решении, то нажмите ОК. "
+  tr_key: "Once this track will be promoted to the next level of contest you will not be able to demote it. Click OK to promote the track."
+  tr_origin: /app/helpers/content_helper.rb
+  updated_at: 2011-01-03 12:50:45 +00:00
+- 
+  created_at: 2010-04-05 10:28:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Новое сообщение от вас ({{from_user}}) для {{to_user}}"
+  tr_key: "New message from you ({{from_user}}) to {{to_user}}"
+  tr_origin: /app/views/comments/_pvt_message_comment_form.rhtml
+  updated_at: 2010-12-30 10:58:19 +00:00
+- 
+  created_at: 2010-04-07 04:22:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Указанный вами e-mail адрес не найден в нашей системе. Вы уверены, что ввели его верно?"
+  tr_key: "Email doesn't match our records. Are you sure you entered it correctly?"
+  tr_origin: /app/controllers/home_controller.rb
+  updated_at: 2011-01-03 13:06:14 +00:00
+- 
+  created_at: 2010-04-09 20:12:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В соответствии с условиями конкурса, для участия у вас должно быть как минимум {{count}} пользователь в ваших кругах. Пригласите друзей в свои Круги <a href=\"{{link}}\">здесь</a>."
+  tr_key: "Sorry, according to the contest terms you need at least {{count}} Kroogi followers to submit content here. Invite your friends to follow you on Kroogi <a href=\"{{link}}\">here</a>."
+  tr_origin: /app/models/inbox_item.rb
+  updated_at: 2010-12-30 10:45:57 +00:00
+- 
+  created_at: 2010-04-09 20:12:56 +00:00
+  language_id: 5556
+  pluralization_index: 2
+  text: "В соответствии с условиями конкурса, для участия у вас должно быть как минимум {{count}} пользователя в ваших кругах. Пригласите друзей в свои Круги <a href=\"{{link}}\">здесь</a>."
+  tr_key: "Sorry, according to the contest terms you need at least {{count}} Kroogi followers to submit content here. Invite your friends to follow you on Kroogi <a href=\"{{link}}\">here</a>."
+  tr_origin: /app/models/inbox_item.rb
+  updated_at: 2010-12-30 10:45:38 +00:00
+- 
+  created_at: 2010-04-09 20:12:56 +00:00
+  language_id: 5556
+  pluralization_index: 3
+  text: "В соответствии с условиями конкурса, для участия у вас должно быть как минимум {{count}} пользователей в ваших кругах. Пригласите друзей в свои Круги <a href=\"{{link}}\">здесь</a>."
+  tr_key: "Sorry, according to the contest terms you need at least {{count}} Kroogi followers to submit content here. Invite your friends to follow you on Kroogi <a href=\"{{link}}\">here</a>."
+  tr_origin: /app/models/inbox_item.rb
+  updated_at: 2010-12-30 10:45:45 +00:00
+- 
+  created_at: 2010-04-07 04:23:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы не хотели изменить свой пароль на Kroogi.com, просто оставьте это сообщение без внимания. Изменение пароля будет отменено при входе в систему."
+  tr_key: "If it wasn't you who requested the password reset, please just ignore this message. The reset will be cancelled once you log in."
+  tr_origin: /app/views/user_notifier/reset.rhtml
+  updated_at: 2011-01-03 12:40:57 +00:00
+- 
+  created_at: 2010-04-12 05:37:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш материал был добавлен на вашу страницу, но его не удалось разместить в заданной '{{name}}' папке. Вот почему: {{reason}} "
+  tr_key: "Your content has been added to your account, but not to '{{name}}' inbox. Reason: {{reason}}"
+  tr_origin: /app/controllers/submit_controller.rb
+  updated_at: 2011-01-03 22:33:12 +00:00
+- 
+  created_at: 2009-01-31 20:25:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если ваш материал находится в альбоме, вам необходимо либо переместить его, либо открыть для просмотра весь альбом   "
+  tr_key: "If your item is in an album, you'll have to either move it or open up the whole album to public viewing"
+  tr_origin: /app/views/content/sidebar/_submit_to_other.html.erb
+  updated_at: 2011-01-03 22:19:08 +00:00
+- 
+  created_at: 2008-12-18 23:17:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выберите пожалуйста какие записи своего ЖЖ  вы хотели бы показывать, и кто сможет их просматривать."
+  tr_key: "Please select which type of LiveJournal entries you would like to display, and who may view them."
+  tr_origin: /app/views/blog/_lj_account.html.erb
+  updated_at: 2011-01-03 12:44:52 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Обратная связь"
+  tr_key: "Contact Us"
+  tr_origin: /app/views/shared/_footer.html.erb
+  updated_at: 2011-01-03 19:09:40 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Помощь
+  tr_key: Help
+  tr_origin: /app/views/shared/_footer.html.erb
+  updated_at: 2011-01-03 19:09:38 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Отправка...
+  tr_key: Sending...
+  tr_origin: /app/views/shared/_feedback.html.erb
+  updated_at: 2011-01-03 19:09:33 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Правила использования Kroogi"
+  tr_key: Policy
+  tr_origin: /app/views/shared/_footer.html.erb
+  updated_at: 2011-01-03 19:09:19 +00:00
+- 
+  created_at: 2010-04-06 06:49:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выберите и загрузите свой Kroogi портрет"
+  tr_key: "Select and Upload Kroogi Picture"
+  tr_origin: ~
+  updated_at: 2011-01-03 12:20:26 +00:00
+- 
+  created_at: 2010-04-06 06:50:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(если обладателей авторских прав несколько, оставьте поле пустым – вы сможете указать их позже)"
+  tr_key: "(for multiple owners, leave this field blank; you will have a chance to name owners later)"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-03 12:50:51 +00:00
+- 
+  created_at: 2010-05-18 07:06:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо за ваш ответ"
+  tr_key: "Thank you for answering"
+  tr_origin: /app/controllers/public_question_controller.rb
+  updated_at: 2011-01-03 22:33:17 +00:00
+- 
+  created_at: 2010-05-18 07:06:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы не можете удалить это, у вас нет доступа"
+  tr_key: "You are not authorized to delete that"
+  tr_origin: /app/controllers/public_question_controller.rb
+  updated_at: 2010-12-30 10:47:49 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы получили это письмо, потому что вы запросили Ваш пароль на сайте Kroogi.com &mdash; пожалуйста, зайдите на сайт, используя следующую информацию"
+  tr_key: "You are receiving this mail because you requested a reset of your Kroogi.com password. Please log in using the following credentials"
+  tr_origin: /app/views/user_notifier/reset.rhtml
+  updated_at: 2011-01-03 18:43:21 +00:00
+- 
+  created_at: 2010-05-19 01:14:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы отвечать на вопросы, вам необходимо зарегистрироваться на Кругах."
+  tr_key: "You must have a Kroogi account to leave an answer."
+  tr_origin: /app/views/public_question/_answers.html.erb
+  updated_at: 2011-01-03 12:34:35 +00:00
+- 
+  created_at: 2010-05-19 00:42:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уверены, что хотите извлечь этот вопрос из архива? Позже вы сможете отменить это действие."
+  tr_key: "Are you sure you want to unarchive this question? This action can be undone later."
+  tr_origin: /app/views/public_question/archive.html.erb
+  updated_at: 2011-01-03 18:40:36 +00:00
+- 
+  created_at: 2010-05-19 01:14:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы уверены, что хотите переместить этот вопрос в архив? Позже вы сможете отменить это действие."
+  tr_key: "Are you sure you want to archive this question? This action can be undone later."
+  tr_origin: /app/views/public_question/published.html.erb
+  updated_at: 2011-01-03 12:38:12 +00:00
+- 
+  created_at: 2010-05-05 12:26:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мастер настроек поможет вам быстро изменять основные настройки вашего профиля или проекта. Что будем настраивать?"
+  tr_key: "Use our simplified guide to set up the basic features of your user and project profiles. Select the profile you wish to edit from the list below."
+  tr_origin: /app/views/shared/_wizard_links.html.erb
+  updated_at: 2011-01-03 19:44:21 +00:00
+- 
+  created_at: 2010-05-05 12:26:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Используйте наш Мастер, если вам понадобится внести изменения в настройки своего профиля. Для этого выберите любую из опций в поле \"Мастер настроек\" справа от раздела \"Изменить настройки\"."
+  tr_key: "Click here to fully customize your profile settings. You can come back to this simplified setup guide at any time by choosing one of the options in the “Setup Guide” field to the right of the Edit Settings section."
+  tr_origin: /app/views/wizard/_right_column.html.erb
+  updated_at: 2011-01-03 18:37:21 +00:00
+- 
+  created_at: 2009-11-02 17:59:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы скачали альбом бесплатно? Тогда будет здорово, если вы отблагодарите автора. Пожалуйста, заплатите столько, сколько посчитаете нужным – вот здесь"
+  tr_key: "If you got this album for free, please contribute to the artist as much as you want here"
+  tr_origin: /app/views/music_album/readme.txt.erb
+  updated_at: 2011-01-03 18:38:38 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация о вас"
+  tr_key: "Edit information about you that is available to others."
+  tr_origin: /app/views/profile/edit_basic.html.erb
+  updated_at: 2010-12-30 10:58:29 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация о вас"
+  tr_key: "Edit information about you that is available to others"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2010-12-30 10:48:29 +00:00
+- 
+  created_at: 2010-05-28 06:36:38 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название вашего проекта на Кругах"
+  tr_key: "Your Project Kroogi Name"
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-03 22:18:51 +00:00
+- 
+  created_at: 2010-01-27 18:03:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загляните в свою электропочту, там вы найдете инструкции по активации."
+  tr_key: "Please check your email for activation instructions."
+  tr_origin: /app/views/shared/_login_signup_widget_sandbox.html.erb
+  updated_at: 2011-01-03 18:42:59 +00:00
+- 
+  created_at: 2010-05-25 14:09:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Предположительно, деньги переведены. Однако, в сервисе WebMoney произошла техническая ошибка, из-за которой перевод мог не произойти. Пожалуйста, свяжитесь с нами, если деньги не появятся на вашем счёте WebMoney в течение 10 минут."
+  tr_key: "WebMoney had internal error that could prevent the transfer to succeed. Please contact us if the transfer doesn't happen in next 10 minutes."
+  tr_origin: /app/models/web_money_account.rb
+  updated_at: 2011-01-03 22:20:47 +00:00
+- 
+  created_at: 2010-06-02 09:58:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На странице Форума вы сможете прочитать ответы других пользователей и ответить на другие вопросы проекта {{artist}}"
+  tr_key: "Go to Forum to read answers of other users and respond to more questions from {{artist}}"
+  tr_origin: /app/views/shared/question/_answer_block.html.erb
+  updated_at: 2011-01-03 12:41:13 +00:00
+- 
+  created_at: 2010-06-02 09:57:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пояснение: это не беседа с артистом в реальном времени. Однако, вопрос задал непосредственно артист, и он получит ваш ответ."
+  tr_key: "Notice: this is not a real time chat with the artist. However, the question comes directly from the artist who will have a chance to see your response."
+  tr_origin: /app/views/shared/_question_widget.html.erb
+  updated_at: 2011-01-03 21:57:46 +00:00
+- 
+  created_at: 2010-05-31 17:05:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы забыли указать дату рождения."
+  tr_key: "Please enter a your birthday."
+  tr_origin: /app/views/shared/_signup_widget_fb_connect.erb
+  updated_at: 2011-01-03 18:37:36 +00:00
+- 
+  created_at: 2010-06-11 19:34:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название вашего проекта и ваш личный логин должны различаться."
+  tr_key: "Your Project Kroogi Name needs to differ from Personal Login."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-03 22:08:24 +00:00
+- 
+  created_at: 2010-06-18 12:39:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "О чём вы думаете?"
+  tr_key: "Share a thought"
+  tr_origin: /app/views/user/_note_form.html.erb
+  updated_at: 2011-01-03 18:44:27 +00:00
+- 
+  created_at: 2010-06-23 17:07:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать уведомления о новых комментариях, вам необходимо активировать свою регистрационную запись."
+  tr_key: "You will not be able to receive comments notification until you activate your account."
+  tr_origin: /app/views/public_question/_answers.html.erb
+  updated_at: 2011-01-03 12:52:03 +00:00
+- 
+  created_at: 2010-06-24 06:06:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "прокомментировал материал {{content_type}} '{{content_link}}', вашего проекта {{projectname}}"
+  tr_key: "left a comment on your project {{projectname}}'s {{content_type}} '{{content_link}}'"
+  tr_origin: /app/views/activity_notifier/_alert_comment.rhtml
+  updated_at: 2011-01-03 22:20:59 +00:00
+- 
+  created_at: 2010-06-24 06:06:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "прокомментировал ваш материал {{content_type}} '{{content_link}}'"
+  tr_key: "left a comment on your {{content_type}} '{{content_link}}'"
+  tr_origin: /app/views/activity_notifier/_alert_comment.rhtml
+  updated_at: 2011-01-03 19:42:08 +00:00
+- 
+  created_at: 2010-06-24 06:59:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы пока не вошли в систему. Как Гость, вы можете писать сообщения в этом форуме, но мы не сможем сообщить вам об ответах других пользователей на Ваши комментарии. "
+  tr_key: "You are not signed in. You can still post entries to this forum as a guest user, however, you will not be notified when other participants respond to you."
+  tr_origin: /app/views/public_question/_answers.html.erb
+  updated_at: 2011-01-03 18:36:24 +00:00
+- 
+  created_at: 2010-06-25 17:58:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "прокомментировал ваш материал {{content_type}}"
+  tr_key: "left a comment on your {{content_type}}"
+  tr_origin: /app/views/activity/messages/_comment_made_or_replied_to.html.erb
+  updated_at: 2011-01-03 19:45:24 +00:00
+- 
+  created_at: 2010-07-01 12:03:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Эта картинка используется в заметке. Удалив её, вы оставите заметку без иллюстрации. Удалить картинку?"
+  tr_key: "This image is embedded in a Note. If you delete it the Note will become pictureless. Are you sure?"
+  tr_origin: /app/views/content/sidebar/_edit_content.html.erb
+  updated_at: 2011-01-03 12:57:50 +00:00
+- 
+  created_at: 2010-07-01 12:03:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Эта картинка используется в объявлении. Удалив её, вы оставите объявление без иллюстрации. Удалить картинку?"
+  tr_key: "This image is embedded in an Anouncement. If you delete it the Anouncement will become pictureless. Are you sure?"
+  tr_origin: /app/views/content/sidebar/_edit_content.html.erb
+  updated_at: 2011-01-03 12:48:16 +00:00
+- 
+  created_at: 2010-07-04 14:50:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "О нас"
+  tr_key: About((footer))
+  tr_origin: /app/views/shared/_footer.html.erb
+  updated_at: 2011-01-03 19:09:24 +00:00
+- 
+  created_at: 2010-07-04 14:50:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В данный момент вы являетесь стандартным пользователем. Вы можете получить мастер-аккаунт, который предоставит Вам дополнительные возможности:"
+  tr_key: "You are currently a Basic User. In this section you can convert your basic user account to advanced user account. The additional features of the advanced version will enable you to:"
+  tr_origin: /app/views/profile/upgrade_account.html.erb
+  updated_at: 2011-01-03 12:42:01 +00:00
+- 
+  created_at: 2010-12-22 17:26:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать деньги, вам необходимо подключить платёжные системы PayPal или WebMoney. Это можно сделать <a {{attribs}}>здесь</a>"
+  tr_key: "In order to accept contributions you will need to set up a PayPal or WebMoney account <a {{attribs}}>here</a>"
+  tr_origin: /app/views/account_settings/_account_sponsorship_form.html.erb
+  updated_at: 2011-01-03 12:26:29 +00:00
+- 
+  created_at: 2010-12-22 08:12:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{username}}, вы хотите подключить аккаунт в Кругах к своему Facebook профилю? Это можно сделать <a {{attribs}}>здесь</a>."
+  tr_key: "{{username}}, do you know that you can connect your Kroogi and Facebook accounts? It's <a {{attribs}}>here</a>."
+  tr_origin: /app/views/system_messages/_connect_fb_account.html.erb
+  updated_at: 2011-01-03 12:26:15 +00:00
+- 
+  created_at: 2010-12-23 14:53:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "С помощью Форума вы можете активизировать общение внутри своих кругов и быстро расширить зрительскую аудиторию."
+  tr_key: "Use the Forum to start a dialogue within your Kroogi circles and grow your community faster."
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-03 12:25:56 +00:00
+- 
+  created_at: 2010-07-21 14:46:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: ", вы ожидаете приглашения в <b>"
+  tr_key: ", asked to be in <b>"
+  tr_origin: /app/views/layouts/shared/_kroogi_narrow.html.erb
+  updated_at: 2011-01-03 12:25:38 +00:00
+- 
+  created_at: 2010-08-14 08:27:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Несколько треков"
+  tr_key: "Multiple Tracks"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-01-02 21:45:35 +00:00
+- 
+  created_at: 2010-09-21 11:47:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Несколько картинок"
+  tr_key: "Multiple Pictures"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-01-02 21:45:51 +00:00
+- 
+  created_at: 2010-12-28 16:54:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Такой вопрос уже опубликован: \"Здесь вы можете задать нам любой вопрос или придумать собственную тему для обсуждения.\" При желании этот вопрос можно отключить."
+  tr_key: "The following question has already been published: \"Here, you can ask us any question or start your own discussion.\" This question can be disabled."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2011-01-03 12:25:20 +00:00
+- 
+  created_at: 2010-12-28 16:54:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Теперь на вашей странице работает Форум \"Вопросы/Ответы\". Узнайте подробности здесь:{{link}}. "
+  tr_key: "Your Q&A Forum has been enabled. Click {{link}} for more details."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2011-01-03 12:24:02 +00:00
+- 
+  created_at: 2010-12-29 09:43:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Спасибо, ваши настройки уведомлений по почте не будут изменены."
+  tr_key: "Thank you. Your email notifications settings will not be change."
+  tr_origin: /app/controllers/admin/notifications_controller.rb
+  updated_at: 2011-01-03 12:23:47 +00:00
+- 
+  created_at: 2010-12-29 09:43:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы подготовили 5 вопросов для вашего форума \"Вопросы/Ответы\". Нажмите \"Продолжить\", чтобы просмотреть, включить, отключить или переписать любой из этих вопросов."
+  tr_key: "We have prepared 5 questions for your Q&A Forum. Click \"Proceed\" to review the list and enable, disable, delete or modify any of the questions."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2011-01-03 12:23:20 +00:00
+- 
+  created_at: 2010-12-29 09:43:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы нажимаете кнопку \"Мне нравится\" на Кругах, это появляется на Вашей стене в Facebook"
+  tr_key: "When you click the Kroogi \"Like\" button, it shows on your Facebook wall"
+  tr_origin: /app/views/preference/facebook_settings.html.erb
+  updated_at: 2011-01-03 12:23:34 +00:00
+- 
+  created_at: 2010-12-29 22:35:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Лог активности"
+  tr_key: "Site Activity Log"
+  tr_origin: /app/views/layouts/admin.html.erb
+  updated_at: 2010-12-30 10:32:09 +00:00
+- 
+  created_at: 2010-12-29 22:35:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Браузеры
+  tr_key: Browsers
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-30 08:57:40 +00:00
+- 
+  created_at: 2010-12-29 22:35:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Статистика
+  tr_key: Statistics
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-30 08:57:35 +00:00
+- 
+  created_at: 2010-12-29 22:35:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Платформы
+  tr_key: Platforms
+  tr_origin: /app/views/admin/site_activity_logs/platforms.html.erb
+  updated_at: 2010-12-30 08:57:28 +00:00
+- 
+  created_at: 2010-12-29 22:36:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Лайки в Кругах и на Facebook"
+  tr_key: "Kroogi Likes on Facebook"
+  tr_origin: /app/views/preference/facebook_settings.html.erb
+  updated_at: 2010-12-30 10:31:52 +00:00
+- 
+  created_at: 2010-12-29 22:36:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки трансляции Живого Журнала"
+  tr_key: "Livejournal Connect Settings"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2010-12-30 10:31:17 +00:00
+- 
+  created_at: 2011-01-03 12:20:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить портрет"
+  tr_key: "Add Profile Picture"
+  tr_origin: /app/views/user/_profile_overview_user.html.erb
+  updated_at: 2011-01-03 18:29:33 +00:00
+- 
+  created_at: 2011-01-03 12:20:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Использовать как портрет"
+  tr_key: "Use as Profile picture"
+  tr_origin: /app/views/submit/_display_settings.html.erb
+  updated_at: 2011-01-03 18:29:48 +00:00
+- 
+  created_at: 2011-01-03 12:20:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Хороший пароль не бывает короче 7 символов."
+  tr_key: "Password must be at least 7 characters long."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-03 18:29:16 +00:00

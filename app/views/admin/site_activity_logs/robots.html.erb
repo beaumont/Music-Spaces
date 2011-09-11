@@ -1,0 +1,13 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Activity Log'.t + 'Robots'.t %>
+
+<div class="admin">
+  <% @robots.each_with_index do |robot, index| %>
+    <div>
+      <% width = (robot[:total] / @total.to_f) %>
+      <%= index.next %>. <b><%= robot[:name] %></b> <%= robot[:total] %>
+      <i>(<%= number_to_percentage width * 100, :precision => 2 %>)</i><br />
+
+      <div style="width:<%= (width * 900).to_i %>px;background-color:#<%= browser_color(robot[:name]) %>;">&nbsp;</div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,35 @@
+<% invite = defined?(invite) ? invite : nil %>
+
+<div class="invite">
+<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width: 370px;">
+  <tr class="dotted_b">
+    <td><%= avatar_md(invite.from_user) %></td>
+    <td><img src="/images/tp.gif" alt="" width="10"/></td>
+    <td width="90%">
+      <div style="line-height:16px;">
+        <span class="h3"><%= invite.is_a?(Invite) ? 'Invitation'.t : 'Request'.t %></span>
+      </div>
+      
+      <p>
+        <%= 'From'.tdown %>
+        <strong><%= user_link(invite.from_user, :use_display_name => true) %></strong>
+      </p>
+      
+      <p>
+        <%= invite.is_a?(Invite) ? 'To join'.tdown : 'for invitation to join'.t %>
+        <%= link_to invite.circle_name, :controller => 'kroogi', :action => :show, :id => invite.is_a?(Invite) ? invite.from_user : invite.to_user, :type => invite.circle_id %><br/>
+      </p>
+      
+      
+      <% if invite.is_a?(Invite) && !invite.invitation.blank? %>
+        <p>
+          <strong><%= kf_simple invite.invitation %></strong>
+        </p>
+      <% end %>
+      
+      <%= render :partial => 'invite/respond_actions', :locals => {:invite => invite} %>
+    </td>
+  </tr>
+</table>
+</div>
+

@@ -1,0 +1,45 @@
+<% @title = 'Conversation between {{your_name}} and {{another_user_name}}' / [user_name(@you, :limit => false), user_name(@other_person, :limit => false)] %>
+
+<% content_head = capture do %>
+  <%= 'Your conversation with {{user_name}}' / user_name(@other_person) %>
+<% end %>
+<% main_block(:header_title => 'Message Center'.t, :content_head => content_head ) do %>
+
+  <% if current_user.is_self_or_owner?(@you) %>
+    <% if permitted?(@other_person, :write_pvtmessage) %>
+      <%= render :partial => "comments/pvt_message_comment_form", :locals => {:hidden => !@show_form, 
+                                                                              :hide_title => true, 
+                                                                              :from => @you, 
+                                                                              :to => @other_person} %>
+    <% else %>
+      <div style="margin-left:15px">
+        <%= "You can not send a private message to {{user}} because {{user}} has blocked you from sending any messages. Sorry" / @other_person.display_name %>
+      </div>
+    <% end %>
+  <% end %>
+
+    <% if @messages.blank? %>
+        <div class="section_empty"><%= 'There are no messages between you and {{user_name}}' / user_name(@other_person, :limit => 20) -%>.</div>
+    <% else %>
+    
+    <% @messages.each do |message| %>
+      <div class="user_block message_center" id="message_<%= message.id %>">
+        <div class="block_date">
+          <%= message.created_at.to_s(:date_with_time) %>
+        </div>
+        <div class="block_username">
+          <%= user_link(message.user, :limit => 10, :icon => true, :detect_you => true) %>
+          <% if message.user.project? && permitted?(message.user, :profile_edit) && !message.submitter.nil? %>
+            (<%= user_link(message.submitter, :icon => true, :detect_you => true) %>)
+          <% end %>
+        </div>
+        <%= avatar_md(message.user) %>
+        <div class="block_body">
+          <%=  kf_simple(message.post, {:characters => 1024, :ending => "... (" +  link_to("Read More".t, content_url(message) ) +')'}) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render :partial => '/shared/pager', :locals => { :results => @messages} %>

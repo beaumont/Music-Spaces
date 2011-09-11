@@ -1,0 +1,161 @@
+--- 
+- 
+  created_at: 2008-10-07 21:17:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Причина блокировки"
+  tr_key: "Reason for blocking"
+  tr_origin: /app/views/content/sidebar/_report_and_block.html.erb
+  updated_at: 2011-02-25 07:49:09 +00:00
+- 
+  created_at: 2008-10-08 22:23:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокировать пользователя"
+  tr_key: "Block this user"
+  tr_origin: ~
+  updated_at: 2011-02-25 07:49:25 +00:00
+- 
+  created_at: 2008-10-17 00:34:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокировать пользователя или проект"
+  tr_key: "Block person or project abusing Kroogi system"
+  tr_origin: ~
+  updated_at: 2011-02-25 07:49:25 +00:00
+- 
+  created_at: 2008-10-17 00:34:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокировать пользователя или проект"
+  tr_key: "Block this person or project"
+  tr_origin: ~
+  updated_at: 2011-02-25 07:49:25 +00:00
+- 
+  created_at: 2008-10-17 00:34:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Восстановить пользователя"
+  tr_key: "Restore this user"
+  tr_origin: ~
+  updated_at: 2011-02-25 07:49:25 +00:00
+- 
+  created_at: 2008-12-09 23:41:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Разблокировать
+  tr_key: Unblock
+  tr_origin: /app/views/preference/blocked_users.html.erb
+  updated_at: 2011-02-25 11:44:40 +00:00
+- 
+  created_at: 2008-10-17 00:34:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Блокировать
+  tr_key: Block
+  tr_origin: /app/views/content/sidebar/_report_and_block.html.erb
+  updated_at: 2011-02-25 07:49:19 +00:00
+- 
+  created_at: 2011-02-25 13:30:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Причина блокировки"
+  tr_key: "Reason for disabling"
+  tr_origin: /app/views/user/block.html.erb
+  updated_at: 2011-02-25 14:34:21 +00:00
+- 
+  created_at: 2011-02-25 13:30:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Снять блокировку"
+  tr_key: Enable
+  tr_origin: /app/views/admin/users/list.html.erb
+  updated_at: 2011-02-25 14:34:05 +00:00
+- 
+  created_at: 2011-02-25 13:30:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Блокировать
+  tr_key: Disable
+  tr_origin: /app/views/user/block.html.erb
+  updated_at: 2011-02-25 14:33:30 +00:00
+- 
+  created_at: 2011-02-25 13:30:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отменить выбор"
+  tr_key: "Deselect All"
+  tr_origin: /app/views/preference/blocked_users.html.erb
+  updated_at: 2011-02-25 14:33:11 +00:00
+- 
+  created_at: 2011-02-25 13:30:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить картинки:"
+  tr_key: "Upload a pictures:"
+  tr_origin: /app/views/tps_setup/_form.html.erb
+  updated_at: 2011-02-25 14:33:50 +00:00
+- 
+  created_at: 2011-02-25 13:31:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокированные пользователи"
+  tr_key: "Blocked Users"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-02-25 14:32:27 +00:00
+- 
+  created_at: 2011-02-25 13:31:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Снять блокировку с пользователя"
+  tr_key: "Enable this user"
+  tr_origin: /app/views/user/_profile_controls.html.erb
+  updated_at: 2011-02-25 14:32:10 +00:00
+- 
+  created_at: 2011-02-25 13:31:12 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Блокировать пользователя или проект, нарушающего правила использования системы Кругов"
+  tr_key: "Disable person or project abusing Kroogi system"
+  tr_origin: /app/views/user/block.html.erb
+  updated_at: 2011-02-25 14:31:49 +00:00
+- 
+  created_at: 2011-02-25 13:31:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Блокировать пользователя или проект"
+  tr_key: "Disable this person or project"
+  tr_origin: /app/views/user/block.html.erb
+  updated_at: 2011-02-25 14:30:09 +00:00
+- 
+  created_at: 2011-02-25 13:31:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокировать и снять блокировку с пользователей"
+  tr_key: "Block and Unblock Users"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-02-25 14:28:51 +00:00
+- 
+  created_at: 2011-02-25 13:31:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы заблокировали этих пользователей, они не могут отправлять вам личные сообщения. Выберите из списка тех, кого вы хотели бы разблокировать."
+  tr_key: "You have the following users blocked from sending you private messages. Select which ones would you like to unblock."
+  tr_origin: /app/views/preference/blocked_users.html.erb
+  updated_at: 2011-02-25 14:27:31 +00:00
+- 
+  created_at: 2011-02-25 13:31:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Блокировать этого пользователя"
+  tr_key: "Disable this user"
+  tr_origin: /app/views/user/_profile_controls.html.erb
+  updated_at: 2011-02-25 14:30:24 +00:00
+- 
+  created_at: 2011-02-25 13:31:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокированных пользователей пока нет"
+  tr_key: "No blocked users yet"
+  tr_origin: /app/views/preference/blocked_users.html.erb
+  updated_at: 2011-02-25 14:25:29 +00:00

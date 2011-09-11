@@ -1,0 +1,11 @@
+<% fake ||= false %>
+<% truncate ||= false %>
+<% filename = truncate ? truncate(h(bundle.filename), :length => 30) : bundle.filename %>
+<% title = bundle.filename.blank? ? "No Title".t : filename %>
+<% path = fake ? 'javascript:void(0)' : download_bundle_path(bundle.id) + ((params[:from_related].to_i == 1) ? "&from_related=1" : "") %>
+<% if bundle.size.blank? %>
+  <%= link_to(title, path) %>
+<% else %>
+  <%= link_to( title + " " + h(number_to_human_size(bundle.size)), path) %>
+<% end %>
+

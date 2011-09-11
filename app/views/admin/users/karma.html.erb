@@ -1,0 +1,34 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Karma Points'.t %>
+
+<div class="admin">
+
+<h2><%= @user ? @user.karma_points.count : KarmaPoint.count %> <%= 'Karma Points'.t %> <%= %></h2>
+
+<div class="paging_status">
+  <%= @paging_header %>
+</div>
+<table class="admin users">
+  <tr>
+    <th><%= 'Referrer'.t %></th>
+    <th><%= 'Referred'.t %></th>
+    <th><%= 'Content'.t %></th>
+    <th><%= 'Referring Url'.t %></th>
+    <th><%= 'Donation'.t %></th>
+    <th><%= 'Created'.t %></th>
+  </tr>
+  
+<% @karma_points.each do |kp| -%>
+  <tr class="<%= cycle("dark", "light") %>" id="karma_point_<%= kp.id -%>">
+    <td><%= kp.referrer ? link_to(h(kp.referrer.login), "/admin/users/karma/#{kp.referrer_id}") : '' %></td>
+    <td><%= kp.referred ? link_to(h(kp.referred.login), "/admin/users/karma/#{kp.referred_id}") : '' %></td>
+    <td><%= kp.content ? link_to(kp.content.title, content_url(kp.content)) : '' %></td>
+    <td><%= link_to(h(kp.referral_url), kp.referral_url) %></td>
+    <td><%= kp.monetary_donation ? 'Yes' : 'No' %></td>
+    <td><%= datetime(kp.created_at, true) %></td>
+  </tr>
+<% end -%>
+</table>
+
+<%= render :partial => '/shared/pager', :locals => {:results => @karma_points, :skip_padding => true} %>
+</div>
+

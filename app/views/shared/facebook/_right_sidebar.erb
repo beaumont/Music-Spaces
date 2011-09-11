@@ -1,0 +1,6 @@
+<div class="right_sidebar">
+  <% box.each do |b|%>
+    <% partial = facebook_sidebar_partial(b) %>
+    <%= render :partial => partial %>
+  <% end %>
+</div>

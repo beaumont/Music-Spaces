@@ -1,0 +1,44 @@
+
+<% 
+  @title = @founder.login + ' :: ' + 'Change Host Information'.t
+  @content_kind_displayname = 'Change Host Information'.t 
+%>
+
+<% form_for :preference, :url => { :controller => '/user', :action => 'edit_founder', :id => @user, :founder_id => @founder}, :html => { } do |f| -%>
+  <div id="main_content_left">
+    <div><%= image_tag('732_o_top.gif') %></div>
+    <div class="main_side_sdw">
+      <div class="main_header">
+        <div class="main_header_title"><%= 'Edit Settings for Project Host %s' / h(@founder.login) %></div>
+      </div>
+      <div class="main_body">
+        <% form_border do %>
+          <div class="user_block">
+            <div class="block_username"><%= user_link(@founder, :icon => true) %></div>
+            <%= avatar_md(@founder) %>
+            <div class="block_body">
+              <b><%=h @founder.display_name %></b>
+              <label style="font-weight: normal;"><%= check_box_tag 'show_founder', 1, !@preference.shy_founders.include?(@founder.id), :class => 'auto_width' %>
+              <%= 'Show on Profile page'.t %></label>
+              <%= 'Project Role'.t %>
+              <%= text_field_tag 'role_name', @invite ? h(@invite.role_name) : '' %>
+            </div>
+          </div>
+        <% end %>
+        <% if @invite.can_delete? %>
+          <button class="button" style="float:right" type="submit" name="commit">
+            <span><%= 'Save'.t %></span>
+          </button>
+          <button class="button_gr" name="remove">
+            <span>
+              <%= link_to 'Remove from your Kroogi'.t, 
+                {:controller => '/kroogi', :action => 'remove', :id => @invite.circle.id, :user_id => @invite.user.id}, 
+                {:method => :post, :confirm => 'Are you sure you want to do this?'.t, :style => 'color: #000;'} -%>
+            </span>
+          </button>
+        <% end %>
+      </div>  
+    </div>
+    <div class="shadow"><%= image_tag('732_gw_btm.gif') %></div>
+  </div>
+<% end %>

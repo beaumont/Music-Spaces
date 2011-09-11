@@ -1,0 +1,55 @@
+<div id="main_content_left">
+  <div><%= image_tag('732_o_top.gif') %></div>
+  <div class="main_side_sdw">
+    <div class="main_header">
+      <div class="main_header_title">
+        <% if @user.project? %>
+          <%= 'Delete Your Project'.t -%>
+        <% else %>
+          <%= 'Delete Your Account'.t -%>
+        <% end %>
+      </div>
+    </div>
+    <div class="main_body">
+      <% form_border do %>
+        <div class="default_important">
+          <%= 'Click the'.t %> 
+          "<%= "Delete %s" / @user.login -%>" 
+          <%= @user.project? ? 'button to <b>PERMANENTLY DELETE</b> the project'.t : 'button to <b>PERMANENTLY DELETE</b> your account'.t  %>.
+        </div>
+        <div class="default_important">
+          <%= @user.project? ? 'All content for'.t : 'Login information and all content for'.t  %>
+          <%= user_link(@user, :icon => true) %>
+          <%= 'will be removed from the Kroogi database immediately and will no longer be accessible.'.t %>	
+          <%= 'Deleted content cannot be recovered.'.t %>
+        </div>
+        <% unless @user.project? || @user.personal_projects.empty? %>
+          <div class="default_important">
+            <%= 'The following <b>PROJECTS</b> will also be permanently deleted:'.t -%>
+            <ul style="list-style-type:none; margin-bottom:0;">
+              <% @user.personal_projects.each do |p| %>
+                <li><%= user_link(p, :icon => true) %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="default_important" style="color:#f00; font-weight:bold;">
+          <%= 'THIS ACTION CANNOT BE UNDONE!'.t %>
+        </div>
+        <div class="default_important">
+          <form action="<%= url_for(:controller => 'user', :action => 'delete', :id => @user) %>" method="post" id="delete_form">
+            <label><%= "Enter your password:".t %></label>
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <%= password_field_tag(:password, nil, :style => "width:200px;", :class => "feedback_input") %>
+          </form>
+        </div>
+      <% end %>
+      <button class="button wizard" name="commit" type="submit"
+               onclick="if(confirm('<%= @user.project? ? 'You are about to DELETE your project. Are you sure you want to proceed?'.t : 'You are about to DELETE your account. Are you sure you want to proceed?'.t -%>')) {jQuery('#delete_form').submit();}">
+        <span><%= "Delete %s" / @user.login -%></span>
+      </button>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<div class="shadow"><%= image_tag('732_gw_btm.gif') %></div>

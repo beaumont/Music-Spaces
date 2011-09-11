@@ -1,0 +1,18 @@
+
+<p>
+  <strong>
+    <% if @content.user.is_a? Project %>
+      <%= "Someone has modified the payment service connection(s) for project %s%s" /   [
+        link_to( h(@content.project.login), "#{@url}/user/#{@content.project.login}"), 
+        (@content.project.display_name == @content.project.login ? "" : " (#{h(@content.project.display_name)})")
+      ] -%>.
+    <% else %>
+      <%= "%s's payment service connections have been modified" / [h(@from_user.login)] -%>.
+    <% end %>
+  </strong>
+</p>
+
+<p>
+  <%= link_to 'Open Money Page for details'.t, "#{@url}/money/index/#{@activity.content.user_id}" %>
+</p>
+

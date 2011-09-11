@@ -1,0 +1,5 @@
+
+<%= "wants to join the %s circle of %s" / [activity.content.to_user.circle_name(activity.content.circle_id), activity.content.to_user.login] %><br/><br/>
+
+<%= render :partial => 'invite/respond_actions', :locals => {:invite => activity.content} unless @suppress_message_actions %>
+

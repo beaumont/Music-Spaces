@@ -1,0 +1,77 @@
+donation_from_fb:
+  id: 1
+  user_id: 17
+  activity_type_id: 303
+  from_user_id: 17
+  from_username: 706528224
+  content_id: 6705
+  
+invitation_from_fb_friend:
+  id: 2
+  user_id: 17
+  activity_type_id: 321
+  from_user_id: 19
+  from_username: 706528224
+  content_id: 6846
+
+content_downloaded_by_fb_stephane:
+  id: 3
+  user_id: 17
+  activity_type_id: 319
+  from_user_id: 258
+  from_username: fb_user(706528224)
+  content_id: 6705
+
+up_album_downloaded_by_chief:
+  id: 4
+  user_id: 2
+  activity_type_id: 319
+  from_user_id: 8
+  from_username: Ian Curtis
+  content_id: 2
+  content_type: Content
+
+invitation_from_stef:
+  id: 5
+  user_id: 19
+  content_id: 27
+  activity_type_id: 321
+  from_user_id: 17
+  created_at: 2009-06-20 16:21:32
+
+invitation_from_artem:
+  id: 6
+  user_id: 20
+  content_id: 27
+  activity_type_id: 321
+  from_user_id: 19
+  created_at: 2009-06-30 16:21:32
+
+inv_from_stef_to_friend1:
+  id: 7
+  user_id: 22
+  content_id: 27
+  activity_type_id: 321
+  from_user_id: 17
+  content_type: MusicAlbum
+  created_at: 2009-06-20 16:21:32
+
+wall_comment_to_chief_by_joe:
+  id: 8
+  user_id: 2
+  from_user_id: 3
+  activity_type_id: 1
+  content_type: Comment
+  content_id: 3
+  friendcast: 0
+  status: 1
+
+jd_announcement:
+  id: 9
+  activity_type_id: <%= Activity::ACTIVITIES[:published_announcement][:id] %>
+  user_id: 8 #joy division
+  from_user_id: 8 #joy division
+  content_id: 36 #jd_announcement
+  content_type: Content
+  friendcast: 0
+  status: 1

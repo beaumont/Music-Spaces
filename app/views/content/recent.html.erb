@@ -1,0 +1,8 @@
+<% cache(recent_content_cache_key, :expires_in => 10.minutes) do %>
+ 
+    <% @content.each do |content| %>
+      <%= render :partial => 'content/vertical_stream_item', :locals => {:content => content, :last => (content == @content.last)} %>
+    <% end -%>
+    <%= render :partial => '/shared/pager', :locals => { :results => @pager } %>  
+  
+<% end %>

@@ -1,0 +1,9 @@
+
+  <%= 'sent %s a private message' / [user_link(activity.content.recipient, {:activity_id => activity.id, :frwrd_type => 'content', :detect_you => true, :public_context => one_liner })] -%>:
+  <%= link_to(kf_title("#{activity.content.title_long}"), :controller => 'activity', :action => 'read_and_frwd', :id => activity.id, :type => 'content') unless activity.content.title.blank? %>
+
+  <% unless one_liner %>
+    <div class="message-extended">
+      <%=link_to kf_simple(activity.content.post, {:truncate_length => citation_length}), :controller => 'activity', :action => 'read_and_frwd', :id => activity.id, :type => 'content' %>
+    </div>
+  <% end %>

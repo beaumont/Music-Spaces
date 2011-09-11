@@ -1,0 +1,28 @@
+# The api key, secret key, and canvas page name are required to get started
+# Tunnel configuration is only needed if you are going to use the facebooker:tunnel Rake tasks
+# Your callback url in Facebook should be set to http://public_host:public_port
+# If you're building a Facebook connect site,
+#    change the value of set_asset_host_to_callback_url to false
+# To develop for the new profile design, add the following key..
+# api: new
+# remove the key or set it to anything else to use the old facebook design.
+# This should only be necessary until the final version of the new profile is released.
+
+development: &defaults
+  app_id: 112748542129943
+  api_key: 68384a79551e300da9aaecf047eb2632 
+  secret_key: dcd3985ee17f821d996e847f1a3d61c8
+  connect_url: http://soxos-inc.com:5322
+  site_name: soxos
+  #api_key: 002ae188d90c895eca53b6a1d83a5a7a
+  #secret_key: 498c04ae9e8a577d7d56437e5e3d6781
+  canvas_page_name: kroogidownloadsstage
+  #callback_url: http://kroogi.pb
+  #pretty_errors: true
+  set_asset_host_to_callback_url: false
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

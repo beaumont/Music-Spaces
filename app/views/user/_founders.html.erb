@@ -1,0 +1,26 @@
+<% right_column_block(:header_title => 'Project Hosts'.t) do %>
+  <% @user.front_page_founders(true).each do |founder| next unless founder.is_view_permitted?(current_user) %>
+    <div class="user_block">
+      <%= avatar_md(founder) %>
+      <div class="block_body">
+        <div class="default_lg"><b><%= user_link(founder, :icon => true, :limit => 12) %></b></div>
+        <div class="default_lg">
+          <div><b><%= founder.display_name -%></b></div>
+          <div><% invite = founder.respond_to?(:invite) && founder.invite ? founder.invite : founder.invites.invites_to(@user).founders.first %></div>
+          <div><%= invite ? invite.role_name : '' %></div>
+        </div>	
+      </div>
+    </div>
+  <% end %>
+  <div class="orng_line"></div>
+  <div style="text-align: right;">
+    <% if current_actor.is_self_or_owner?(@user) %>
+      <%= link_to 'Hosts Display Options'.t, {:controller => '/user', :action => 'founders_display_options', :id => @user} %> | 
+    <% end %>
+    <% if should_see_founders_link?(@user) %>
+      <% unless @user.front_page_founders.blank? %>
+        <%= link_to "#{'View All'.t} >>", {:controller => 'user', :action => 'founders', :id => @user}, {:class => ''} %>
+      <% end %>  
+    <% end %>
+  </div>
+<% end %>

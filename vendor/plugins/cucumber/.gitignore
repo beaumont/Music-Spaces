@@ -1,0 +1,13 @@
+nbproject
+coverage
+pkg
+doc
+.yardoc
+*.log
+*.pid
+.eprj
+.tmtags
+*~
+.DS_Store
+*.swp
+target

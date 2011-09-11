@@ -1,0 +1,47 @@
+<div><%= image_tag('960_o_top.gif') %></div>
+<div class="white_block_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= 'All downloads of %s' / @entry.title %></div>
+  </div>
+  <div class="white_body">		
+		<div id="paged_money_table">
+		  <p class="security_notice">
+              <%= ('[strong_opens]For %s[strong_closes] %d downloads today' /
+                [content_link(@entry), @todays_count]).
+                gsub('[strong_opens]', '<strong>').
+                gsub('[strong_closes]', '</strong>') %>
+            <br/> 
+              <%= '%d downloads since %s' / [@downloads.total_entries,
+                @since.to_s(:date_only)] %>
+            <br/>
+              <%=  @paging_header if @downloads.size <
+                @downloads.total_entries %>          
+		  </p>
+          <table  cellspacing="0" cellpadding="0" class="money_table">
+           <thead>
+             <tr>
+               <th><%= 'Date'.t %></th>
+               <th><%= 'From'.t %></th>
+             </tr>
+           </thead>
+           <tbody>
+             <% @downloads.each do |action| %>
+              <tr>
+                <td><%= datetime(action.created_at) %></td>
+                <td>
+                  <% if action.anonymous? %>
+                    <span ><%= "Guest User".t %></span>
+                  <% else %>
+                    <%= user_link(action.user, :icon => true) %>
+                  <% end %>
+                </td>
+              </tr>
+             <% end %>
+           </tbody>
+          </table>
+		</div>
+  <%= render :partial => '/shared/pager', :locals => {:results => @downloads} %>
+	  </div>
+	</div>
+	<div class="shadow"><%= image_tag('960_w_btm.gif') %></div>
+

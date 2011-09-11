@@ -1,0 +1,18 @@
+<p>Hello Admins,</p>
+
+<p>
+  <strong><%= @acct.user.login -%> has completed the first step to verifying the PayPal account "<%= @acct.paypal_email %>".</strong>
+  We've successfully received the money -- now we need to try to sent them money back.  
+  If sending money succeeds, mark their account verified in the admin console.  
+  If sending them money fails, mark it rejected.
+</p>
+
+<p>
+  <strong>Actions</strong>:
+  <div style="margin-left: 25px;">
+    - <%= link_to 'Handle Pending PayPal Requests', 'http://www.kroogi.com/admin/donation_requests?type=paypal_pending' %>
+  </div>
+</p>
+
+<p>That's all,<br/>
+Kroogi</p>

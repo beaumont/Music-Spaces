@@ -1,0 +1,86 @@
+--- !ruby/object:Gem::Specification 
+rubygems_version: 0.8.10
+specification_version: 1
+name: chardet
+version: !ruby/object:Gem::Version 
+  version: 0.9.0
+date: 2006-03-28
+summary: "Character encoding auto-detection in Ruby. Base on Mark Pilgrim's Python port."
+require_paths: 
+  - lib
+email: zhengzhengzheng@gmail.com
+homepage: http://blog.vava.cn/
+rubyforge_project: 
+description: 
+autorequire: UniversalDetector
+default_executable: 
+bindir: bin
+has_rdoc: false
+required_ruby_version: !ruby/object:Gem::Version::Requirement 
+  requirements: 
+    - 
+      - ">"
+      - !ruby/object:Gem::Version 
+        version: 0.0.0
+  version: 
+platform: ruby
+authors: 
+  - Hui
+files: 
+  - lib/Big5Freq.rb
+  - lib/Big5Prober.rb
+  - lib/CharDistributionAnalysis.rb
+  - lib/CharSetGroupProber.rb
+  - lib/CharSetProber.rb
+  - lib/CodingStateMachine.rb
+  - lib/EscCharSetProber.rb
+  - lib/ESCSM.rb
+  - lib/EUCJPProber.rb
+  - lib/EUCKRFreq.rb
+  - lib/EUCKRProber.rb
+  - lib/EUCTWFreq.rb
+  - lib/EUCTWProber.rb
+  - lib/GB2312Freq.rb
+  - lib/GB2312Prober.rb
+  - lib/HebrewProber.rb
+  - lib/JapaneseContextAnalysis.rb
+  - lib/JISFreq.rb
+  - lib/LangBulgarianModel.rb
+  - lib/LangCyrillicModel.rb
+  - lib/LangGreekModel.rb
+  - lib/LangHebrewModel.rb
+  - lib/LangHungarianModel.rb
+  - lib/LangThaiModel.rb
+  - lib/Latin1Prober.rb
+  - lib/MBCSGroupProber.rb
+  - lib/MBCSSM.rb
+  - lib/MultiByteCharSetProber.rb
+  - lib/SBCSGroupProber.rb
+  - lib/SingleByteCharSetProber.rb
+  - lib/SJISProber.rb
+  - lib/UniversalDetector.rb
+  - lib/UTF8Prober.rb
+  - python-docs/css
+  - python-docs/faq.html
+  - python-docs/how-it-works.html
+  - python-docs/images
+  - python-docs/index.html
+  - python-docs/license.html
+  - python-docs/supported-encodings.html
+  - python-docs/usage.html
+  - python-docs/css/chardet.css
+  - python-docs/images/caution.png
+  - python-docs/images/important.png
+  - python-docs/images/note.png
+  - python-docs/images/permalink.gif
+  - python-docs/images/tip.png
+  - python-docs/images/warning.png
+  - COPYING
+  - README
+test_files: []
+rdoc_options: []
+extra_rdoc_files: []
+executables: []
+extensions: []
+requirements: []
+dependencies: []

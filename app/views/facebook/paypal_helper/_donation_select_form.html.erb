@@ -1,0 +1,10 @@
+<%
+box = options[:box]
+%>
+<% account_list.select{|acc| acc == 'paypal_email'}.each do |acc| %>
+    <div id="<%= acc %>">
+      <%= fb_donation_button(account_setting, obj, acc, options) %>
+    </div>
+  <% end %>
+<%= validate_donation_form_script("amount","zero_dollar_warning",obj,box) %>
+

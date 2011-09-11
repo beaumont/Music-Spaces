@@ -1,0 +1,12 @@
+<% @title = 'Set up your contribution basket'.t %>
+
+<% main_block(:header_title => 'Money Settings'.t, :content_head => '"Donate" Button on Profile page') do %>
+  <%= error_messages_for :account_setting %>
+  <div class="form_center">
+    <%= 'The "Donate" button will be located on your profile page and will allow your followers to make direct contributions to your PayPal or WebMoney account.'.t -%>
+  </div>
+  <% form_for :account_setting, @account_setting, :url => account_setting_path(:id => @account_setting.user_id), :html =>{  :method => :put } do |f| -%>
+    <%= hidden_field_tag :return_to, donation_basket_account_setting_path(:id => @account_setting.user_id) %>
+    <%= render :partial => 'account_settings/account_sponsorship_form', :locals => {:f => f, :context => nil, :user => @user} %>
+  <% end %>
+<% end %>

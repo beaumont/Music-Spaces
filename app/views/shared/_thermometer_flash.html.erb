@@ -1,0 +1,10 @@
+<object width="500" height="282">
+  <param name="wmode" value="transparent" />
+  <param name="movie" value="http://<%= user_domain %>/flash/tps.swf" />
+  <param name="flashvars" value="config=http://<%= user_domain %>/tps_embed/config/<%= hat.id %>.xml?locale=<%= I18n.locale %>" />
+  <param name="allowScriptAccess" value="always" />
+  <embed src="http://<%= user_domain %>/flash/tps.swf"
+         type="application/x-shockwave-flash" width="500" height="282"
+         flashvars="config=http://<%= user_domain %>/tps_embed/config/<%= hat.id %>.xml?locale=<%= I18n.locale %>" allowScriptAccess="always" wmode="transparent">
+  </embed>
+</object>

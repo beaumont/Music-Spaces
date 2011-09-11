@@ -1,0 +1,2 @@
+page << "jQuery('#smscoin_form_#{@option.id} .fields').html('#{js(render(:partial => '/shared/form_fields',
+                                                                         :locals => {:fields => @fparams}))}');"

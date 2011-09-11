@@ -1,0 +1,20 @@
+<% right_column_block(:header_title => 'Media Center'.t) do %>
+  <div class="main_body_subhead"><%= 'Articles'.t %></div>
+  <ul class="default">
+    <li><%= link_to('Interview with Moscow Echo Radio (eng)'.t, url_for("/PDFs/Interview_echo_radio-eng.pdf")) %>&nbsp;<span class="grey_out">(90K pdf)</span></li>
+    <li><%= link_to('Interview with Moscow Echo Radio (rus)'.t, url_for("/PDFs/Interview_echo_radio-rus.pdf")) %>&nbsp;<span class="grey_out">(250K pdf)</span></li>
+    <li><%= link_to('Interview with Online Newspaper F5 (eng)'.t, url_for("/PDFs/Interview_online_newspaper_F5-eng.pdf")) %>&nbsp;<span class="grey_out">(95K pdf)</span></li>
+    <li><%= link_to('Interview with Online Newspaper F5 (rus)'.t, url_for("/PDFs/Interview_online_newspaper_F5-rus.pdf")) %>&nbsp;<span class="grey_out">(205K pdf)</span></li>
+  </ul>
+  <div class="grey_line2"></div>
+  <div class="main_body_subhead"><%= 'Downloads'.t %></div>
+  <ul class="default">
+    <li><%= link_to('Fact Sheet (eng)'.t, url_for("/PDFs/Kroogi_Fact_Sheet-eng.pdf")) %>&nbsp;<span class="grey_out">(56K pdf)</span></li>
+    <li><%= link_to('Fact Sheet (rus)'.t, url_for("/PDFs/Kroogi_Fact_Sheet-rus.pdf")) %>&nbsp;<span class="grey_out">(96K pdf)</span></li>
+    <li><%= link_to('Kroogi Hi-Res Logo'.t, url_for("/images/Kroogi_Logo_HiRes.jpg"), :target => '_blank') %>&nbsp;<span class="grey_out">(624K jpg)</span></li>
+  </ul>
+<% end %>
+
+<% main_block(:header_title => 'About Us'.t, :white_body => true) do %>
+  <%= render :partial => "about_#{I18n.locale}"%>
+<% end %>

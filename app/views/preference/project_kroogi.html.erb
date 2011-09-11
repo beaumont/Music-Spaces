@@ -1,0 +1,25 @@
+<% @title = @user.login + ' :: ' + 'Kroogi Notifications'.t %>
+<% @content_kind_displayname = 'Kroogi Notifications'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, @content_kind_displayname)) do %>
+  <% form_border(:subhead_title => 'Which project hosts are receiving notifications?'.t) do %>
+    <%= "To start or stop receiving Kroogi notifications on behalf of this project, visit your own {{link}} page" / [link_to('Kroogi Notifications'.tdown, :controller => 'preference', :action => 'kroogi', :id => current_user)] %>.
+
+    <ul style="margin:10px 0 0 90px; list-style-type:none; font-size: 12px;">
+      <% tracking_users = @user.people_tracking_me.kroogi_notifications.tracked_item_is_user.users %>
+      <% @user.founders.each do |u| %>
+        <li style="margin-bottom:5px;">
+          <% is_tracked = tracking_users.include?(u) && u.preference.email? %>
+          <% if is_tracked %>
+            <%= image_tag('yes.gif', :alt => '', :style => 'position:relative; left: 3px;top: 2px;') %>
+          <% else %>
+            <%= image_tag('remove.gif', :alt => '', :style => 'position:relative; top: 5px;') %>
+          <% end %>
+          <%= user_link(u, :icon => true) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

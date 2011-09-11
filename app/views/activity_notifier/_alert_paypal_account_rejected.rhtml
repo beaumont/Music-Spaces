@@ -1,0 +1,16 @@
+<p style="font-color: red;">
+  <strong>
+    <%= "Kroogi administrators were unable to verify PayPal Account '%s' for %s" / [h(@content.paypal_email_from_status), @content.user.login] -%>.
+  </strong>
+</p>
+
+<p>
+  <%= "The PayPal email has been removed from the account.".t %>
+  <%= "You may try a different email, or re-add this one once the problem has been addressed.".t %>
+</p>
+
+
+<p>
+  <%= link_to 'Open Money Page'.t, "#{@url}/money/index/#{@activity.content.user_id}" %>
+</p>
+

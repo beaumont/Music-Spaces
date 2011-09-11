@@ -1,0 +1,22 @@
+<% @title = current_actor.login + ' :: ' + 'Contributions'.t %>
+
+<div id="centered_modules">
+  <div class="module_thin_padding">
+    <div class="left_noborder profile_text white" style="padding: 10px;">
+      <h2 class="dotted_b"><%= 'Step 4'.t + ' - ' + 'Contributions'.t %></h2>
+      <div>
+        <p>
+          <%= 'The Contribution Module on your Kroogi Page gives visitors an opportunity to make a one-time contribution to you.'.t %>
+          <strong><%= 'You can always change these settings later.'.t %></strong>
+        </p>
+      </div>
+
+      <% form_for :account_setting, @account_setting, :url => {:controller => 'project', :action => 'wizard_donations', :id => @project, :type => @type} do |f| -%>
+        <%= error_messages_for :account_setting if request.post? %>
+        <%= render :partial => 'account_settings/account_sponsorship_form', :locals => {:f => f, :context => :wizard} %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

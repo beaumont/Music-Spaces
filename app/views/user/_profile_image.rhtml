@@ -1,0 +1,18 @@
+
+<% unless profile.userpic.nil? %>
+  <%= profile_img(profile) %> 
+<% else %>
+  <% if profile.user == current_actor %>
+    <div class="profile_img_outer offwhite">
+        <div class="profile_img_add">
+            <%= (user.project?) ? (link_to ('Add the Project Picture').t, {:controller => 'submit', :action => 'upload_image', :user_id => profile.user, :cat_id => Content::CATEGORIES[:userpic][:id]}) : (link_to ('Add your Kroogi Picture').t, {:controller => 'submit', :action => 'upload_image', :user_id => profile.user, :cat_id => Content::CATEGORIES[:userpic][:id]}) %>
+        </div>
+  <% end -%>
+  <% if user.project? %>
+    <%= image_tag 'project_placeholder.jpg', :id => 'krugi_blank' %>
+  <% else -%>
+    <%= image_tag 'user_placeholder.jpg', :id => 'krugi_blank' %>
+  <% end -%>
+  </div>
+<% end %>
+

@@ -1,0 +1,29 @@
+<% content              ||= gallery_item %>
+<% unless defined?(show_comment); show_comment = false; end %>
+<% unless defined?(show_owner_b); show_owner_b = false; end %>
+<% unless defined?(check_permissions); check_permissions = true; end %>
+<% from_related         = defined?(from_related) ? (from_related ? 1 : nil) : false %>
+<% content_url_options  ||= {} %>
+<% url                  ||= content.is_a?(User) ? user_url(content.login) : content_url(content, content_url_options.merge(:from_related => from_related)) %>
+
+<div class="<%= content.class.name.underscore %> gallery_entry_s2">
+  <% if check_permissions && !content.is_view_permitted? %>
+    <div class="g_title"><%= content.is_a?(User) ? 'Secret Agent'.t : 'Private'.t %></div>
+    <div class="gallery_sub_entry" style="margin: 0 auto;">
+        <img src="/images/locked.png" alt="" width="80" height="80"/>
+    </div>
+  <% else %>
+    <div class="<%= gallery_class(content) -%>" style="<%= gallery_style(content) -%>">
+      <%= render :partial => gallery_partial(content), :locals => {:url => url, :content => content, :large_item => false, :from_related => from_related} %>
+    </div>
+
+    <div class="gallery_comment">
+      <% if show_comment %>
+        <%= tiny_comment_count_link(content) %>
+      <% end %>
+      <% if show_owner_b %>
+        <%= '((content))by {{author_name}}' / user_link(content.is_a?(User) ? content : content.user, :icon => true, :use_display_name => true, :limit => 17) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

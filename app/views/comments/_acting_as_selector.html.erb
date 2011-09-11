@@ -1,0 +1,43 @@
+<% unless defined?(allow_acting_as_project); allow_acting_as_project = true; end  %>
+<% select_between = allow_acting_as_project ? current_user.projects_allowed_to_see(commentable) : [current_user] %>
+
+<span style="white-space:nowrap;">
+<b><%= 'Sign as'.t -%></b>: 
+<% if select_between.empty? %>
+  <b><%= user_link(current_user, :icon => true, :no_link => true) %></b>
+<% else %>
+  <span class="styled_select avatar_comment" style="padding-right:0;">
+    <select class="selectActingAs" id="selectActingAs_<%= commentable.id -%>" name="comment[user_id]" onChange="updateAvatars<%= commentable.id -%>(this)">
+      <% select_between.each do |user| %>
+        <option value="<%= user.id -%>">
+          <%= user_link(user, :no_link => true, :limit => 10) %>
+        </option>
+      <% end %>
+    </select>
+  </span>
+<% end %>
+</span>
+
+<script type="text/javascript" charset="utf-8">
+  function updateAvatars<%= commentable.id -%>(selector) {
+    $$('.selectActingAs').each(function(e){
+      if (e.value != selector.value) {
+        e.value = selector.value;
+      }
+    });
+    
+    $$('<%= target -%>').each(function(e, index){e.hide();e.name = 'placeholder' + index;});
+    $$('<%= target -%>_' + selector.value).each(function(e) {
+      e.show();
+      e.name = 'comment[avatar_id]'; // make this the avatar id that's sent
+      event_object = document.createEvent('HTMLEvents');
+      event_object.initEvent('change', false, false);
+      e.dispatchEvent(event_object);
+    });
+
+  }
+  
+  Event.observe(window, 'load', function() {
+    updateAvatars<%= commentable.id -%>($('selectActingAs_<%= commentable.id -%>'));
+  });
+</script>

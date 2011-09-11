@@ -1,0 +1,45 @@
+<div>
+  <h2><%= user_link(user, :limit => 13, :icon => true) %></h2>
+  <strong><%=h truncate(user.display_name, :length => 35) %></strong>
+</div>
+
+
+<div class="default">
+  <strong><%= 'Visitors'.t %>:</strong>
+  <%= link_to "%d today" / [ContentStat.viewed_today(user)], :controller => 'user', :action => :stats, :id => user %>,
+  <%= link_to "%d total" / [ContentStat.viewed(user)], :controller => 'user', :action => :stats, :id => user %>
+</div>
+
+<div class="default">
+  <% if user.project? %>
+    <strong><%= 'Hosts'.t %>:</strong>
+    <%= link_to "%d today" / [user.relationships.founders.today.count], :controller => 'user', :action => :founders, :id => user %>,
+    <%= link_to "%d total" / [user.relationships.founders.count], :controller => 'user', :action => :founders, :id => user %>
+  <% end %>
+</div>
+
+<div class="default">
+  <strong><%= 'Messages'.t %>:</strong>
+  <%= link_to '%d today' / [user.messages_today.count], :controller => 'activity', :action => 'messages', :id => user %>
+</div>
+
+<div class="default">
+  <strong><%= 'Invitations'.t %>:</strong>
+  <%= link_to "%d today" / [user.invites.pending.today.count], :controller => 'activity', :action => 'invitations', :id => user %>,
+  <%= link_to "%d total" / [user.invites.pending.count], :controller => 'activity', :action => 'invitations', :id => user %>
+</div>
+
+<div class="default">
+  <strong><%= 'Followers'.t %>:</strong>
+  <%= link_to ("%d today" / [user.relationships.followers.today.count]), :controller => 'kroogi', :action => :show, :id => user %>,
+  <%= link_to ("%d total" / [user.relationships.followers.count]), :controller => 'kroogi', :action => :show, :id => user %>
+</div>
+
+<div class="default">
+  <strong>
+    <%= link_to (user.project? ? 'Project Settings'.t : 'User Settings'.t), :controller => 'preference', :action => 'show', :id => user %>
+    <br/>
+    <%= link_to "Invite People".t, {:controller => 'invite', :action => 'find', :id => user.id}, :style => user.project? ? nil : 'margin-left: 0;' %>
+  </strong>
+</div>
+

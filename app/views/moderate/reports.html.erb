@@ -1,0 +1,188 @@
+<% @title = 'Moderator Console'.t + ' :: ' + 'Managing Reports'.t %>
+
+<h1><%= 'Reported System Abuse (And Actions Taken)'.t %></h1>
+
+
+<table border="0" cellspacing="5" cellpadding="5" class="admin_options_table" style="width: 100%;">
+  <tr>
+    <td>
+      <%= 'Show'.t -%>:
+    </td>
+    <td>
+      <%= form_tag url_for(:controller => 'moderate', :action => 'reports'), :id => 'showform', :method => 'get' %>
+      <select name="show" onchange="$('showform').submit();">
+        <option value="all"><%= 'All events by date'.t %></option>
+        <option value="users-reported"><%= 'Reported users and projects'.t %></option>
+        <option value="content-reported"><%= 'Reported content items'.t %></option>
+        <option value="users-blocked"><%= 'Blocked users and projects'.t %></option>
+        <option value="content-blocked"><%= 'Blocked content items'.t %></option>
+        <option value="users-all"><%= 'All users with moderation events'.t %></option>
+      </select>
+      </form>
+      <script type="text/javascript" charset="utf-8">
+        $('showform').show.value = "<%= escape_javascript(params[:show]) -%>";
+      </script>
+    </td>
+    <td width="100">&nbsp;</td>
+    <td><span style="white-space:nowrap; position: relative; top: 7px;"><%= 'User or Project' -%>:</span></td>
+    <td width="500">
+      <%= form_tag :action => 'user_search' %>
+        <%= text_field_tag :user, params[:user], :class => 'feedback_input', :style => 'width: 150px;' %>
+        <button class="button" name="commit" type="submit"><span><%= 'Find'.t -%></span></button>
+      </form>
+    </td>
+  </tr>
+</table>
+
+
+<div class="admin">
+  <% if (@events && @events.empty?) || (@items && @items.empty?) %>
+    <% if @items && flash.empty? && params[:show] == 'users-all' %>
+        <div class="section_empty"><%= "User found, but no related moderation events".t %></div>
+    <% else %>
+        <div class="section_empty"><%= "No matches found".t %></div>
+    <% end %>
+  <% else %>
+  
+  
+    <% if params[:show] == 'users-blocked' || params[:show] == 'content-blocked' %>
+
+    <h2><%= 'Currently Blocked'.t %> <%= params[:show] == 'content-reported' ? 'Content Items'.t : 'Users and Projects'.t %></h2>
+
+    <table border="0" cellspacing="2" cellpadding="5" class="admin" style="width: 100%;">
+      <tr>
+        <th colspan="2"><%= 'Blocked Thing'.t %></th>
+        <th><%= 'Block Date'.t %></th>
+      </tr>
+    
+      <% @items.each do |item| %>
+        <tr class="<%= cycle("dark", "light") -%>">
+          <% if item.is_a?(Content) %>
+            <td><%= content_link(item, :icon => true) %></td>
+            <td><%= 'Owned by'.t -%>: <%= user_link(item.user, :icon => true) %></td>
+          <% else %>
+            <td colspan="2"><%= user_link(item, :icon => true) %></td>
+          <% end %>
+          <td>
+            <%= item.state_changed_at ? item.state_changed_at.to_s(:date_with_time) : '&nbsp;' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  
+    <% elsif params[:show] == 'content-reported' || params[:show] == 'users-reported' %>
+
+        <h2><%= 'Reported'.t %> <%= params[:show] == 'content-reported' ? 'Content Items'.t : 'Users and Projects'.t %></h2>
+
+        <table border="0" cellspacing="2" cellpadding="5" class="admin" style="width: 100%;">
+          <tr>
+            <th colspan="2"><%= 'Reported Thing'.t %></th>
+            <th><%= 'Reports'.t %></th>
+            <% if params[:show] == 'users-reported' %>
+              <th><%= 'Blocked Items'.t %></th>
+            <% end %>
+          </tr>
+        
+          <% @items.each do |item| %>
+            <tr class="<%= cycle("dark", "light") -%>">
+              <% if item.is_a?(Content) %>
+                <td><%= content_link(item, :icon => true) %></td>
+                <td><%= 'Owned by'.t -%>: <%= user_link(item.user, :icon => true) %></td>
+              <% else %>
+                <td colspan="2"><%= user_link(item, :icon => true) %></td>
+              <% end %>
+              <td>
+                <%= item.moderation_events.reports.size %>
+              </td>
+              <% if params[:show] == 'users-reported' %>
+                <td><%= item.moderation_events.blocks.uniq_items.size %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+    
+    <% elsif params[:show] == 'users-all' %>  
+    
+    
+    <h2><%= 'All users and projects with moderation events'.t %></h2>
+
+      <% @items.each do |user| %>
+        
+        <h3><%= user_link(user, :icon => true) %> (<%= user.display_name.strip %>)</h3>
+        
+        <p style="font-size: 12px; color: white; margin-top: -15px;">
+          <%= "%d events" / [user.all_moderation_events.size] -%>
+          <% if user.active? %>
+          | <%= link_to 'Block Me'.t, user_block_path(user) %>
+          <% else %>
+          | <%= user.state.t %>
+          <% end %>
+        </p>
+        
+        <table border="0" cellspacing="2" cellpadding="5" class="admin" style="width: 100%;">
+          <tr>
+            <th colspan="2"><%= 'Reported Item'.t %></th>
+            <th><%= 'Action'.t %></th>
+            <th><%= 'Reason'.t %></th>
+            <th><%= 'Details'.t %></th>
+            <th><%= 'Reported By'.t %></th>
+            <th><%= 'Date'.t %></th>
+          </tr>
+          <% user.all_moderation_events.each do |event| %>
+            <tr class="<%= cycle("dark", "light") -%>">
+              <% if event.reportable.is_a?(Content) %>
+                <td><%= content_link(event.reportable, :icon => true) %></td>
+                <td><%= 'Owned by'.t -%>: <%= user_link(event.responsible_user, :icon => true) %></td>
+              <% else %>
+                <td colspan="2"><%= user_link(event.responsible_user, :icon => true) %></td>
+              <% end %>
+              <td><%= event.kind %></td>
+              <td><%= event.display_reason %></td>
+              <td><%= event.message %></td>
+              <td><%= user_link(event.reporter, :icon => true) %></td>
+              <td><%= event.created_at.to_s(:date_with_time) %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    
+    <% elsif @events %>  
+        <h2><%= 'All Moderation Events'.t %></h2>
+
+      <table border="0" cellspacing="2" cellpadding="5" class="admin" style="width: 100%;">
+        <tr>
+          <th><%= 'Action'.t %></th>
+          <th colspan="2"><%= 'Reported Thing'.t %></th>
+          <th><%= 'Current Status'.t %></th>
+          <th><%= 'Reason'.t %></th>
+          <th><%= 'Details'.t %></th>
+          <th><%= 'Reported By'.t %></th>
+          <th><%= 'Date of Report'.t %></th>
+        </tr>
+
+        <% @events.each do |event| %>
+        <tr class="<%= cycle("dark", "light") -%>">
+          <td><%= event.kind %></td>
+          <% if event.reportable.is_a?(Content) %>
+            <td><%= content_link(event.reportable, :icon => true) %></td>
+            <td><%= user_link(event.responsible_user, :icon => true) %></td>
+          <% else %>
+            <td colspan="2"><%= user_link(event.responsible_user, :icon => true) %></td>
+          <% end %>
+          <td><%= event.reportable ? event.reportable.state.capitalize : '<b>' + "This event does not have an associated object".t + '</b>'%></td>
+          <td><%= event.display_reason ? h(event.display_reason) : '&nbsp;' %></td>
+          <td><%= h event.message %></td>
+          <td><%= user_link(event.user, :icon => true) %></td>
+          <td><%= event.created_at.localize('%b %e at %l:%M %p') %></td>
+        </tr>
+        <% end %>
+      </table>
+
+    <% else %>
+      <div class="section_empty"><%= 'Something went wrong'.t %></div>
+    <% end %>
+  <% end %>
+</div>
+
+
+<div style="margin-bottom: 100px;">&nbsp;</div>

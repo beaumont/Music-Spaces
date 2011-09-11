@@ -1,0 +1,9 @@
+<div class="left_sidebar">
+  <div>
+    <ul class="leftMenu">
+      <li <%= current_page?('/facebook/search/artists') ? 'class="selected"' :  '' -%>><%=link_to "All Artists", :controller => "search", :action => "artists"%></li>
+      <li <%= current_page?('/facebook/search/albums') ? 'class="selected"' :  '' -%>><%=link_to "All Albums",  :controller => "search", :action => "albums"%></li>
+      <li>All Styles</li>
+    </ul>
+  </div>
+</div>

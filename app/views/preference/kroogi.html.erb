@@ -1,0 +1,48 @@
+<% @title = @user.login + ' :: ' + 'Kroogi Notifications'.t %>
+<% @content_kind_displayname = 'Kroogi Notifications'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, 'Kroogi Notifications'.t)) do %>
+  <%= error_messages_for :preference %>
+  <%= error_messages_for :user %>
+  <% form_for :preference, :url => { :action => 'kroogi_update', :id => @user}, :html => { } do |f| -%>
+    <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+    <% form_border do %>
+      <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><b><%= 'What Kroogi notifications would you like to receive?'.t %></b></td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'kroogi_notify_joins_interested_circle', {:class => "auto_width"} %>
+            <%= 'Notify me when somebody joins my {{circle}} circle' / [@user.circle_name(Relationshiptype.interested)] -%>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'kroogi_notify_leaves_interested_circle', {:class => "auto_width"} %>
+              <%= 'Notify me when somebody leaves my {{circle}} circle' / [@user.circle_name(Relationshiptype.interested)] -%>
+          </td>
+        </tr>
+        <% unless current_user.projects.empty? %>
+          <tr>
+            <td class="left">&nbsp;</td>
+            <td class="center"><b><%= 'What Kroogi notifications do you want to receive?'.t %></b></td>
+          </tr>
+          <tr>
+            <td class="left">&nbsp;</td>
+            <td class="center"><label><%= check_box_tag 'receive_for[]', current_user.id, current_user.preference.receive_kroogi_notifications_for_user?(current_user), {:class => "auto_width"} %> <%= 'For my personal Kroogi messages'.t -%></label>
+              <% current_user.projects.each do |p| %>
+              <label><%= check_box_tag 'receive_for[]', p.id, current_user.preference.receive_kroogi_notifications_for_user?(p), {:class => "auto_width"} %> <%= 'For %s project' / [user_link(p, :icon => true)] -%></label>
+              <% end %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+    <button class="button_lg wizard" type="submit" name="commit"> <span>&nbsp;<%= 'Save'.t -%>&nbsp;</span> </button>
+  <% end %>
+<% end %>

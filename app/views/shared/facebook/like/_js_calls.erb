@@ -1,0 +1,17 @@
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript">
+      FB.getLoginStatus(function(response) {
+        <% if logged_in? && current_user.show_find_fb_friends_sm? %>
+          jQuery.ajax({
+                  url: '/api/user_has_fb_account'
+                });
+        <% end %>
+        if (response.session) {
+          jQuery('#fb_mock_login_button').show();
+          FB.XFBML.parse();
+        } else {
+          jQuery('#fb_mock_login_button').hide();
+        }
+      });
+  </script>
+<% end %>

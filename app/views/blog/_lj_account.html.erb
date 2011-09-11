@@ -1,0 +1,45 @@
+<%# translation ver 1 pass 1 -- AK
+  Needs another pass now - JM
+ %>
+
+<% fields_for :account, account do |user_fields| %>
+	<td class="left">
+		<%= 'LiveJournal Username'.t -%></td>
+	<td class="center">
+	  	<%= hidden_field_tag 'account[usejournal]',''%>
+	    <%= user_fields.text_field 'username', :size => 30, :maxlength => 40 %>
+	</td>
+	</tr>
+	<tr>
+		<td class="left"><%= 'LiveJournal Password'.t -%></td>
+		<td class="center">
+	    <input type="password" name="account[password]" size="30"  maxlength="60" value="" autofill="false" />
+	</td>
+	</tr>
+	<tr>
+		<td class="left"><%= 'Confirm Password'.t -%></td>
+		<td class="center">
+	    <input type="password" name="account[password_confirmation]" size="30" maxlength="60" value=""/>
+	</td>
+	</tr>
+	<tr><td class="left">&nbsp;</td>
+		<td class="center">
+		<%= user_fields.check_box('connect_friends', {:class => 'auto_width'}) %>&nbsp;&nbsp;<%= 'Reconnect me with my LiveJournal friends'.t -%>
+	</td>
+
+	<tr>
+		<td colspan=2><b><%= 'Security Settings'.t %></b></td>
+	</tr>
+	<tr>
+		<td colspan=2><%= 'Please select which type of LiveJournal entries you would like to display, and who may view them.'.t %>  
+	</td></tr>
+	
+	<tr>
+		<td class="left">&nbsp;</td>
+		<td class="center">
+    <%= image_tag('yes.gif', :style => 'padding: 0 3px') %> <%= 'All Public Entries (Show to everyone)'.t %><br />
+	  <%= user_fields.check_box('allow_friends') %> <%= 'Friends Only Entries. Show to %s' / user_fields.select(:friend_circle, Content.privacy_menu(@user)) %><br />
+	  <%= user_fields.check_box('import_mine') %> <%= 'Just Me and Custom Group Entries (Show to me only)'.t %><br />
+	</td></tr>
+  
+<% end %>

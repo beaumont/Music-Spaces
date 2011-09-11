@@ -1,0 +1,5 @@
+
+<%= image_tag "/images/#{@profile.user.project? ? 'project' : 'user'}_placeholder.jpg", :id => 'krugi_blank', :style => (@profile.userpic.nil? ? 'display:block' : 'display:none') %>
+<%= image_tag(profile.userpic.thumb(:big).public_filename, :size => profile.userpic.thumb(:big).image_size, :id => 'krugi_existing') unless @profile.userpic.nil? %>
+
+

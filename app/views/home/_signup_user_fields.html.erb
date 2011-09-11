@@ -1,0 +1,108 @@
+<%
+   @user.type = params[:user][:type] unless params[:user].nil?
+   @tos = params[:tos]
+   @project ||= Project.new
+%>
+<% content_for :js do %>
+
+  <%= validate_signup_interview %>
+
+  <script type="text/javascript">
+    jQuery(window).load(function() {
+      if ($('user_is_artist_true').checked) {
+        $('artist_options').show();
+      }
+      if ($('user_artist_kind_project').checked || $('user_artist_kind_single_plus_project').checked) {
+        $('project_name_block').show();
+      }
+    });
+  </script>
+
+<% end %>
+
+<div id="instance_errors">
+  <% unless error_messages_for(:user).blank? %>
+    <p style="color:red;">
+      <%= error_messages_for 'user' %><br/>
+    </p>
+  <% end %>
+  <% unless error_messages_for(:project).blank? %>
+    <p style="color:red;">
+      <%= error_messages_for 'project' %><br/>
+    </p>
+  <% end %>
+</div>
+
+<label for="email_address"><%= 'Your Email Address'.t -%></label>
+<%= f.text_field :email, :size=>'40' %>
+<div>
+  <%= render :partial => '/shared/we_will_keep_your_email_private_wording', :locals => {:preference => @user.preference} %>
+</div>
+
+<label for="login_name"><%= 'Your Personal Login Name'.t -%></label>
+<% sub_text = %Q{<div class="default" id="allowed_values">#{'Letters, numbers, and dashes (-) are allowed.'.t}</div>}%>
+<%= render :partial => '/shared/form_observable_field',
+            :locals => {:f => f,
+                        :field => 'login',
+                        :model => 'user',
+                        :external_validate => 'checkLoginName();',
+                        :sub_text => sub_text} %>
+
+<label for="password"><%= 'Your Password'.t -%></label>
+<%= f.password_field :password %>
+<div class="default"><%= "Password must be at least 7 characters long.".t %></div>
+
+<label for="confirm_password"><%= 'Confirm Password'.t -%></label>
+<%= f.password_field :password_confirmation %>
+<br/>
+
+<label for="artist"><%= "Would you also like to create a profile for your project?".t %></label>
+<%= f.radio_button 'is_artist', 'false', :onclick => "$('artist_options').hide();" %>
+<%= 'No'.t %>
+<%= f.radio_button 'is_artist', 'true', :onclick => "$('artist_options').show();" %>
+<%= 'Yes'.t %>
+
+<div id="artist_options" style="display:none">
+  <%= f.radio_button 'artist_kind', 'single', :onclick => "$('project_name_block').hide();"%>
+  <%= 'I am an individual artist (example: Enrique Caruso, Cher, Lady Gaga)'.t %>
+  <br/>
+  <%= f.radio_button 'artist_kind', 'project', :onclick => "$('project_name_block').show();"%>
+  <%= 'I am starting account for a band or creative collective'.t %>
+  <br/>
+  <%= f.radio_button 'artist_kind', 'single_plus_project', :onclick => "$('project_name_block').show();" %>
+  <%= 'I am an individual artist, and want to present both my solo works, and the works of my band (example: Paul McCartney, starting an account for himself and for The Beatles)'.t %>
+  <% fields_for :project do |project_fields| %>
+    <div id="project_name_block" style="display:none">
+      <label for="project_login"><%= 'Your Project Kroogi Name'.t -%></label>
+      <%= project_fields.text_field :login %>
+      <div class="default">
+        <%= 'This name will be used as part of your project URL (MyProject.kroogi.com).'.t %>
+        <%= 'Dash (-) is the only special character allowed.'.t %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% if @invite %>
+  <%= hidden_field_tag :id, @invite.activation_code %>
+<% end %>
+
+<label for="sex"><%= 'Gender'.t %></label>
+<%= f.radio_button 'gender', 'M', :checked => 'checked' %>
+<%= 'Male'.t %>
+<%= f.radio_button 'gender', 'F' %>
+<%= 'Female'.t %>
+<br/>
+
+<label for="bday"><%= 'Birthday'.t %></label>
+<%= f.text_field(:birthdate, :value => (I18n.l(@user.birthdate, :format => I18n.t('date.formats.birthday')) if @user.birthdate.is_a?(Date))) %>
+<span class="default" style="padding-left:1px;"><%= I18n.t('date.formats.birthday_title').t.upcase %></span>
+<%= javascript_tag("
+  jQuery(document).ready(function() {
+    #{birthday_datapicker}
+  })") %>
+<br/>
+
+<%= f.hidden_field 'language', :value => I18n.locale %>
+
+<%= check_box_tag "tos", @tos, @tos == 'on' ? true : false %>&nbsp;&nbsp;
+<label for="tos" style="display:inline;font-weight:normal;"> <%= 'I have read and accepted <a {{tos_link_attributes}}>Terms of Service</a>' / kroogi_tos_link_attributes -%></label>

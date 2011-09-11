@@ -1,0 +1,25 @@
+<% @title = @profile.user.login + ' :: ' + 'Upgrade to Advanced Account'.t %>
+<% @content_kind_displayname = 'Upgrade to Advanced Account'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, 'Upgrade to Advanced Account'.t)) do %>
+  <% form_for :content, :url => {:controller => 'profile', :action => 'upgrade_account' }, :html => { :multipart => true, :name => "upload_form", :onsubmit => 'return upgrade_confirmation(this);' } do |f| -%>
+    <% form_border do %>
+      <div class="default"><%= 'You are currently a Basic User. In this section you can convert your basic user account to advanced user account. The additional features of the advanced version will enable you to:'.t %></div>
+      <div class="default"><b><%= '((text)) Add Content'.t %></b></div>
+      <div class="default"><%= 'Add content, such as music albums and tracks, video, and text, and organize it by folders.'.t %></div>
+      <div class="default"><b><%= 'Make Announcements'.t %></b></div>
+      <div class="default"><%= 'Post announcements of unlimited length in a designated Announcements section, greatly improving the visibility of your message.'.t %></div>
+      <div class="default"><b><%= 'Receive Monetary Contributions'.t %></b></div>
+      <div class="default"><%= 'Set up the Kroogi payment system using PayPal or Webmoney, in order to receive contributions for your content or activity.'.t %></div>
+      <div class="default"><b><%= 'Create Projects'.t %></b></div>
+      <div class="default"><%= 'Projects are Kroogi profiles that can be managed by multiple Kroogi users (hosts). Each project host can act on behalf of the project.'.t + 'This feature, as well as other additional components, makes project accounts ideal for bands, charities, event committees, and other organizations.'.t %></div>
+      <div class="default"><%= 'Converting your account is <b>free</b>.'.t %></div>
+    <% end %>
+    <button class="button wizard" type="submit" name="commit" onclick="return confirm('<%= 'Are you sure you want to switch to Advanced account?'.t %>')">
+      <span><%= 'Convert'.t %></span>
+    </button>
+  <% end %>
+  <br /><br /><br /><br /><br />
+<% end %>

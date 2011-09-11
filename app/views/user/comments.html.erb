@@ -1,0 +1,7 @@
+<% @title = @user.login + ' :: ' + 'Greetings'.t %>
+
+<% main_block(:header_title => 'Wall Posts'.t) do %>
+  <div id="comments_<%= dom_id(@user.profile) %>">
+    <%= render :partial => 'comment/comments', :locals => {:commentable => @user.profile, :all_comments => @comments} %>
+  </div>
+<% end %>

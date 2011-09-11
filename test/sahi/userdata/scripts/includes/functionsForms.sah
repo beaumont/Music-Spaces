@@ -1,0 +1,588 @@
+/*
+    Functions that are used to fill or verify various forms
+*/
+
+/*
+    Filling registration form fields.
+    Special variables conditions:
+    $is_artist can be 'yes' or 'no'.
+    $artist_type is used only when $is_artist == 'yes'. $artist_type can be 'single', 'project' or 'both'.
+    $project_name is used only when $artist_type == 'project' or 'both'.
+*/
+
+function register_form_fill($email, $name, $pwd, $pwd_confirm, $is_artist, $artist_type, $project_name, $gender, $birthday, $language, $tos ){
+    _setValue(_textbox($signUpEmailField), $email);
+    _setValue(_textbox($signUpLoginNameField), $name);
+    _setValue(_password($signUpPasswordField), $pwd);
+    _setValue(_password($signUpConfirmPasswordField), $pwd_confirm);
+
+    if ($is_artist == "yes"){
+        _click(_radio($signUpArtistRadioYes));
+
+        if ($artist_type == "single"){
+            _click(_radio($signUpArtistTypeRadioSingle));
+        }
+
+        if ($artist_type == "project"){
+            _click(_radio($signUpArtistTypeRadioProject));
+            _assert(_isVisible(_textbox($signUpProjectNameField))); // check that project name field is shown after selecting
+            _setValue(_textbox($signUpProjectNameField), $project_name);
+        }
+
+        if ($artist_type == "both"){
+            _click(_radio($signUpArtistTypeRadioBoth));
+            _assert(_isVisible(_textbox($signUpProjectNameField))); // check that project name field is shown after selecting
+            _setValue(_textbox($signUpProjectNameField), $project_name);
+        }
+    }
+
+    if ($is_artist == "no"){
+        _click(_radio($signUpArtistRadioNo));
+    }
+
+    if ($gender == "male"){
+        _click(_radio($signUpGenderRadioMale));
+    }
+
+    if ($gender == "female"){
+        _click(_radio($signUpGenderRadioFemale));
+    }
+
+    _setValue(_textbox($signUpBirthdayField), $birthday);
+
+    if ($language == "en"){
+        _click(_radio($signUpLanguageRadioEn));
+    }
+
+    if ($language == "ru"){
+        _click(_radio($signUpLanguageRadioRu));
+    }
+
+    if ($tos == "yes"){
+        if (!(_condition(_checkbox($signUpTermsCheckbox).checked))){
+                _click(_checkbox($signUpTermsCheckbox));
+        }
+    }
+
+    if ($tos == "no"){
+        if (_condition(_checkbox($signUpTermsCheckbox).checked)){
+                _click(_checkbox($signUpTermsCheckbox));
+        }
+    }
+    _click(_submit($signUpPageButton));
+}
+
+/*
+    Verifying registration form fields' values
+    Special variables conditions:
+    $is_artist can be 'yes' or 'no'.
+    $artist_type is used only when $is_artist == 'yes'. $artist_type can be 'single', 'project' or 'both'.
+    $project_name is used only when $artist_type == 'project' or 'both'.
+*/
+
+function register_form_verify($email, $name, $pwd, $pwd_confirm, $is_artist, $artist_type, $project_name, $gender, $birthday, $language, $tos ){
+    _assertEqual($email, _textbox($signUpEmailField).value);
+    _assertEqual($name, _textbox($signUpLoginNameField).value);
+    _assertEqual($pwd, _password($signUpPasswordField).value);
+    _assertEqual($pwd_confirm, _password($signUpConfirmPasswordField).value);
+
+    if ($is_artist == "yes"){
+        _assert(_radio($signUpArtistRadioYes).checked);
+        _assertNotTrue(_radio($signUpArtistRadioNo).checked);
+
+        if ($artist_type == "single"){
+            _assert(_radio($signUpArtistTypeRadioSingle).checked);
+            _assertNotTrue(_radio($signUpArtistTypeRadioProject).checked);
+            _assertNotTrue(_radio($signUpArtistTypeRadioBoth).checked);
+            _assertNotTrue(_isVisible(_textbox($signUpProjectNameField)));
+        }
+
+        if ($artist_type == "project"){
+            _assertNotTrue(_radio($signUpArtistTypeRadioSingle).checked);
+            _assert(_radio($signUpArtistTypeRadioProject).checked);
+            _assertNotTrue(_radio($signUpArtistTypeRadioBoth).checked);
+            _assert(_isVisible(_textbox($signUpProjectNameField)));
+            _assertEqual($project_name, _textbox($signUpProjectNameField).value);
+        }
+
+        if ($artist_type == "both"){
+            _assertNotTrue(_radio($signUpArtistTypeRadioSingle).checked);
+            _assertNotTrue(_radio($signUpArtistTypeRadioProject).checked);
+            _assert(_radio($signUpArtistTypeRadioBoth).checked);
+            _assert(_isVisible(_textbox($signUpProjectNameField)));
+            _assertEqual($project_name, _textbox($signUpProjectNameField).value);
+        }
+    }
+
+    if ($is_artist == "no"){
+        _assertNotTrue(_radio($signUpArtistRadioYes).checked);
+        _assert(_radio($signUpArtistRadioNo).checked);
+        _assertNotTrue(_isVisible(_radio($signUpArtistTypeRadioSingle)));
+        _assertNotTrue(_isVisible(_radio($signUpArtistTypeRadioProject)));
+        _assertNotTrue(_isVisible(_radio($signUpArtistTypeRadioBoth)));
+        _assertNotTrue(_isVisible(_textbox($signUpProjectNameField)));
+    }
+
+    if ($gender == "male"){
+        _assert(_radio($signUpGenderRadioMale).checked);
+        _assertNotTrue(_radio($signUpGenderRadioFemale).checked);
+    }
+
+    if ($gender == "female"){
+        _assertNotTrue(_radio($signUpGenderRadioMale).checked);
+        _assert(_radio($signUpGenderRadioFemale).checked);
+    }
+
+    _assertEqual($birthday, _textbox($signUpBirthdayField).value);
+
+    if ($language == "en"){
+        _assert(_radio($signUpLanguageRadioEn).checked);
+        _assertNotTrue(_radio($signUpLanguageRadioRu).checked);
+    }
+
+    if ($language == "ru"){
+        _assertNotTrue(_radio($signUpLanguageRadioEn).checked);
+        _assert(_radio($signUpLanguageRadioRu).checked);
+    }
+
+    if ($tos == "yes"){
+        _assert(_checkbox("tos").checked);
+    }
+
+    if ($tos == "no"){
+         _assertNotTrue(_checkbox("tos").checked);
+    }
+}
+
+/*
+    Settings center -> 'Edit details' form filling with data
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+*/
+function user_details_form_fill ($display_name, $motto, $occupation, $country, $city, $birthdate, $show_birthdate, $gender, $language, $website, $about, $tags, $school, $skype, $yahoo, $aol, $lj, $icq, $gtalk, $msn, $myspace, $custom_q1, $custom_a1, $custom_q2, $custom_a2, $custom_q3, $custom_a3, $custom_q4, $custom_a4) {
+    _setValue(_textbox($editDetailsDisplayNameField), $display_name);
+    _setValue(_textbox($editDetailsMottoField), $motto);
+    _setValue(_textbox($editDetailsOccupationField), $occupation);
+    _setValue(_textbox($editDetailsCountryField), $country);
+    _setValue(_textbox($editDetailsCityField), $city);
+    _setValue(_textbox($editDetailsBirthdateField), $birthdate);
+
+    if ($show_birthdate == "yes"){
+        if (!(_condition(_checkbox($editDetailsShowBirthdateCheckbox).checked))){
+                _click(_checkbox($editDetailsShowBirthdateCheckbox));
+        }
+    }
+
+    if ($show_birthdate == "no"){
+        if (_condition(_checkbox($editDetailsShowBirthdateCheckbox).checked)){
+                _click(_checkbox($editDetailsShowBirthdateCheckbox));
+        }
+    }
+
+    if ($gender == "male"){
+        _click(_radio($editDetailsGenderRadioMale));
+    }
+
+    if ($gender == "female"){
+        _click(_radio($editDetailsGenderRadioFemale));
+    }
+
+    if ($language == "en"){
+        _click(_radio($editDetailsLanguageRadioEn));
+    }
+
+    if ($language == "ru"){
+        _click(_radio($editDetailsLanguageRadioRu));
+    }
+
+    _setValue(_textbox($editDetailsWebsiteField), $website);
+    _setValue(_textarea($editDetailsAboutField), $about);
+    _setValue(_textarea($editDetailsTagsField), $tags);
+    _setValue(_textbox($editDetailsSchoolField), $school);
+    _setValue(_textbox($editDetailsSkypeField), $skype);
+    _setValue(_textbox($editDetailsYahooField), $yahoo);
+    _setValue(_textbox($editDetailsAolField), $aol);
+    _setValue(_textbox($editDetailsLjField), $lj);
+    _setValue(_textbox($editDetailsIcqField), $icq);
+    _setValue(_textbox($editDetailsGtalkField), $gtalk);
+    _setValue(_textbox($editDetailsMsnField), $msn);
+    _setValue(_textbox($editDetailsMyspaceField), $myspace);
+    _setValue(_textbox($editDetailsCustomQuestion1Field), $custom_q1);
+    _setValue(_textarea($editDetailsCustomAnswer1Field), $custom_a1);
+    _setValue(_textbox($editDetailsCustomQuestion2Field), $custom_q2);
+    _setValue(_textarea($editDetailsCustomAnswer2Field), $custom_a2);
+    _setValue(_textbox($editDetailsCustomQuestion3Field), $custom_q3);
+    _setValue(_textarea($editDetailsCustomAnswer3Field), $custom_a3);
+    _setValue(_textbox($editDetailsCustomQuestion4Field), $custom_q4);
+    _setValue(_textarea($editDetailsCustomAnswer4Field), $custom_a4);
+}
+
+// Setting center -> 'Edit details' form fields verifying
+function user_details_form_verify ($display_name, $motto, $occupation, $country, $city, $birthdate, $show_birthdate, $gender, $language, $website, $about, $tags, $school, $skype, $yahoo, $aol, $lj, $icq, $gtalk, $msn, $myspace, $custom_q1, $custom_a1, $custom_q2, $custom_a2, $custom_q3, $custom_a3, $custom_q4, $custom_a4) {
+    _assertEqual($display_name, _textbox($editDetailsDisplayNameField).value);
+    _assertEqual($motto, _textbox($editDetailsMottoField).value);
+    _assertEqual($occupation, _textbox($editDetailsOccupationField).value);
+    _assertEqual($country, _textbox($editDetailsCountryField).value);
+    _assertEqual($city, _textbox($editDetailsCityField).value);
+    _assertEqual($birthdate, _textbox($editDetailsBirthdateField).value);
+
+    if ($show_birthdate == "yes"){
+        _assert(_checkbox($editDetailsShowBirthdateCheckbox).checked);
+    }
+
+    if ($show_birthdate == "no"){
+        _assertNotTrue(_checkbox($editDetailsShowBirthdateCheckbox).checked);
+    }
+
+    if ($gender == "male"){
+        _assert(_radio($editDetailsGenderRadioMale).checked);
+        _assertNotTrue(_radio($editDetailsGenderRadioFemale).checked);
+    }
+
+    if ($gender == "female"){
+        _assertNotTrue(_radio($editDetailsGenderRadioMale).checked);
+        _assert(_radio($editDetailsGenderRadioFemale).checked);
+    }
+
+    if ($language == "en"){
+        _assert(_radio($editDetailsLanguageRadioEn).checked);
+        _assertNotTrue(_radio($editDetailsLanguageRadioRu).checked);
+    }
+
+    if ($language == "ru"){
+        _assertNotTrue(_radio($editDetailsLanguageRadioEn).checked);
+        _assert(_radio($editDetailsLanguageRadioRu).checked);
+    }
+
+    _assertEqual($website, _textbox($editDetailsWebsiteField).value);
+    _assertEqual($about, _textarea($editDetailsAboutField).value);
+    _assertEqual($tags, _textarea($editDetailsTagsField).value);
+    _assertEqual($school, _textbox($editDetailsSchoolField).value);
+    _assertEqual($skype, _textbox($editDetailsSkypeField).value);
+    _assertEqual($yahoo, _textbox($editDetailsYahooField).value);
+    _assertEqual($aol, _textbox($editDetailsAolField).value);
+    _assertEqual($lj, _textbox($editDetailsLjField).value);
+    _assertEqual($icq, _textbox($editDetailsIcqField).value);
+    _assertEqual($gtalk, _textbox($editDetailsGtalkField).value);
+    _assertEqual($msn, _textbox($editDetailsMsnField).value);
+    _assertEqual($myspace, _textbox($editDetailsMyspaceField).value);
+    _assertEqual($custom_q1, _textbox($editDetailsCustomQuestion1Field).value);
+    _assertEqual($custom_a1, _textarea($editDetailsCustomAnswer1Field).value);
+    _assertEqual($custom_q2, _textbox($editDetailsCustomQuestion2Field).value);
+    _assertEqual($custom_a2, _textarea($editDetailsCustomAnswer2Field).value);
+    _assertEqual($custom_q3, _textbox($editDetailsCustomQuestion3Field).value);
+    _assertEqual($custom_a3, _textarea($editDetailsCustomAnswer3Field).value);
+    _assertEqual($custom_q4, _textbox($editDetailsCustomQuestion4Field).value);
+    _assertEqual($custom_a4, _textarea($editDetailsCustomAnswer4Field).value);
+}
+
+/*
+    Settings center -> 'Edit details' form filling with data for Projects
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+*/
+function project_details_form_fill ($display_name, $motto, $project_type, $country, $city, $website, $about, $tags, $skype, $yahoo, $aol, $lj, $icq, $gtalk, $msn, $myspace, $custom_q1, $custom_a1, $custom_q2, $custom_a2, $custom_q3, $custom_a3, $custom_q4, $custom_a4) {
+    _setValue(_textbox($editDetailsDisplayNameField), $display_name);
+    _setValue(_textbox($editDetailsMottoField), $motto);
+    _setValue(_textbox($editDetailsProjectTypeField), $project_type);
+    _setValue(_textbox($editDetailsCountryField), $country);
+    _setValue(_textbox($editDetailsCityField), $city);
+    _setValue(_textbox($editDetailsWebsiteField), $website);
+    _setValue(_textarea($editDetailsAboutProjectField), $about);
+    _setValue(_textarea($editDetailsTagsField), $tags);
+    _setValue(_textbox($editDetailsSkypeField), $skype);
+    _setValue(_textbox($editDetailsYahooField), $yahoo);
+    _setValue(_textbox($editDetailsAolField), $aol);
+    _setValue(_textbox($editDetailsLjField), $lj);
+    _setValue(_textbox($editDetailsIcqField), $icq);
+    _setValue(_textbox($editDetailsGtalkField), $gtalk);
+    _setValue(_textbox($editDetailsMsnField), $msn);
+    _setValue(_textbox($editDetailsMyspaceField), $myspace);
+    _setValue(_textbox($editDetailsCustomQuestion1Field), $custom_q1);
+    _setValue(_textarea($editDetailsCustomAnswer1Field), $custom_a1);
+    _setValue(_textbox($editDetailsCustomQuestion2Field), $custom_q2);
+    _setValue(_textarea($editDetailsCustomAnswer2Field), $custom_a2);
+    _setValue(_textbox($editDetailsCustomQuestion3Field), $custom_q3);
+    _setValue(_textarea($editDetailsCustomAnswer3Field), $custom_a3);
+    _setValue(_textbox($editDetailsCustomQuestion4Field), $custom_q4);
+    _setValue(_textarea($editDetailsCustomAnswer4Field), $custom_a4);
+}
+
+// Setting center -> 'Edit details' form fields verifying for projects
+function project_details_form_verify ($display_name, $motto, $project_type, $country, $city, $website, $about, $tags, $skype, $yahoo, $aol, $lj, $icq, $gtalk, $msn, $myspace, $custom_q1, $custom_a1, $custom_q2, $custom_a2, $custom_q3, $custom_a3, $custom_q4, $custom_a4) {
+    _assertEqual($display_name, _textbox($editDetailsDisplayNameField).value);
+    _assertEqual($motto, _textbox($editDetailsMottoField).value);
+    _assertEqual($project_type, _textbox($editDetailsProjectTypeField).value);
+    _assertEqual($country, _textbox($editDetailsCountryField).value);
+    _assertEqual($city, _textbox($editDetailsCityField).value);
+    _assertEqual($website, _textbox($editDetailsWebsiteField).value);
+    _assertEqual($about, _textarea($editDetailsAboutProjectField).value);
+    _assertEqual($tags, _textarea($editDetailsTagsField).value);
+    _assertEqual($skype, _textbox($editDetailsSkypeField).value);
+    _assertEqual($yahoo, _textbox($editDetailsYahooField).value);
+    _assertEqual($aol, _textbox($editDetailsAolField).value);
+    _assertEqual($lj, _textbox($editDetailsLjField).value);
+    _assertEqual($icq, _textbox($editDetailsIcqField).value);
+    _assertEqual($gtalk, _textbox($editDetailsGtalkField).value);
+    _assertEqual($msn, _textbox($editDetailsMsnField).value);
+    _assertEqual($myspace, _textbox($editDetailsMyspaceField).value);
+    _assertEqual($custom_q1, _textbox($editDetailsCustomQuestion1Field).value);
+    _assertEqual($custom_a1, _textarea($editDetailsCustomAnswer1Field).value);
+    _assertEqual($custom_q2, _textbox($editDetailsCustomQuestion2Field).value);
+    _assertEqual($custom_a2, _textarea($editDetailsCustomAnswer2Field).value);
+    _assertEqual($custom_q3, _textbox($editDetailsCustomQuestion3Field).value);
+    _assertEqual($custom_a3, _textarea($editDetailsCustomAnswer3Field).value);
+    _assertEqual($custom_q4, _textbox($editDetailsCustomQuestion4Field).value);
+    _assertEqual($custom_a4, _textarea($editDetailsCustomAnswer4Field).value);
+}
+
+/*
+    Settings center -> 'Edit details' form filling with data for basic user
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+*/
+function buser_details_form_fill ($display_name, $motto, $birthdate) {
+    _setValue(_textbox($editDetailsDisplayNameField), $display_name);
+    _setValue(_textbox($editDetailsMottoField), $motto);
+    _setValue(_textbox($editDetailsBirthdateField), $birthdate);
+}
+
+// Setting center -> 'Edit details' form fields verifying for basic user
+function buser_details_form_verify ($display_name, $motto, $birthdate) {
+    _assertEqual($display_name, _textbox($editDetailsDisplayNameField).value);
+    _assertEqual($motto, _textbox($editDetailsMottoField).value);
+    _assertEqual($birthdate, _textbox($editDetailsBirthdateField).value);
+}
+
+ // Settings center -> 'Account settings' -> 'Change E-mail' form filling
+function user_email_change ($email, $password) {
+    _setValue(_textbox($accountSettingsEmailField), $email);
+    _click(_submit($accountSettingsChangeEmailButton));
+    _assertExists(_span($accountSettingsPasswordNeededNotice));
+    _setValue(_password($accountSettingsHiddenPassword), $password);
+    _click(_submit($accountSettingsChangeEmailButton));
+}
+
+ // Settings center -> 'Account settings' -> 'Change Password' form filling
+function user_pass_change ($oldpass, $newpass, $confirm) {
+    _setValue(_password($accountSettingsOldPassField), $oldpass);
+    _setValue(_password($accountSettingsNewPassField), $newpass);
+    _setValue(_password($accountSettingsNewPassConfirmField), $confirm);
+    _click(_submit($accountSettingsChangePassButton));
+}
+
+/*
+    Content -> 'Add/edit writing' form filling
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+    Also, note, that if in 'Show in' select box, some folder was selected, 'Show to' field becomes inaccessible and function not works with it.
+    (or, mathematically saying, $showto is used only if $showin == $contentLink)
+*/
+function writing_form_fill($title, $body, $tags, $owner, $donate, $showin, $feature, $showto) {
+    _setValue(_textbox($addWritingTitleField), $title);
+    _setValue(_textarea($addWritingBodyField), $body);
+    _setValue(_textbox($addWritingTagsField), $tags);
+    _setValue(_textbox($addWritingOwnerField), $owner);
+
+    if ($donate == "yes"){
+        if (!(_condition(_checkbox($addWritingDonateCheckbox).checked))){
+                _click(_checkbox($addWritingDonateCheckbox));
+        }
+    }
+
+    if ($donate == "no"){
+        if (_condition(_checkbox($addWritingDonateCheckbox).checked)){
+                _click(_checkbox($addWritingDonateCheckbox));
+        }
+    }
+
+    _setSelected(_select($addWritingShowInSelect), $showin);
+
+    if ($feature == "yes"){
+        if (!(_condition(_checkbox($addWritingFeatureCheckbox).checked))){
+                _click(_checkbox($addWritingFeatureCheckbox));
+        }
+    }
+
+    if ($feature == "no"){
+        if (_condition(_checkbox($addWritingFeatureCheckbox).checked)){
+                _click(_checkbox($addWritingFeatureCheckbox));
+        }
+    }
+
+    if ($showin == $contentLink){
+        _setSelected(_select($addWritingShowToSelect), $showto);
+    }
+}
+
+
+/*
+    Content -> 'Add/edit writing' form verifying
+    Note, that if in 'Show in' select box, some folder is selected, function do not verifies 'Show to' field
+    (or, mathematically saying, $showto is used only if $showin == $contentLink)
+*/
+
+function writing_form_verify($title, $body, $tags, $owner, $donate, $showin, $feature, $showto) {
+    _assertEqual($title, _textbox($addWritingTitleField).value);
+    _assertEqual($body, _textarea($addWritingBodyField).value);
+    _assertEqual($tags, _textbox($addWritingTagsField).value);
+    _assertEqual($owner, _textbox($addWritingOwnerField).value);
+
+    if ($donate == "yes"){
+        _assert(_checkbox($addWritingDonateCheckbox).checked);
+    }
+
+    if ($donate == "no"){
+        _assertNotTrue(_checkbox($addWritingDonateCheckbox).checked);
+    }
+
+    _assertEqual($showin, _getSelectedText(_select($addWritingShowInSelect)));
+
+    if ($feature == "yes"){
+        _assert(_checkbox($addWritingFeatureCheckbox).checked);
+    }
+
+    if ($feature == "no"){
+        _assertNotTrue(_checkbox($addWritingFeatureCheckbox).checked);
+    }
+
+    if ($showin == $contentLink){
+        _assertEqual($showto, _getSelectedText(_select($addWritingShowToSelect)));
+    }
+}
+
+/*
+    Content -> 'Edit note/announcement' form filling
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+*/
+function note_form_fill($text, $tags, $picture, $donate, $showto, $announcement) {
+    _setValue(_textarea($editNoteTextField), $text);
+    _setValue(_textbox($editNoteTagsField), $tags);
+    _setValue(_file($editNotePictureField), $picture);
+
+    if ($donate == "yes"){
+        if (!(_condition(_checkbox($editNoteDonateCheckbox).checked))){
+                _click(_checkbox($editNoteDonateCheckbox));
+        }
+    }
+
+    if ($donate == "no"){
+        if (_condition(_checkbox($editNoteDonateCheckbox).checked)){
+                _click(_checkbox($editNoteDonateCheckbox));
+        }
+    }
+
+    _setSelected(_select($editNoteShowToSelect), $showto);
+
+    if ($announcement == "yes"){
+        if (!(_condition(_checkbox($editNotePinCheckbox).checked))){
+                _click(_checkbox($editNotePinCheckbox));
+        }
+    }
+
+    if ($announcement == "no"){
+        if (_condition(_checkbox($editNotePinCheckbox).checked)){
+                _click(_checkbox($editNotePinCheckbox));
+        }
+    }
+}
+
+// Content -> 'Edit note/announcement' form verifying
+function note_form_verify($text, $tags, $picture, $donate, $showto, $announcement) {
+    _assertEqual($text, _textarea($editNoteTextField).value);
+    _assertEqual($tags, _textbox($editNoteTagsField).value);
+    _assertEqual($picture, _file($editNotePictureField).value);
+
+    if ($donate == "yes"){
+        _assert(_checkbox($editNoteDonateCheckbox).checked);
+    }
+
+    if ($donate == "no"){
+        _assertNotTrue(_checkbox($editNoteDonateCheckbox).checked);
+    }
+
+    _assertEqual($showto, _getSelectedText(_select($editNoteShowToSelect)));
+
+    if ($announcement == "yes"){
+        _assert(_checkbox($editNotePinCheckbox).checked);
+    }
+
+    if ($announcement == "no"){
+        _assertNotTrue(_checkbox($editNotePinCheckbox).checked);
+    }
+}
+
+/*
+    Content -> 'Add/edit video' form filling
+    Note that this function do not clicks 'Save' or 'Cancel', you need to do it separately!
+    Also, note, that if in 'Show in' select box, some folder was selected, 'Show to' field becomes inaccessible and function not works with it.
+    (or, mathematically saying, $showto is used only if $showin == $contentLink)
+*/
+function video_form_fill($embed, $title, $description, $tags, $owner, $donate, $showin, $feature, $showto) {
+    _setValue(_textarea($addVideoEmbedField), $embed);
+    _setValue(_textbox($addVideoTitleField), $title);
+    _setValue(_textarea($addVideoDescriptionField), $description);
+    _setValue(_textbox($addVideoTagsField), $tags);
+    _setValue(_textbox($addVideoOwnerField), $owner);
+
+    if ($donate == "yes"){
+        if (!(_condition(_checkbox($addVideoDonateCheckbox).checked))){
+                _click(_checkbox($addVideoDonateCheckbox));
+        }
+    }
+
+    if ($donate == "no"){
+        if (_condition(_checkbox($addVideoDonateCheckbox).checked)){
+                _click(_checkbox($addVideoDonateCheckbox));
+        }
+    }
+
+    _setSelected(_select($addVideoShowInSelect), $showin);
+
+    if ($feature == "yes"){
+        if (!(_condition(_checkbox($addVideoFeatureCheckbox).checked))){
+                _click(_checkbox($addVideoFeatureCheckbox));
+        }
+    }
+
+    if ($feature == "no"){
+        if (_condition(_checkbox($addVideoFeatureCheckbox).checked)){
+                _click(_checkbox($addVideoFeatureCheckbox));
+        }
+    }
+
+    if ($showin == $contentLink){
+        _setSelected(_select($addVideoShowToSelect), $showto);
+    }
+}
+
+/*
+    Content -> 'Add/edit video' form verifying
+    Note, that if in 'Show in' select box, some folder is selected, function do not verifies 'Show to' field
+    (or, mathematically saying, $showto is used only if $showin == $contentLink)
+*/
+function video_form_verify($embed, $title, $description, $tags, $owner, $donate, $showin, $feature, $showto) {
+    _assertEqual($embed, _textarea($addVideoEmbedField).value);
+    _assertEqual($title, _textbox($addVideoTitleField).value);
+    _assertEqual($description, _textarea($addVideoDescriptionField).value);
+    _assertEqual($tags, _textbox($addVideoTagsField).value);
+    _assertEqual($owner, _textbox($addVideoOwnerField).value);
+
+    if ($donate == "yes"){
+        _assert(_checkbox($addVideoDonateCheckbox).checked);
+    }
+
+    if ($donate == "no"){
+        _assertNotTrue(_checkbox($addVideoDonateCheckbox).checked);
+    }
+
+    _assertEqual($showin, _getSelectedText(_select($addVideoShowInSelect)));
+
+    if ($feature == "yes"){
+        _assert(_checkbox($addVideoFeatureCheckbox).checked);
+    }
+
+    if ($feature == "no"){
+        _assertNotTrue(_checkbox($addVideoFeatureCheckbox).checked);
+    }
+
+    if ($showin == $contentLink){
+        _assertEqual($showto, _getSelectedText(_select($addVideoShowToSelect)));
+    }
+}

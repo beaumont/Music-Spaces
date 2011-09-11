@@ -1,0 +1,21 @@
+<% I18n.with_locale(locale) do %><%# for some reason it doesn't work otherwise: locale is reset inside ERB builder %><%= 'If you got this album for free, please contribute to the artist as much as you want here'.t %>:
+<%= "http://#{user.login.downcase}.#{APP_CONFIG.hostname}/#{I18n.locale}/download/#{to_verbose_param}.html" %>
+
+<%= 'Album title'.t %>: <%= title %><% unless description.blank? %>
+<%= 'Description'.t %>:
+<%= description %><% end %>
+<%[[:artist, 'music.album.artist'.t], [:year, 'Release Year'.t]].each do |method, label| value = self.send(method); %><% unless value.blank? %>
+<%= label %>: <%= value %><% end %><% end %>
+
+<%= 'Tracklist'.t %>: <% cnt = tracks.size; tracks.each_with_index do |track, i| %>
+<%= track_index_padding(cnt) % (i + 1) %>. <%= track.title %><% end %>
+<% tracks_descriptions = tracks.map {|t| [t.title, t.localized_field_value(:description)]}.reject {|title, descr| descr.blank?}%>
+<%= 'Tracks lyrics/descriptions'.t %>:
+<% tracks_descriptions.each do |pair| %>
+<% title, description = *pair %><%= title %>
+<%= '-'* title.chars.size unless title.blank? %>
+<%= description.gsub("\r", "") %>
+=================
+
+<% end %>
+<% end %>

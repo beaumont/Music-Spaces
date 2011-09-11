@@ -1,0 +1,30 @@
+<% if comment.can_see? && !comment.deleted? %>
+  <% truncate_opts = {:truncate => true, :truncate_length => 300}.merge!(truncate_opts || {}) %>
+  <% last ||= false %>
+
+  <div class="user_block">
+    <div class="block_date"><%= comment.created_at.to_s(:date_with_time) %></div>
+    <div class="block_username"><%= user_link(comment.user, :icon => true) %></div>
+    <%= avatar_md(comment.avatar_id ? (Image.active.find(comment.avatar_id) rescue comment.user) : comment.user) %>
+
+    <div class="block_body">
+      <% if comment.private? || comment.commentable.is_a?(Pvtmessage) %>
+        <div class="grey_out" style="padding-top: 3px;" class="iconized i_meonly"><%= 'Private Comment'.t %></div>
+      <% end %>
+      <div class="default_lg" style="overflow-x:auto;color:#333;">
+        <%= kf_simple(comment.comment) -%>
+      </div>
+      <div class="right">
+        <div class="block_action">
+          <%= leave_comment_link(comment, {:user => user}) %>
+          <%= comment_deletion_link(comment) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% unless last %>
+    <div class="grey_line2"></div>
+  <% end %>
+
+<% end %>
+

@@ -1,0 +1,167 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'List Users'.t %>
+
+<div class="admin">
+
+
+<h2><%= 'Users list'.t %></h2>
+
+<span class="adminmenu"><%= link_to 'New User'.t, :action => 'new' %></span>
+
+<div style="margin: 10px 0px; font-size: 12px;">
+  <% form_tag '/admin/users', :method => :get do %>
+    <%= 'Search users'.t %>: 
+    <%= text_field_tag :name, params[:name] %>
+    <span class="role_filter" style="margin-left: 15px;">
+      <label for="role"><%= 'Role'.t -%>:</label>
+      <%= select_tag :role, options_for_select([['', nil]] + Role.find(:all, :order => 'name').map{|r| [r.name, r.id]}, @role_filter) %>
+    </span>
+    <span class="verified_filter" style="margin-left: 15px; margin-right: 15px;">
+      <label for="verified_by_kroogi"><%= 'Verification Status'.t -%>:</label>
+      <%= select_tag :verified_by_kroogi, options_for_select([["Doesn't Matter".t, nil], ["Must be Verified".t, 'yes'], ["Must NOT be Verified".t, "no"]], params[:verified_by_kroogi]) %>
+    </span>
+    <%= submit_tag 'Search'.t %>
+    <span><%= check_box_tag("with_questions_kit", true, params[:with_questions_kit]) %> <%= 'Only show users with assigned question kits'.t %></span>
+    <span style="margin-left: 15px;"><%= check_box_tag("tps_setup_enabled", true, params[:tps_setup_enabled]) %> <%= 'Only show users with enabled TPS Setup'.t %></span>
+  <% end %>
+</div>
+
+<div class="paging_status">
+  <%= @paging_header %>
+</div>
+<table class="admin users">
+  <tr>
+    <th>Id</th>
+    <th><%= 'Created'.t %></th>
+    <th><%= 'Login Name'.t %></th>
+    <th><%= 'Email'.t %></th>
+    <th><%= 'Display Name Eng'.t %></th>
+    <th><%= 'Display Name Ru'.t %></th>
+    <th><%= 'Roles'.t %></th>
+    <th><%= 'Status'.t %></th>
+    <th><%= 'Views'.t %></th>
+    <th colspan="2"><%= 'Controls'.t %></th>
+  </tr>
+
+<% @users.each  do |user| %>
+  <tr class="<%= cycle("dark", "light") %>" style="<%= user_state_css(user) -%>" id="user_row_<%= user.id -%>">
+    <td><%= user.id %></td>
+    <td><%= datetime(user.created_at, true) %></td>
+    <td>
+      <%= user.deleted? ? user.login : user_link(user, :icon => true, :extra_icon => true) %><%= '(collection)'.t if user.is_a?(CollectionProject) %>
+
+      <% if !user.deleted? && user.account_setting %>
+        <div style="margin-top: 5px;">
+          <%= image_tag("kroogi_verified.gif", :style => "vertical-align:middle;#{'display:none;' unless user.account_setting.verified_by_kroogi?}", :id => "kroogi_verified_#{user.id}") -%>
+          <%= 'Status'.t -%>: 
+          <span id="verified_by_kroogi_status">
+            <span id="verified_<%= user.id -%>_yes" style="<%= 'display:none;' unless user.account_setting.verified_by_kroogi? -%>"><%= 'Identity verified by Kroogi'.t %></span>
+            <span id="verified_<%= user.id -%>_no" style="<%= 'display:none;' if user.account_setting.verified_by_kroogi? -%>"><%= 'Identity not verified'.t %></span>
+          </span>
+          <span id="verification_controls_<%= user.id -%>" style="white-space:nowrap;">
+            <% path_options = {:controller => "/admin/users", :id => user.account_setting.id} %>
+            <% if user.account_setting.verified_by_kroogi? %> 
+              (<%= link_to_remote('Remove Verification'.t, :success => "toggleTo('#{user.id}', 'no');",
+                                  :url => path_options.merge(:action => "remove_verification"), :method => :put ) -%>)
+            <% else %>
+              (<%= link_to_remote('Verify ((user)) identity'.t, :success => "toggleTo('#{user.id}', 'yes');",
+                                  :url => path_options.merge(:action => "verify"), :method => :put ) -%>)
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+      <div style="margin-top: 5px;">
+        <%= user.project? ? 'Last active'.t : 'Last login'.t -%> <%= datetime(user.last_active_at) %><br/>
+      </div>
+      <div style="margin-top: 5px;">
+        <%= 'Questions Kit'.t %>: <%= get_questions_kit_name(@questions_kits, user) %>
+      </div>
+      <div style="margin-top: 5px;">
+        <%= 'TPS Setup'.t %>: <%= user.tps_setup_enabled? ? "Enabled".t : "Disabled".t %>
+      </div>
+    </td>
+    <td>
+      <div class="email">
+        <%= user.email %>
+      </div>
+    </td>
+    <td>
+      <div class="name">
+        <%= user.read_attribute(:display_name) %>
+      </div>
+    </td>
+    <td>
+      <div class="name">
+        <%= user.read_attribute(:display_name_ru) %>
+      </div>
+    </td>
+  	<td>
+  		<%= user.roles.collect{|role| role.name}.to_sentence() %>
+  	</td>
+  	<td id="state_<%= user.id %>">
+      <% unless user.activated? %>
+        <%= "#{'Not activated yet'.t}" %>
+        <div id="activating_<%= user.id %>">
+          <%= link_to_remote('Activate'.t,
+            :failure => '$(\'activating_%s\').innerHTML = \'%s\'' % [user.id, 'Activation failed - user account possibly didn\\\'t pass validation. Please try usual update to find out.'.t],
+            :loading => '$(\'activating_%1$s\').select(\'a\')[0].hide(); $(\'activating_%1$s\').select(\'.status_message\')[0].show();' % user.id,
+            :url => {:controller => "/admin/users", :action => "activate",
+            :id => user.id}, :method => :post ) %>
+          <span class="status_message" style="display:none;"><img src="/images/ajax-loader.gif" /><%= '%s...' % 'activating'.t %></span>
+        </div>
+      <% else %>
+        <%= user.state.humanize %>
+      <% end %>
+    </td>
+  	<% if user.anonymous? || user.deleted? %>
+  	  <td colspan="3">&nbsp;</td>
+  	<% else %>
+      <td style="line-height:18px;">
+        <%= link_to 'Show'.t, :action => 'show', :id => user %><br/>
+        <%= link_to 'Edit'.t, :action => 'edit', :id => user %><br/>
+      </td>
+      <td>
+          &nbsp;
+          <% if user.active? %>
+            <%= link_to('Disable'.t, { :controller => '/user', :action => 'block', :id => user }) %>
+          <% elsif user.blocked? %>
+            <%= link_to('Enable'.t, { :controller => '/user', :action => 'restore', :id => user }) %>
+          <% end %>
+          &nbsp;
+      </td>
+      <td>
+          &nbsp;
+          <%= link_to('Destroy'.t, { :action => 'destroy', :id => user }, :confirm => 'Are you sure you want to permanently delete this user?'.t, :method => :post) %>
+          &nbsp;
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= render :partial => '/shared/pager', :locals => {:results => @users, :skip_padding => true} %>
+</div>
+
+<div style="height: 100px;">&nbsp;</div>
+
+<script type="text/javascript" charset="utf-8">
+  function activated(id, state){
+    $('state_' + id).innerHTML = state;
+  }
+  
+  function toggleTo(user_id, state) {
+    if (state == 'no') {
+      $('kroogi_verified_'+user_id).hide();
+      $('verified_'+user_id+'_yes').hide();
+      $('verified_'+user_id+'_no').show();
+      $('verification_controls_'+user_id).hide();
+    } else {
+      $('kroogi_verified_'+user_id).show();
+      $('verified_'+user_id+'_yes').show();
+      $('verified_'+user_id+'_no').hide();
+      $('verification_controls_'+user_id).hide();
+    }
+    $('user_row_'+user_id).highlight();
+  }
+</script>
+

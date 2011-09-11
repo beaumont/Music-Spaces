@@ -1,0 +1,158 @@
+<% main_block(:header_title => 'FundBox'.t) do %>
+  <% form_for :content, :url => { :controller => 'submit', :action => (is_edit? ? 'edit_fundbox' : 'fundbox')}, :html => {:name => "uploadForm", :multipart => true} do |f| -%>
+    <%= f.hidden_field("id") %>
+    <%= f.hidden_field("is_in_gallery") %>
+
+    <div class="default_text"><b><%= 'Name and Description:'.t %></b></div>
+
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info" style="padding-bottom:0;">
+      <tr>
+        <td colspan="2" style="padding-bottom:0;">
+          <%= render :partial => "shared/translatable_fields2",
+            :locals => {:fields =>
+              [{:object => @content,
+                :title => 'What is your fundbox name?'.t, :field => :title, :param_name => :content},
+              {:object => @content,
+                :title => 'What do you collect the funds for?'.t, :field => :description, :options => {:size => "29x10", :maxsize => 1000},
+                :sub_title => '(1000 characters max)'.t, :param_name => :content}
+            ]} %>
+        </td>
+      </tr>
+    </table>
+
+    <div class="default_text" style="margin:5px 0px">
+      <b><%= 'Do you collect a specific amount?'.t %></b>
+      <label for="" style="padding-left:10px;">
+        <%= f.radio_button :specific_amount, true, :class => "bottom" %>
+        <%= 'Yes'.t %>
+      </label>
+      <label for="">
+        <%= f.radio_button :specific_amount, false, :class => "bottom" %>
+        <%= 'No'.t %>
+      </label>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px" id="target_amount_content">
+      <b><%= 'What is the amount you require?'.t %></b>
+      <label for="">
+        $ <%= f.text_field :goal_amount, :size => "5", :style => "text-align:right;" %>
+      </label>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px">
+      <b><%= 'Do you have a specific deadline?'.t %></b>
+      <label for="" style="padding-left:10px;">
+        <%= f.radio_button :specific_end_date, true, :class => "bottom" %>
+        <%= 'Yes'.t %>
+      </label>
+      <label for="">
+        <%= f.radio_button :specific_end_date, false, :class => "bottom" %>
+        <%= 'No'.t %>
+      </label>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px" id="end_date_content">
+      <b><%= 'What is the last date of your fundbox?'.t %></b>
+      <label for="">
+        <%= f.text_field :end_date, :value => (I18n.l(@content.end_date, :format => I18n.t('date.formats.birthday')) if @content.end_date.is_a?(Date)), :class => "date_field" %>
+      </label>
+    </div>
+
+    <% unless @images.blank? %>
+      <div class="default_text"><b><%= 'Pictures:'.t %></b></div>
+      <% for image in @images %>
+        <%= image_tag(image.thumb(:thumb).public_filename, :id => 'main_img', :alt => h(image.title_short)) %>
+      <% end %>
+    <% end %>
+
+    <div class="default_text" style="margin:5px 0px"><b><%= 'Upload a pictures:'.t %></b> <div class="default_text">(<%= 'you can upload JPG, PNG or GIF files; please keep the file size below 3 Mb'.t %>)</div></div>
+
+    <div class="default_text" style="margin:5px 0px">
+      <% fields_for 'content[uploaded_data]' do |uf| %>
+        <%= uf.file_field(1, :class => "file_field_input_200px") %><br/>
+        <div id="more_upload_fields" style="display:none;">
+          <% (2...6).each do |i| -%>
+            <div class="paragraph"><%= uf.file_field(i, :class => "file_field_input_200px") %></div>
+          <% end -%>
+          <p><%= link_to "Upload more files...".t, "javascript:void(0);", :id => "show_more_upload_fields2" %></p>
+        </div>
+        <div id="more_upload_fields2" style="display:none;">
+          <% (6...11).each do |i| -%>
+            <div class="paragraph"><%= uf.file_field(i, :class => "file_field_input_200px") %></div>
+          <% end -%>
+          <div><%= "A maximum of ten files can be uploaded in one batch.".t %></div>
+        </div>
+      <% end %>
+      <p><%= link_to "Upload more files...".t, "javascript:void(0);", :id => "show_more_upload_fields" %></p>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px"><b><%= 'Display Settings'.t %></b></div>
+    <div class="default_text" style="margin:5px 0px">
+      <label for="cat_id" style="font-weight: normal;"><%= 'Show in'.t %></label>
+      <% in_album = @content.container_album %>
+      <%= select_tag "content[album_id]", "<option value=\"\">#{'Content'.t}</option>" + options_for_select(Album.album_menu(@content), in_album ? in_album.id : nil) %>
+      <label id="startpage_label" style="white-space:nowrap;"><%= f.check_box("is_in_startpage", :style => 'width:auto;') %> <%= 'and feature on Profile page'.t %></label><br/>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px">
+      <label for="relationshiptype_id" style="font-weight: normal;"><%= 'Show to'.t %></label>
+      <%= f.select :relationshiptype_id, Content.privacy_menu(@content.user), :selected => @content.relationshiptype_id %>
+    </div>
+
+    <div class="default_text" style="margin:5px 0px">
+      <label for="slideshow_delays" style="font-weight: normal;"><%= 'What time would you like to display this pictures for?'.t %></label>
+      <%= f.text_field :slideshow_delays, :style => "width:15px;" %>
+    </div>
+
+    <%= render :partial => "buttons", :locals => {:is_editing => true, :center => true, :upload => true, :ok_label => 'Save'.t, :use_button_submit => true} %>
+
+    <div class="clear"></div>
+
+  <% end %>
+<% end %>
+
+
+
+<% content_for :js do %>
+  <%= javascript_tag "
+      jQuery(document).ready(function() {
+        jQuery('#content_specific_amount_true').click(function() {
+          jQuery('#target_amount_content').show();
+        })
+
+        jQuery('#content_specific_amount_false').click(function() {
+          jQuery('#target_amount_content').hide();
+        })
+
+        jQuery('#content_specific_end_date_true').click(function() {
+          jQuery('#end_date_content').show();
+        })
+
+        jQuery('#content_specific_end_date_false').click(function() {
+          jQuery('#end_date_content').hide();
+        })
+
+        jQuery('#show_more_upload_fields').click(function() {
+          jQuery('#more_upload_fields').show();
+          jQuery(this).hide();
+        })
+
+        jQuery('#show_more_upload_fields2').click(function() {
+          jQuery('#more_upload_fields2').show();
+          jQuery(this).hide();
+        })
+
+        jQuery('#content_specific_amount_#{@content.specific_amount}').trigger('click');
+        jQuery('#content_specific_end_date_#{@content.specific_end_date}').trigger('click');
+
+        jQuery.datepicker.setDefaults(jQuery.datepicker.regional['#{I18n.locale == 'en' ? '' : I18n.locale}']);
+        jQuery('#content_end_date').datepicker({
+          dateFormat: '#{I18n.t('date.formats.birthday_jquery')}',
+          defaultDate: '+1m',
+          buttonImage: '/images/calendar_date_select/calendar.gif',
+          showOn: 'both',
+          buttonImageOnly: true
+        });
+      })
+    " %>
+<% end %>

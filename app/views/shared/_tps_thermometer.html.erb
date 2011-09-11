@@ -1,0 +1,12 @@
+<div><%= image_tag 'form_o_top.gif' %></div>
+
+<div class="form_o_side_sdw">
+  <% label_margin = hat.current_collected_percents_to5 * 24 / 5 %>
+  <% label_margin = 447 if hat.current_collected_percents_to5 == 95 %>
+  <% label_margin = 439 if hat.current_collected_percents_to5 >= 100 %>
+  <div class="thermometer_numbers" <%= "style=\"margin-left:#{label_margin}px;\"" %>>
+    <%= hat.current_collected_percents %>%
+  </div>
+  <%= image_tag "thermometer_#{hat.current_collected_percents_to5}.gif" %>
+</div>
+<div class="shadow20"><%= image_tag 'form_o_btm.gif' %></div>

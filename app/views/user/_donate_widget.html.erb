@@ -1,0 +1,36 @@
+<% # Keep multipe donation dialogs from interfering with each other
+   @donation_dialog_number = (@donation_dialog_number || 0) + 1
+%>
+
+<%= return '' if recipient.nil? or recipient.account_setting.nil?  or !recipient.account_setting.donatable?
+    # Keep multipe donation dialogs from interfering with each other
+    @donation_dialog_number = (@donation_dialog_number || 0) + 1
+
+    link_to(
+         ("<span>" + (recipient.account_setting.donation_button_label || 'Contribute'.t) + "</span>"),
+        "#",
+          { :class => "button_or",
+            :onclick => "script:jQuery('#donation_dialog_#{ @donation_dialog_number }').dialog(donation_dialog_opts);return false;"} 
+          ) 
+%>
+
+<div style="display: none;" id="donation_dialog_<%= @donation_dialog_number %>" title="Contribute to <%= recipient.display_name %>"></div>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+      var donation_dialog_opts = {
+        title: "<%= "Contribute to {{user_name}}" / h(recipient.display_name) %>",
+        modal: true,
+        height: 'auto',
+        position: 'top',
+        width: 400,
+        open:  function() {jQuery("#donation_dialog_<%= @donation_dialog_number %>").load( '/donate/choose?recipient_id=<%= recipient.id %>' +
+                                                       '<%= (!donor.blank? and (donor.id >= 0)) ? "&donor_id=#{donor.id}"     : "" %>' +
+                                                       '&dialog_id_suffix=<%= @donation_dialog_number %>');},
+        close: function() {jQuery("#donation_dialog_<%= @donation_dialog_number %>").dialog('destroy');}
+      };
+      function contribution_successful_<%= @donation_dialog_number %>() {}
+  </script>
+<% end %>
+<div style="clear:both"></div>
+

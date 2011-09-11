@@ -1,0 +1,28 @@
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <div class="downloadbox">
+    <div class="from">
+      <div class="arrow" id="downloadboxContent_img_up"   style="display:<%=toggle_arrows(@entry, :box=>"download")%>;"><%= link_to_toggle(@entry, :link_txt=>image_tag('arrow_right.gif'), :hide=>"donateboxContent", :show=>"downloadboxContent") %></div>
+      <div class="arrow" id="downloadboxContent_img_down" style="display:<%=toggle_arrows(@entry, :box=>"download", :reverse=>"true")%>;"><%= link_to_toggle(@entry, :link_txt=>image_tag('arrow_down.gif'), :hide=>"donateboxContent", :show=>"downloadboxContent") %></div>
+      <div class="arrowText"><%= link_to_toggle(@entry, :link_txt=>'Download', :hide=>"donateboxContent", :show=>"downloadboxContent") %></div>
+      <div class="downloadboxContent" id="downloadboxContent" style="display:<%=toggle_box(@entry, :box=>"download")%>;height:60%;">
+        <%= download_link_div(@entry) %>
+        <% if (@has_donated.nil?) and (current_fb_user && !current_fb_user.has_donated_to_content?(@entry)) %>
+          <%= render :partial => 'facebook/donate/payment_systems.erb', :locals => {:box => 'download'}%>
+        <%end%>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <% fb_else do %>
+    <div class="downloadbox">
+      <div class="from">
+        <div class="arrow" id="downloadboxContent_img_up"><%= image_tag('arrow_right.gif') %></div>
+        <div class="arrowText"><%= link_to_toggle(@entry, :link_txt=>'Download', :expand=>'downloadboxContent') %></div>
+        <div class="downloadboxContent" id="downloadboxContent">
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  <%end%>
+<% end %>
+<%= render :partial => 'shared/facebook/download_dialog_info', :locals => {:content => @entry, :id => @entry.id} %>

@@ -1,0 +1,21 @@
+<%
+related_contents = content.related_contents.select{|c| c.is_view_permitted?}
+return if related_contents.empty?
+%>
+<style type="text/css">
+  .related_contents .related_contents_item .gallery_entry_s2 { }
+  .related_contents .related_contents_title {margin: 10px 0; font-weight: bold; font-size: 1.75em; line-height: 1em }
+  .related_contents .related_contents_item .gallery_r_border3 {border-color: #ccc;}
+  .related_contents .related_contents_item .gallery_r_border2 {border-color: #bbb;}
+  .related_contents .related_contents_item .gallery_r_border1 {border-color: #aaa;}
+</style>
+
+<%= header_title('More Downloads'.t) %>
+
+<div class="related_contents">
+  <% related_contents.each do |r| %>
+    <div class="related_contents_item">
+      <%= render(:partial => '/content/gallery_item', :locals => {:content => r, :show_comment => false, :show_owner_b => true, :from_related => true }) %>
+    </div>
+  <% end %>
+</div>

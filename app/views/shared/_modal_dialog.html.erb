@@ -1,0 +1,26 @@
+<% box_id ||= "#{action}"
+   width ||= 400
+   button_class ||= 'button'
+   box_contents ||= nil
+%>
+<%= link_to "#{button_title}", "#",
+            :style => "text-decoration:none",
+            :onclick=>"jQuery('##{box_id}').dialog(#{box_id}_opts);return false;" %>
+<div style="display: none;" id="<%= box_id %>">
+  <div class="dialog"><%= box_contents %></div>
+</div>
+
+<!-- Javascript includes to drive this functionality -->
+<%- content_for :js do -%>
+  <script type="text/javascript">
+    var <%= "#{box_id}_opts" %> = {
+      title: "<%= title %>",
+      modal: true,
+      width: <%= width %>,
+      <% unless box_contents %>
+        open:  function() {jQuery("#<%= box_id %>").load( '<%= url_for :controller => controller, :action => action, :id => entry.id %>')},
+      <% end %>
+      close: function() {jQuery("#<%= box_id %>").dialog('destroy');}
+    };
+  </script>
+<% end %>

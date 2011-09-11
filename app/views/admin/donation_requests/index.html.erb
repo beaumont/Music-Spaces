@@ -1,0 +1,33 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Monetary Account Status'.t %>
+
+<% 
+  # Not the best place for this, maybe, but if it's in a class method it get's cached to one translation/language
+  money_link_labels = [
+    ['All Accounts'.t, :any],
+    ['Processing'.t, :processing],
+    ['Unverified'.t, :unverified],
+    ['Verified'.t, :verified],
+    ['Rejected'.t, :rejected],
+    ['Removed'.t, :removed]
+  ]
+%>
+
+<div>
+  <strong><%= 'General Money Status'.t -%></strong>:
+  <% money_link_labels.each_with_index do |link, idx| %>
+    <%= link_to_unless_current link[0], admin_donation_requests_path(:type => link[1]) %>
+    <%= '|' unless idx == money_link_labels.size - 1 %>
+  <% end %>
+</div>
+
+<div style="margin-top: 15px;" class="admin">
+  <% label = money_link_labels.detect{|x| x[1] == params[:type].to_sym} %>
+  <h2><%= label ? label[0] : params[:type].humanize %></h2>
+
+  <%= render :partial => 'account_table', :locals => {:accounts => @accounts} %>
+</div>
+
+<div style="padding: 10px;">
+  <%= will_paginate @accounts %>
+</div>

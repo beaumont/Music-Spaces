@@ -1,0 +1,66 @@
+<%
+recipient = @entry.user
+donor_login  = current_fb_user.nil? ? "" : current_fb_user.login
+donor_id     = current_fb_user.nil? ? "" : LegacyIdHash.id_to_hash(current_fb_user.id)
+content_id   = (defined?(@entry) and !@entry.nil?) ? LegacyIdHash.id_to_hash(@entry.id) : ""
+recipient_id = LegacyIdHash.id_to_hash(recipient.account_setting.id)
+if (defined?(@entry) and !@entry.blank?)
+  return_url = url_for_canvas(:controller => "content", :action => "show", :id=> @entry.id)
+else
+  return_url = ""
+end
+
+title = "#{'Contribution to'} '#{@entry.user.display_name}'"
+title << " #{'for'} '#{@entry.title}'" unless @entry.nil?
+
+%>
+<% p = MonetaryProcessor.find_by_short_name('paypal') %>
+<%= render :partial => "/facebook/donate/#{p[:short_name]}/form",
+                    :locals => {
+                                :p => p,
+                                :available_processor => true,
+                                :title => title,
+                                :karma_point_id => @karma_point_id,
+                                :donor_id => donor_id,
+                                :donor_login => donor_login,
+                                :content_id => content_id,
+                                :recipient_id => recipient_id,
+                                :return_url => return_url,
+                                :box => box
+                                }
+%>
+<div class="more_mps_link_<%= box %>" style="float: right; margin: 10px;">
+<a href="#"
+   id="more_mps_link_<%= box %>"
+   clicktohide="more_mps_link_<%= box %>"
+   clicktoshow="less_mps_link_<%= box %>"
+   style="<%= viewer_inteface_language == 'RU' ? "display:none" : "display:block" %>"
+   onclick="document.getElementById('additional_mps_<%= box %>').setStyle('display', 'block'); return false;"><%= 'more payment systems'.t %>&nbsp></a>
+</div>
+<div id="additional_mps_<%= box %>" style="<%= visiblity_for_additional_mps %>;">
+<% mps = MonetaryProcessor.find_all_by_short_name(['yandex','webmoney_all','smscoin'], :order => "display_order") %>
+<% mps.each do |mp| %>
+<%= render :partial => "/facebook/donate/#{mp[:short_name]}/form",
+                    :locals => {
+                                :p => mp,
+                                :available_processor => true,
+                                :title => title,
+                                :karma_point_id => @karma_point_id,
+                                :donor_id => donor_id,
+                                :donor_login => donor_login,
+                                :content_id => content_id,
+                                :recipient_id => recipient_id,
+                                :return_url => return_url,
+                                :box => box
+                                }
+%>
+<% end %>
+  <div class="less_mps_link_<%= box %>" style="padding-left:155px;">
+  <a href="#"
+     id="less_mps_link_<%= box %>"
+     clicktohide="less_mps_link_<%= box %>"
+     clicktoshow="more_mps_link_<%= box %>"
+     style="display:none"
+     onclick="document.getElementById('additional_mps_<%= box %>').setStyle('display', 'none'); return false;"><%= 'less payment systems'.t %>&nbsp></a>
+  </div>
+</div>

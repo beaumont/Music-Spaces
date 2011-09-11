@@ -1,0 +1,35 @@
+<% @title = @user.login + ' :: ' + 'Content'.t %>
+<% content_for :right_column do %>
+    <div class="default">related content</div>
+<% end %>
+<div class="content_body">
+  <div class="content_head"><%= 'Content'.t -%> </div>
+<div class="white_body">
+<%# TODO: implement filtering %>
+<% if false %>
+<%= 'Entry Types'.t -%>
+<p>:
+<select name="projects" onchange="alert('implement filtering then me')//document.location.href='<%= url_for :controller => '/user', :action => 'switch' %>/'+this.value;">
+<option><%= 'All'.t -%></option>
+<option><%= 'Images'.t -%></option>
+<option><%= 'Sound'.t -%></option>
+<option><%= 'Text'.t -%></option>
+<%= options_for_select([[current_user.login, current_user.id]] + current_user.projects.collect { |project| [project.login, project.id] }, current_actor.id) %>
+</select>
+<% end %>
+
+<% if @gallery.blank? %>
+<div class="section_empty"><%= "User has no content".t %></div>
+<% end %>
+<%= render :partial => '/content/tracks_player', :locals => {:data_options => {:tracks => @gallery.
+    select { |c| c.is_a?(Track) }}, :player_id => "showcase_player"} %>
+  <% @gallery.select { |c| c.class == Textentry }.each do |text_content| %>
+  <%= render(:partial => 'content/text_in_folder', :locals => {:text_content => text_content}) %>
+<% end %>
+<% @gallery.reject { |c| [Textentry, Track].include?(c.class) }.each do |preview| %>
+  <%= render(:partial => 'content/gallery_item', :locals => {:content => preview, :show_comment => true}) %>
+<% end %>
+</div>
+</div>
+
+

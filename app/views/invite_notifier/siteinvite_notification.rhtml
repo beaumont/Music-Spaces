@@ -1,0 +1,30 @@
+<p><%= 'Hello, and welcome to Kroogi'.t -%>!</p>
+
+<p><strong>
+  <% if @invite.inviter.nil? || @invite.inviter.login.downcase == Kroogi::KROOGI_ACCOUNT.downcase %>
+    <%# Just say welcome if not invited by a real user %>
+    <%= 'You have been invited to join the Kroogi Network'.t %>
+  <% else %>
+    <%= 'You have been invited to join the Kroogi Network by %s%s' / [link_to(@invite.inviter.login, "#{@url}/user/#{@invite.inviter.id}"), (@invite.inviter.display_name == @invite.inviter.login ? "" : " (#{@invite.inviter.display_name})") ]-%>
+  <% end %>
+</strong></p>
+
+<% if @invite.invitation && @invite.invitation != 'false' && !@invite.invitation.blank? %>
+  <p><%= 'Invitation message'.t -%>:</p>
+  <p><blockquote><%= kf_simple @invite.invitation %></blockquote></p>
+<% end %>
+
+<p><%= 'Please follow one of these links'.t -%>:</p>
+<ul>
+  <li><%= link_to 'Join Kroogi'.t, @url_signup %></li>
+  <li><%= link_to 'Explore Kroogi'.t, 'http://www.kroogi.com/explore' %></li>
+</ul>
+
+<% if @in_rainbows_album %>
+  <p><%= 'Once you have successfully signed in, please return to "%s" for download instructions.' / link_to(@in_rainbows_album.title, url_for(:controller => "/content", :action => "show", :id => @in_rainbows_album.id, :only_path => false))  %></p>
+<% end %>
+
+<p>
+  <%= 'Kroogi is a virtual gallery, place for communicating with your spectators and followers, workspace for creative collaboration,'.t %>
+  <%= 'bulletin board, social network, and modus operandi for creative beings'.t -%>.
+</p>

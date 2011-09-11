@@ -1,0 +1,18 @@
+<% truncate_display ||= false # for short/long view -%>
+<table class="list">
+   <tr>
+     <th><%= active_sort_class('Date'.t, 'created_at') %> <%= sort_link('created_at', params[:dir]) %></th>
+     <th><%= 'Payment system'.t %></th>
+     <th><%= active_sort_class('Amount (USD)'.t, 'gross_amount_usd') %>  <%= sort_link('gross_amount_usd', params[:dir]) %></th>
+     <th><%= 'Status'.t %></th>
+    </tr>
+   <% monetary_withdrawals.each do |w| %>
+    <tr class="<%= "last" if monetary_withdrawals.last == w %>">
+      <td><%= datetime(w.created_at) %></td>
+      <td><%= contrib_processor_name(w) %></td>
+      <td><%= "$#{w.gross_amount_usd}" %></td>
+      <td class="last"><%= 'Complete'.t %></td>
+    </tr>
+   <% end -%>
+</table>
+

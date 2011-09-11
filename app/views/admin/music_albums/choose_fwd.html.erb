@@ -1,0 +1,10 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Choose Folder With Downloadables to convert to MA'.t %>
+
+<% form_tag({:action => :fwd_chosen}, {:method => :get}) do %>
+  <div>
+    <label for="fwd_id"><%= 'Enter id of Folder with Downloadables here'.t%>:</label>
+    <input id="fwd_id" name="fwd_id" type="text" />
+  </div>
+  <%= submit_tag('Submit'.t) %>
+<% end %>
+

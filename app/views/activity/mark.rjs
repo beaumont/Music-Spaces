@@ -1,0 +1,25 @@
+@marked_ids.each do |i|
+  if @new_state == :read
+    page << <<-JS
+    if ($('message_body_#{i}')) {
+      $('message_body_#{i}').removeClassName('unread');
+    } else if ($('message_#{i}')) {
+      $('message_#{i}').removeClassName('unread');
+    }
+    JS
+    page["new_blurb_#{i}"].hide()
+    page["mark_read_control_#{i}"].hide()
+    page["mark_new_control_#{i}"].show()
+  else
+    page << <<-JS
+    if ($('message_body_#{i}')) {
+      $('message_body_#{i}').addClassName('unread');
+    } else if ($('message_#{i}')) {
+      $('message_#{i}').addClassName('unread');
+    }
+    JS
+    page["new_blurb_#{i}"].show()
+    page["mark_read_control_#{i}"].show()
+    page["mark_new_control_#{i}"].hide()
+  end
+end

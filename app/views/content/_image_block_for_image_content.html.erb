@@ -1,0 +1,16 @@
+      <div class="gallery_r_border3">
+        <div class="gallery_r_border2">
+          <div class="gallery_r_border1">
+            <div style="padding: 5px;">
+              <% img = image_tag(image.thumb(:preview).public_filename, :width => thumb_dim(image, :preview, :width),
+                            :height => thumb_dim(image, :preview, :height), :id => 'main_img',
+                            :alt => h(image.title_short)) %>
+              <% if link_url %>
+                <%= link_to_unless_current(img, link_url, :title => link_title) %>
+              <% else %>
+                <%= img %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>

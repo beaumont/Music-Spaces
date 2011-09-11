@@ -1,0 +1,13 @@
+<div class="default">
+  <% if viewer_stat.user_id.to_i > 1 %>
+    <strong><%= user_link(viewer_stat.user, :icon => true) %> <%= '('+viewer_stat.user.display_name+')' if viewer_stat.user.display_name %>,</strong>
+  <% elsif viewer_stat.user_id.to_i == 1 %>
+    <strong><%= 'Anonymous'.t %>,</strong>
+  <% else %>
+    <strong><%= 'Guest User'.t %>,</strong>
+  <% end %>
+  <%= viewer_stat.created_at.localize("%d %B %Y") %>
+  <%= 'at'.t %>
+  <%= viewer_stat.created_at.localize("%H:%M") %>
+</div>
+

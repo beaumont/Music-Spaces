@@ -1,0 +1,16 @@
+<% unless logged_in? %>
+  <% if content %>
+    <% if content.min_contribution_amount %>
+      <%= "Important! {{login_link}} or register. This will let you download '{{album}}' again. You will need it if the initial download breaks." / [link_to("Login ((to be in with mnc))".t, login_url), truncate_with_hint(content.title, :length => 32)] %>
+    <% else %>
+      <%= "{{login_link}} or register to start building your relationship with {{artist}} and have all your download links in one place." / [link_to("Login ((to be in))".t, login_url), truncate_with_hint(recipient.display_name, :length => 32)] %>
+    <% end %>
+    <%= "Registration is not required to download.".t %>
+    <%= "Enter your email address below to create an account (We will email you an invitation to join Kroogi).".t %>
+    <br/>
+  <% else %>
+    <label for="start_following_follower_email"><%= 'Email'.t -%>:</label>
+  <% end %>
+
+  <%= f.text_field 'follower_email', :class => 'follower_email' %>
+<% end %>

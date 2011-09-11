@@ -1,0 +1,29 @@
+<%
+  object = f.object || self.instance_variable_get("@#{f.object_name}")
+  owner = object.owner if !object.nil? && object.respond_to?(:owner)
+%>
+<div class="form_head"><%= 'Copyright ownership'.t %></div>
+<div class="form_center">
+  <label for="ownership_none">
+    <%= radio_button_tag "ownership", "none", true, :style => 'width: auto;margin-right:5px;' %>
+    <%= "I don’t own copyright to this work, nor do I have permission to upload it".t %>
+  </label>
+  <label for="ownership_me">
+    <%= radio_button_tag "ownership", "me", (owner == current_actor.login), :style => 'width: auto;margin-right:5px;' %>
+    <%= 'I own copyright to this work'.t %>
+  </label>
+  <label for="ownership_other">
+    <%= radio_button_tag "ownership", "other", (owner != current_actor.login && !owner.blank?), :style => 'width: auto;float:left;margin-right:8px;' %>
+    <%= 'I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked'.t %>.
+  </label>
+</div>
+<div class="form_line">
+	<div class="form_center">
+	  <b><%= 'The copyright owner is'.t %>:</b>
+    <%= f.text_field :owner, :style => 'width: 240px;', :onclick => 'setOwnershipOther();' %>
+    <div><%= '(for multiple owners leave this field blank; you will be able to add names later.)'.t %></div>
+    <%= set_ownership_other %>
+  </div>
+</div>
+
+

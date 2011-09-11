@@ -1,0 +1,18 @@
+<% if comment.can_see? && !comment.deleted? %>
+  <div class="user_block" id="comment_item_<%= comment.id %>">
+    <div class="block_date"><%= comment.created_at.to_s(:date_with_time) %></div>
+    <div class="block_username"><%= user_link(comment.user, :icon => true) %></div>
+    <%= avatar_md(comment.avatar_id ? (Image.active.find(comment.avatar_id) rescue comment.user) : comment.user) %>
+    <div class="block_body">
+      <div class="default_lg <%= comment_class_generator ? ' ' + comment_class_generator.call(comment) : '' %>" style="overflow-x:auto; color:#333;">
+        <%=  kf_simple(comment.comment) -%>
+      </div>
+      <% if allow_deletion %>
+        <div class="default delete">
+          <%= comment_deletion_link(comment) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

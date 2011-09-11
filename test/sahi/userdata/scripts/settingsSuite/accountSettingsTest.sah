@@ -1,0 +1,264 @@
+/*
+    Settings center > 'Account settings' page test.
+
+    Out of scope:
+    - Not checking all 'Privacy settings' functionality, really. Will cover with other tests or add to this test later.
+    - Not checking that deleted project is not accessible to view by other users, will add later
+    - Not checking this page for basic account because it's no sense really (same partial used as for advacned with all same fields)
+
+    Known bugs:
+    - #4139 Account settings - provide error message when 'New password' is empty
+    - #4141 After saving privacy settings on 'Project settings' page, tab switched to user
+    - #4460 'Show others when I view their content' checkbox is broken
+
+    Test sequence:
+    - Open 'Account Settings' for user, check elements presence and default field values
+    - Try to change e-mail, check following error cases:
+        1) incorrect password entered
+        2) empty e-mail
+        3) incorrect e-mail
+        4) e-mail is too short    //SENSELESS VALIDATION
+        5) e-mail already used
+    - Try to change e-mail, enter correct password, check that e-mail changed
+    - Try to change password, check following error cases:
+        1) Old password is entered incorrectly
+        2) New password is empty
+        3) New password confirmation is empty
+        4) New password is too short
+        5) New password is too long
+        6) New password doesn't match confirmation
+    - Change password, then log out and login with new password
+    - Remove all 'Privacy settings' checkboxes, save form and check that checkboxes were removed
+    - Open 'Project settings' for project, check elements presence and default field values
+    - Remove both 'Privacy settings' checkboxes, save form and check that checkboxes were removed - not doing this now due to BUG
+    - Open 'Hide project' page, check elements presence and default field values
+    - Try to hide project, enter incorrect password, check error message
+    - Try to hide project, enter correct password. You'll be redirected to profile page, check message about it there
+    - Go to 'Project settings' again. Click 'Open project' and check that it is opened
+    - Open 'Delete project' page, check elements presence and default field values
+    - Try to delete project, enter incorrect password, check error message
+    - Try to delete project, enter correct password
+    - Check that project is not available anymore
+    - Open user's 'Account Settings' again and go to 'Delete user' page
+    - Try to delete user, enter incorrect password, check error message
+    - Try to delete user, enter correct password
+    - Make sure you cannot login as deleted user
+
+    Tear-down: this test requires DB state restoring, because changes user and project data.
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Open 'Account Settings' for user, check elements presence and default field values
+user_login($joeUserName, $joeUserPass, "true", "main");
+_click(_link($settingsLink));
+_click(_link($settingsAccountLink));
+breadcrumb_verify($settingsBreadcrumb, $settingsAccountBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs selected"));
+_assertContainsText($joeProjectName, _div("main_left_tabs "));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_div($accountSettingsEmailHeader));
+_assertExists(_div($accountSettingsPasswordHeader));
+_assertExists(_div($accountSettingsPrivacyHeader));
+_assertExists(_label($accountSettingsEmailFieldLabel));
+_assertExists(_submit($accountSettingsChangeEmailButton));
+_assertExists(_label($accountSettingsOldPassFieldLabel));
+_assertExists(_label($accountSettingsNewPassFieldLabel));
+_assertExists(_label($accountSettingsNewPassConfirmFieldLabel));
+_assertExists(_submit($accountSettingsChangePassButton));
+_assertExists(_label($accountSettingsShowNameCheckboxLabel));
+_assertExists(_label($accountSettingsShowTimeCheckboxLabel));
+_assertExists(_label($accountSettingsEmailSearchableLabel));
+_assertExists(_submit($accountSettingsChangePrivacyButton));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+_assert(_checkbox($accountSettingsShowNameCheckbox).checked);
+_assert(_checkbox($accountSettingsShowTimeCheckbox).checked);
+_assert(_checkbox($accountSettingsEmailSearchableCheckbox).checked);
+_assertExists(_div($accountSettingsDeleteAccountLabel));
+_assertExists(_link($accountSettingsDeleteAccountLink));
+
+//Try to change e-mail, check following error case: 1) incorrect password entered
+user_email_change("another-joe@kroogi.al","12345");
+_assertExists(_span($accountSettingsPasswordNeededError));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+
+//Try to change e-mail, check following error case: 2) empty e-mail
+user_email_change("",$joeUserPass);
+_assertExists(_span($accountSettingsEmptyEmailErrorsCombined));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+
+//Try to change e-mail, check following error case: 3) incorrect e-mail
+user_email_change("newuser.kroogi.al",$joeUserPass);
+_assertExists(_span($accountSettingsEmailInvalidError));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+
+//Try to change e-mail, check following error case: 4) e-mail is too short    //SENSELESS VALIDATION
+user_email_change("1@",$joeUserPass);
+_assertExists(_span($accountSettingsTooShortEmailErrorsCombined));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+
+//Try to change e-mail, check following error case: 5) e-mail already used
+user_email_change($adminUserEmail,$joeUserPass);
+_assertExists(_span($accountSettingsExistingEmailError));
+_assertEqual($joeUserEmail, _textbox($accountSettingsEmailField).value);
+
+// Try to change e-mail, enter correct password, check that e-mail changed
+user_email_change("another-joe@kroogi.com",$joeUserPass);
+_assertExists(_span($settingsUpdateSuccessMessage));
+_click(_link($settingsAccountLink));
+_assertEqual("another-joe@kroogi.com", _textbox($accountSettingsEmailField).value);
+
+// Try to change password, check following error case: 1) Old password is entered incorrectly
+user_pass_change("12345", "new-pass", "new-pass");
+_assertExists(_span($accountSettingsOldPasswordWrongError));
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+
+// Try to change password, check following error case: 2) New password is empty - NOT DONE DUE TO BUG
+
+// Try to change password, check following error case: 3) New password confirmation is empty
+user_pass_change($joeUserPass, "new-pass", "");
+_assertExists(_span($accountSettindsBlankConfirmationErrorsCombined));
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+
+// Try to change password, check following error case: 4) New password is too short
+user_pass_change($joeUserPass, "new", "new");
+_assertExists(_span($accountSettingsPasswordTooShortError));
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+
+// Try to change password, check following error case: 5) New password is too long
+user_pass_change($joeUserPass, "12345678901234567890123456789012345678901", "12345678901234567890123456789012345678901");
+_assertExists(_span($accountSettingsPasswordTooLongError));
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+
+// Try to change password, check following error case: 6) New password doesn't match confirmation
+user_pass_change($joeUserPass, "new-pass", "new-pass2");
+_assertExists(_span($accountSettingsPasswordNotMatchError));
+_assertEqual("", _password($accountSettingsOldPassField).value);
+_assertEqual("", _password($accountSettingsNewPassField).value);
+_assertEqual("", _password($accountSettingsNewPassConfirmField).value);
+
+// Change password, then log out and login with new password
+user_pass_change($joeUserPass, "new-pass", "new-pass");
+_assertExists(_span($settingsUpdateSuccessMessage));
+
+// Log out and login again with new pass
+user_logout();
+user_login($joeUserName, "new-pass", "true", "main");
+
+// Remove all 'Privacy settings' checkboxes, save form and check that checkboxes were removed
+_click(_link($settingsLink));
+_click(_link($settingsAccountLink));
+_click(_checkbox($accountSettingsShowNameCheckbox));
+_click(_checkbox($accountSettingsShowTimeCheckbox));
+_click(_checkbox($accountSettingsEmailSearchableCheckbox));
+_click(_submit($accountSettingsChangePrivacyButton));
+_assertExists(_span($settingsUpdateSuccessMessage));
+_click(_link($settingsAccountLink));
+_assertNotTrue(_checkbox($accountSettingsShowNameCheckbox).checked);
+_assertNotTrue(_checkbox($accountSettingsShowTimeCheckbox).checked);
+_assertNotTrue(_checkbox($accountSettingsEmailSearchableCheckbox).checked);
+
+// Open 'Project settings' for project, check elements presence and default field values.
+_click(_link($settingsLink));
+_click(_span($joeProjectLinkNumber));
+_click(_link($settingsProjectAccountLink));
+breadcrumb_verify($settingsProjectBreadcrumb, $settingsProjectAccountBreadcrumb);
+_assertContainsText($joeUserName, _div("main_left_tabs "));
+_assertContainsText($joeProjectName, _div("main_left_tabs selected"));
+_assertExists(_div($settingsSetupGuideHeader));
+_assertExists(_div($projectSettingsPrivacyHeader));
+_assertExists(_label($projectSettingsShowNameCheckboxLabel));
+_assertExists(_label($projectSettingsShowTimeCheckboxLabel));
+_assertExists(_submit($projectSettingsChangePrivacyButton));
+_assert(_checkbox($projectSettingsShowNameCheckbox).checked);
+_assert(_checkbox($projectSettingsShowTimeCheckbox).checked);
+_assertExists(_div($projectSettingsVisibilityHeader));
+_assertExists(_span($joeProjectHideButton));
+_assertExists(_div($projectSettingsDeleteProjectLabel));
+_assertExists(_link($projectSettingsDeleteProjectLink));
+
+// Remove both 'Privacy settings' checkboxes, save form and check that checkboxes were removed - not doing this now due to BUG
+
+// Open 'Hide project' page, check elements presence and default field values
+_click(_span($joeProjectHideButton));
+_assertEqual("", _password($hideProjectPasswordField).value);
+_assertExists(_submit($hideProjectSubmitButton));
+
+// Try to hide project, enter incorrect password, check error message
+_setValue(_password($hideProjectPasswordField), "12345");
+_click(_submit($hideProjectSubmitButton));
+_assertExists(_span($hideProjectPasswordIncorrect));
+
+// Try to hide project, enter correct password
+_setValue(_password($hideProjectPasswordField), "new-pass");
+_click(_submit($hideProjectSubmitButton));
+_assertExists(_div($profileProjectHiddenMessage));
+
+// Go to 'Project settings' again. Click 'Open project' and check that it is opened
+_click(_link($settingsLink));
+_click(_span($joeProjectLinkNumber));
+_click(_link($settingsProjectAccountLink));
+_click(_span($joeProjectOpenButton));
+_assertFalse(_div($profileProjectHiddenMessage));
+_assertExists(_span($projectSettingsProjectOpenedMessage));
+
+// Open 'Delete project' page, check elements presence and default field values`
+_click(_link($settingsLink));
+_click(_span($joeProjectLinkNumber));
+_click(_link($settingsProjectAccountLink));
+_click(_link($projectSettingsDeleteProjectLink));
+_assertEqual("", _password($deleteProjectPasswordField).value);
+_assertExists(_submit($deleteProjectSubmitButton));
+
+// Try to delete project, enter incorrect password, check error message
+_setValue(_password($deleteProjectPasswordField), "12345");
+_click(_submit($deleteProjectSubmitButton));
+_expectConfirm($deleteProjectConfirmMessage, true);
+_assertExists(_span($deleteProjectPasswordIncorrect));
+
+// Try to delete project, enter correct password, first click 'Cancel' on JS alert, then click 'Ok'
+_setValue(_password($deleteProjectPasswordField), "new-pass");
+_click(_submit($deleteProjectSubmitButton));
+_expectConfirm($deleteProjectConfirmMessage, true);
+
+// Check that project is not available anymore
+_assertExists(_link($createProjectLink));
+_assertFalse(_link($myProjectsLink));
+
+// Open user's 'Account Settings' again and go to 'Delete user' page
+_click(_link($settingsLink));
+_click(_link($settingsAccountLink));
+_click(_link($accountSettingsDeleteAccountLink));
+
+// Try to delete user, enter incorrect password, check error message
+_setValue(_password($deleteAccountPasswordField), "12345");
+_click(_submit($deleteAccountSubmitButton));
+_expectConfirm($deleteAccountConfirmMessage);
+_assertExists(_span($deleteAccountPasswordIncorrect));
+
+// Try to delete user, enter correct password
+_setValue(_password($deleteAccountPasswordField), "new-pass");
+_click(_submit($deleteAccountSubmitButton));
+_expectConfirm($deleteAccountConfirmMessage);
+_assertExists(_span($deleteAccountDoneMessage));
+
+// Make sure you cannot login as deleted user
+user_login($joeUserName, "new-pass", "false", "separate");

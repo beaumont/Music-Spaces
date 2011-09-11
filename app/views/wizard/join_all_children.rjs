@@ -1,0 +1,1 @@
+page << "jQuery('#children_of_#{@dir_id} .select_all_form .progress').hide();"

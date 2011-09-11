@@ -1,0 +1,20 @@
+
+<% explorelink = link_to 'Explore Kroogi'.t, "#{@url}/explore" %>
+
+<p>
+	<strong>
+		 <% if @content.project? %> 
+			 <%= 'Project %s has been featured by the Kroogi admins' / [@content.login] -%>!
+		 <% else %>
+			 <%= 'Your Kroogi has been featured by the Kroogi admins'.t -%>!
+		 <% end %>
+	</strong>
+	<%= 'Featured accounts are shown on the %s page and elsewhere throughout the system' / [explorelink] -%>.
+	(<%= 'The Explore page selects randomly from the currently featured accounts, and is updated every few hours'.t -%>,
+	<%= 'so your account may not appear immediately'.t -%>).
+</p>
+
+<p>
+  <%= "View the %s page" / [explorelink] %>
+</p>
+

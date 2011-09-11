@@ -1,0 +1,75 @@
+<% @title = @user.login + ' :: ' + 'Manage Avatars'.t %>
+<% @content_kind_displayname = 'Manage Avatars'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, 'Manage Avatar'.t)) do %>
+  <% form_for :content, :url => {:controller => 'submit', :action => 'upload'}, :html => {:multipart => true, :name => "upload_form"} do |f| -%>
+    <% form_border(:subhead_title => "1. #{'Select and Upload New Avatar'.t}") do %>
+      <%= error_messages_for :profile %>
+      <%= error_messages_for :content %>
+      <%= f.hidden_field 'id' %>
+      <%= f.hidden_field 'user_id' %>
+      <%= f.hidden_field 'cat_id' %>
+      <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center] %>
+      <%= hidden_field_tag('set_as_default', true) if @user.basic_user? %>
+      <%= 'Picture will be automatically ajusted to 80 pixels size. You can add files of these formats: PNG, JPG, GIF.'.t %>
+      <table cellpadding="8" cellspacing="0" border="0">
+        <tr>
+          <td class="left"><%= 'Image File'.t %></td>
+          <td class="center"><%= f.file_field :uploaded_data %></td>
+        </tr>
+        <tr>
+          <td class="left"><%= 'Avatar Title'.t %></td>
+          <td class="center"><%= f.text_field 'title', :style => 'width: 250px;' %></td>
+        </tr>
+      </table>
+    <% end %>
+    <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                          :disable_cancel => true,
+                                                          :ok_button_class => 'button wizard',
+                                                          :ok_label => 'Upload'.t} %>
+  <% end %>
+  <br><br><br><br><br>
+  <% unless @avatars.empty? || @user.basic_user? %>
+    <% form_tag url_for(:controller => '/profile', :action => 'edit_avatar', :id => @profile) do %>
+      <% form_border(:subhead_title => "2. #{'Manage Existing Avatars'.t}") do %>
+        <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center] %>
+        <table cellspacing="0">
+          <%
+             def_index = ''
+             cnt = -1
+             @avatars.each_with_index do |avatar, index|
+               cnt = index
+               default_avatar = (@profile.avatar && avatar.id == @profile.avatar.id)
+               def_index = index if default_avatar
+               tropen(index, 3) %>
+            <td style="text-align:left;"><%= avatar_lg(avatar, {:no_link => true, :outer_class => 'founder_avatar' + (default_avatar ? " o_border border_thicker" : " gr_border"), :id => "image_avatar_id_#{index}"}) %>
+              <div id="title_<%= index %>" style="margin-left:95px;"> <%= text_field_tag "avatar[][title]", avatar.title %> <%= hidden_field_tag "avatar[][id]", avatar.id %> </div>
+              <div id="actions_<%= index %>" style="margin-left:95px;"> <%= radio_button_tag 'default', avatar.id, default_avatar %>&nbsp;<%= 'Default Avatar'.t %>
+                <label><%= check_box_tag 'delete[]', avatar.id %> <%= 'Delete'.t %></label>
+              </div>
+              <br/></td>
+            <%= trclose(index, 2, 12) %>
+          <% end
+             # fillout the rest with empties
+             index = cnt.next
+             (11-cnt).times do %>
+            <%= tropen(index, 2) %>
+            <td width="100" style="text-align:left !important;"><%= avatar_lg(nil) %>
+              <br/>
+              <img src="/images/tp.gif" alt="" width="230" height="20"/></td>
+            <%= trclose(index, 2, 12) %>
+            <% index = index.next %>
+          <% end %>
+          <span id="default_avatar_index" style="display:none" def_index="<%= def_index %>"></span>
+        </table>
+      <% end %>
+      <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                            :disable_cancel => true,
+                                                            :ok_button_class => 'button wizard',
+                                                            :ok_label => 'Save'.t} %>
+
+    <% end %>
+  <% end %>
+<% end %>

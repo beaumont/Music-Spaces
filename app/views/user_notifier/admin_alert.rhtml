@@ -1,0 +1,29 @@
+<p>Hi folks,</p>
+
+<p>An admin alert was manually sent:</p>
+
+<p>
+  Message:
+  <pre><%= @message %></pre>
+</p>
+
+<% if @var %>
+<p>Variable:
+  <pre><%= @var.inspect %></pre>
+</p>
+<% end %>
+
+<% if @exception %>
+<p>In addition, there was an exception passed:</p>
+
+<pre>
+A <%= @exception.class %> exception occurred:
+
+  <%= @exception.message %>
+  <%= @exception.backtrace.join("\n") %>
+
+</pre>
+
+<% end %>
+
+

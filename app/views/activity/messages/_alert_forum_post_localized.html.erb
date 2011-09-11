@@ -1,0 +1,10 @@
+<% if activity.from_user.id == forum.user.id %>
+  <%= "alerted all followers of %s Circle and closer about %s" % [
+    link_to(forum.name, :controller => 'kroogi', :action => 'show', :id => forum.user_id, :type => forum.circle_id),
+    link_to('a newly posted message', read_and_fwd_url(activity.id, "comment"))] -%>
+<% else %>
+  <%= "alerted all followers of %s's %s Circle and closer about %s" % [user_link(forum.user),
+    link_to(forum.name, :controller => 'kroogi', :action => 'show', :id => forum.user_id, :type => forum.circle_id),
+    link_to('a newly posted message', read_and_fwd_url(activity.id, "comment"))] -%>
+<% end %>
+

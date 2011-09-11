@@ -1,0 +1,42 @@
+<% if @entry.is_a?(MusicAlbum) %>
+  <div id="music_album_attributes">
+    <%= render :partial => "music_album_attributes", :locals => {:entry => @entry} %>
+  </div>
+<% end %>
+
+<% if @entry.is_a?(Album) || @entry.is_a?(Tps::Content) %>
+  <div class="default"><%= "Posted by %s on %s" / [user_link(@entry.user), @entry.created_at.localize("%d %B %Y")] %></div>
+<% else %>
+  <% if show_copyright?(@entry) %>
+    <div style="font-weight: bold;"><%= copyright(@entry) %></div>
+  <% end %>
+
+  <% unless @entry.imports_history.blank? %>
+    <div style="padding: 10px 0px;">
+      <strong><%= 'Original Owner(s)'.t %></strong>:
+      <%= @entry.imports_history.collect do |oo|
+        c = oo.previous_content
+        u = oo.previous_owner || c.previous_owner || "[ Unknown User ]".t
+        user_label = u.is_a?(User) ? user_link(u, :icon => true) : u
+        c ? "#{user_label} (#{content_link(c)})": user_label
+      end.to_sentence %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @entry.is_a?(CoverArt) && @entry.host_content %>
+  <div style="font-weight: bold; padding: 10px 0;">
+    <%= "This picture is used in the following note: {{link}}" / content_link(@entry.host_content) %>
+  </div>
+<% end %>
+
+<% unless @entry.inboxes.blank? %>
+  <div style="font-weight: bold; padding: 10px 0px;"><%= submitted_to_inboxes(@entry) %></div>
+<% end %>
+
+<% unless @entry.tag_list.empty? %>
+  <div class="default grey_out"><%= 'Tags'.t %>:
+    <%= profile_tags(@entry.user, @entry.tag_list) %>
+  </div>
+<% end %>
+

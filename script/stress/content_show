@@ -1,0 +1,45 @@
+    def all_content_finder_params(options = {})
+      conditions = ["contents.cat_id not in (?) and contents.type not in (?)",
+          [ Content::CATEGORIES[:featured_album][:id],
+            Content::CATEGORIES[:avatar][:id],
+            Content::CATEGORIES[:pvtmsg][:id]
+            ],
+          ['ImageThumbnail', 'Bundle', 'FileDownload']]
+      if options[:exclude_type]
+        conditions.last << options[:exclude_type]
+      end
+      if options[:public_only] && false
+        conditions[0] += ' and relationshiptype_id = ?'
+        conditions << Relationshiptype.everyone
+      end
+
+      {:conditions => conditions, :order => 'popularity DESC'}
+    end
+
+def content_test(klass_name, opts = {})
+opts[:limit] ||= 10
+`wget localhost:3000/content/monitor?klass=#{klass_name}`
+sleep(1)
+`wget localhost:3000/content/monitor?klass=#{klass_name}`
+sleep(1)
+params = all_content_finder_params(:public_only => true).merge(opts)
+params[:conditions][0] += ' and type = ?'
+params[:conditions] << klass_name
+items = Content.find(:all, params)
+items.each do |c|
+  `wget localhost:3000/content/show/#{c.id}`
+end;
+sleep(1)
+`wget localhost:3000/content/monitor`
+sleep(1)
+`wget localhost:3000/content/monitor`
+end
+
+rows = ActiveRecord::Base.connection.select_rows('select type, count(*) from contents group by type')
+order = ['FolderWithDownloadables', 'Album']
+klasses = rows.map {|a, b| a} - ["ImageThumbnail", "Bundle", "CoverArt", "FileDownload", "Pvtmessage"]
+k = klasses.sort {|a, b| (order.include?(a) || order.include?(b)) ? (order.index(a)||70) <=> (order.index(b)||70) : klasses.index(a) <=> klasses.index(b)}
+limits = {'Blog' => 30}
+
+#`wget localhost:3000/content/load_all_views`
+k.each {|klass_name| content_test(klass_name, :limit => limits[klass_name])}

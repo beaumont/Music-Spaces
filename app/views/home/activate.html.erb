@@ -1,0 +1,26 @@
+
+
+<div id="logo_and_sig">
+  <%= link_to image_tag('krooglo.gif', :id => "logo"), explore_path %><br/>
+</div>
+
+<div id="signup_screen" class="login_window">
+  <div class="login_box">
+    <br/>
+    <h2><%= 'Kroogi.com activation'.t -%></h2>
+  </div>
+  
+  <div class="login_window_form login_box">
+    <p><%= 'To use Kroogi, you must verify your email address by completing the activation step'.t -%>.</p>
+    <p><%= 'You should have received an activation code in your email; enter it below to get started!'.t %></p>
+    <% form_tag({:controller=> 'home', :action => 'activate', :id => nil}) do -%>
+      <p><strong><%= 'Activation Code'.t %></strong>: <%= text_field_tag :activation_code, h(params[:activation_code]), {:size => 40 }%></p>   
+      <p>
+        <button class="button" name="commit" type="submit"><span><%= 'Activate Account'.t -%></span></button>
+      </p>
+    <% end -%>
+  </div>
+</div>
+
+<div style="height: 400px;">&nbsp;</div>
+

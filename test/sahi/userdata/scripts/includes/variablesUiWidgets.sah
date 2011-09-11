@@ -1,0 +1,8 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: widgets
+*/
+
+// 'Invite friends' widget
+$inviteWidgetHeader = "Share your artistic taste with friends";
+$inviteWidgetCloseButton = "close";

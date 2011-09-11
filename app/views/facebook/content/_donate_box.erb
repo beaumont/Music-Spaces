@@ -1,0 +1,24 @@
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <div class="donatebox">
+    <div class="from">
+      <div class="arrow" id="donateboxContent_img_up"   style="display:<%=toggle_arrows(@entry, :box=>"donate")%>;"><%= link_to_toggle(@entry,:link_txt=>image_tag('arrow_right.gif'), :hide=>"downloadboxContent", :show=>"donateboxContent") %></div>
+      <div class="arrow" id="donateboxContent_img_down" style="display:<%=toggle_arrows(@entry, :box=>"donate", :reverse=>"true")%>;"><%= link_to_toggle(@entry,:link_txt=>image_tag('arrow_down.gif'), :hide=>"downloadboxContent", :show=>"donateboxContent") %></div>
+      <div class="arrowText"><%= link_to_toggle(@entry,:link_txt=>"Contribute to #{@entry.user.display_name}", :hide=>"downloadboxContent", :show=>"donateboxContent") %></div>
+      <div class="donateboxContent" id="donateboxContent" style="display:<%=toggle_box(@entry, :box=>"donate")%>;">
+        <%= render :partial => 'facebook/donate/payment_systems.erb', :locals => {:box => 'donate'}%>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <% fb_else do %>
+    <div class="donatebox">
+      <div class="from">
+        <div class="arrow" id="donateboxContent_img_up"><%= image_tag('arrow_right.gif') %></div>
+        <div class="arrowText"><%= link_to_toggle(@entry,:link_txt=>"Contribute to #{@entry.user.display_name}",:expand=>"donateboxContent") %></div>
+        <div class="donateboxContent" id="donateboxContent" >
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  <%end%>
+<% end %>

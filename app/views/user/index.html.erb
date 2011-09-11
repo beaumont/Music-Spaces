@@ -1,0 +1,19 @@
+<% content_for :head do %>
+  <%= auto_discovery_link_tag(:rss, user_feed_path(@user),
+    {:title => "{{user}}'s Kroogi Activity" / h(@user.login)} ) %>
+<% end %>
+
+<% @title = @user.display_name
+   @meta_keywords = [@user.login]
+   @meta_description = "Visit #{@user.login} on Kroogi. "
+   @meta_description << "Interact, download, contribute."
+%>
+<div class="homepage">
+  <% unless @user.is_a?(CollectionProject) %>
+    <%= render :partial => 'user_index' %>
+  <% else %>
+    <%= render :partial => 'collection_index' %>
+  <% end %>
+  <div class="clear"></div>
+</div>
+

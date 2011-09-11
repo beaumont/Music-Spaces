@@ -1,0 +1,34 @@
+<% more_attribs ||= {}
+   more_attribs = more_attribs.map {|key, value| "#{key}=\"#{h value}\""}.join("\n")
+   ui_params ||= {}
+   unless defined?(escape_track_urls); escape_track_urls = true; end 
+%>
+<play_list language="<%= I18n.locale %>"
+  <% if logged_in? %>
+    referring_user_id = "<%= current_user.id %>"
+  <% end %>
+  play_button = "<%= 'Play'.t %>"
+  pause_button = "<%= 'Pause'.t %>"
+  total_time_label = "<%= 'Total time'.t %>"
+  time_played_label = "<%= 'Time played'.t %>"
+  time_left_label = "<%= 'Time left'.t %>"
+<%= more_attribs %>
+>
+  <% tracks.each do |t| %>
+    <song>
+      <trackid><%= t.id %></trackid>
+      <% unless ui_params[:hide_artists] %>
+        <songartist><%= h(t.artist) %></songartist>
+      <% end %>
+      <songtitle><%= h(t.title.blank? ? 'No ((track)) Title'.t : t.title) %></songtitle>
+      <songurl><%= escape_track_urls ? CGI::escape(t.public_filename) : t.public_filename %></songurl>
+      <% if ui_params[:info_icon] %>
+        <infourl><%= h(content_url(t, :album_id => context_album_id)) %></infourl>
+      <% end %>
+      <% unless t.length.nil? %>
+        <songduration><%= format_duration(t.length) %></songduration>
+      <% end  %>
+      <played_count><%= ContentStat.played(t) %></played_count>
+    </song>
+  <% end %>
+</play_list>

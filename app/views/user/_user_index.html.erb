@@ -1,0 +1,104 @@
+<%# RIGHT COLUMN %>
+
+<% content_for :right_column do %>
+   <%# Donate Now %>
+  <% unless @user.basic_user? %>
+    <%= render :partial => 'donation_basket', :locals => {:account_setting => @account_setting, :user => @user} %>
+  <% end %>
+
+  <%# Mus Contest %>
+  <%= render(:partial => "music_contests", :object => @music_contests) unless @music_contests.blank? %>
+
+  <%# Submitted by Others %>
+  <% unless @user.basic_user? %>
+    <%= render :partial => "inboxes", :locals => {:user => @user} %>
+  <% end %>
+
+  <%# Followed Ppl and Pjt - should be together with followers link %>
+  <%#<%= render :partial => "follows", :locals => {:user => @user} %>
+
+  <%# Project Hosts - remove at all?? cuz we have hosts in the project header %>
+  <%#<% if @user.project? && !@user.front_page_founders.empty? && @user.preference.show_founders_module? && should_see_founders_link?(@user) %>
+  <%#  <%= render :partial => 'founders', :locals => {:founders => @user.front_page_founders, :user => @user} %>
+  <%#<% end %>
+
+  <%# Recent Activities %>
+  <%= render :partial => "public_history", :locals => {:public_history => @activities, :limit => 16} %>
+<% end %>
+
+
+<%# LEFT COLUMN %>
+  <%# About %>
+  <%= render :partial => "full_profile", :locals => {:user => @user, :profile => @user.profile, :link_pic_to_content => true} %>
+
+  <%# TPS %>
+  <% hat = Tps::Content.of_project(@user).last %>
+  <%= render(:partial => "tps_profile_thermometer", :locals => {:user => @user, :hat => hat}) unless !hat || hat.stopped? %>
+
+  <%# Announcements %>
+  <% unless @announcements.blank? %>
+    <div class="announcements">
+      <%= render(:partial => "announcements", :locals => {:announcements => @announcements, :user => @user}) %>
+    </div>
+  <% end %>
+
+  <%# Download and Contribute %>
+  <%= render(:partial => "in_rainbows", :locals => {:project => @user}) unless @in_rainbows.blank? %>
+
+  <%# TPS when not active %>
+  <%= render(:partial => "tps_profile_thermometer", :locals => {:user => @user, :hat => hat}) if hat && hat.stopped? %>
+
+
+  <% unless [@featured_tracks, @featured_texts, @featured_other_content, @favorite_tracks, @favorite_texts, @favorite_other_content].all? { |x| x.empty? } %>
+
+    <%# Favorite Content %>
+    <% favorites =  render(:partial => "favorites", :locals => {:tracks => @favorite_tracks,
+                                                                :texts => @favorite_texts,
+                                                                :others => @favorite_other_content,
+                                                                :view_all_link => true,
+            }) %>
+
+    <% unless @user.basic_user? %>
+      <%# Featured Content %>
+      <% featured = render(:partial => "featured", :locals => {:tracks => @featured_tracks,
+                                                               :texts => @featured_texts,
+                                                               :others => @featured_other_content,
+                                                               :featured_album => @user.featured_album,
+              }) %>
+      <%# Tabs for Featured abd Favorites %>
+      <%= render :partial => '/shared/tabbed', :locals => {
+              :tabs => [[featured, 'featured_tab', 'Featured Content'.t],
+                        [favorites, 'favorites_tab', 'Favorite Content'.t]],
+              :initial_index => (([@featured_tracks, @featured_texts, @featured_other_content].all? { |x| x.empty? }) ? 1 : 0),
+              } %>
+    <% else %>
+      <div><%= image_tag '732_o_top.gif' %></div>
+      <div class="white_side_sdw">
+        <div class="main_header">
+          <div class="main_header_title">
+            <%= 'Favorite Content'.t %>
+          </div>
+        </div>
+        <div class="white_body">
+          <%= favorites %>
+        </div>
+      </div>
+      <div class="shadow"><%= image_tag '732_w_btm.gif' %></div>
+    <% end %>
+
+  <% end %>
+
+  <%# Notes %>
+  <% notes = render(:partial => "user_notes", :locals => {:user_notes => @user_notes, :user => @user}) %>
+
+  <%# Wall Posts %>
+  <% wall = render(:partial => "wall", :locals => {:user => @user}) %>
+
+  <%# Tabs for Notes & Wall Posts %>
+  <%= render :partial => '/shared/tabbed', :locals => {
+          :tabs => [
+                  [wall, 'wall_tab', 'Latest Wall Posts'.t],
+                  [notes, 'notes_tab', "{{username}}'s Notes" / truncate(@user.display_name, :length => 10)],
+          ],
+          :initial_index => params[:wall_notes_tab] || @user.wall_notes_tab_index,
+          } %>

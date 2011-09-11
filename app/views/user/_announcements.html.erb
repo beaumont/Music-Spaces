@@ -1,0 +1,22 @@
+<% allow_new ||= false %>
+
+<% if !@ann_rss_link_published %>
+  <% content_for :head do %>
+    <link href="<%= user_announcements_feed_path(user, :locale => I18n.locale) %>" type="application/rss+xml" rel="alternate" title="<%= "Announcements and notes by {{username}}" / h(user.display_name) %> "/>
+  <% end %>
+  <% @ann_rss_link_published = true %>
+<% end %>
+
+<% content_head = capture do %>
+  <div class="content_head_r">
+    <%= link_to image_tag('feed-icon-14.png', :alt => 'RSS Feed'.t) + ' ' + 'RSS', user_announcements_feed_path(user, :locale => I18n.locale) %>
+  </div>
+  <%= "{{user}}'s Announcements" / truncate_with_hint(user.display_name, :length => 25) %>
+<% end %>
+<% main_block(:content_head => content_head) do %>
+  <%= render(:partial => "user_notes_or_announcements", :locals => {:announcements => announcements, :user => user, :rss => true,
+                                                                      :delete_confirmation => "Are you sure you want to delete this announcement?".t,
+                                                                      :allow_new => allow_new,
+                                                                      :paged => user.collection?,
+            }) %>
+<% end %>

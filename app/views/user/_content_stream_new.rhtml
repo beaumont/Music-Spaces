@@ -1,0 +1,23 @@
+<% check_permissions = true unless defined?(check_permissions) %>
+<% show_owner_b = show_owner_b  || false %>
+<% container_style = container_style || nil %>
+<% limit ||= false %>
+<% offset ||= 0 %>
+<% album_id ||= nil %>
+
+<div class="white content_container" style="<%= container_style %>">
+  <% stream.each_with_index do | content, index |
+    next if content.nil?
+    next if check_permissions && !content.is_view_permitted?
+    next if offset > index
+  %>
+      <% break if limit && index - offset >= limit %>
+      <%= render(:partial => 'content/gallery_item',
+                 :locals => {:content => content,
+                             :show_comment => true, :show_owner_b => show_owner_b,
+                             :check_permissions => check_permissions, :content_url_options => {:album_id => album_id}}) %>
+
+    <% end %>
+  
+</div>
+

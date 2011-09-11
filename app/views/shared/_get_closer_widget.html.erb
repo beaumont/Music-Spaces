@@ -1,0 +1,25 @@
+<%# it's done the same way as it is in question_widget %>
+
+<% form_border(:content_extra_class => 'get_closer') do %>
+  <%= avatar_lg(nil,{:outer_class => 'founder_avatar'}) %>
+  <div class="block_body_lg">
+    <div class="default">
+      <%= 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed suscipit convallis purus at consequat. Etiam euismod odio sed turpis scelerisque vulputate. Nunc mattis massa non orci luctus feugiat.'  %>
+    </div>
+  </div>
+  <div class="clear"></div>
+<% end %>
+<button class="button wizard"><span><%= 'OK'.t -%></span></button>
+<button class="button_gr" style="margin-top:5px;"><span><%= 'Cancel'.t -%></span></button>
+
+<% content_for :js do %>
+  <script>
+    function showGetCloserWidget () {
+      jQuery('#get_closer_widget').dialog({
+        modal: true,
+        height: 'auto',
+        width: 532
+      });
+    }
+  </script>
+<% end %>

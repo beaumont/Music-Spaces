@@ -1,0 +1,38 @@
+<% content_for :right_column do %>
+  <div class="toolbar">
+    <div class="default"><%= return_to_content_page_link(@hat) %></div>
+    <div class="default"><%= link_to_tps_participants_page(@hat) %></div>
+  </div>
+<% end %>
+
+<% main_block(:header_title => 'Received Payments for {{content_title}}' / @hat.title, :white_body => true) do %>
+  <% if @payments.empty? %>
+      <div class="section_empty"><%= 'No funds raised yet'.t %></div>
+  <% else %>
+    <table class="list">
+      <tr>
+        <th><%= 'Date'.t %></th>
+        <th><%= 'Goodies'.t %></th>
+        <th><%= 'Participant'.t %></th>
+        <th><%= 'Gross Amount'.t %>, $</th>
+        <th><%= 'Net Amount'.t %>, $</th>
+      </tr>
+      <% @payments.each do |t| %>
+        <tr>
+          <td class="default" style="white-space:nowrap;"><%= t.created_at.to_s(:date_only) %></td>
+          <td class="goodies_item"><%= t.content.title %></td>
+          <td class="default"><%= user_link(t.sender.user, :icon => true) %></td>
+          <td class="goodies_price">$<%= number_to_currency(t.gross_amount_usd, :unit => '') %></td>
+          <td class="last goodies_price">$<%= number_to_currency(t.net_amount_usd, :unit => '') %></td>
+        </tr>
+      <% end %>
+      <tr class="goodies_total"> 
+        <td colspan="5">
+          Total Gross: $<%= number_to_currency(@total_gross, :unit => '') %>
+          <br class="br7" />
+          Total Net: $<%= number_to_currency(@total_net, :unit => '') %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+<% end %>

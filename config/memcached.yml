@@ -1,0 +1,39 @@
+defaults:
+  ttl: 604800
+  readonly: false
+  urlencode: false
+  c_threshold: 10000
+  compression: true
+  debug: false
+  namespace: kroogi
+  sessions: false
+  session_servers: false
+  fragments: true
+  memory: 64
+  servers: localhost:11211
+  benchmarking: true
+  raise_errors: true
+  fast_hash: true
+  fastest_hash: false
+
+# turn off caching
+development:
+  disabled: true
+  
+test: 
+  disabled: true
+
+staging:
+  memory: 128
+  servers: web03:11211
+
+rc:
+  memory: 128
+  servers: web05:11211
+
+production:
+  memory: 128
+  benchmarking: false
+  servers:
+    - web06:11211
+    - web07:11211

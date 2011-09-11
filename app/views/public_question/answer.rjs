@@ -1,0 +1,2 @@
+page << "jQuery('#question_dialog_#{params[:dialog_id_suffix]} .answer_block').replaceWith('#{js(render(
+        :partial => '/shared/question/answer_block', :locals => {:answer => @answer}))}');"

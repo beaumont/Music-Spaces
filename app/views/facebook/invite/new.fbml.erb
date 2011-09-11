@@ -1,0 +1,26 @@
+<%
+title = @album.title ? "<b>#{@album.title}</b>" : ""
+diplay_name = @album.user.display_name ? @album.user.display_name : ""
+type = "Kroogi Downloads"
+friend_selector_message = "Friends, who do not have this album yet"
+invite_body_message = "Download #{title} from <i>#{diplay_name}</i>."
+invite_btn_message_1 = "Open Album"
+invite_btn_message_2 = "View More"
+created_at = DateTime.now.to_s(:db)
+fb_referrer_id = current_fb_user.facebook_id if current_fb_user
+%>
+
+<% content_for("invite_message" ) do %>
+  <%= invite_body_message %>
+  <%= fb_req_choice(invite_btn_message_1 , fb_content_link(@album,{:action => "content_from_invite",
+                                                                   :fb_referrer_id => fb_referrer_id,
+                                                                   :fb_referral_type=>'invite'}))%>
+
+  <%= fb_req_choice(invite_btn_message_2 , url_for_canvas(:controller => "search", :action => "from_invite", :id=> @album.id))%>
+<% end %>
+<% fb_request_form(type ,"invite_message" , url_for(:controller => 'facebook/invite', :action => "create", :from=>@from_user_id, :album => @album, :created_at => "#{created_at}", :canvas=>true)) do %>
+  <%= fb_multi_friend_selector(friend_selector_message,
+                               :exclude_ids=>@excluded_friends_list.join(","),
+                               :email_invite =>true)%>
+  <br />
+<% end %>

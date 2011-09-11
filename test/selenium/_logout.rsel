@@ -1,0 +1,6 @@
+# Performs: Logging out
+
+open '/logout'
+locale ||= 'en'
+open "/?locale=#{locale}"
+include_partial 'assert_logged_out'

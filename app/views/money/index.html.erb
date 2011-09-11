@@ -1,0 +1,230 @@
+<% @title = @user.login + " :: " + "Money".t %>
+<div id="money_page">
+  <!-- Right Column -->
+  <% right_column_block(:header_title => 'Your Payment System'.t) do %>
+    <div class="default">
+      <%= content_link(Content.find_by_id(384760), :title => 'How does it work?'.t, :target => '_blank') %>
+    </div>
+    <% if @account_setting.has_an_approved_account_set? %>
+      <table class="list">
+        <tr>
+          <td style="font-weight:bold"><%= "Total Contributions Received".t %></td>
+          <td>$<%= @account_setting.received_donations_sum %></td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold"><%= "Pending Contributions".t %></td>
+          <td>$<%= @account_setting.received_donations_pending_sum %></td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold"><%= @account_setting.withdrawal_limit? ? "Waiting for Withdrawal".t : "Available for Withdrawal".t %></td>
+          <td>$<%= @account_setting.balance_usd %></td>
+        </tr>
+        <% if @account_setting.withdrawal_limit? %>
+          <% if @account_setting.webmoney_account %>
+            <tr>
+              <td style="font-weight:bold"><%= "WM Passport Level".t %></td>
+              <td><%= "{{wm_level}} (by our record)" / @account_setting.webmoney_account.display_level %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td style="font-weight:bold"><%= "Summary Withdrawal Limit".t %></td>
+            <td>$<%= @account_setting.withdrawal_limit %></td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold"><%= "Total Withdrawn".t %></td>
+            <td>$<%= @account_setting.total_withdrawn %></td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold"><%= "Available for Withdrawal".t %></td>
+            <td>$<%= @account_setting.to_withdraw %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <div class="default"><%= "Connect payment system (PayPal or Webmoney) in order to receive contributions for your art.".t %></div>
+    <% end %>
+    <% if @account_setting.invoice_agreement_accepted? %>
+      <% if @account_setting.current_monetary_processor_account %>
+        <div id="withdrawable" class="default">
+          <% if @account_setting.current_monetary_processor_account.verified? -%>
+            <% unless User.kroogi && @account_setting.user_id == User.kroogi.id %>
+              <div class="withdraw_button_wrapper">
+                <% if @account_setting.to_withdraw > @account_setting.minimum_for_withdrawal %>
+                  <%= link_to(
+                          "<span class=\"keep_together\">&nbsp;#{"Withdraw to my {{payment_system_type}}" / @account_setting.current_monetary_processor_account.payment_system_type_label}&nbsp;&nbsp;</span>",
+                          "#",
+                          :class=> "button",
+                          :onclick=>"script: jQuery('#withdrawal_dialog').dialog(withdrawal_dialog_opts); return false") %>
+                <% else %>
+                  <% if @account_setting.balance_usd <= @account_setting.minimum_for_withdrawal %>
+                    [<%= "Withdrawals enabled for amounts over ${{amount}}" / @account_setting.minimum_for_withdrawal %>
+                    ]
+                  <% else %>
+                    [<%= withdrawal_limit_message(@account_setting) %>]
+                  <% end %>
+                <% end %>
+              </div>
+            <% else %>
+              [<%= 'Kroogi project cannot withdraw money: it owns the source pursues anyway.'.t %>]
+            <% end %>
+          <% else -%>
+            <p style="text-align:center"><%= 'You must verify your account before you may withdraw funds.'.t %></p>
+          <% end -%>
+
+          <div style="display: none;" id="withdrawal_dialog" title="<%= "Withdraw.money".t %>">
+            <p>
+              <% if @account_setting.balance_usd > @account_setting.minimum_for_withdrawal %>
+                <% if @account_setting.withdrawal_limit_overcome?(@account_setting.balance_usd) %>
+                  <%= withdrawal_limit_message(@account_setting) %>
+                <% end %>
+                <% if @account_setting.to_withdraw > 0 %>
+                  <%= "Click OK to have <b>${{amount}}</b> sent to you via <b>{{provider}}</b>" / [@account_setting.to_withdraw, @account_setting.current_monetary_processor_account.monetary_processor.name.t] %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+          <div class="clear"></div>
+          <% form_tag url_for(:controller => 'withdrawals', :action => 'create'), :method => 'post', :id => "withdrawal_post_form" do %>
+            <%= hidden_field_tag 'id', @user.id %>
+            <%= hidden_field_tag 'amt', @account_setting.to_withdraw %>
+            <%= hidden_field_tag 'mp', @account_setting.current_monetary_processor_account.monetary_processor.id %>
+          <% end -%>
+        </div>
+        <div class="default">
+          <b><%= 'Withdrawal account'.t %></b><br/>
+          <%= render(:partial => "/monetary_processor_accounts/#{@account_setting.current_monetary_processor_account.monetary_processor.short_name}/show_status",
+                     :locals => {:current_monetary_processor_account => @account_setting.current_monetary_processor_account}) %>
+          <% unless @account_setting.current_monetary_processor_account.verified? %>
+            <br/>
+            <%= render(:partial => '/monetary_processor_accounts/attach_widget', :locals => {:user => @user, :verify => true}) %>
+          <% end %>
+          <br/>
+          <%= render(:partial => "/monetary_processor_accounts/delete_account",
+                     :locals => {:current_monetary_processor_account => @account_setting.current_monetary_processor_account}) %>
+          <% if @account_setting.has_an_approved_account_set? %>
+            </div>
+            <div class="default">
+              <b><%= @account_setting.movable_broker_enabled ? "SMS Contributions Enabled".t : "SMS Contributions Disabled".t %></b><br/>
+              <b><%= link_to(@account_setting.movable_broker_enabled ? "Disable SMS Contributions".t : "Enable SMS Contributions".t,
+                             :controller => "money",
+                             :action => "set_movable_broker_enabled",
+                             :id => @account_setting.id,
+                             :val => (!@account_setting.movable_broker_enabled).to_s) %></b>
+          <% end %>
+          </div>
+      <% else %>
+        <% if @account_setting.has_an_approved_account_set? %>
+          <div class="default" style="color:#ff0000; font-weight: bold; padding-top:10px">
+            <% if @user.kroogi_account? %>
+              <%= 'WebMoney withdrawals on the site will not work until you attach the WebMoney account'.t %>
+            <% else %>
+              <%= 'Nowhere to withdraw'.t %>.
+            <% end %>
+          </div>
+        <% end %>
+        <%= render :partial => '/monetary_processor_accounts/attach_widget', :locals => {:user => @user} %> 
+
+        <div class="clear"></div>
+      <% end %>
+      <div class="default">
+        <%= '<a {{tos_link_attributes}}>Terms of Service</a> reviewed and accepted on {{date}}' /
+                [kroogi_tos_link_attributes, @account_setting.invoice_agreement_accepted_at.to_s(:date_with_time)] %>
+      </div>
+    <% else %>
+      <div style="padding:1em 0 1em;"><%= "Review Terms of Service before you start".t %>.</div>
+      <div> <%= render :partial => '/account_settings/invoice_agreement_widget', :locals => {:button => false} %></div> 
+    <% end %>
+  <% end %>
+
+  <% right_column_block(:header_title => 'Contributions on Kroogi Page'.t) do %>
+    <div class="default">
+      <% if @account_setting.donatable? %>
+        <%= 'Contributions are <b>ON</b>'.t %>
+      <% else %>
+        <%= 'Contributions are <b>OFF</b>'.t %>
+      <% end %>
+    </div>
+    <% if @account_setting.money_approved? %>
+      <%= link_to "Change".t, {:controller => "account_setting", :action => "donation_basket", :id => @account_setting.user_id}, {:class => "edit_link"} %>
+    <% end -%>
+  <% end %>
+
+  <!-- Main Body -->
+  <% left_block = capture do %>
+    <div class="main_left_tabs spaced_out selected"><a id="donations_received" href="#"><%= 'Contributions Received'.t %></a></div>
+    <% unless @account_setting.user.project? %>
+      <div class="main_left_tabs spaced_out"><a id="contributions_made" href="#"><%= 'Contributions Made'.t %></a></div>
+    <% end %>
+    <div class="main_left_tabs spaced_out"><a id="withdrawals" href="#"><%= 'Withdrawals'.t %></a></div>
+  <% end %>
+
+  <% main_block(:header_title => current_actor == @user ? 'Money Center'.t : 'Money Center of {{username}}' / truncate_with_hint(@user.display_name, 
+        :length => 40),  
+        :content_head => 'Name Name', 
+        :left_block => left_block) do %>
+    <div id="donations_received_tab_body" class="tab_body">
+      <% if @donations_received.empty? %>
+          <div class="section_empty"><%= 'You have not received contributions yet.'.t -%></div>
+      <% else %>
+        <%= render :partial => "donations_received", :object => @donations_received, :locals => {:truncate_display => true} %>
+      <% end %>
+      <%= view_all_link(@account_setting.user, "donations_received") %>
+      <div class="clear_left"></div>
+    </div>
+    <% unless @account_setting.user.project? %>
+      <div id="contributions_made_tab_body" class="tab_body" style="display:none">
+        <% if @donations_made.empty? -%>
+            <div class="section_empty">
+            <%= "You haven't made any contributions yet.".t %>
+          </div>
+        <% else %>
+          <%= render :partial => "donations_made", :object => @donations_made %>
+        <% end -%>
+        <%= view_all_link(@account_setting.user, "donations_made") %>
+        <div class="clear_left"></div>
+      </div>
+    <% end %>
+    <div id="withdrawals_tab_body" class="tab_body" style="display:none">
+      <% if @monetary_withdrawals.empty? %>
+          <div class="section_empty"><%= 'You have not made any withdrawals yet.'.t -%></div>
+      <% else %>
+        <%= render :partial => "monetary_withdrawals", :object => @monetary_withdrawals, :locals => {:truncate_display => true} %>
+      <% end -%>
+      <%= view_all_link(@account_setting.user, "monetary_withdrawals") %>
+      <div class="clear_left"></div>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery(".main_left_tabs a").click(function(event) {
+        jQuery(".main_left_tabs").removeClass('selected');
+        jQuery(this).parent().addClass('selected');
+        var tab_body_id = '#' + jQuery(this).attr('id') + '_tab_body';
+        jQuery('.tab_body').hide();
+        jQuery(tab_body_id).show();
+      })
+    });
+
+    var withdrawal_dialog_opts = {
+      title: "<%= "Withdraw.money".t %>",
+      modal: true,
+      height: 'auto',
+      position: 'top',
+      width: 400,
+      close: function() {
+        jQuery("#withdrawal_dialog").dialog('destroy');
+      },
+      buttons: {
+        "<%= 'OK'.t %>": function() {
+          jQuery('#withdrawal_post_form').submit();
+        },
+        "<%= 'Cancel'.t %>": function() {
+          jQuery("#withdrawal_dialog").dialog('destroy');
+        }
+      }
+    };
+  </script>
+<% end %>

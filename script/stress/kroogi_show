@@ -1,0 +1,15 @@
+def kroogi_show_test(n)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+User.popular(n).each do |u|
+  `wget "localhost:3000/user/#{u.id}/kroogi?type=5"`
+end;
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+end
+
+kroogi_show_test 5

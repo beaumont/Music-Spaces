@@ -1,0 +1,13 @@
+
+
+<h1>
+  <%= @exception.class.to_s %>
+  <% if request.parameters['controller'] %>
+    in <%= request.parameters['controller'].humanize %><%= 'Controller'.t -%><% if request.parameters['action'] %>#<%= request.parameters['action'] %><% end %>
+  <% end %>
+</h1>
+<pre><%= @exception.clean_message %></pre>
+
+<%== render_file(@rescues_path + "/_trace.erb", false) %>
+
+<%== render_file(@rescues_path + "/_request_and_response.erb", false) %>

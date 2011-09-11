@@ -1,0 +1,111 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Managing Featured Items'.t %>
+
+<div class="admin">
+  
+  <h2><%= 'Featured Items'.t %></h2>
+
+  <h3><%= 'Projects'.t %></h3>
+  <table class="admin">
+    <tr>
+      <th>Id</th>
+      <th><%= 'Kroogi Name'.t %></th>
+      <th><%= 'Display Name'.t %></th>
+      <th><%= 'Synopsis'.t %></th>
+      <th><%= 'Synopsis'.t %> (<%= 'Russian'.t -%>)</th>      
+      <th><%= 'Editorial'.t %></th>
+      <th><%= 'Editorial'.t %> (<%= 'Russian'.t -%>)</th>
+      <th><%= 'Featured At'.t %></th>
+      <th>&nbsp;</th>
+    </tr>
+    
+    <% @projects.each do |fproject| %>
+      <% project = fproject.item; @featured_item = fproject %>
+      <tr class="<%= cycle("dark", "light") %>">
+        <td><%=h project.id %></td>
+        <td><%= user_link(project) %></td>
+        <td><%=h project.display_name %></td>
+        <td>
+          <span id="ipe_synopsis_<%= fproject.id -%>_en">#</span>
+          <%= in_place_editor_field :featured_item, 'synopsis', {}, :external_control => "ipe_synopsis_#{fproject.id}_en", :load_text_url => {:action => 'unformatted_synopsis', :id => fproject, :lang => 'en'}, :rows => 5 %>
+        </td>
+        <td>
+          <span id="ipe_synopsis_<%= fproject.id -%>_ru">#</span>
+          <%= in_place_editor_field :featured_item, 'synopsis_ru', {}, :external_control => "ipe_synopsis_#{fproject.id}_ru", :load_text_url => {:action => 'unformatted_synopsis', :id => fproject, :lang => 'ru'}, :rows => 5 %>
+        </td>
+
+        <td>
+          <span id="ipe_<%= fproject.id -%>_en">#</span>
+          <%= in_place_editor_field :featured_item, 'editorial', {}, :external_control => "ipe_#{fproject.id}_en", :load_text_url => {:action => 'unformatted_editorial', :id => fproject, :lang => 'en'}, :rows => 5 %>
+        </td>
+        <td>
+          <span id="ipe_<%= fproject.id -%>_ru">#</span>
+          <%= in_place_editor_field :featured_item, 'editorial_ru', {}, :external_control => "ipe_#{fproject.id}_ru", :load_text_url => {:action => 'unformatted_editorial', :id => fproject, :lang => 'ru'}, :rows => 5 %>
+        </td>
+        <td><%=h fproject.created_at.to_s(:date_with_time) %></td>
+        <td><%= link_to('Un-Feature'.t, { :action => 'unfeature', :id => fproject.id }, :confirm => 'Are you sure?'.t, :method => :post) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<%= form_tag %>
+  <p><%= 'Project ID'.t %>: <input type="text" name="project_id" /></p>
+  <p><%= 'Synopsis'.t %>: <input type="text" name="project_synopsis"/></p>
+  <p><%= 'Synopsis'.t %> (<%= 'Russian'.t -%>): <input type="text" name="project_synopsis_ru"/></p>
+  <p><%= 'Editorial'.t %>: <textarea name="project_editorial" style="height: 70px; width: 300px"></textarea></p>
+  <p><%= 'Editorial'.t %> (<%= 'Russian'.t -%>): <textarea name="project_editorial_ru" style="height: 70px; width: 300px"></textarea></p>
+  <p><input type="submit" value="<%= 'Feature This User or Project'.t %>"></p>
+</form>
+
+<hr/>
+
+
+  <% if !@problems.blank? %>
+  <div class="warning" style="background:inherit;">
+  <%= 'Problems found with these featured items:'.t %>
+  <ul>
+    <% @problems.each do |problem| %>
+      <li><%= problem %></li>
+    <% end %>
+  </ul>
+  </div>
+  <% end %>
+<% [@items, @albums].each_with_index do |collection, idx| %>
+  <%= '<hr/>' unless idx.zero? %>
+  <h3><%= idx.zero? ? 'Items'.t : 'Downloadable Albums'.t %></h3>
+  <% unless idx.zero? %>
+    <div style="font-size: .7em; line-height: 1em"><%= "NOTE: There is no checking of published/unpublished status -- if it is featured here, it can show up on the Explore Kroogi page.".t %></div>
+  <% end %>
+  <table class="admin">
+    <tr>
+      <th>Id</th>
+      <th><%= 'Title'.t %></th>
+      <th><%= 'Class'.t %></th>
+      <th><%= 'Featured At'.t %></th>
+      <th>&nbsp;</th>
+    </tr>
+    
+    <% collection.each do |fitem| %>
+      <% item = fitem.item %>
+      <tr class="<%= cycle("dark", "light") %>">
+        <td><%= item.id if item %></td>
+        <td>
+          <%= link_to(h(item.respond_to?(:title) ? item.title : 'untitled'), :controller => '/content', 
+            :action => 'show', :id => item.id) if item %>
+        </td>
+        <td><%=h item.class.to_s if item %></td>
+        <td><%= h fitem.created_at %></td>
+        <td>
+            <%= link_to('Un-Feature'.t, { :action => 'unfeature', :id => fitem.id }, :confirm => 'Are you sure?'.t, :method => :post) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  
+  <%= form_tag %>
+    <p><%= 'Item ID'.t %>: <input type="text" name="item_id" /></p>
+    <p><input type="submit" value="<%= 'Feature This Item'.t -%>"></p>
+  </form>
+<% end %>
+</div>
+

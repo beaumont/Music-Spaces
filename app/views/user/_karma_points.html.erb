@@ -1,0 +1,17 @@
+<%
+   # This partial is for displaying users karma points on their home page
+-%>
+<% if @account_setting.has_karma_points? -%>
+  <div class="right_bordered"
+    <div class="border_offset">
+      <div class="subtopic_h1">
+        <span class="subtopic_left"><%= 'Karma Points'.t %></span>
+        <!-- <span class="subtopic_right"><%= link_to 'View Details'.t + ' &gt;&gt;', {:controller => 'karma', :action => 'index'} %></span> -->
+      </div>
+      <div class="subtopic_h3" style="margin-top: -4px;">
+        <%= image_tag 'icon_karma.gif', :style => "vertical-align:middle" %> <%= '{{count}} Karma Points, {{some}} in {{month}}' / [@account_setting.total_karma_points, @account_setting.karma_points_this_month, Date.today.localize('%B')] %>
+      </div>
+    </div>
+  </div>
+<% end -%>
+

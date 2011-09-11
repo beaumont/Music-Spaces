@@ -1,0 +1,49 @@
+<% content_for :js do %>
+  <%= include_swf_loader %>
+<% end %>
+<% @title = @user.login + ' :: ' + 'Recent Items From Your Network'.t %>
+
+<% right_column_block do %>
+  <div class="blue_block sidebar">
+    <div class="default"><%= 'Select content that you want to see in your feed'.t %>:</div>
+    <% form_for :preference, :url => { :action => 'update_feed_filters', :id => @preference}, 
+                            :html => { :id => "filters_form" } do | prefs | -%>
+      <div class="blue_block light">
+        <%= prefs.check_box :show_feed_music, {:class => 'checkbox'} %>&nbsp;
+        <%= 'Music'.t %>
+        <br/>
+        <%= prefs.check_box :show_feed_pics, {:class => 'checkbox'} %>&nbsp;
+        <%= 'Images'.t %>
+        <br/>
+        <%= prefs.check_box :show_feed_texts, {:class => 'checkbox'} %>&nbsp;
+        <%= 'Written ((texts))'.t %>
+        <br/>
+        <%= prefs.check_box :show_feed_videos, {:class => 'checkbox'} %>&nbsp;
+        <%= 'Videos'.t %>
+        <br/>
+        <%= prefs.check_box :show_feed_people, {:class => 'checkbox'} %>&nbsp;
+        <%= 'People and Projects'.t %>
+        <br/><br/>
+        <%= prefs.check_box :show_feed_dirs, {:class => 'checkbox'} %>&nbsp;
+        <%= 'Directories Contents'.t %>
+      </div>
+      <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                      :disable_cancel => true,
+                                                      :button_wrapper_class => 'form_buttons',
+                                                      :ok_label => 'Apply'.t} %>
+                                                      <div class="clear"></div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @activity.empty? %>
+  <div class="section_empty">
+    <%= 'No matching activities'.t %>
+  </div>
+<% end %>
+<div class="content_body" id="activities">
+  <%= render :partial => 'ffeed_entry', :collection => @activity %>
+</div>
+<%= render :partial => '/shared/pager', :locals => {:results => @activity} %>
+
+<%= render :partial => '/wizard/basic_user_setup_wizard', :locals => {:user => @user} %>

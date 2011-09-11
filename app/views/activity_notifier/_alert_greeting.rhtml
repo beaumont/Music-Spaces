@@ -1,0 +1,23 @@
+
+<p>
+  <strong>
+    <%= @content.user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> (<%= @from_user.display_name %>) 
+	  <% if @content.commentable.user.project? %> 
+	    <%= "left a greeting on the Wall of your project %s" / [link_to(@content.commentable.user.login, "#{@url}/user/#{@content.commentable.user.id}")] -%>:
+	  <% else -%>
+	    <%= 'left a greeting on the Wall of your %s' / [link_to('Kroogi Page'.t, "#{@url}/user/#{@user.login}")] -%>:
+	  <% end -%>
+  </strong>
+</p>
+
+<p>
+  <blockquote><em><%= kf_simple @content.comment %></em></blockquote>
+</p>
+
+<p>
+  <%= link_to "Read this greeting and reply".t, "#{@url}/user/thread/#{@user.id}?thread_id=#{@content.top.id}" %><br />
+  <%#= link_to "Delete the message".t, "#{@url}/submit/delete/#{@activity.content_id}" %>
+  <%= link_to 'Open the Wall'.t, "#{@url}/user/comments/#{@content.commentable.user.id}" %>
+</p>
+

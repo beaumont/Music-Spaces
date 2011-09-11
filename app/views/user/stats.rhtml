@@ -1,0 +1,14 @@
+<% @title = @user.login + ' :: ' + 'Recent views'.t %>
+
+<% content_head = capture do %>
+  <%= 'Recent Views History for %s (%s)' / [(h @user.login), @user.display_name] -%>
+<% end %>
+
+<% main_block(:content_head => content_head) do %>
+  <% views = Stats::View.for(@user) %>
+  <% if views.empty? %>
+      <div class="section_empty"><%= 'Not yet viewed'.t -%></div>
+  <% else %>
+    <%= render :partial => 'content/viewer_stat', :collection => views %>
+  <% end %>
+<% end %>	

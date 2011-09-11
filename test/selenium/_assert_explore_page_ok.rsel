@@ -1,0 +1,8 @@
+# Checks: Explore page appears correctly
+
+assert_title 'Explore Kroogi :: Kroogi'
+assert_text_present 'Kroogi Recommends'
+assert_text_present 'News'
+assert_text_present 'New Content'
+assert_text_present 'Download'
+assert_text_present 'Popular'

@@ -1,0 +1,19 @@
+<% remote_form_for :guest_invite,
+    :url => { :controller=>'content', :action => 'invite_guest_to_user_circle'},
+    :condition => 'guest_invite_email_not_empty()',
+    :html => {:class => 'guest_invite'} do |f| -%>
+
+  <%= error_messages_for :guest_invite %>
+
+  <%= 'Please leave your email address here if you wish to get connected to %s' / user_link(user, :icon => true) -%>
+  <div class="email_field">
+    <%= f.text_field :user_email %>
+    <%= f.hidden_field :inviter_id, :value => user.id %>
+  </div>
+  <div class="button_wrapper">
+    <button class="button" type="submit" name="submit">
+      <span><%= 'Submit'.t %></span>
+    </button>
+  </div>
+<% end %>
+

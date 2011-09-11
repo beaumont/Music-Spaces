@@ -1,0 +1,46 @@
+<% render :layout => 'settings_template' do %>
+  <% if @published_q.empty? %>
+    <div class="no_questions">
+      <%= "You have no published questions".t %>
+    </div>
+  <% else %>
+    <% @published_q.each do |question| %>
+      <div class="right">
+        <%= 'Created: {{date}}' / question.created_at.to_date.localize("%d %B %Y") %>
+      </div>
+      <div class="question">
+        <%= question.text %>
+      </div>
+      <div class="right">
+        <div class="block_action">
+          <%= link_to(image_tag('comments.png') + '&nbsp;' + '{{count}} Answers' / question.answers.count, :controller => 'public_question', :action => 'index', :id => question.id) %>
+        </div>
+        <span class="separator">&nbsp;</span>
+        <div class="project_vote">
+          <div class="vote vote_count"><%= votes_count_caption(question.up_votes.count) %></div>
+        </div>
+      </div>
+      <div>
+        <%= render :partial => 'toggle_question_show_on_events', :locals => {:question => question} %>
+      </div>
+      <div style="margin-top:5px;float:right;">
+        <% form_tag({ :controller => '/public_question',
+                              :action => 'put_to_archive',
+                              :id => question.id,
+                              :from_action => 'published'
+                            }) do -%>
+          <%= render(:partial => '/shared/button', :locals => {:label => 'Archive'.t,
+                                                               :confirm => 'Are you sure you want to archive this question? This action can be undone later.'.t,
+                                                               }) %>
+        <% end %>
+      </div>
+      <%= render :partial => 'delete_button', :locals => {:question => question} %>
+      <br />
+      <br />
+      <br />
+      <div class="grey_line2"></div>
+      <br />
+    <% end %>
+  <% end %>
+<% end %>
+

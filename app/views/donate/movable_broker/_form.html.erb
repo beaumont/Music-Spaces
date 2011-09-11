@@ -1,0 +1,137 @@
+<h3 <%= available_processor ? "" : "style='display:none'" %> ><a href="#"><%= p[:name] %></a></h3>
+<div style="height:300px;" class="contribution_option_body">
+  <% if APP_CONFIG.movable_disabled %>
+    <%= render :partial => "/donate/movable_broker/disabled_#{I18n.locale}" %>
+  <% elsif !@recipient.account_setting.movable_broker_enabled %>
+    <%= @recipient.login %> <%= "has chosen not to accept SMS contributions".t %>.
+  <% else %>
+    <div>
+      <%= 'We are partnering with %s to support contributions via SMS messaging.' / [link_to("Movable Company", "http://www.movable.ru", {:target => "_blank"})] %>
+      <%= link_to(image_tag("/images/sms-zamok.jpg"), "http://www.smszamok.ru", {:target => "_blank"}) %>
+    </div>
+    <div id="to-send-msg" style="border: 1px solid #999;margin-top: 10px; display:none"></div>
+    <div id="needed-for-ie">
+      <span id="sms-results"><%= 'Select your country from the list below'.t %></span>
+    </div>
+    <div id="numbers"></div>
+
+    <ul id="countries">
+      <% @countries.each do |c| %>
+        <li><a href="javascript:updateCountry(this, <%= c.id -%>);"><%= h c.name %></a></li>
+      <% end %>
+    </ul>
+
+    <div id="operators">
+      <% @countries.each do |c| %>
+        <ul id="<%= c.id %>" style="display: none;">
+          <% c.operators.each do |o| %>
+            <li><a href="javascript:updateOperator(this, <%= c.id %>, <%= o.id %>);"><%= h o.name %></a></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div id="type-carefully" style="display:none; padding-top:10px; font-size: 0.8em;">
+      <div>
+        <strong><%= 'TYPE CAREFULLY'.t %></strong> &mdash;
+        <%= "the text you send is used to link your payment with this transaction; if you mistype, there is no way for us to know the purpose of the payment.".t %>
+        <%= "Send your SMS according to the instructions provided, then close the window".t %>
+      </div>
+      <div style="padding-top: 5px;">
+        <%= 'If you have any problems using this service, you can get help at the %s.' / [link_to("support page".t, "http://smszamok.ru/?feedback", {:target => "_blank"})] %>
+      </div>
+      <div style="margin: 5px auto; width:150px">
+        <%= hidden_field_tag( :amount, "0", :id => "#{p[:short_name]}_contribution_amount_field") %>
+        <a href='#' id="close_window_button" onclick='run_choice("<%= p[:short_name] %>"); jQuery("#contribution_accordion").parent().dialog("destroy"); return false;' class='button'><span><%= 'Close This Window'.t %></span></a>
+      </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+
+      var countries = <%= @movable_dump -%>;
+      var base_txt = '<%= SmsPayload::SMS_MEMBER_NUMBER -%>';
+
+      function updateCountry(elem, cid) {
+        $('sms-results').remove();
+        $('countries').hide();
+        $('numbers').hide();
+        $$('#operators ul').each(function(e) {
+          e.hide();
+        });
+        $$('#operators #' + cid).each(function(e) {
+          e.show();
+        });
+      }
+      function updateOperator(elem, cid, oid) {
+        $('countries').hide();
+        $('operators').hide();
+
+        str = '<h3 style="margin: 5px"><%= 'Select Amount to Send'.t -%>:</h3>';
+        nums = countries[cid].operators[oid].numbers;
+        for (i = 0; i < nums.length; i++) {
+          str += '<a href="javascript:updateAmountSelected(' + cid + ',' + oid + ',' + i + ',' + countries[cid].operators[oid].numbers[i].formatted_cost + ')" class="button"><span>' + amt(cid, oid, i) + "</span></a>";
+        }
+        str += '<br class="clear"/>';
+
+
+        $('numbers').update(str);
+        $('numbers').show();
+      }
+      function amt(cid, oid, num_index) {
+        c = countries[cid].operators[oid].numbers[num_index].formatted_cost;
+        usd = c + ' USD';
+        return usd;
+      }
+
+      function toSend(el, cid, oid, num_index) {
+        //submit the info
+        new Ajax.Request("<%= url_for({:controller =>"/donate", :action => "get_sms_payload"})%>", {
+          parameters : { recipient_id : "<%= @recipient.id if @recipient%>", content_id: "<%= @content.id if @content %>", donor_id: "<%= @donor.id if @donor%>", karma_point_id: "<%= @karma_point_id if @karma_point_id %>"},
+          onSuccess: function(transport) {
+            if (transport.status == 200) {
+              el.innerHTML = countries[cid].operators[oid].numbers[num_index].force_prefix + base_txt + ' ' + transport.responseText;
+            } else {
+              el.innerHTML = "Oops!  We experienced an error.";
+            }
+          }});
+      }
+
+      function updateAmountSelected(cid, oid, num_index, amount) {
+        $('<%= "#{p[:short_name]}_contribution_amount_field" %>').value = amount;
+        str = '<%= 'To send'.t %> ' + amt(cid, oid, num_index) + ':';
+        instruc = document.createElement('div');
+        instruc.setAttribute('style', "font-weight: bold; padding: 5px;");
+        instruc.innerHTML = str;
+
+        wrapper1 = document.createElement('div');
+        wrapper1.setAttribute('style', 'margin: 0px;');
+        wrapper1.innerHTML = '<%= 'Send text'.t -%>: ';
+        dis1 = document.createElement('span');
+        dis1.setAttribute('class', 'distinct');
+        toSend(dis1, cid, oid, num_index);
+        wrapper1.appendChild(dis1);
+
+        wrapper2 = document.createElement('div');
+        wrapper2.innerHTML = '<%= 'To the number'.t -%>: ';
+        dis2 = document.createElement('span');
+        dis2.setAttribute('class', 'distinct');
+        dis2.innerHTML = countries[cid].operators[oid].numbers[num_index].number;
+        wrapper2.appendChild(dis2);
+
+
+        instruc.appendChild(wrapper1);
+        instruc.appendChild(wrapper2);
+
+        $('numbers').hide();
+        $('to-send-msg').show().update(instruc);
+        $('needed-for-ie').hide();
+        $('type-carefully').show();
+        jQuery('#contribution_accordion').parent().bind('dialogclose', function(event, ui) {
+          jQuery('#close_window_button').click();
+        });
+        $('to-send-msg').visualEffect('highlight');
+      }
+    </script>
+
+  <% end %>
+</div>
+

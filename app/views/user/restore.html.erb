@@ -1,0 +1,46 @@
+<div id="centered_modules">
+
+  <div class="module_thin_padding">
+    <div class="left_noborder profile_text white" style="padding: 10px;">
+      <div class="border_offset">
+        <div class="subtopic_h1">
+          <%= 'Restore person or project blocked from Kroogi system'.t %>
+        </div>
+      </div>
+
+      <% form_for :restore do |f| %>
+
+      <div style="padding: 10px;">
+        <p><%= error_messages_for :restore %></p>
+        <p><%= @error_message %></p>
+        <h2><%= 'Restore this person or project'.t %></h2>
+        <p style="text-align: center;">
+          <label>
+            <span style="margin-right: 5px;"><%= 'Kroogi Name'.t -%>:</span>
+            <%= user_link(@user, :icon => true, :use_both => true) %>
+            <%#= text_field_tag :login, @user ? @user.login : '', :class => 'feedback_input', :style => 'width: 200px; margin-left: 5px;' %>
+          </label>
+        </p>
+      </div>
+      
+      <div style="background: #E9E9E9; padding: 10px;">
+
+        <h2><%= 'Details (required)'.t %></h2>
+        <%= f.text_area :message, :style => 'width: 100%; height: 100px;', :class => 'feedback_input' %>
+        
+      </div>
+      
+      <p style="text-align: center;">
+        <button type="submit" class="button" style="">
+          <span><%= 'Restore'.t %></span>
+        </button>
+        <button type="button" class="button_gr" onclick="document.location.href='<%= userpage_path(@user) %>';">
+          <span><%= 'Cancel'.t %></span>
+        </button>
+      </p>
+      
+      <% end %>
+    </div>
+  </div>
+</div>
+

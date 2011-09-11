@@ -1,0 +1,26 @@
+<% if content %>
+  <% width = width || @player_width
+     height = player_height(tracks)
+     player_url = "http://#{user_domain}/flash/audioplayer.swf"
+     playlist_url = CGI::escape(content_user_bound_url(content, {
+             :controller => 'player',
+             :action => 'embedded_play_list',
+             :format => 'xml',
+             :ref_uid => ( (current_user and current_user.id > 0) ? current_user.id : nil),
+             :locale => I18n.locale,
+             :width => width,
+             :player_mode => 'embedded',
+             :kroogi_id => (current_user.id if logged_in?),
+     }, id_param => content.id))
+  %>
+  <object id="kroogi_player_<%= content.id %>" width="<%= width %>" height="<%= height %>">
+    <param name="wmode" value="transparent" />
+    <param name="movie" value="<%= player_url %>" />
+    <param name="flashvars" value="playlist_url=<%= playlist_url %>" />
+    <param name="allowScriptAccess" value="always" />
+    <embed name="kroogi_player_<%= content.id %>" src="<%= player_url %>" type="application/x-shockwave-flash"
+           width="<%= width %>" height="<%= height %>" flashvars="playlist_url=<%= playlist_url %>"
+           allowScriptAccess="always" wmode="transparent"> </embed>
+  </object>
+<% end %>
+

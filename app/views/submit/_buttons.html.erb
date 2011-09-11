@@ -1,0 +1,132 @@
+<%
+vertical ||= false
+upload ||= false
+message ||= false
+is_editing ||= false
+ok_label ||= nil
+unless ok_label
+  if respond_to?(:is_edit?)
+    is_editing ||= is_edit?
+  end
+end
+center ||= false
+render_before_submit ||= nil
+render_after_submit ||= nil
+disable_cancel ||= false
+use_button_submit ||= false
+validate ||= 'true'
+ajax_mode ||= false
+@buttons_widget_id ||= 0
+@buttons_widget_id += 1
+buttons_widget_id ||= @buttons_widget_id
+no_cancel_handler ||= false
+cancel_label ||= nil
+ok_button_class ||= 'button'
+unless defined?(cleanup_after); cleanup_after = true; end
+button_wrapper_class ||= 'button_wrapper'
+reset_button_id ||= false
+clear_errors_contaner ||= false
+form_submit_event ||= "onsubmit"
+%>
+
+<%# let this instance variable play well when partial of page is relaoded thru ajax %>
+<% if request.xhr? && reset_button_id == true
+  buttons_widget_id = dialog_id_suffix
+ end %>
+
+<script type="text/javascript" charset="utf-8">
+  <%# This function is called if :use_button_submit is set to true. In this case be sure to specify
+    :validate => 'my_validation_function()' if you have JS validation on the form. This code submit form without
+    calling form's onsubmit handler (which doesn't work in some browsers, e.g. Opera). %>  
+  function button_submit<%= buttons_widget_id %>(submitted_button, wait_caption){
+    if (typeof wait_caption == "undefined") {
+        wait_caption = "<%= 'Please Wait...'.t %>";
+    }
+    submitted_button = $(submitted_button);
+    form = submitted_button.up('form');
+    if (form) {
+      container = form
+      <% if clear_errors_contaner %>
+        jQuery('div.error', form).html('');
+      <% end %>
+    } else {
+      container = submitted_button.up('div')
+    }
+
+    if (<%= validate %>) {
+      buttons = container.select('.<%= ok_button_class %>');
+      <% unless ok_button_class.ends_with?('_gr') %>
+        buttons.each(function(button){
+          button.className = '<%= ok_button_class %>_gr';
+        });
+      <% end %>
+      was = submitted_button.innerHTML;
+      submitted_button.innerHTML = "<span>" + wait_caption + "</span>";
+      submitted_button.disabled = true;
+      submitted_button.next('.wait_up_homie').show();
+      <% if ajax_mode %>
+        jQuery(form).trigger('<%= form_submit_event %>');
+        var cleanup_after = <%= cleanup_after ? "true" : "false" %>;
+        if (cleanup_after || !jQuery('div.error', form).is(':empty')) {
+          jQuery(submitted_button).next('.wait_up_homie').hide();
+          submitted_button.disabled = false;
+          submitted_button.innerHTML = was;
+          buttons.each(function(button){
+            button.className = '<%= ok_button_class %>';
+          });
+        }
+      <% else %>
+        if (form) {
+          form.submit();
+        }
+      <% end %>
+    }
+
+    return false;
+  }
+
+</script>
+
+<% unless vertical %>
+<div class="<%= button_wrapper_class %>">
+    <%= render_before_submit %>
+    <button class="<%= ok_button_class %>" type="submit" name="commit" <%= "onClick=\"return button_submit#{buttons_widget_id}(this);\"" if use_button_submit %> style="<%= 'margin: 0 auto;' if center -%>">
+      <% if upload %>
+        <span><%= ok_label || 'Upload'.t %></span>
+      <% elsif is_editing %>
+        <span><%= ok_label || 'Save'.t %></span>
+      <% else %>
+        <span><%= ok_label || (message ? 'Send'.t : 'Post ((button))'.t) %></span>
+      <% end %>
+    </button>
+    <%= wait_up_homie %>
+    <%= render_after_submit %>
+    <% unless disable_cancel %>
+    <button class="button_gr cancel" onClick="<%= no_cancel_handler ? '' : "window.location = '#{local_referer}'; return false;" %>" style="margin-left: 50px;">
+      <span><%= cancel_label || 'Cancel'.t %></span>
+    </button>
+    <% end %>
+</div>
+<% else %>
+<%= render_before_submit %>
+<div style="float:center;padding-top:60px">
+  <button class="<%= ok_button_class %>" type="submit" name="commit" <%= "onClick=\"return button_submit#{buttons_widget_id}(this);\"" if use_button_submit %> >
+    <% if upload %>
+      <span><%= ok_label || 'Upload'.t %></span>
+    <% elsif is_editing %>
+      <span><%= ok_label || 'Save'.t %></span>
+    <% else %>
+      <span><%= ok_label || message ? 'Send'.t : 'Post ((button))'.t %></span>
+    <% end %>
+  </button>
+  <%= wait_up_homie %>
+</div>
+<%= render_after_submit %>
+<% unless disable_cancel %>
+<div style="float:center;padding-top:20px">
+  <button class="button_gr cancel" onClick="<%= no_cancel_handler ? '' : "window.location = '#{local_referer}'; return false;" %>">  
+    <span><%= cancel_label || 'Cancel'.t %></span>
+  </button>
+</div>
+<% end %>               
+<% end %>

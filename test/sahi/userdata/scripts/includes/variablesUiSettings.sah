@@ -1,0 +1,190 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: settings center.
+*/
+
+
+// Settings center - main page elements
+    // for both types of users and project
+    $settingsEditDetailsLink = "Edit Details";
+    $settingsManageAvatarsLink = "Manage Avatars";
+    $settingsNotificationsLink = "Email Notifications";
+    $settingsUpdateSuccessMessage = "Settings were successfully updated.";
+
+    // for basic and advanced users
+    $settingsBreadcrumb = "Edit user settings";
+    $settingsAccountLink = "Account Settings";
+
+    // for basic user only
+    $settingsAdvancedUpgradeLink = "Upgrade to Advanced Account";
+
+    // for advanced user only
+    $settingsProjectDisplayOptionsLink = "Change display options";
+
+    // for project only
+    $settingsProjectBreadcrumb = "Edit project settings";
+    $settingsProjectAccountLink = "Project Settings";
+
+    // for advanced user and project
+    $settingsSetupGuideHeader = "Setup Wizard";
+    $settingsUploadPictureLink = "Upload New Kroogi Picture";
+    $settingsCircleManagementLink = "Circle Management";
+    $settingsManageMoneyLink = "Manage Money Account";
+    $settingsLivejournalLink = "Livejournal connection settings";
+
+// Settings center - 'Edit details' page
+    // for both types of user and project
+    $settingsEditDetailsBreadcrumb = "Edit Details";
+    $editDetailsHeaderLabel = "Edit information about you that is available to others.";
+    $editDetailsDisplayNameLabel = "Display name";
+    $editDetailsMottoLabel = "Motto";
+    $editDetailsDisplayNameField = "user[_display_name]";
+    $editDetailsMottoField = "profile[_tagline]";
+    $editDetailsSaveButton = "Save";
+    $editDetailsCancelButton = "Cancel";
+
+    // for basic and advanced users
+    $editDetailsBirthdateLabel = "Birthdate";
+    $editDetailsBirthdateField = "user[birthdate]";
+
+    // for advanced user and project
+    $editDetailsCountryLabel = "Country";
+    $editDetailsCityLabel = "City";
+    $editDetailsWebsiteLabel = "Website";
+    $editDetailsAboutLabel = "About";
+    $editDetailsTagsLabel = "Tags separate by commas";
+    $editDetailsSchoolLabel = "School";
+    $editDetailsSkypeLabel = "Skype";
+    $editDetailsYahooLabel = "Yahoo! IM";
+    $editDetailsAolLabel = "AOL";
+    $editDetailsLjLabel = "LiveJournal";
+    $editDetailsIcqLabel = "ICQ";
+    $editDetailsGtalkLabel = "Google talk";
+    $editDetailsMsnLabel = "MSN IM";
+    $editDetailsMyspaceLabel = "MySpace";
+    $editDetailsCustomQuestionLabel = "Question";
+    $editDetailsCustomAnswerLabel = "Answer";
+    $editDetailsCountryField = "profile[country][answer]";
+    $editDetailsCityField = "profile[city][answer]";
+    $editDetailsWebsiteField = "profile[website][answer]";
+    $editDetailsAboutField = "profile[bio][_answer]";
+    $editDetailsTagsField = "profile[interests][answer]";
+    $editDetailsSchoolField = "profile[school][answer]";
+    $editDetailsSkypeField = "profile[skype][answer]";
+    $editDetailsYahooField = "profile[yahoo][answer]";
+    $editDetailsAolField = "profile[aol][answer]";
+    $editDetailsLjField = "profile[lj][answer]";
+    $editDetailsIcqField = "profile[icq][answer]";
+    $editDetailsGtalkField = "profile[gmail][answer]";
+    $editDetailsMsnField = "profile[msn][answer]";
+    $editDetailsMyspaceField = "profile[myspace][answer]";
+    $editDetailsCustomQuestion1Field = "profile[question_list][][_question]";
+    $editDetailsCustomAnswer1Field = "profile[question_list][][_answer]";
+    $editDetailsCustomQuestion2Field = "profile[question_list][][_question][1]";
+    $editDetailsCustomAnswer2Field = "profile[question_list][][_answer][1]";
+    $editDetailsCustomQuestion3Field = "profile[question_list][][_question][2]";
+    $editDetailsCustomAnswer3Field = "profile[question_list][][_answer][2]";
+    $editDetailsCustomQuestion4Field = "profile[question_list][][_question][3]";
+    $editDetailsCustomAnswer4Field = "profile[question_list][][_answer][3]";
+
+    // for advanced user only
+    $editDetailsContactInfoLabel = "Your Contact Information";
+    $editDetailsMoreInfoLabel = "More Information About Me (Free-form entry)";
+    $editDetailsOccupationLabel = "Occupation separate by commas";
+    $editDetailsShowBirthdateCheckboxLabel = "Show on Profile page";
+    $editDetailsGenderLabel = "Gender";
+    $editDetailsLanguageLabel = "Language";
+    $editDetailsOccupationField = "profile[occupation][answer]";
+    $editDetailsShowBirthdateCheckbox = "user[birthdate_visiblity]";
+    $editDetailsGenderRadioMale = "user_gender_m";
+    $editDetailsGenderRadioFemale = "user_gender_f";
+    $editDetailsLanguageRadioEn = "user_language_en";
+    $editDetailsLanguageRadioRu = "user_language_ru";
+
+    // for project only
+    $editDetailsProjectHeaderLabel = "Edit information about you that is available to others.";
+    $editDetailsProjectContactInfoLabel = "Project's Contact Information";
+    $editDetailsProjectMoreInfoLabel = "More Information About Project (Free-form entry)";
+    $editDetailsProjectTypeLabel = "Project Type separate by commas";
+    $editDetailsAboutProjectLabel = "About Project";
+    $editDetailsProjectTypeField = "profile[occupation][answer]";
+    $editDetailsAboutProjectField = "profile[about_project][_answer]";
+
+// Settings center - 'Upload new kroogi picture' page
+$settingsUploadPictureBreadcrumb = "Upload New Kroogi Picture";
+
+// Settings center - 'Manage avatars' page
+$settingsManageAvatarsBreadcrumb = "Manage Avatar";
+
+// Settings center - 'Account settings' page
+$settingsAccountBreadcrumb = "Account Settings";
+$accountSettingsEmailHeader = "Change Your Email";
+$accountSettingsPasswordHeader = "Change Your Password";
+$accountSettingsPrivacyHeader = "Privacy Settings";
+$accountSettingsEmailFieldLabel = "Email (private)";
+$accountSettingsChangeEmailButton = "Change Email";
+$accountSettingsOldPassFieldLabel = "Old Password";
+$accountSettingsNewPassFieldLabel = "New Password";
+$accountSettingsNewPassConfirmFieldLabel = "New Password Verification";
+$accountSettingsChangePassButton = "Change Password";
+$accountSettingsShowNameCheckboxLabel = "Show others when I view their content";
+$accountSettingsShowTimeCheckboxLabel = "Show time of my last login";
+$accountSettingsEmailSearchableLabel = "Make my email searchable";
+$accountSettingsChangePrivacyButton = "Change Privacy Settings";
+$accountSettingsEmailField = "user[email]";
+$accountSettingsOldPassField = "user[old_password]";
+$accountSettingsNewPassField = "user[password]";
+$accountSettingsNewPassConfirmField = "user[password_confirmation]";
+$accountSettingsShowNameCheckbox = "preference[anonymous_stats]";
+$accountSettingsShowTimeCheckbox = "preference[show_last_active]";
+$accountSettingsEmailSearchableCheckbox = "preference[email_searchable]";
+$accountSettingsDeleteAccountLabel = "Click here to delete your account.";
+$accountSettingsDeleteAccountLink = "Click here";
+$accountSettingsPasswordNeededNotice = "In order to save this form, you will need to enter your Kroogi password.";
+$accountSettingsHiddenPassword = "password";
+
+// Settings center - 'Account settings' page - 'Delete project' page
+$deleteAccountPasswordField = "password";
+$deleteAccountSubmitButton = "commit";
+$deleteAccountConfirmMessage = "Are you ABSOLUTELY sure you want to delete this account?";
+$deleteAccountDoneMessage = "User account is no longer valid";
+
+// Settings center - 'Project settings' page
+$settingsProjectAccountBreadcrumb = "Project Settings";
+$projectSettingsPrivacyHeader = "Privacy Settings";
+$projectSettingsVisibilityHeader = "Visibility Settings";
+$projectSettingsShowNameCheckboxLabel = "Show others when I view their content";
+$projectSettingsShowTimeCheckboxLabel = "Show time of my last login";
+$projectSettingsChangePrivacyButton = "Change Privacy Settings";
+$projectSettingsShowNameCheckbox = "preference[anonymous_stats]";
+$projectSettingsShowTimeCheckbox = "preference[show_last_active]";
+$projectSettingsHideButtonPrefix = "Hide ";
+$projectSettingsDeleteProjectLabel = "Click here to delete your project.";
+$projectSettingsDeleteProjectLink = "Click here";
+$projectSettingsOpenButtonPrefix = "Open ";
+
+// Settings center - 'Project settings' page - 'Hide project' page
+$hideProjectPasswordField = "password";
+$hideProjectSubmitButton = "commit";
+
+// Settings center - 'Project settings' page - 'Delete project' page
+$deleteProjectPasswordField = "password";
+$deleteProjectSubmitButton = "commit";
+$deleteProjectConfirmMessage = "Are you ABSOLUTELY sure you want to delete this project?";
+
+// Settings center - 'Circle management' page
+$circleManagementTableHeader1 = "Circle";
+$circleManagementTableHeader2 = "Circle Name";
+$circleManagementTableHeader3 = "Access";
+
+// Settings center - 'Email notifications' page
+$settingsNotificationsBreadcrumb = "Email Notifications";
+
+// Settings center - 'Change display options' page
+$settingsProjectDisplayOptionsBreadcrumb = "Project Display Options";
+
+// Settings center - 'Livejournal connection settings' page
+$settingsLivejournalBreadcrumb = "Edit Your LiveJournal Settings";
+
+// Settings center - 'Upgrade to advanced account' page
+$settingsAdvancedUpgradeBreadcrumb = "Upgrade to Advanced Account";

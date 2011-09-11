@@ -1,0 +1,20 @@
+<%if current_fb_user && !@friends_activities.nil? && !@friends_activities.empty?%>
+  <div class="rightTitle"></div>
+  <div class="rightBoxes">
+    <div class="profile_box">
+      <div class="title">Friends on Kroogi Downloads</div>
+    </div>
+    <div class="profileContainer">
+      <% @friends_activities.each do |user|-%>
+        <div class="profilecover">
+          <%=  %>
+          <%= link_to(fb_profile_pic(user.facebook_id, :size => :square, :width => "34px"), :controller => 'user', :action =>'friend_albums_list', :id => user.facebook_id) %>
+        </div>
+        <div class="profileTitle"><%=link_to(fb_name(user.facebook_id, :linked => 'false'), :controller => 'user', :action =>'friend_albums_list', :id => user.facebook_id) %></div>
+        <div><%=link_to("#{pluralize_with_style(user.total_music_albums_in_collection, 'album', '')} >", :controller => 'user', :action =>'friend_albums_list', :id => user.facebook_id) %>
+        </div>
+        <div class="clear"></div>
+      <%end%>
+    </div>
+  </div>
+<%end%>

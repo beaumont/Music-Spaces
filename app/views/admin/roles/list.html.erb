@@ -1,0 +1,30 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'List of Roles'.t %>
+
+<div class="admin">
+
+
+<h2><%= "List of Roles".t %></h2>
+
+<table class="admin">
+  <tr>
+    <th><%= "Id".t %></th>
+    <th><%= "Name".t %></th>
+    <th><%= "Status".t %></th>
+  </tr>	
+	
+<% @roles.each  do |role| %>
+  <tr class="<%= cycle("dark", "light") %>">
+    <td><%= role.id %></td>
+    <td><%= link_to role.name, :controller => 'users', :role => role.id %></td>
+	<td><%= role.status_name %></td>
+  </tr>
+<% end %>	
+
+</table>
+<%= will_paginate @roles %>
+
+<br />
+
+</div>
+

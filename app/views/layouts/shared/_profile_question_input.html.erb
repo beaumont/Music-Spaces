@@ -1,0 +1,46 @@
+<%- fields_for "profile[#{question.key}]", question do |q| -%>
+  <%- if question.translatable? -%>
+    <td colspan="2">
+      <%- if question.new_record? -%>
+        <%= q.hidden_field(:question_key) -%>
+      <%- end -%>
+      <%= render :partial => "shared/translatable_fields2", :locals => {
+              :fields => {:form => q, :object => question, :title => label || question.name, :field => :answer}} -%>
+      <%- if optional -%>
+        <div>
+          <label>
+            <%= q.check_box(:show_on_kroogi_page, :class => 'auto_width') -%>
+            <%= 'Show on Profile page'.t -%>
+          </label>
+        </div>
+      <%- end -%>
+    </td>
+  <%- else -%>
+    <td class="left">
+      <%= h label || question.name -%>
+      <%- if question.is_tagged? && !%w( school country city ).include?(question.key) -%>
+        <span class="instructions"><%= "separate by commas".t -%></span>
+      <%- end -%>
+    </td>
+    <td class="center">
+      <%- if question.new_record? -%>
+        <%= q.hidden_field(:question_key) -%>
+      <%- end -%>
+      <%- if question.is_textarea? -%>
+        <%= q.text_area(:answer, :size => question.html[:size] || "29x6") -%>
+      <%- elsif question.dropdown? -%>
+        <%= select_tag("#{q.object_name}[answer]", country_options_for_select(question.answer_without_tags, ["Russian Federation", "United States", "Ukraine"]), :class => "profile_country_select") -%>
+      <%- else -%>
+        <%= q.text_field(:answer, :size => question.html[:size] || 30, :maxsize =>  question.html[:maxsize] || 200) -%>
+      <%- end -%>
+      <%- if optional -%>
+        <div>
+          <label>
+            <%= q.check_box(:show_on_kroogi_page, :class => 'auto_width') -%>
+            <%= 'Show on Profile page'.t -%>
+          </label>
+        </div>
+      <%- end -%>
+    </td>
+  <%- end -%>
+<%- end -%>

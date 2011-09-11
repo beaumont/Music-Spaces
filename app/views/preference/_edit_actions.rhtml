@@ -1,0 +1,11 @@
+
+<h2 id="edit_actions" style="margin-top:0px;">
+  <%= link_to_unless_current((@profile.is_person? ? 'User Settings'.t : 'Project Settings'.t), {:controller => 'preference', :action => 'show', :id => @profile.user.id}) -%>
+	<%= " &gt; " << link_to_unless_current(( @profile.is_person? ? 'Account Settings'.t : 'Project Settings'.t ), {:controller => 'preference', :action => 'account', :id => @profile.user.id}) -%>
+  <%# TODO:BLOG %>
+	<%#=  " | " << link_to_unless_current('Connect to Other Networks'.t, {:controller => 'preference', :action => 'integration', :id => @profile.user.id}) -%>
+	<% unless @profile.user.project? %>
+	  <%=  " | " << link_to_unless_current('Email Notifications'.t, {:controller => 'preference', :action => 'emails', :id => @profile.user.id}) -%>
+    <%=  " | " << link_to_unless_current('Project Display Options'.t, {:controller => 'preference', :action => 'project_display', :id => @profile.user.id}) -%>
+	<% end %>
+</h2>

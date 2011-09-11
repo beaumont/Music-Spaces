@@ -1,0 +1,25 @@
+--- 
+- 
+  created_at: 2010-12-22 19:15:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Превратить эту папку в Музыкальный альбом"
+  tr_key: "Turn this folder into a music album."
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-22 19:25:25 +00:00
+- 
+  created_at: 2010-12-22 19:15:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Название папки"
+  tr_key: "Folder name"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-22 19:25:42 +00:00
+- 
+  created_at: 2010-12-22 19:15:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Создать новую папку"
+  tr_key: "Create New Folder"
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2010-12-22 19:25:55 +00:00

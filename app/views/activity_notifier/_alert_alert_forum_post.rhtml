@@ -1,0 +1,33 @@
+
+<p>
+  <strong>
+    <% forum = @content.commentable.user %>
+    <% if @from_user.id == forum.id %>
+      <%= "{{maybe_project}}{{user_link}} ({{display_name}}) alerted all followers of {{circle_name}} Circle and closer about a newly posted message" /
+              [@from_user.project? ? ("Kroogi project".t + " ") : "",
+               link_to(@from_user.login, "#{@url}/user/#{@from_user.login}"),
+               @from_user.display_name,
+               @content.commentable.name] -%>
+    <% else %>
+      <%= "{{maybe_project}}{{user_link}} ({{display_name}}) alerted all followers of {{circle_name}} Circle and closer of project {{project_name}} about a newly posted message" /
+              [@from_user.project? ? ("Kroogi project".t + " ") : "",
+               link_to(@from_user.login, "#{@url}/user/#{@from_user.login}"),
+               @from_user.display_name,
+               @content.commentable.user.login,
+               @content.commentable.name] -%>
+    <% end %>:
+  </strong>
+</p>
+
+<p>
+<hr/>
+<%= kf_simple @content.comment %>
+<hr/>
+</p>
+
+<p>
+  <%= link_to "View message".t, "#{@url}/user/thread/#{@content.commentable.user.id}?thread_id=#{@content.id}" %><br />
+  <%= link_to "Open '%s' forum" / @content.commentable.name, "#{@url}/kroogi/privatewall/#{@content.commentable.user.id}?commentable=#{@content.commentable.id}&type=#{@content.commentable.relationshiptype_id}" %><br />
+  <%= link_to "Open '%s' Circle page" / @content.commentable.name, "#{@url}/kroogi/show/#{@content.commentable.user.id}?type=#{@content.commentable.relationshiptype_id}" %>
+</p>
+

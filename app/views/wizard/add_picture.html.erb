@@ -1,0 +1,73 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('Project Profile Picture'.t) do %>
+  <% form_for :content, :url => {:controller => 'submit', :action => 'upload'}, :html => { :multipart => true, :name=> "uploadForm", :id => 'uploadForm', :onsubmit => 'return checkCheckBoxes();' } do |f| -%>
+    <%= hidden_field_tag 'content[user_id]', @user.id %>
+    <%= hidden_field_tag 'is_for_wizard', true %>
+    <%= hidden_field_tag 'next_step', next_wizard_step(@user, 2) %>
+    <%= hidden_field_tag 'content[cat_id]', Content::CATEGORIES[:userpic][:id] %>
+    <%= error_messages_for :content %>
+
+    <% form_border(:subhead_title => skip_step_link(2, @user) + 'Select and Upload Project Profile Picture'.t) do %>
+      <% if @user.profile.userpic %>
+        <%= profile_picture(@user, :content_link => false, :max_width => 150, :max_height => 150) %>
+      <% end %>
+
+      <label for="picture_file">Picture file</label>
+      <% fields_for 'content[uploaded_data]' do |uf| %>
+         <%= uf.file_field 1 %><br/>
+      <% end %>
+      <div class="default"><%= 'You can upload JPG, PNG or GIF files. Please keep the file size below 3 Mb'.t %>.</div>
+
+      <% if @user.project? && current_user.projects.count < 2 %>
+        <%= check_box_tag(:userpic_same_as_project, 1) %>&nbsp;&nbsp;
+        <label style="display: inline; font-weight: normal;"for="avatar_default"><%= 'Make my project and profile picture the same'.t %></label>
+      <% end %>
+
+      <%= render :partial => "/shared/ownership_settings", :locals => {:f => f} %>
+    <% end %>
+    <%= render :partial => "submit/buttons", :locals => { :upload => true, :disable_cancel => true, :ok_button_class => 'button wizard'} %>
+  <% end %>
+
+  <% content_for :js do %>
+    <script type="text/javascript" language="javascript">
+      function checkCheckBoxes() {
+        // Validate taht all field elements not empty
+        function validate(){
+          var elements = document.uploadForm.elements;
+          for(var i in elements){
+            var element = elements.item(i);
+            if(element.name && element.name.match(/uploaded_data/) && element.value != ""){
+              return true
+            }
+          }
+          return false;
+        }
+
+        var radioGrp = $('uploadForm')['ownership'];
+        for(i=0; i < radioGrp.length; i++){
+          if (radioGrp[i].checked == true) {
+            var radioValue = radioGrp[i].value;
+          }
+        }
+        if (radioValue == 'none') {
+          alert('<%= js "You have to certify that you own copyrights to this file, or have the owner\'s permission.".t -%>');
+          return false;
+        } else {
+          // TODO content type validation
+          document.uploadForm.elements
+          if (!validate()) {
+            alert ('<%= 'Please select a file to upload!'.t -%>');
+            return false;
+          } else {
+            var btn = $(document.uploadForm).getElementsByClassName("button")[0];
+            btn.innerHTML = "<span><%= 'Please Wait...'.t %></span>";
+            btn.next().show();
+            btn.className = 'button_gr';
+            return true;
+          }
+        }
+      }
+    </script>
+  <% end %>
+<% end %>

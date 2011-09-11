@@ -1,0 +1,85 @@
+# == Schema Information
+# Schema version: 20081006211752
+#
+# Table name: relationshiptypes
+#
+#  id                         :integer(11)     default(0), not null, primary key
+#  name                       :string(255)
+#  restricted                 :integer(4)      default(0), not null
+#  position                   :integer(4)      default(0), not null
+#  explanation_db_store_id    :integer(11)
+#  explanation_db_store_ru_id :integer(11)
+#
+
+everyone:
+  name: Everyone
+  explanation_db_store_id: 
+  id: "-2"
+#  explanation_ru_db_store_id: 
+  position: "10"
+  restricted: "1"
+
+
+me:
+  name: Only me
+  explanation_db_store_id: 
+  id: "-1"
+#  explanation_ru_db_store_id: 
+  position: "2"
+  restricted: "1"
+
+founders:
+  name: Founders
+  explanation_db_store_id: 
+  id: "0"
+#  explanation_ru_db_store_id: 
+  position: "3"
+  restricted: "2"
+
+family:
+  name: Family
+  explanation_db_store_id: "354"
+  id: "1"
+#  explanation_ru_db_store_id: "376"
+  position: "4"
+  restricted: "0"
+
+backstage:
+  name: Backstage
+  explanation_db_store_id: "355"
+  id: "2"
+#  explanation_ru_db_store_id: "377"
+  position: "5"
+  restricted: "0"
+
+front_row:
+  name: Front row
+  explanation_db_store_id: "356"
+  id: "3"
+#  explanation_ru_db_store_id: "378"
+  position: "6"
+  restricted: "0"
+
+fan_club:
+  name: Fan club
+  explanation_db_store_id: "357"
+  id: "4"
+#  explanation_ru_db_store_id: "379"
+  position: "7"
+  restricted: "0"
+
+interested:
+  name: Interested
+  explanation_db_store_id: "358"
+  id: "5"
+#  explanation_ru_db_store_id: "380"
+  position: "8"
+  restricted: "0"
+
+watching:
+  name: Watching
+  explanation_db_store_id: 
+  id: "7"
+#  explanation_ru_db_store_id: 
+  position: "9"
+  restricted: "0"

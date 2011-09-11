@@ -1,0 +1,17 @@
+--- 
+- 
+  created_at: 2011-02-07 18:59:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Находясь в этом круге, вы будете в курсе последних обновлений {{user}}."
+  tr_key: "Once you join this circle, you will start receiving updates from {{user}}."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-23 19:39:46 +00:00
+- 
+  created_at: 2011-02-23 14:38:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "включил вас в свой круг {{circle}}."
+  tr_key: "has allowed you to join his {{circle}} circle."
+  tr_origin: /app/views/activity_notifier/_alert_getcloser_granted.html.erb
+  updated_at: 2011-02-23 19:39:05 +00:00

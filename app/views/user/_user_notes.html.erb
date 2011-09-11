@@ -1,0 +1,15 @@
+<% if !user_notes.empty? || current_user.is_self_or_owner?(user) %>
+  <div id = "user_notes_module">
+  <%= render(:partial => "user_notes_or_announcements",
+             :locals => {:announcements => user_notes, :user => user,
+                         :announcements_title => "{{user}}'s Notes" / truncate_with_hint(user.display_name, :length => 25),
+                         :rss => true,
+                         :paged => true,
+                         :delete_confirmation => "Are you sure you want to delete this note?".t,
+                         :allow_new => true,
+                         :tab_index => User::NOTES_TAB_INDEX,
+             }) %>
+    </div>
+<% else %>
+    <div class="section_empty"><%= "{{user_name}} has no notes yet" / user.display_name %></div>
+<% end %>

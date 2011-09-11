@@ -1,0 +1,58 @@
+<%# translation ver 1 pass 2 -- AK %>
+
+<% @title = current_actor.login + ' :: ' + 'Create New Project'.t %>
+
+<% right_column_block(:header_title => 'About Kroogi Project'.t) do %>
+  <div class="default"><%= 'Create a Kroogi Project to showcase your art worldwide'.t %>.</div>
+  <div class="default"><%= 'Connect a PayPal or Webmoney account to receive contributions from your fans'.t %>.</div>
+  <div class="default"><%= 'Add downloadable content'.t %>.</div>
+  <div class="default"><%= 'Run your Project by yourself or collectively with other Kroogi Users'.t %>.</div>
+  <div class="default"><b><%= 'Good luck and have fun'.t %>!</b></div>
+<% end %>
+
+<% main_block(:header_title => 'Start Project for an Artist'.t) do %>
+  <% form_for :project, :url => { :action => 'create' } do |f| -%>
+    <% form_border do %>
+      <%= error_messages_for :project %>
+      <label for="project_name"><%= 'Project Kroogi Name'.t %></label>
+      <%= f.text_field 'login', :size => 10, :maxsize => 30, :style => 'width: 150px;' %>
+      <div class="default">
+        <%= 'This name will be used as a part of your project URL (MyProject.kroogi.com)'.t %>.<br />
+        <%= 'Dash (-) is the only special character allowed'.t %>.
+      </div>
+
+      <label for="full_project_name"><%= 'Full Project Name'.t %></label>
+      <%= f.text_field 'display_name', :size => 40, :maxsize => 30 %>
+
+      <label for="project_motto"><%= 'Project Motto'.t %></label>
+      <% fields_for :profile, @project.profile do |p| %>
+        <%= p.text_field :tagline, :size => 40 %>
+      <% end %>
+
+      <label for="project_host"><%= 'Project Host'.t %></label>
+      <div class="default" style="padding-top:5px;">
+        <%= link_to h(current_actor.login), userpage_path(current_actor) %> (<%=h current_actor.display_name %>)<br />
+        <%= 'You can add more hosts after the project is created'.t %>
+      </div>
+
+      <label for="role"><%= 'Your Role in This Project'.t %></label>
+      <%= text_field_tag 'founder_role' %>
+
+      <label for="visibility"><%= 'Is This Project Visible to Others'.t %>?</label>
+      <%= radio_button_tag :hide_project, "0", true, :style=>"position:relative;top:2px;" %>
+      <label for="hide_project_0" style="display:inline;">&nbsp;&nbsp;<%= 'Yes'.t %></label><br />
+      <%= radio_button_tag :hide_project, "1", false, :style=>"position:relative;top:2px;" %>
+      <label for="hide_project_1" style="display:inline;">&nbsp;&nbsp;<%= 'No, hide this project until I manually open it to the public'.t %></label><br />
+      <br />
+      <% if current_user.admin? %>
+        <input id="user_type" type="checkbox" name="user_type" value="collection" style="position:relative;top:2px;"/>
+        <span style="color:#F00; font-weight:bold;">
+          <label for="user_type" style="display:inline;">&nbsp;<%= 'This is a collection of other Kroogi projects and user pages'.t %></label>
+        </span>
+      <% else %>
+        <%= hidden_field_tag :user_type, 'none' %>
+      <% end %>
+    <% end %>
+    <center style="padding-top:10px"><button class="button" type="submit"><span><%= 'Start Project'.t %></span></button></center>
+  <% end %>
+<% end %>

@@ -1,0 +1,7 @@
+<% @questions.each do |question| %>
+  <div class="main_left_tabs <%= 'selected' if question == @question %>">
+    <% title = truncate(question.text, :length => 100) %>
+    <%= question == @question ? title : link_to(title, :controller => 'public_question', :action => action_name, :id => question.id) %>
+    <div class="info"><%= '{{count}} Answers' / question.answers.count %></div>
+  </div>
+<% end %>

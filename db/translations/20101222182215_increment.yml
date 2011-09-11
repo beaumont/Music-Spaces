@@ -1,0 +1,89 @@
+--- 
+- 
+  created_at: 2010-12-20 07:19:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Этап {{number}}"
+  tr_key: "Step {{number}}"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-22 17:39:35 +00:00
+- 
+  created_at: 2010-12-20 07:20:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Последний этап"
+  tr_key: "Last Step"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-22 18:21:33 +00:00
+- 
+  created_at: 2010-12-22 08:11:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На странице КПД"
+  tr_key: "((tps setup page)) For page itself"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-22 18:22:08 +00:00
+- 
+  created_at: 2010-12-22 08:11:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чистая сумма USD<br />(Общая сумма USD) "
+  tr_key: "Net USD<br />(Gross USD)"
+  tr_origin: /app/views/money/_donations_received.html.erb
+  updated_at: 2010-12-22 17:42:11 +00:00
+- 
+  created_at: 2010-12-22 08:11:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Теперь у проекта {{project}} работает Форум. Настроить его можно <a {{attribs}}>здесь</a>."
+  tr_key: "You now have forum enabled for {{project}}. Click <a {{attribs}}>here</a> to customize it."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2010-12-22 18:18:32 +00:00
+- 
+  created_at: 2010-12-22 08:12:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На странице Добряков"
+  tr_key: "((tps setup page)) For goodies page"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-22 17:36:27 +00:00
+- 
+  created_at: 2010-12-22 08:12:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "На странице профиля"
+  tr_key: "((tps setup page))For Profile"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2010-12-22 17:36:06 +00:00
+- 
+  created_at: 2010-12-22 15:30:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователь {{kroogi_name}} подключён к Facebook профилю {{facebook_name}}. Отсоединить аккаунты можно здесь: {{here_link}} ."
+  tr_key: "Kroogi user {{kroogi_name}} is connected to {{facebook_name}} on Facebook. Click {{here_link}} to disconnect these accounts."
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2010-12-22 18:15:11 +00:00
+- 
+  created_at: 2009-01-06 22:35:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы можете добавлять кошельки Webmoney только при наличии аттестата продавца, закрепленного за этими кошельками."
+  tr_key: "You may only add your WebMoney purses if you have a Merchant Passport associated with those purses."
+  tr_origin: ~
+  updated_at: 2010-12-22 17:26:24 +00:00
+- 
+  created_at: 2009-08-23 08:06:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать деньги, Вам необходимо подключить платёжные системы PayPal и/или WebMoney"
+  tr_key: "In order to accept contributions you will need to set up a PayPal or WebMoney account"
+  tr_origin: ~
+  updated_at: 2010-12-22 17:26:24 +00:00
+- 
+  created_at: 2010-12-22 17:26:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы получать деньги, Вам необходимо подключить платёжные системы PayPal или WebMoney. Это можно сделать <a {{attribs}}>здесь</a>"
+  tr_key: "In order to accept contributions you will need to set up a PayPal or WebMoney account <a {{attribs}}>here</a>"
+  tr_origin: /app/views/account_settings/_account_sponsorship_form.html.erb
+  updated_at: 2010-12-22 18:20:38 +00:00

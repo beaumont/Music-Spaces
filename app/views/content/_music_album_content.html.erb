@@ -1,0 +1,37 @@
+  <% if entry.downloadable? %>
+    <% if entry.qualify_for_fb %>
+      <table style="float:left; margin-top:-26px;">
+        <tr>
+          <td style="padding:1px 5px 0 0;">
+            <%= image_tag("icons/kd_icon.png") %>
+          </td>
+          <td>
+            <strong><a href="<%= Facebook::ApplicationHelper::url_for_canvas(:controller => 'content', :action => 'show', :id => entry.id) %>" target="_blank">
+                <%= 'Open in Facebook'.t %>
+              </a></strong>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+  <% if entry.unpublished? %>
+    <div class="default">
+      <%= "This music album isn't published yet. Publish it to make it available!".t %><br/>
+    </div>
+  <% end -%>
+
+  <% unless entry.description.blank? %>
+      <div class="default_lg">
+        <%= formatted_description entry %>
+      </div>
+    <% end %>
+
+  <%= render :partial => "album_tracks_and_stuff", :locals => {:entry => entry, :no_contents_text => 'This music album has no tracks yet'.t} %>
+  <% if entry.downloadable? %>
+    <div class="default">
+      <%= "{{user}} acknowledged that the person or organization they represent has full rights for digital distribution of the contents of this album." /
+        user_link(entry.user, :icon => true) %>
+    </div>
+  <% end %>
+
+

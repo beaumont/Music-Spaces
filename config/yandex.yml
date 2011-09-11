@@ -1,0 +1,32 @@
+defaults: &defaults
+  url: https://demomoney.yandex.ru/eshop.xml
+  scid: 1556
+  ShopId: 611608
+  shopPassword: jnfgjgfjdfdzgdf4534
+  attributes:
+    usd_code: 10840
+    rur_code: 10643
+
+development:
+  <<: *defaults
+
+selenium:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+rc:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  url: https://money.yandex.ru/eshop.xml
+  scid: 2021
+  ShopId: 12067
+  attributes:
+    usd_code: 840 #TODO: confirm with YM
+    rur_code: 643

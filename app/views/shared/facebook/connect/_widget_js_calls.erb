@@ -1,0 +1,42 @@
+<%
+partial = '/shared/facebook/connect/widget_form'
+%>
+<script type="text/javascript">
+  FB.getLoginStatus(function(response) {
+    if (response.session) {
+      // logged in and connected user, someone we know
+      jQuery.get('/facebook/connect/fetch_user_info', { dialog_id_suffix: "<%=dialog_id_suffix%>",project_to_follow : "<%=project_to_follow_id%>",start_following : "<%=start_following%>", content_to_like : "<%=content_to_like%>", partial : "<%=partial%>"} , function(data) {
+        jQuery('#fb_connect_content_<%=dialog_id_suffix%>').replaceWith(data);
+        FB.XFBML.parse();
+      });
+    } else {
+      // no user session available, someone we dont know
+      jQuery('#fb_connect_content_<%=dialog_id_suffix%>').replaceWith('<%=escape_javascript(render(:partial => '/shared/facebook/connect/fb_connect_init_form', :locals => {:dialog_id_suffix => dialog_id_suffix, :fb_connect_user => nil, :restore_submit_button_state => true, :reset_form => true}))%>');
+      jQuery('#fb_mock_login_button').replaceWith('');
+      clean_form('form.signup');
+      FB.XFBML.parse();
+    }
+  });
+
+  FB.Event.subscribe('auth.login', function(response) {
+  jQuery.ajax({
+          url: '/facebook/connect/fetch_user_info',
+          data: "dialog_id_suffix=<%=dialog_id_suffix%>&project_to_follow=<%=project_to_follow_id%>&start_following=<%=start_following%>&content_to_like=<%=content_to_like%>&partial=<%=partial%>",
+          cache: false,
+          success: function(data) {
+            jQuery('#fb_connect_content_<%=dialog_id_suffix%>').replaceWith(data);
+            FB.XFBML.parse();
+          }
+        });
+  });
+
+  FB.Event.subscribe('auth.logout', function(response) {
+    jQuery.get('/facebook/connect/reset_user_info', { dialog_id_suffix: "<%=dialog_id_suffix%>"} , function(data) {
+      jQuery('#fb_connect_content_<%=dialog_id_suffix%>').replaceWith(data);
+      clean_form('form.signup');
+      FB.XFBML.parse();
+      jQuery("#ask_for_login_or_signon_<%=dialog_id_suffix%>").parent().dialog('destroy');
+      document.location.reload(false);
+    });
+  });
+</script>

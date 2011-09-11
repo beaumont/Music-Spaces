@@ -1,0 +1,45 @@
+<table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+  <tr>
+    <td colspan="2">
+      <%= render :partial => "shared/translatable_fields", :locals => { :f => f, :content => @content,
+            :fields => [["Title", :title], ["Artist",:artist]]} %>
+    </td>
+  </tr>
+  <tr>
+    <td class="left">
+      <label for="genre"><%= 'Genre'.t -%></label>
+    </td>
+    <td class="center">
+      <%= f.text_field('genre', :size => 30, :maxsize => 60)  %>
+      <%= f.hidden_field('album_id', :value => @contest.id)  %>      
+    </td>
+  </tr>
+  <tr>
+    <td class="left">
+      <label for="year"><%= 'Year'.t -%></label>
+    </td>
+    <td class="center">
+      <%= f.text_field('year', :size => 4, :maxsize => 4)  %>
+    </td>
+  </tr>
+  <tr>
+    <%= render :partial => "tags", :locals => { :f => f } %>
+  </tr>
+  <tr>
+    <td class="left">
+      <%= 'File'.t %>
+    </td>
+    <td class="center" style="padding-top:12px;">
+        <%= 'Size'.t -%>: <%= number_to_human_size(@content.size) %><br/>
+        <%= 'Bitrate'.t -%>: <%= @content.bitrate %> <%= 'Kbps'.t -%><br/>
+        <%= 'Channels'.t -%>: <%= @content.chanels %><br/>
+        <%= 'Samplerate'.t -%>: <%= @content.samplerate %> <%= 'Hz'.t -%><br/>
+        <%= 'Length'.t -%>: <%= track_length(@content.length) if @content.length -%><br/>
+    </td>
+  </tr>
+
+  <tr>
+    <%= render :partial => "copyrights", :locals => { :f => f } %>
+  </tr>
+</table>
+

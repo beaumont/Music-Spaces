@@ -1,0 +1,113 @@
+
+<% @title = @invite.user_email unless @invite.user_email.nil?
+   @title = @invite.display_name unless @invite.display_name.nil?
+   @title = @invite.user.display_name if !@title && @invite.user
+   @title += ' :: ' if @title
+   @title ||= ''
+   @title += 'Invitation Status'.t
+   @content_kind_displayname = 'Invitation Status'.t %>
+
+<div class="screenwide_bordered">
+  <div style="width: 500px; padding: 25px;">
+  <h2 class="dotted_b">
+    <%= 'Invited to'.t %>
+    <%= '%s of %s' / [@invite.circle_name.t, @invite.inviter.display_name] %>
+  </h2>
+
+<%= error_messages_for :invite %>
+<% form_for :invite, :url => { :action => 'update', :id => @invite.id }, :html => { } do |f| -%>
+<%= hidden_field_tag :restrict, params[:restrict] %>
+
+<table border="0" cellspacing="5" cellpadding="5" style="width: 400px;">
+  <tr>
+    <td><%= avatar_lg(@invite.user, {:outer_class => 'founder_avatar'}) %></td>
+    <td style="width: 100%;">
+      <strong><%= @invite.user ? user_link(@invite.user, :icon => true) : @invite.user_email %></strong><br/>
+	    <% if @invite.user %>
+        <%=h @invite.user.display_name %><br/>
+	    <% else %>
+        <p>
+          <div style="padding: 5px 5px 5px 0px;"><%= 'Real Name'.t %>:</div>
+          <%= f.text_field 'display_name' %>
+        </p>
+	    <% end %>
+
+      <p><em>
+        <%= 'Invited by %s on %s' / [user_link(@invite.inviter), @invite.created_at.localize('%x')] -%>
+
+        <% if @invite.reinvited? %>
+          <br/><%= 'Re-Invited on %s' / @invite.reinvited_at.localize('%x') %>
+        <% end %>
+        <% if @invite.accepted? %>
+          <br/><%= 'Accepted on %s' / @invite.accepted_at.localize('%x') %>
+        <% end %>
+        <% if @invite.rejected? %>
+          <br/><%= 'Rejected on %s' / @invite.rejected_at.localize('%x') %>
+        <% end %>
+      </em></p>
+
+      <% if @invite.inviter.project? && @invite.circle_id == Relationshiptype.founders %>
+        <% if @invite.user %>
+        <p>
+          <label>
+            <%= check_box_tag 'show_founder', 1, !@invite.inviter.preference.shy_founders.include?(@invite.user.id) %>
+            <%= 'Show on Profile page'.t %>
+          </label>
+        </p>
+        <% end %>
+        <div class="dotted_t" style="padding-top: 15px;">
+          <div style="padding: 5px 5px 5px 0px;"><%= 'Project Role'.t %>:</div>
+          <%= f.text_field 'role_name' %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+
+    <tr>
+      <td colspan="2">
+        <div class="dotted_t" style="padding-top: 15px;">
+          <div style="padding: 5px 5px 5px 0px;"><%= 'Invitation Text'.t %></div>
+          <% if @invite.accepted? || @invite.rejected? %>
+            <p><%= kf_simple @invite.invitation %></p>
+          <% else %>
+            <%= f.text_area 'invitation', :style => 'height: 100px; width: 350px;' %>
+          <% end %>
+        </div>        
+      </td>  
+    </tr>
+
+  <tr>
+    <td colspan="2">
+      <p class="dotted_t">
+        <% if @invite.accepted? %>
+          <div style="float: left;">
+            <button class="button_gr" name="remove"><span>
+              <%= link_to 'Remove from your Kroogi'.t, 
+                    {:controller => '/kroogi', :action => 'remove', :id => @invite.circle.id, :user_id => @invite.user.id}, 
+                    {:method => :post, :confirm => 'Are you sure you want to do this?'.t, :style => 'color: #000;'} -%>
+            </span></button>
+          </div>
+        <% end %>
+        <div style="float: right;">
+          <% if @invite.user.nil? || @invite.circle_id == Relationshiptype.founders %>
+            <button class="button" type="submit" name="save_button"><span><%= 'Save Changes'.t %></span></button>
+          <% end %>
+          
+          <% unless @invite.accepted? %>
+            <% if @invite.reinvited? %>
+              <strong><%= '[ ' + 'Already Sent Invitation Reminder'.t + ' ]' %></strong>
+            <% else %>
+              <button class="button" type="submit" name="reinvite_button" id="resend_invite"><span><%= 'Send Again'.t %>s</span></button>
+            <% end %>
+            <button class="button_gr" type="submit" name="delete_button" id="revoke_invite"><span><%= 'Revoke Invitation'.t %></span></button>
+          <% end %>
+        </div>
+        <br class="clear"/>
+      </p>
+    </td>
+  </tr>
+</table>
+
+<% end %>
+</div>
+</div>

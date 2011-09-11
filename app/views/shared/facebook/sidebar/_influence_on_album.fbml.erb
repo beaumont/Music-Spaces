@@ -1,0 +1,52 @@
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <div class="rightTitle"></div>
+  <div class="rightBoxes">
+    <div class="boxContentBtn">
+      <div class="ctaBtn"><%= bookmark_album_link('Add to My Albums', @entry, :requirelogin=>1) %></div>
+    </div>
+    <div class="greyLine2"></div>
+    <div class="boxContentBtn">
+      <div class="ctaBtn"><%= publish_album_link('Publish', @entry) %></div>
+    </div>
+    <div class="greyLine2"></div>
+    <div class="boxContentBtn">
+      <div class="ctaBtn"><%= send_album_link('Send to Facebook friends', @entry.id, 1) %></div>
+    </div>
+  </div>
+  <div class="rightTitle"></div>
+  <div class="rightBoxes">
+    <div class="boxContent">
+      <div class="albumStatistic">
+        <%if current_fb_user %>
+          <div class="userpic"><%= fb_profile_pic(current_fb_user.facebook_id, :size => :square, :width => "34px") %></div>
+          <div class="downloads"><%=pluralize_with_style(current_fb_user.download_impact_on_content_counter(@entry), 'person', 'quantity')%> downloaded this album because of your recommendations on Facebook</div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <% fb_else do %>
+    <div class="rightTitle"></div>
+    <div class="rightBoxes">
+      <div class="boxContentBtn">
+        <div class="ctaBtn"><%= bookmark_album_link('Add to My Albums', @entry, :requirelogin=>1) %></div>
+      </div>
+      <div class="greyLine2"></div>
+      <div class="boxContentBtn">
+        <div class="ctaBtn"><%= publish_album_link('Publish', @entry) %></div>
+      </div>
+      <div class="greyLine2"></div>
+      <div class="boxContentBtn">
+        <div class="ctaBtn"><%= send_album_link('Send to Facebook friends', @entry.id, :requirelogin=>1) %></div>
+      </div>
+    </div>
+    <div class="rightTitle"></div>
+    <div class="rightBoxes">
+      <div class="boxContent">
+        <div class="albumStatistic">
+          <div class="downloads"><span class='quantity'>0</span> person downloaded this album because of your recommendations on Facebook</div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+<% end %>
+

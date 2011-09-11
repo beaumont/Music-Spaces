@@ -1,0 +1,14 @@
+<% button_class ||= nil %>
+<% confirm ||= nil %>
+<% if confirm %>
+  <% validate = "confirm('#{confirm}')" %>
+<% end %>
+<%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                      :disable_cancel => true,
+                                                      :ok_label => label,
+                                                      :ok_button_class => button_class,
+                                                      :disable_float => true,
+                                                      :button_wrapper_class => '',
+                                                      :validate => validate,
+} %>
+

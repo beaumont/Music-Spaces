@@ -1,0 +1,109 @@
+<%# translation ver 1 pass 2 -- AK %>
+<% @title = @user.login + ' :: ' + 'Email Notifications'.t %>
+<% @content_kind_displayname = 'Email Notifications'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, 'Email Notifications'.t)) do %>
+  <%= error_messages_for :preference %>
+  <%= error_messages_for :user %>
+  <% form_for :preference, :url => { :action => 'emails_update', :id => @user}, :html => { } do |f| -%>
+    <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+    <% form_border do %>
+      <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><b><%= 'What email notifications would you like to receive?'.t %></b></td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'notify_invitations_and_requests', {:class => "auto_width"} %>
+              <%= 'Notify me about invitations and requests'.t -%>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'notify_joins_interested_circle', {:class => "auto_width"} %>
+              <%= 'Notify me when somebody joins my Interested/Audience circle'.t -%>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'notify_leaves_interested_circle', {:class => "auto_width"} %>
+              <%= 'Notify me when somebody leaves my Interested/Audience circle'.t -%>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center">
+            <%= f.check_box 'notify_private_messages', {:class => "auto_width"} %>
+              <%= 'Notify me when I recieve a private message'.t -%>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><b><%= 'How do you want to receive email notifications?'.t %></b></td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><label style="font-weight:normal;"><%= f.radio_button 'email_notifications', 1, {:class => "auto_width"} %> <%= 'Email me immediately when I receive a message on Kroogi'.t -%></label>
+            <label style="font-weight:normal;"><%= f.radio_button 'email_notifications', 2, {:class => "auto_width"} %> <%= 'Email me my message summary once a day'.t -%></label>
+            <label style="font-weight:normal;"><%= f.radio_button 'email_notifications', 0, {:class => "auto_width"} %> <%= 'Do not send me any emails'.t -%></label></td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center" style="padding-top:15px;"><b><%= 'In what language?'.t %></b></td>
+        </tr>
+        <tr>
+          <td class="left">&nbsp;</td>
+          <td class="center"><select name="preference[email_locale]" id="preference_email_locale">
+              <%= options_for_select(APP_CONFIG.language_menu, current_user.preference.email_locale) %>
+            </select></td>
+        </tr>
+        <% unless current_user.projects.empty? %>
+          <tr>
+            <td class="left">&nbsp;</td>
+            <td class="center"><b><%= 'What email notifications do you want to receive?'.t %></b></td>
+          </tr>
+          <tr id="project_email_options">
+            <td class="left">&nbsp;</td>
+            <td class="center"><label><%= check_box_tag 'receive_for[]', current_user.id, current_user.preference.receive_emails_for_user?(current_user), {:class => "auto_width"} %> <%= 'For my personal Kroogi messages'.t -%></label>
+              <% current_user.projects.each do |p| %>
+              <label><%= check_box_tag 'receive_for[]', p.id, current_user.preference.receive_emails_for_user?(p), {:class => "auto_width"} %> <%= 'For %s project' / [user_link(p, :icon => true)] -%></label>
+              <% end %></td>
+          </tr>
+          <tr style="display: none;" id="project_email_none">
+            <td class="left">&nbsp;</td>
+            <td class="center"><span style="font-weight:bold; color:red;"><%= 'Not receiving any emails'.t %></span></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+    <button class="button wizard" type="submit" name="commit"><span><%= 'Save'.t -%></span>s</button>
+  <% end %>
+<% end %>
+
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    function toggleOptions() {
+      if ($('project_email_options')) {
+        if ($('preference_email_notifications_0').checked) {
+          $('project_email_options').hide();
+          $('project_email_none').show();
+        } else {
+          $('project_email_options').show();
+          $('project_email_none').hide();
+        }
+      }
+    }
+    toggleOptions();
+    if ($('project_email_options')) {
+      $('preference_email_notifications_0').observe('click', toggleOptions);
+      $('preference_email_notifications_1').observe('click', toggleOptions);
+      $('preference_email_notifications_2').observe('click', toggleOptions);
+    }
+  </script>
+<% end %>

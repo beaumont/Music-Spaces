@@ -1,0 +1,11 @@
+<p>
+  <strong>
+    <%= @from_user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to(@from_user.login, "#{@url}/user/#{@from_user.login}") %>
+    <% if @subject_is_user %>
+      <%= 'has allowed you to join his {{circle}} circle.' / [@content.circle_name] %>
+    <% else %>
+      <%= 'has allowed your project {{project}} to join his {{circle}} circle.' / [link_to(@user_project.login, "#{@url}/user/#{@user_project.login}"), @content.circle_name] %>
+    <% end %>
+  </strong>
+</p>

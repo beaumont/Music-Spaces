@@ -1,0 +1,31 @@
+<%if current_fb_user && !@activities.nil? && !@activities.empty?%>
+  <div class="rightTitle"></div>
+  <div class="rightBoxes">
+    <div class="profile_box">
+      <div class="title">My Most Recent Albums</div>
+      <div class="subtitle"><%= link_to('Go to My Albums >', :controller => 'user') %></div>
+    </div>
+    <div class="profileContainer">
+    <% @activities.each do |activity|  -%>
+      <% if activity.content && activity.content.is_a?(MusicAlbum)%>
+        <% if activity.content.qualify_for_fb %>
+              <div class="profilecover">
+                <% if activity.content.cover_art %>
+                  <%= image_tag(activity.content.cover_art.thumb(:thumb).public_filename,
+                    :border => 0, :width => 50, :class => 'album_photo',
+                    :alt => h(activity.content.cover_art.thumb(:thumb).filename)) %>
+                <%end%>
+              </div>
+              <div class="profileTitle"><%= link_to(activity.content.title, :controller=>'content', :action=>'show', :id => activity.content.id) %></div>
+              <div>
+                <%= "#{activity.content.artist}" unless activity.content.artist.blank? -%>
+                <%= " / " unless activity.content.artist.blank? || activity.content.year.blank?%>
+                <%= "#{activity.content.year}" unless activity.content.year.blank? -%>
+              </div>
+          <div class="clear"></div>
+        <%end%>
+      <%end%>
+    <%end%>
+    </div>
+  </div>
+<%end%>

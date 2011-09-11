@@ -1,0 +1,71 @@
+<%#  @content_kind_displayname = if @user.project? then is_edit? ?  'Update Announcement'.t : 'Announcement'.t
+    else is_edit? ? 'Update Note'.t : 'Note'.t
+    end
+%>
+<% @content_kind_displayname = is_edit? ?  'Update Announcement'.t : 'Announcement'.t %>
+<% @title = @user.login + ' :: ' + @content_kind_displayname %>
+<%# @title = (@user.nil? ? '' : (@user.login + ' :: ')) + @content_kind_displayname %>
+
+<% main_block(:header_title => 'Announcement'.t, :content_head => '') do %>
+  <% form_for 'content', @content, :url => {:controller => 'submit', :action => (is_edit? ? 'update' : 'add_announcement')}, 
+                                  :html => {:multipart => true} do |f| -%>
+    <%= f.hidden_field "id" if is_edit? %> 
+    <%= hidden_field_tag 'user_id', @user.id %>
+    <%= error_messages_for :content %>
+    <%= render :partial => "shared/translatable_fields", :locals => {:f => f,
+                                                                     :content => @content,
+                                                                     :fields => [["Text", :post]] } %> 
+    <div class="right">
+      <%= formatting_help %>
+    </div>
+    <% unless @user.basic_user? %>
+      <%= render :partial => "tags", :locals => { :f => f } %>
+    <% end %>
+    <div class="form_line">
+      <div class="form_left">  
+        <%= 'Change picture'.t %>        
+      </div>
+      <div class="form_right"> 
+        <% if @content.embedded_image %>
+          <%= image_tag(@content.embedded_image.thumb(:small).public_filename, 
+                                :style => 'padding:5px; border:1px solid #cccccc;', 
+                                :alt => h(@content.embedded_image.thumb(:thumb).filename))%>
+        <% end %>
+        <%= file_field :embedded_image, :uploaded_data %>          
+      </div>
+    </div>
+    <% unless @user.basic_user? %>
+      <%= render :partial => "donation_options", :locals => {:f => f, :content => @content} %>
+    <% end %>
+    <%= render :partial => "permissions", :locals => { :f => f, :content => @content, :no_bottom => true } %>
+    <% unless @user.basic_user? || @user.collection? %>
+      <div class="form_center">
+        <label>
+          <%= f.check_box :priority, :class => "auto_width" %>&nbsp;<b><%= 'Make Announcement'.t %></b>
+        </label>
+      </div>
+    <% end %>
+    <div class="form_head">&nbsp;</div>
+    <div class="form_buttons">
+      <%= render :partial => "buttons_wrapper" , :locals => { :backgoesb => true, :editing => is_edit? } %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% end %>
+
+<% if @content.donation_account_set? %>
+  <% content_for :bottom_javascript do %>
+    <script type="text/javascript" charset="utf-8">
+      function toggle_donation_group () {
+        check = $('content_show_donation_button').checked;
+        $$("tr.donation_field").each(function(el) {
+          if (check) { el.show(); }
+          else { el.hide(); }
+        });
+      };
+
+      toggle_donation_group();
+      $("content_show_donation_button").observe("click",toggle_donation_group);
+    </script>
+  <% end %>
+<% end %>

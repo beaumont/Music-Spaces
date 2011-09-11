@@ -1,0 +1,8 @@
+<% return unless commentable.comment_count > 0 %>
+
+<% opts = { :page => 1, :per_page => Comment::LIMIT_FOR_SHOW } %>
+<% comments = @all_comments || commentable.all_comments(false, opts).reverse %>
+
+<% comments.each do |comment| %>
+  <%= render(:partial => 'comment/entry', :locals => { :comment => comment }) %>
+<% end %>

@@ -1,0 +1,42 @@
+<% bundle_items = content.bundles %>
+<% locale = I18n.locale %>
+<ul class="bundles vertical" id="bundles_<%= locale %>">
+<% bundle_items.each_with_index do |bundle, i| %>
+  <li class="bundle_row menu_item <%= 'top' if i == 0 %>" id="bundle_<%= bundle.id %>_<%= locale %>">
+    <div class="filename row_item">
+      <%= "#{bundle.filename} (#{number_to_human_size(bundle.size)})" %>
+    </div>
+    <div class="row_item" style="margin-left:10px; margin-bottom:10px;">
+      <%= link_to_remote image_tag('delete.gif', :alt => 'Delete'.t) + ' ' + 'Remove'.t,
+                         {:url => {:controller => 'content', :action => 'remove_album_association', :id => bundle.id, :album_id => content.id, :llocale => locale},
+                         :confirm => "Are you sure you want to remove '{{filename}}' file?" / bundle.filename,
+                         :loading => "$('bundle_#{bundle.id}_#{locale}').down('.ajax_spinner').show();",
+                         :complete => "$('bundle_#{bundle.id}_#{locale}').down('.ajax_spinner').hide();",
+                         :success => "$('bundle_#{bundle.id}_#{locale}').fade();",
+                         },
+                         :class => 'command' %>
+    </div>
+    <div class="ajax_spinner row_item" style="display:none;"><img src="/images/ajax-loader.gif" /></div>
+    <div class="clear"></div>
+    <% fields_for "bundles[#{bundle.id}]", bundle do |fields| %>
+      <div class="label">
+        <span class="caption"><%= 'Label'.t %></span>
+        <%= fields.text_field locale == 'en' ? "_title" : 'title_ru' %>
+      </div>
+      <% if current_locale == locale && bundle.mp3_file? %>
+        <div class="original_track_flag">
+          <label>
+            <%= fields.radio_button 'original_contest_track', true, :class => 'auto_width'  %>
+            <%= 'Original mp3'.t -%>
+          </label>
+          <label>
+            <%= fields.radio_button 'original_contest_track', false, :class => 'auto_width'  %>
+            <%= 'Sample'.t -%>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+  </li>
+<% end %>
+</ul>
+

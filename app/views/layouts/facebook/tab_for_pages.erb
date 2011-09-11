@@ -1,0 +1,22 @@
+<!-- Need to pull in stylesheets explicitly  -->
+<fb:user-agent includes="ie">
+  <style type="text/css" media="screen">
+    <%= render(:file => "#{RAILS_ROOT}/public/stylesheets/facebook/facebook_pages-ie.css") %>
+  </style>
+</fb:user-agent>
+<fb:user-agent excludes="ie">
+  <style type="text/css" media="screen">
+    <%= render(:file => "#{RAILS_ROOT}/public/stylesheets/facebook/facebook_pages.css") %>
+  </style>
+</fb:user-agent>
+<div class="mainContent">
+  <div class="headerTitle" style="background-image:url(<%=image_path('/images/bg_title.png')%>)">
+    <div class="kroogiLogo"><%= link_to(image_tag('kroogi_downloads.jpg'), {:controller => 'facebook/home'}) %> </div>
+  </div>
+  <%= yield :stylesheet %>
+  <%= yield :javascript %>
+  <div class="content" id="promote_id">
+    <span id="promote_spinner" class="searchSpinner" style="display:none;"> Loading... </span>
+    <%= yield %>
+  </div>
+</div>

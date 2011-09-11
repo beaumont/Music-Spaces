@@ -1,0 +1,23 @@
+<% paged ||= false %>
+<% block_id ||= nil %>
+<% allow_new ||= nil %>
+<% paged_announcements = announcements %>
+<% announcements = announcements.select { |a| a.is_view_permitted? } %>
+<% tab_index ||= nil %>
+
+<% if allow_new && current_user.is_self_or_owner?(user) %>
+  <%= render :partial => "note_form", :locals => {:user => user} %>
+  <div class="orng_line"></div>
+<% end %>
+<%= render :partial => 'announcement', :collection => announcements,
+           :locals => {
+                   :delete_confirmation => delete_confirmation,
+                   :items_on_page => announcements.count,
+           }
+%>
+<% if paged %>
+  <% locals = {:results => paged_announcements, :anchor => block_id}
+     locals.merge!(:query_params => params_without(:page).merge(:wall_notes_tab => tab_index)) if tab_index
+  %>
+  <%= render :partial => '/shared/pager', :locals => locals %>
+<% end %>

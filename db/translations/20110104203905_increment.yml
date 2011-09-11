@@ -1,0 +1,145 @@
+--- 
+- 
+  created_at: 2009-01-31 20:25:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "затем используйте инструмент %s в панели справа"
+  tr_key: "and use the %s tool in the right sidebar"
+  tr_origin: /app/views/content/_inbox_content.html.erb
+  updated_at: 2011-01-04 19:35:11 +00:00
+- 
+  created_at: 2009-01-31 20:25:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Передать материалы %s"
+  tr_key: "Submitting to %s"
+  tr_origin: /app/views/content/_inbox_content.html.erb
+  updated_at: 2011-01-04 19:31:24 +00:00
+- 
+  created_at: 2010-05-28 06:36:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы Автор?"
+  tr_key: "Are You an Artist?"
+  tr_origin: ~
+  updated_at: 2011-01-04 19:24:27 +00:00
+- 
+  created_at: 2010-06-11 19:34:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пожалуйста, введите дату рождения."
+  tr_key: "Please enter Your Birthday."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 19:24:13 +00:00
+- 
+  created_at: 2011-01-03 19:22:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Портрет проекта"
+  tr_key: "Project Profile Picture"
+  tr_origin: /app/views/wizard/_left_menu.html.erb
+  updated_at: 2011-01-04 20:27:31 +00:00
+- 
+  created_at: 2011-01-03 19:22:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить новый портрет"
+  tr_key: "Upload New Profile Picture"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-04 20:27:24 +00:00
+- 
+  created_at: 2011-01-03 19:22:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Аватар проекта"
+  tr_key: "Project Avatar"
+  tr_origin: /app/views/wizard/_left_menu.html.erb
+  updated_at: 2011-01-04 20:26:51 +00:00
+- 
+  created_at: 2011-01-03 19:22:45 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователь {{kroogi_name}} подключён к Facebook профилю {{facebook_name}}. {{here_link}} аккаунты. "
+  tr_key: "Kroogi user {{kroogi_name}} is connected to {{facebook_name}} on Facebook. {{here_link}} these accounts."
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2011-01-04 20:38:42 +00:00
+- 
+  created_at: 2011-01-03 19:22:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выбрать и загрузить портрет для проекта"
+  tr_key: "Select and Upload Project Profile Picture"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-04 20:29:25 +00:00
+- 
+  created_at: 2011-01-03 19:23:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выбрать файл"
+  tr_key: "Select File"
+  tr_origin: /app/helpers/application_helper.rb
+  updated_at: 2011-01-04 20:26:31 +00:00
+- 
+  created_at: 2010-03-11 18:37:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "перейдите к своим материалам, откройте тот, который планируете передать, "
+  tr_key: "go to your Kroogi Content, open an item you've previously added,"
+  tr_origin: /app/views/content/_inbox_content.html.erb
+  updated_at: 2011-01-04 19:34:28 +00:00
+- 
+  created_at: 2011-01-04 19:24:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш e-mail адрес"
+  tr_key: "Please enter Your Email Address."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:26:12 +00:00
+- 
+  created_at: 2011-01-04 19:24:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Подтверждение пароля"
+  tr_key: "Please enter Confirm Password."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:25:57 +00:00
+- 
+  created_at: 2011-01-04 19:24:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш личный логин"
+  tr_key: "Please enter Your Personal Login Name."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:25:23 +00:00
+- 
+  created_at: 2011-01-04 19:24:11 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Дата вашего рождения"
+  tr_key: "Please enter Your Birthday.."
+  tr_origin: /app/views/home/connect/form/_signup_fb_user_fields.html.erb
+  updated_at: 2011-01-04 20:25:31 +00:00
+- 
+  created_at: 2011-01-04 19:24:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пароли не совпадают"
+  tr_key: "Password doesn't match confirmation."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:24:42 +00:00
+- 
+  created_at: 2011-01-04 19:24:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваш пароль"
+  tr_key: "Please enter Your Password."
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:25:44 +00:00
+- 
+  created_at: 2011-01-04 19:24:21 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Создать страницу для вашего проекта?"
+  tr_key: "Would you also like to create a profile for your project?"
+  tr_origin: /app/views/home/_signup_user_fields.html.erb
+  updated_at: 2011-01-04 20:28:58 +00:00

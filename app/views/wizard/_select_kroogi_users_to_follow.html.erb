@@ -1,0 +1,63 @@
+<%# STEP 2. Show emails of users already on Kroogi and suggest to follow them. %>
+
+<div id="bas_errmsg"></div>
+<div style="padding-bottom: 2em;">
+
+  <% form_remote_tag :url => url_for(:controller => '/wizard', :action => :follow_users), :method => :post, :html => {:id => 'select_email_iform'} do %>
+    <div class="widget_area_text">
+      <%= 'Some of your contacts are already on Kroogi. Select the friends you would like to follow.'.t %>
+    </div>
+
+    <div class="wizard_checkbox_list">
+      <table class="list" width="100%">
+        <% suggest_following.each do |user| %>
+          <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+            <td class="name">
+              <% if already_followed.include?(user.email.downcase) %>
+                <%= check_box_tag 'nomatter[]', '', true, :disabled => true %>
+              <% else %>
+                <%= check_box_tag 'follow[]', user.id, false, :class => 'active_checkbox' %>
+              <% end %>
+              &nbsp;<%= truncate(h(user.display_name), :length => 20) %>
+            </td>
+            <td class="user_name">
+              <%= user_link(user, {:icon => true, :no_link => true}) %>
+            </td>
+            <td class="last">
+              <%= h user.email %>
+            </td>
+            <td class="mail_service_id">
+              <%= kroogi_users_mails.select {|name, email_id, email| email.downcase == user.email.downcase}.map {|u| u[1]}.uniq.join(", ") %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <br/>
+    <%= render :partial => 'invite/select_all' %>
+
+    <%= render :partial => "/wizard/buttons",
+        :locals => {:back_function => "jQuery.ajax({url:'/wizard/add_friends', dataType: 'script'});
+    jQuery('#select_kroogi_users_to_follow_overlay').dialog('destroy');#{dialog_js("add_friends_overlay", {:clear => true})}"} %>
+
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('.active_checkbox').attr('checked', true);
+    jQuery('#nomatter').attr('checked', true);
+
+    jQuery('.wizard_checkbox_list .list input.active_checkbox').unbind();
+
+    jQuery('.wizard_checkbox_list .list input.active_checkbox').click(function() {
+
+      var param = false
+      if (jQuery('.wizard_checkbox_list .list').find("input.active_checkbox[type=checkbox]:checked").length ==
+        jQuery('.wizard_checkbox_list .list').find("input.active_checkbox[type=checkbox]").length) param = true
+
+      jQuery('#select_email_iform #nomatter').attr('checked', param)
+    })
+  })
+</script>

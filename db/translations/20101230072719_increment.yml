@@ -1,0 +1,193 @@
+--- 
+- 
+  created_at: 2010-12-20 07:19:39 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Браузер
+  tr_key: Browser
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:50 +00:00
+- 
+  created_at: 2010-12-20 07:19:40 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Платформа
+  tr_key: Platform
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:50 +00:00
+- 
+  created_at: 2010-12-20 07:20:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: IP
+  tr_key: IP
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:11 +00:00
+- 
+  created_at: 2010-03-11 22:32:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки трансляции Живого Журнала"
+  tr_key: "Livejournal connection settings"
+  tr_origin: ~
+  updated_at: 2010-12-29 22:36:18 +00:00
+- 
+  created_at: 2009-11-18 14:23:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки проекта"
+  tr_key: "Edit project settings"
+  tr_origin: ~
+  updated_at: 2010-12-29 22:36:18 +00:00
+- 
+  created_at: 2009-11-18 19:03:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Редактировать настройки пользователя"
+  tr_key: "Edit user settings"
+  tr_origin: ~
+  updated_at: 2010-12-29 22:36:18 +00:00
+- 
+  created_at: 2010-12-22 08:11:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Лог активности"
+  tr_key: "Activity Log"
+  tr_origin: /app/views/admin/site_activity_logs/platforms.html.erb
+  updated_at: 2010-12-29 22:35:41 +00:00
+- 
+  created_at: 2010-12-22 08:11:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запрос url"
+  tr_key: "Request uri"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:42 +00:00
+- 
+  created_at: 2010-12-22 08:11:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отключить мониторинг"
+  tr_key: "Disable monitoring"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:46 +00:00
+- 
+  created_at: 2010-12-22 08:11:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Добавить пользователя"
+  tr_key: "Add user"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:48 +00:00
+- 
+  created_at: 2010-12-22 08:12:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мониторить пользователей, вышедших из системы"
+  tr_key: "Monitor logged-out users"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:48 +00:00
+- 
+  created_at: 2010-12-22 08:12:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Админ сообщение"
+  tr_key: "Admin Message"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:51 +00:00
+- 
+  created_at: 2010-12-22 08:12:04 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мониторить отдельных пользователей"
+  tr_key: "Monitor individual users"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:35:51 +00:00
+- 
+  created_at: 2010-12-22 08:12:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователь не найден"
+  tr_key: "User not found"
+  tr_origin: /app/controllers/admin/site_activity_logs_controller.rb
+  updated_at: 2010-12-29 22:35:53 +00:00
+- 
+  created_at: 2010-12-22 08:12:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Юзер уже существует"
+  tr_key: "User already exists"
+  tr_origin: /app/controllers/admin/site_activity_logs_controller.rb
+  updated_at: 2010-12-29 22:35:56 +00:00
+- 
+  created_at: 2010-12-22 08:12:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В т.ч боты"
+  tr_key: "including bots"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:01 +00:00
+- 
+  created_at: 2010-12-22 08:12:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Запустить мониторинг"
+  tr_key: "Enable monitoring"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:05 +00:00
+- 
+  created_at: 2010-12-22 08:12:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Тип системного сообщения"
+  tr_key: "System Mesage Type"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:07 +00:00
+- 
+  created_at: 2010-12-22 08:12:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Кто
+  tr_key: Actor
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:07 +00:00
+- 
+  created_at: 2010-12-22 08:12:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мониторить всех пользователей, находящихся в системе"
+  tr_key: "Monitor all logged in users"
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:09 +00:00
+- 
+  created_at: 2010-12-22 08:12:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Фильтр
+  tr_key: Filter
+  tr_origin: /app/views/admin/site_activity_logs/index.html.erb
+  updated_at: 2010-12-29 22:36:16 +00:00
+- 
+  created_at: 2010-12-22 15:30:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пользователь {{kroogi_name}} подключён к Facebook профилю {{facebook_name}}. Отсоединить аккаунты можно здесь: {{here_link}} ."
+  tr_key: "Kroogi user {{kroogi_name}} is connected to {{facebook_name}} on Facebook. Click {{here_link}} to disconnect these accounts."
+  tr_origin: ~
+  updated_at: 2010-12-29 22:36:18 +00:00
+- 
+  created_at: 2010-12-23 14:53:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки синхронизации с Facebook"
+  tr_key: "Facebook connection settings"
+  tr_origin: ~
+  updated_at: 2010-12-29 22:36:18 +00:00
+- 
+  created_at: 2009-11-19 12:32:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Добавить
+  tr_key: "Add Content"
+  tr_origin: /app/views/wizard/_left_menu.html.erb
+  updated_at: 2010-12-30 07:27:14 +00:00

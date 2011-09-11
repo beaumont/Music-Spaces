@@ -1,0 +1,66 @@
+<div id="contentId" class="tab">
+  <span id="spinner" class="searchSpinner" style="display:none;" > Loading... </span>
+  <div class="artistPage">
+    <% unless @user.header_text.empty? %>
+      <div class="header_text"><b><%= viewer_first_name(@user, :possessive => false, :capitalize => true, :use_you => false) %> SAYS : </b><%=@user.header_text%></div>
+    <% end %>
+    <div class="cover"> <%= link_to(fb_profile_picture(@artist, :content_link => false, :max_width => 150, :max_height => 150),url_for_canvas({:controller => 'project', :action => 'show', :id => @artist.id, :canvas => true}))%> </div>
+    <div class="artistPageContainer">
+      <%if viewer_is_page_admin? || viewer_is_profile_owner? %>
+        <% form_remote_tag :id=>'content_form' do %>
+          <%= hidden_field_tag 'id', @artist.id %>
+          <div class="artist"><%= truncate(@artist.display_name, :length => 55) %>
+            <%= image_submit_tag 'submit_img.png',
+              :clickrewriteurl=>facebook_absolute_url("/facebook/tab/remove"),
+              :clickrewriteid=>"contentId",
+              :clicktoshow=>'spinner'%>
+          </div>
+        <%end%>
+      <%else%>
+        <div class="artist"><%= truncate(@artist.display_name, :length => 55) %></div>
+      <%end%>
+      <div class="bio">
+        <% question = @profile.is_person? ? 'bio' : 'about_project' %>
+        <% about_q = @profile.profile_questions.by_name(question) %>
+        <% if  about_q && !about_q.answer.blank? %>
+          <%= kdf_simple about_q.answer, {:characters => 200} %>
+        <% end %>
+      </div>
+    </div>
+    <div style="clear: both; margin: 0px 0px 5px 0px;"></div>
+    <div class="collectionContainer">
+      <div class="collectionHeader">Listen to and Download These Albums</div>
+      <% @contents.each do |content| -%>
+        <% if content.qualify_for_fb %>
+          <div class="whiteBox" style="padding-bottom:0px;">
+            <div class="cover">
+              <% if content.cover_art %>
+                <%= link_to(image_tag(content.cover_art.thumb(:thumb).public_filename,
+                    :border => 0, :width => 100,
+                    :alt => h(content.cover_art.thumb(:thumb).filename)),url_for_canvas({:controller => 'content', :action => 'show', :id => content.id, :canvas => true})) %>
+              <%end%>
+            </div>
+            <div class="whiteBoxContent">
+              <div class="title"><%= link_to(h(content.title),url_for_canvas({:controller => 'content', :action => 'show', :id => content.id, :canvas => true})) %> </div>
+              <div class="artist">
+                <%= "#{content.artist}" unless content.artist.blank? -%>
+                <%= " / " unless content.artist.blank? || content.year.blank?%>
+                <%= "#{content.year}" unless content.year.blank? -%>
+              </div>
+              <div class="style"><%= h(content.genre) unless content.genre.blank? %></div>
+              <ul class="actionLinks">
+                <li><%= link_to('Download',url_for_canvas({:controller => 'content', :action => 'show', :id => content.id, :expand => 'downloadboxContent'})) %><li> |
+                <li><%= link_to('Contribute',url_for_canvas({:controller => 'content', :action => 'show', :id => content.id, :expand => 'donateboxContent'})) %><li> |
+                <li><%= link_to('Send',url_for_canvas({:controller => 'content', :action => 'show', :id => content.id})) %><li> |
+                <li><%= link_to('Publish',url_for_canvas({:controller => 'content', :action => 'show', :id => content.id})) %><li>
+              </ul>
+            </div>
+            <div class="clear"></div>
+          </div>
+        <%else%>
+
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+</div>

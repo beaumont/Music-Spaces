@@ -1,0 +1,2 @@
+page << %Q{jQuery('#{smscoin_element_selector} .choice').html('#{js(render(:partial => '/donate/smscoin/costs',
+            :locals => @passthrough_params.merge(:costs => @costs, :filters => smscoin_params_filters)))}');}

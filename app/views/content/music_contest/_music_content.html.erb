@@ -1,0 +1,36 @@
+<div class="track_attributes">
+  <div><label><%= 'Original owner'.t %>:</label><%= (owner = User.find_by_login(@entry.owner)) ? user_link(owner, :icon => true) : h(@entry.owner) -%></div>
+  <% unless @entry.genre.blank? %>
+      <div><label><%= 'Style'.t %>:</label><%= h(@entry.genre) -%></div>
+  <% end %>
+  <div><label><%= 'Level'.t %>:</label>
+    <%= maybe_level_link(@entry.contest_submission.level, @entry.container_album, :count => false) -%>
+  </div>
+  <br />
+  <div><%= '<label>Submitted at</label> {{datetime}} ({{user}})' / [@entry.created_at.to_s(:date_with_time),
+                                                                    user_link(@entry.created_by, :icon => true)] %>
+  </div>
+  <% if (@entry.bitrate) %>
+      <div><label><%= 'Bitrate'.t %>:</label><%= @entry.bitrate -%> <%= 'Kbps'.t -%></div>
+  <% end %>
+  <% if (@entry.chanels) %>
+      <div><label><%= 'Channels'.t %>:</label><%= @entry.chanels -%></div>
+  <% end %>
+  <% if (@entry.samplerate) %>
+      <div><label><%= 'Samplerate'.t %>:</label><%= @entry.samplerate -%> <%= 'Hz'.t %></div>
+  <% end %>
+  <% if (!@entry.artist.blank? && @entry.artist != @entry.owner) %>
+      <div><label><%= 'Artist'.t %>:</label><%= h(@entry.artist) -%></div>
+  <% end %>
+  <% unless @entry.year.blank? %>
+      <div><label><%= 'Year'.t %>:</label><%= h(@entry.year) -%></div>
+  <% end %>
+</div>
+
+<%= render :partial => 'tracks_player', :locals => {:data_options => {:track_id => @entry.id},
+                                                    :ui_params => {:info_icon => false},
+                                                    :player_id => "track_player_#{@entry.id}",
+                                                    } %>
+
+<div style="margin-left: 5px"><label>&copy;<%= h(@entry.owner) %></label></div>
+

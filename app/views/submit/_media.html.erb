@@ -1,0 +1,94 @@
+<% disable_multiple ||= false
+   no_tags ||= false
+%>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(@projects_info.nil? ? 'Add Content'.t : edit_setting_breadcrumbs(@user, 'Upload New Profile Picture'.t), 'Profile Picture') do %>
+  <% form_for :content, :url => { :controller => 'submit', :action => 'upload', :for_inbox => params[:for_inbox] }, :html => { :multipart => true, :name=> "uploadForm", :id => 'uploadForm', :onsubmit => "return checkCheckBoxes();" } do |f| -%>
+    <%= f.hidden_field 'id' %>
+    <%= f.hidden_field 'user_id' %>
+    <%= f.hidden_field 'cat_id' %>
+    <%= hidden_field_tag 'for_album', params[:for_album] %>
+    <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+
+      <%= error_messages_for :content %>
+  	<div class="form_center">
+      <%= yield -%>
+  	</div>
+    <div class="form_line">
+    	<div class="form_left">
+        <%= disable_multiple ? 'Select file' : 'Select file(s)'.t %>:
+    	</div>
+    	<div class="form_right">
+        <% fields_for 'content[uploaded_data]' do |uf| %>
+          <%= uf.file_field 1 %><br/>
+          <div id="more_upload_fields" style="display:none;">
+            <% (2...6).each do |i| -%>
+              <div class="paragraph"><%= uf.file_field i %></div>
+            <% end -%>
+            <div><%= "A minimum of one, and a maximum of five files can be uploaded in one batch.".t %></div>
+          </div>
+        <% end %>
+        <% unless disable_multiple %>
+          <div><%= link_to_function "Upload more files...".t, "moreUploads()", :id => "show_more_upload_fields" %></div>
+        <% end %>
+    	</div>
+    </div>
+    <% unless no_tags %>
+      <%= render :partial => "tags", :locals => { :f => f } %>
+    <% end %>
+    <%= render :partial => "/shared/ownership_settings", :locals => {:f => f} %>
+    <div class="form_head">&nbsp;</div>
+    <div class="form_buttons">
+      <%= render :partial => "buttons", :locals => { :upload => true } %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% end %>
+<% content_for :js do %>
+  <script type="text/javascript" language="javascript">
+    function checkCheckBoxes() {
+      // Validate taht all field elements not empty
+      function validate(){
+        var elements = document.uploadForm.elements;
+        for(var i in elements){
+            var element = elements.item(i);
+            if(element.name && element.name.match(/uploaded_data/) && element.value != ""){
+                return true
+            }
+        }
+        return false;
+      }
+
+      var radioGrp = $('uploadForm')['ownership'];
+      for(i=0; i < radioGrp.length; i++){
+        if (radioGrp[i].checked == true) {
+          var radioValue = radioGrp[i].value;
+        }
+      }
+      if (radioValue == 'none') {
+        alert('<%= js "You have to certify that you own copyrights to this file, or have the owner\'s permission.".t -%>');
+        return false;
+      } else {
+        // TODO content type validation
+        document.uploadForm.elements
+        if (!validate()) {
+          alert ('<%= 'Please select a file to upload!'.t -%>');
+          return false;
+        } else {
+          var btn = $(document.uploadForm).getElementsByClassName("button")[0];
+          btn.innerHTML = "<span><%= 'Please Wait...'.t %></span>";
+          btn.next().show();
+          btn.className = 'button_gr';
+          return true;
+        }
+      }
+    }
+
+    function moreUploads(){
+      $('show_more_upload_fields').hide();
+      $('more_upload_fields').appear({ duration: 0.5 });
+    }
+  </script>
+<% end %>

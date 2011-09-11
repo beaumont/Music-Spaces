@@ -1,0 +1,162 @@
+<% content_title = h(@entry.title_short(60))
+   user_name = h(@entry.user.display_name)
+if @entry.artist.nil? || @entry.artist == ''
+   artist_name =  user_name 
+else
+   artist_name = @entry.artist
+end
+ 
+ # donate_term = @entry.user.donatable? ? "contribute to support their art at Kroogi.com".t : "support their art at Kroogi.com".t
+   enjoy_term = @entry.user.donatable? ? ", on Kroogi.com. Interact, download, contribute.".t : ", on Kroogi.com. Interact, support, contribute.".t
+   user_or_project = @entry.user.is_a?(Project) ? '((content))from project'.t : '((content))from user'.t
+   if @entry.is_a?(MusicContest)
+     @title = "Music contest '{{contest_title}}' from {{user_name}}" / [content_title, user_name]
+     @meta_description = @title
+   elsif @entry.downloadable?
+     @meta_description = ("Kroogi is a creative community where you can download for free or pay what you want. Download '{{content_title}}' by {{artist_name}}" / [content_title, artist_name])
+     @title = "'{{content_title}}' by {{artist_name}}. Download for free - legally. Pay what you want directly to the artist" / [content_title, artist_name]
+   else
+     @meta_description = "Enjoy '{{content_title}}' by {{artist_name}}{{enjoy_phrase}}" /
+             [content_title, artist_name, enjoy_term]
+     @title = "'{{content_title}}' {{from_user_or_project}} {{user_name}}" / [content_title, user_or_project, user_name]
+   end
+   @meta_keywords = [@entry.user.login, @entry.user.display_name, @entry.title, (@content_kind_displayname unless @content_kind_displayname.blank?)]
+-%>
+
+<% content_for :head do %>
+  <link rel="canonical" href="<%= content_url(@entry) %>" />
+<% end %>
+
+<% if !logged_in? %>
+  <div style="display:none">
+    <h3><%= @title %></h3>
+    <%= content_link(@entry, {:title => (I18n.with_locale(another_locale) {@entry.title})}, :locale => another_locale) %>
+  </div>
+<% end %>
+
+<!-- Right Column -->
+<% content_for :right_column do %>
+  <%= render :partial => '/content/sidebar/right_main_sidebar', :locals => {:entry => @entry, :content_title => content_title, :artist_name => artist_name} %> 
+<% end %>
+<!-- Main Body -->
+  <div class="main_container content_body">
+    <div class="content_head">
+      <% unless @entry.is_a?(Board) || @entry.is_a?(ProjectAsContent) %>
+        <span class="content_head_r"><%= render :partial => "album_navigation" %></span>
+      <% else %>&nbsp;
+      <% end %>
+       <% unless @entry.is_a?(Board) %>
+          <div id="<%= @entry.id %>"><b><%= h(@entry.title_long) -%></b></div>
+        <% end %>
+    </div>
+    <div class="main_left">
+      <!-- grey column of the body-->
+        <%= image_tag(@entry.cover_art.thumb(:thumb).public_filename, :border => 0, :class => "album_img", :alt => h(@entry.cover_art.thumb(:thumb).filename)) if @entry.respond_to?(:cover_art) && @entry.cover_art %>
+      <div class="main_left_block">
+       <%= render :partial => "content_creation_info", :locals => {:entry => @entry} %>
+       </div>
+    </div>
+    <div class="main_body">
+      <div class="breadcrumbs" style="<%= 'color: #999;' unless logged_in? -%>">
+        <%= album_breadcrumbs(@entry) %>
+      </div>
+      <%= render :partial => 'multiuploaders_maybe', :locals => {:entry => @entry} %>
+      <% if @entry.blocked? %>
+        <div class="default">
+          <%= image_tag 'no.gif' %> <%= 'Blocked Item'.t %> <%= image_tag 'no.gif' %>
+        </div>
+      <% end %>
+      <% s = security_string(@entry)
+         if s != "Public".t %>
+        <div class="prvt right"><%= s %></div>
+      <% end %>
+     
+      <% if @entry.is_a?(Blog) %>
+        <p class="security_notice" style="margin-top: -5px;"><%= @entry.created_at.to_s(:date_with_time) %></p>
+      <% end %>
+	
+      <!-- Image -->
+      <% if @entry.is_a?(Image) %>
+        <% @content_kind_displayname = 'Content Image'.t %>
+        <%= render :partial => "image_content", :locals => {:entry => @entry} %>
+
+	  <!-- Announcement -->
+      <% elsif @entry.is_a?(Board) -%>
+        <%# @content_kind_displayname = @entry.user.project? ? 'Announcement'.t : 'Note'.t %>
+        <% @content_kind_displayname = 'Announcement'.t %>
+        <%= render :partial => "announcement_content", :locals => {:entry => @entry, :full_width => true} %>
+
+        <!-- Inbox -->
+      <% elsif @entry.is_a?(Inbox) %>
+        <% @content_kind_displayname = 'Folder'.t %>
+        <%= render :partial => "inbox_content", :locals => {:entry => @entry} %>
+
+        <!-- Music Contest -->
+      <% elsif @entry.is_a?(MusicContest) %>
+        <%= render :partial => "music_contest_content", :locals => {:entry => @entry} %>
+
+        <!-- Track -->
+      <% elsif @entry.is_a?(Track) %>
+        <% @content_kind_displayname = 'Audio File'.t %>
+        <% unless @entry.music_contest_item? %>
+          <%= render :partial => "music_content", :locals => {:entry => @entry} %>
+        <% else %>
+          <%= render :partial => "/content/music_contest/music_content", :locals => {:entry => @entry} %>
+        <% end %>
+
+        <!-- MusicAlbum -->
+      <% elsif @entry.is_a?(MusicAlbum) %>
+        <% @content_kind_displayname = 'Music Album'.t %>
+        <%= render :partial => "music_album_content", :locals => {:entry => @entry} %>
+
+        <!-- Folder with Downloadable -->
+      <% elsif @entry.is_a?(FolderWithDownloadables) %>
+        <% @content_kind_displayname = 'Downloadable Folder'.t %>
+        <%= render :partial => "folder_with_downloadables_content", :locals => {:entry => @entry} %>
+        
+        <!-- TPS -->
+      <% elsif @entry.is_a?(Tps::Content) %>
+        <%= render :partial => "tps_content", :locals => {:entry => @entry} %>
+
+        <!-- Album -->
+      <% elsif @entry.is_a?(Album) %>
+        <% @content_kind_displayname = 'Folder'.t %>
+        <%= render :partial => "album_content", :locals => {:entry => @entry} %>
+
+        <!-- User/Project -->
+      <% elsif @entry.is_a?(ProjectAsContent) %>
+        <% @content_kind_displayname = 'User or Project'.t %>
+        <%= render :partial => "user", :locals => {:entry => @entry.body_project} %>
+
+        <!-- Video -->
+      <% elsif @entry.is_a?(Video) %>
+        <% @content_kind_displayname = 'Content Video'.t %>
+        <%= render :partial => "text_content", :locals => {:entry => @entry, :full_width => true} %>
+
+        <!-- Text -->
+      <% elsif @entry.is_a?(Textentry) %>
+        <% @content_kind_displayname = 'Content Posting'.t %>
+        <%= render :partial => "text_content", :locals => {:entry => @entry, :full_width => true} %>
+
+        <!-- blog -->
+      <% elsif @entry.is_a?(Blog) %>
+        <% @content_kind_displayname = 'LiveJournal Entry'.t %>
+        <%= render :partial => "text_content", :locals => {:entry => @entry, :full_width => true} %>
+
+      <% else %>
+        <% AdminNotifier.async_deliver_alert("Unknown class in content/show: #{@entry.class.name.to_s} #{@entry.id}") %>
+      <% end %>
+
+      <% unless @entry.description.blank? || @entry.is_a?(Album) || @entry.is_a?(Tps::Content) %>
+        <div class="default_text" style="padding: 10px 0px;"><%= formatted_description @entry %></div>
+      <% end %>
+
+    <div style="clear:left;"></div>
+    </div>
+ </div>
+<!-- End of Main Body -->
+
+<!-- end entry, begin comments -->
+  <div id="comments_<%= dom_id(@entry) %>">
+    <%= render :partial => "comment/comments", :locals => {:commentable => @entry} %>
+  </div>

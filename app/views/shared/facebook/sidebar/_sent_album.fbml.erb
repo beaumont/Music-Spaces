@@ -1,0 +1,45 @@
+<% unless @friends_list.empty? %>
+  <%
+  count = @friends_list.count
+%>
+  <div class="rightBoxes" style="padding-bottom: 10px;">
+    <%@friends_list.each_with_index do |item, i|%>
+      <%= i == 4 ? '<div id="hidden_result" style="display:none">':'' %>
+      <%if item.to_user.nil?%>
+        <div class="boxContent">
+          <div class="friends">
+            <div class="friendUserpic">
+               <%=image_tag("fb_friend_no_image.gif", :size => "34x34")%>
+            </div>
+            <div class="name">
+              A friend
+            </div>
+            <div class="action">
+              <%=time_ago_in_words(item.updated_at)%> ago
+            </div>
+          </div>
+        </div>
+      <%else%>
+        <div class="boxContent">
+          <div class="friends">
+            <div class="friendUserpic">
+              <%=fb_profile_pic(item.to_user.facebook_id, :size => :square, :width => "34px")%>
+            </div>
+            <div class="name">
+              <%=fb_name(item.to_user.facebook_id)%>
+            </div>
+            <div class="action">
+              <%=time_ago_in_words(item.updated_at)%> ago
+            </div>
+          </div>
+        </div>
+      <%end%>
+    <%end%>
+    <% if count > 4 %>
+    </div>
+    <div class="seeAllLinkWrapper">
+      <a href="#" class="SeeAllLink" clicktoshow="hidden_result" clicktohide="showtext" id="showtext"  style="background:transparent url(<%=image_path('/images/small_arrow.gif')%>) no-repeat scroll right 4px;"> See All (<%=count%>)</a>
+    </div>
+  <%end%>
+  </div>
+<%end%>

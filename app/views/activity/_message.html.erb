@@ -1,0 +1,47 @@
+<% unless defined?(prefix_with_sendername); prefix_with_sendername = true; end %>
+
+<div class="message_center user_block <%= "user_pvt_#{message.from_user_id}" if message.pvtmessage? %>" id="message_<%= message.id -%>">
+  <div class="block_date">
+    <%= message.created_at.to_s(:date_with_time) %>
+  </div>
+  <div class="block_username">
+  <% if false # Here in case you're looking at stuff for multiple projects  %>
+    <%= user_link(message.user, :icon => true, :use_display_name => true, :detect_you => true) %>
+  <% end %>
+
+    <%= user_link(message.from_user, :activity_id => message.id, :frwrd_type => 'from_user', :detect_you => true, :icon => true) %>
+  </div>
+  <%= avatar_md(message.from_user, {:activity_id => message.id, :frwrd_type => 'from_user'}) %>
+  <div class="block_body <%= 'unread ' if message.unread? -%>" id="message_body_<%= message.id -%>">
+      <span id="new_blurb_<%= message.id -%>" class="new_label" style="display: <%= message.unread? ? 'inline' : 'none' -%>;"><%= 'New'.t -%>:</span>
+      <% if prefix_with_sendername %>
+        <%= user_link(message.from_user, {:activity_id => message.id, :frwrd_type => 'from_user', :detect_you => true, :icon => true}) %>
+      <% end %>
+
+    <%= render :partial => 'activity/activity', :locals => {:activity => message, :citation_length => 150, :iconized => false, :one_liner => false} %>
+
+    <div class="right message_controls">
+      <% if view_dialogue && message.content %>
+        <%= link_to('View Thread ((dialog))'.t + ' &gt;&gt;',
+                      messages_dialogue_path(:with => message.content.not_me), :class => 'view_dialogue') %>
+        <span class="separator"></span> 
+      <% end %>
+
+      <span id="mark_read_control_<%= message.id -%>" style="display: <%= message.unread? ? 'inline' : 'none' -%>;">
+        <%= link_to_remote 'Mark as Read'.t, :url => {:controller => 'activity', :action => :mark, :as => 'read', :activityids => [message.id]} %>
+      </span>
+      <span id="mark_new_control_<%= message.id -%>" style="display: <%= message.unread? ? 'none' : 'inline' -%>;">
+        <%= link_to_remote 'Mark as New'.t, :url => {:controller => 'activity', :action => :mark, :as => 'new', :activityids => [message.id]} %>
+      </span>
+      <span class="separator"></span>
+
+      <% if message.pvtmessage? && message.from_user != current_actor %>
+        <%= remove_pvt(message, remove_message_title) %>
+      <% else %>
+        <%= link_to_remote image_tag('remove.png', :alt => 'Delete Message'.t),
+                             :url => {:controller => 'activity', :action => :remove, :activityids => [message.id], :back_to => 'list'},
+                             :html => {:title => remove_message_title, :class => "replaceable_link"} %>
+      <% end %>
+    </div>
+  </div>
+</div>

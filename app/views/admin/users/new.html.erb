@@ -1,0 +1,20 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'New User'.t %>
+
+<div class="admin">
+
+
+
+<h2><%= 'New User'.t %></h2>
+
+<span class="adminmenu"><%= link_to 'Back'.t, :action => 'list' %></span>
+
+<% form_for :user, :url => {:action => :create } do |form| %>
+  <%= render :partial => 'form' , :locals => { :form => form }%>
+  <%= submit_tag "Create".t %>
+<% end %>
+
+
+
+</div>
+

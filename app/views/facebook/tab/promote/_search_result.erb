@@ -1,0 +1,32 @@
+<%unless @projects.nil? || @projects.empty? || @projects.count < 1%>
+  <div class="searchResult"><%=will_paginate @projects, :param_name => 'projects_page'%></div>
+  <div class="searchHeader"><%= page_entries_info @projects, :entry_name => 'result' %> for: <span class="searchWord"><%=params[:display_name]%></span><span id="resultSpinner" style="display:none;font-size:9px"> Loading... </span></div>
+  <%@projects.each do |p|%>
+    <div class="whiteBox">
+      <div class="cover"> <%= link_to(fb_profile_picture(p, {:max_width => 100, :max_height => 100, :content_link => nil}), :controller => 'project', :action => 'show', :id => p.id) %> </div>
+      <div class="whiteBoxContent">
+        <ul class="question">
+          <li>Artist:</li>
+          <%unless p.profile.city_and_country.empty?%> <li>Location: </li><%end%>
+        </ul>
+        <ul class="result">
+          <li><b><%= p.display_name %></b></li>
+          <%unless p.profile.city_and_country.empty?%><li><%= p.profile.city_and_country%></li><%end%>
+        </ul>
+        <ul class="searchRight">
+          <li>
+            <% form_remote_tag do %>
+                <%= image_submit_tag 'select_img.png',
+                  :clickrewriteurl=>facebook_absolute_url("/facebook/tab/confirm_form/#{p.id}"),
+                  :clickrewriteid=>"searchFormId",
+                  :clicktoshow=>'resultSpinner'%>
+            <%end%>
+          </li>
+        </ul>
+        <div class="clear"> </div>
+      </div>
+    </div>
+  <%end%>
+  <div class="searchResult"><%=will_paginate @projects, :param_name => 'projects_page'%></div>
+  <div class="clear"></div>
+<%end%>

@@ -1,0 +1,33 @@
+
+<% show_private = show_private || false %>
+
+<% stream.each do | content | 
+    next if content.nil?
+    next unless show_private || content.is_view_permitted? %>
+
+  <div class="content_body">  
+    <div class="content_head">&nbsp;</div>
+    <div class="right"><%= content.created_at.localize("%d %b %Y "+"at".t+" %I:%M%p UMT") %></div>
+    <div class="user_block">
+      <% unless content.is_view_permitted? %>
+        <i><%= 'private content'.t -%></i>
+      <% else %>
+        <%= security_icon(content) %> 
+        
+        <%= owners_announcement_not_on_kroogi_page(content) %>
+        <div class="default_text">
+          <%= kf_simple(content.post, {:truncate => true, :truncate_length => citation_length}) %>
+        </div>
+        <div class="right">
+          <div class="block_action">
+            <%= link_to h(content.title_long), content_url(content) %>
+            <span class="separator"></span>
+            <%= link_to("Leave Comment".t, content_url(content)) unless current_actor.guest? %>
+              ( <%= link_to ("%d" / content.comment_count), content_url(content) %> )
+          </div>
+        </div>    
+	    <% end %>
+    </div>
+  </div>
+<% end %>
+

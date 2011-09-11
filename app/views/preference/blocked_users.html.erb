@@ -1,0 +1,48 @@
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, 'Blocked Users'.t)) do %>
+  <div class="default_text"><b><%= 'You have the following users blocked from sending you private messages. Select which ones would you like to unblock.'.t %></b></div>
+  <% form_for :preference, :url => { :action => 'unblock_users', :id => @user}, :html => { } do |f| -%>
+    <%= hidden_field_tag('blocked_type', BlockedUser::BLOCKED_TYPES[:pvt_message]) %>
+    <% unless @blocked_pvt_users.blank? %>
+      <%= link_to("Select All".t, "javascript:void(0);", :id => "select_all") %> / <%= link_to("Deselect All".t, "javascript:void(0);", :id => "deselect_all") %><br />
+      <% form_border do %>
+        <table width="100%" id="checkboxes">
+        <% @blocked_pvt_users.in_groups_of(3, "") do |group_block| %>
+          <tr>
+            <% for block in group_block %>
+              <td><%= block.blank? ? "" : check_box_tag("users_to_unblock[]", block.blocked_user_id) + " " + user_link(block.blocked_user, :icon => true, :length => 20) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </table>
+      <% end %>
+      <div style="text-align:right;">
+        <button class="button_lg" style="margin-right:0px;" type="submit" name="commit"><span>&nbsp;<%= 'Unblock'.t -%>&nbsp;</span></button>
+      </div>
+    <% else %>
+      <div class="default_text"><%= 'No blocked users yet'.t %></div>
+    <% end %>
+  <% end %>
+  <br />
+  
+  <div class="default_text"><b><%= 'To block users from sending you private messages, type in their usernames below. Separate multiple usernames with commas.'.t %></b></div>
+  <% form_for :preference, :url => { :action => 'block_users', :id => @user}, :html => { } do |f| -%>
+    <%= hidden_field_tag('blocked_type', BlockedUser::BLOCKED_TYPES[:pvt_message]) %>
+    <%= text_area_tag("users_to_block", "", :style => "width:500px;max-width:500px;") %>
+    <button class="button_lg wizard" type="submit" name="commit"><span>&nbsp;<%= 'Block'.t -%>&nbsp;</span></button>
+  <% end %>
+<% end %>
+
+<%= javascript_tag("
+  jQuery(document).ready(function() {
+    jQuery('#select_all').click(function() {
+      jQuery('#checkboxes input[type=checkbox]').attr('checked', 'checked')
+    })
+
+    jQuery('#deselect_all').click(function() {
+      jQuery('#checkboxes input[type=checkbox]').attr('checked', '')
+    })
+  })
+
+  ") %>

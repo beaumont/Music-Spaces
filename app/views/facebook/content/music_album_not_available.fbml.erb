@@ -1,0 +1,28 @@
+<div class="two_column">
+  <div class="inner">
+    <div class="albums">
+      <div class="cover"> <%= image_tag(@entry.cover_art.thumb(:thumb).public_filename, :width=> 150, :border => 0, :alt => h(@entry.cover_art.thumb(:thumb).filename)) if @entry.respond_to?(:cover_art) && @entry.cover_art %> </div>
+      <div class="albumsContainer">
+        <div class="noAlbumInfo">
+          <div class="title"><%= h(@entry.title_long) %></div>
+          <div class="artist">
+            <%= "#{@entry.artist}" unless @entry.artist.blank? -%>
+            <%= " / " unless @entry.artist.blank? || @entry.year.blank?%>
+            <%= "#{@entry.year}" unless @entry.year.blank? -%>
+          </div>
+          <div class="style"><%= h(@entry.genre) unless @entry.genre.blank? %></div>
+        </div>
+        <div class="noAlbumMessage">We are sorry.<br />
+          This album is no longer available<br />
+        on Kroogi Downloads</div>
+        <div class="more">
+          <% if @other_music_albums.empty? %>
+            <%= link_to 'Find more albums from other artists >>', {:controller => 'facebook/search'} %>
+          <%else%>
+            <%= link_to "More albums from #{@entry.user.display_name} >>", :controller => 'project', :action => 'show', :id => @entry.user.id %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+# Performs: Logging out and switching to other user
+
+include_partial 'logout'
+include_partial 'login', :user => user

@@ -1,0 +1,27 @@
+sending:
+  type: Globalize::ViewTranslation
+  tr_key: Sending...
+  language_id: 8
+  pluralization_index: 1
+  text: Отправка...
+
+x_comments_one:
+  type: Globalize::ViewTranslation
+  tr_key: %d comments
+  language_id: 8
+  pluralization_index: 1
+  text: %d комментарий
+
+x_comments_few:
+  type: Globalize::ViewTranslation
+  tr_key: %d comments
+  language_id: 8
+  pluralization_index: 2
+  text: %d комментария
+
+x_comments_many:
+  type: Globalize::ViewTranslation
+  tr_key: %d comments
+  language_id: 8
+  pluralization_index: 3
+  text: %d комментариев

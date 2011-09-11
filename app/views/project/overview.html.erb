@@ -1,0 +1,15 @@
+<% @title = current_user.login + ' :: ' + 'Projects Overview'.t %>
+<% right_column_block(:header_title => 'New Projects'.t) do %>
+  <div class="default"><%= 'A project is a Kroogi account collectively run by a group of people.'.t %></div>
+  <div class="default"><%= 'Each project host can act on behalf of the project.'.t %></div>
+  <div class="default"><%= 'Projects are useful under many situations (e.g. bands, charity organizations, event committees, and more).'.t %></div>
+  <div class="blue_block sidebar"><%= link_to('Create New Project'.t, :controller => 'project', :action => 'create') %></div>
+<% end %>
+
+
+  <%= render :partial => "/user/full_profile", :locals => {:user => current_user, :controls => true} %>
+  <% unless current_user.projects.empty? %>
+    <% current_user.projects(:sorted => true).each do |project| %>
+      <%= render :partial => '/user/full_profile', :locals => {:user => project, :controls => true} %>
+    <% end %>
+  <% end %>

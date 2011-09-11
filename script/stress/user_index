@@ -1,0 +1,14 @@
+def user_test(n)
+#`wget localhost:3000/content/load_all_views`
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+User.find(:all, :limit => n, :order => "popularity desc", :conditions => "state = 'active' and private = FALSE and type != 'Facebook::User'").each do |u|
+  `wget localhost:3000/user/#{u.login}`
+end
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+end

@@ -1,0 +1,22 @@
+<% dialog_id_suffix ||= 1 %>
+<h3><a href="#"><%= title %></a></h3>
+<div>
+  <% form_for :user_to_login, :url => {:controller => 'home', :action => 'login'}, :html => {:class=> "login" }  do |f| -%>
+    <% form_border do %>
+      <div id="login_form_errors" class="error"></div>
+      <%= f.hidden_field 'project_to_follow', :value => (project_to_follow ? project_to_follow.id : nil), :class => 'project_to_follow' %>
+      <%= f.hidden_field 'start_following', :value => start_following, :class => 'start_following'%>
+      <%= f.hidden_field 'content_to_like', :value => (content_to_like ? content_to_like : nil)%>
+      <div style="padding-left: 90px;">
+        <label for="user_to_login_login"><%= 'Login Name'.t -%></label>
+        <%= f.text_field :login %>
+        <label for="password"><%= 'Password'.t -%></label>
+        <%= password_field_tag :password %>
+      </div>
+    <% end %>
+    <%= hidden_field_tag :signin_on_zero, dialog_id_suffix %>
+    <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                          :disable_cancel => true,
+                                                          :ok_label => 'Log in'.t} %>
+  <% end %>
+</div>

@@ -1,0 +1,20 @@
+
+<% target = "#{@url}/kroogi/show/#{@activity.user.id}?type=#{@activity.content.circle_id}&highlight_user=#{@activity.from_user.id}" %>
+
+<p>
+  <strong>
+  <% if @activity.content.user.project? %>
+    <%= '{{user}} has joined the {{circle}} circle of your project {{project}}.' / [link_to(@from_user.login,"#{@url}/user/#{@from_user.login}"), link_to(@activity.content.name,target), link_to(@activity.content.user.login,"#{@url}/user/#{@activity.content.user.login}")] -%>
+  <% else %>
+    <%= '{{user}} has joined your {{circle}} circle.'/ [link_to(@from_user.login,"#{@url}/user/#{@from_user.login}"), link_to(@activity.content.name,target)] -%>
+  <% end %>
+  </strong>
+</p>
+
+<p>
+  <%= link_to "Open %s's Kroogi Page" / [@from_user.login], "#{@url}/user/#{@from_user.login}" -%><br/>
+  <%= link_to 'Invite %s to a closer circle' / [@from_user.login], "#{@url}/invite/find/#{@activity.user.id}?invitee_id=#{@activity.from_user.id}" -%><br/>
+  <% anchor = @activity.content.user.project? ? ('View "%s" circle of %s' / [@activity.content.name, @activity.content.user.login]) : ('View your %s Circle' / [@activity.content.name]) %>
+  <%= link_to anchor, target %>
+</p>
+

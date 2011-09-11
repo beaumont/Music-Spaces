@@ -1,0 +1,14 @@
+<strong>
+  <% if current_monetary_processor_account.is_a?(WebMoneyAccount)
+    q = 'Disconnect Webmoney account?'.t
+  elsif current_monetary_processor_account.is_a?(PaypalAccount)
+    q = 'Disconnect PayPal for {{account_id}}?' / current_monetary_processor_account.account_identifier 
+  end
+  %>
+  <%= link_to(
+    'Add Another'.t,
+    {:controller => '/monetary_processor_accounts/dialog',
+      :action => 'delete',
+      :id => current_monetary_processor_account},
+    :confirm => "You need to disconnect existing withdrawal account before adding another".t + '. ' + q) %>
+</strong>

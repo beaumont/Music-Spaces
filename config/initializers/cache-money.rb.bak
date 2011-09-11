@@ -1,0 +1,37 @@
+# config for the cache-money gem
+# It's a github gem: http://github.com/nkallen/cache-money/tree/master (instructions are there as well)
+# To install:
+# gem sources -a http://gems.github.com (unless you have it already)
+# Install the gem(s):
+# sudo gem install nkallen-cache-money
+
+# uncomment this line to turn on caching.
+require 'cache_money'
+# 
+config = YAML.load(IO.read(File.join(RAILS_ROOT, "config", "memcached.yml")))[RAILS_ENV]
+config['namespace'] = 'kroogi-'+RAILS_ENV
+# 
+$memcache = MemCache.new(config)
+
+if config['servers']
+$memcache.servers = config['servers']
+# 
+$local = Cash::Local.new($memcache)
+$lock = Cash::Lock.new($memcache)
+$cache = Cash::Transactional.new($local, $lock)
+end
+
+class ActiveRecord::Base
+  is_cached :repository => $cache if $cache
+  
+  # currently, this is the only way I've found to disable to write-through cache without hacking the gem
+  # put this directive on any models that you don't want cached
+  def self.skip_caching
+    class_eval(<<-SRC, __FILE__, 30)
+      def add_to_caches;end
+      def update_caches;end
+      def remove_from_caches;end
+    SRC
+  end
+  
+end

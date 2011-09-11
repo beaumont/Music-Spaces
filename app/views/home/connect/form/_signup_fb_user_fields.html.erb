@@ -1,0 +1,72 @@
+<%
+if current_fb_connected_user
+  name     = current_fb_connected_user.name.gsub(/\s/,'').downcase
+  locale   = current_fb_connected_user.locale[0..1] if current_fb_connected_user.locale
+  email    = current_fb_connected_user.email
+  birthday = current_fb_connected_user.birthday
+  gender   = current_fb_connected_user.gender == 'female' ? 'F' : 'M'
+end
+%>
+<%
+   @user.type = params[:user][:type] unless params[:user].nil?
+   @tos = params[:tos]
+   @project ||= Project.new
+%>
+
+<%= validate_signup_interview %>
+
+<div id="instance_errors">
+  <% unless error_messages_for(:user).blank? %>
+    <p style="color:red;">
+      <%= error_messages_for 'user' %><br/>
+    </p>
+  <% end %>
+
+  <% unless error_messages_for(:project).blank? %>
+    <p style="color:red;">
+      <%= error_messages_for 'project' %><br/>
+    </p>
+  <% end %>
+</div>
+
+<label for="email_address"><%= 'Your Email Address'.t -%></label>
+<%= f.text_field :email, :value => email, :size=>'40' %>
+<div>
+  <%= render :partial => '/shared/we_will_keep_your_email_private_wording.html.erb', :locals => {:preference => @user.preference} %>
+</div>
+
+<label for="login_name"><%= 'Your Personal Login Name'.t -%></label>
+<% sub_text = %Q{<div class="default" id="allowed_values">#{'Letters, numbers, and dashes (-) are allowed.'.t}</div>}%>
+<%= render :partial => '/shared/form_observable_field',
+            :locals => {:f => f,
+                        :value => name,
+                        :field_to_observe => "user_login_fb",
+                        :field => 'login',
+                        :model => 'user',
+                        :external_validate => 'checkLoginName();',
+                        :sub_text => sub_text} %>
+
+<label for="sex"><%= 'Gender'.t %></label>
+<%= f.radio_button 'gender', 'M', :checked => "#{ gender == 'M' ? 'checked' : ''}" %>
+<%= 'Male'.t %>
+<%= f.radio_button 'gender', 'F', :checked => "#{ gender == 'F' ? 'checked' : ''}" %>
+<%= 'Female'.t %>
+<br/>
+
+<label for="bday"><%= 'Birthday'.t %></label>
+<%= f.text_field :birthdate, :value => (birthday.blank? ? "" : I18n.l(Date.parse(birthday), :format => :birthday)) %> <span class="default" style="padding-left:1px;"><%= I18n.t('date.formats.birthday_title').t.upcase %></span>
+<%= javascript_tag("
+  jQuery(document).ready(function() {
+    #{birthday_datapicker}
+  })") %>
+<br/>
+
+<label for="language"><%= 'Language'.t %></label>
+<%= f.radio_button 'language', 'en', :checked => "#{ locale == 'en' || locale != 'ru'? 'checked' : ''}" %>
+<%= 'English'.t %>
+<%= f.radio_button 'language', 'ru', :checked => "#{ locale == 'ru' ? 'checked' : ''}" %>
+<%= 'Russian'.t %>
+<br/>
+
+<%= check_box_tag "tos", @tos, @tos == 'on' ? true : false %>&nbsp;&nbsp;
+<label for="tos" style="display:inline;font-weight:normal;"> <%= 'I have read and accepted <a {{tos_link_attributes}}>Terms of Service</a>' / kroogi_tos_link_attributes -%></label>

@@ -1,0 +1,140 @@
+# == Schema Information
+# Schema version: 20090212135816
+#
+# Table name: account_settings
+#
+#  id                              :integer(11)     not null, primary key
+#  user_id                         :integer(11)
+#  paypal_email                    :string(50)
+#  donation_title                  :string(255)
+#  donation_button_label           :string(70)      default("Donate")
+#  donation_request_explanation    :text
+#  donation_amount                 :decimal(10, 2)
+#  show_donation_basket            :boolean(1)
+#  default_language                :string(255)     default("1819")
+#  created_at                      :datetime
+#  updated_at                      :datetime
+#  money_status                  :string(255)     default("inactive")
+#  webmoney_wmz                    :string(13)
+#  webmoney_wme                    :string(13)
+#  webmoney_wmr                    :string(13)
+#  allow_sponsorships              :boolean(1)
+#  donation_title_ru               :string(255)
+#  donation_button_label_ru        :string(255)
+#  donation_request_explanation_ru :text
+#  donation_title_fr               :string(255)
+#  donation_button_label_fr        :string(255)
+#  donation_request_explanation_fr :text
+#  notified_of_delay               :boolean(1)
+#  yandex_scid                     :string(255)
+#  yandex_shopid                   :string(255)
+#  allow_yandex                    :boolean(1)
+#  paypal_transaction              :string(255)
+#  webmoney_account                :string(255)
+#  webmoney_passport_minimum       :integer(11)     default(130)
+#  webmoney_account_verified       :boolean(1)
+#  webmoney_wmz_attached           :boolean(1)
+#  webmoney_wmr_attached           :boolean(1)
+#  webmoney_wme_attached           :boolean(1)
+#  paypal_status_last_updated      :datetime
+#  paypal_status                   :string(255)
+#  paypal_status_last_updated_at   :datetime
+#  paypal_status_last_updated_by   :integer(11)
+#
+
+anonymous:
+  updated_at: 2008-06-12 00:25:26
+  donation_request_explanation: 
+  money_status: inactive
+  donation_button_label: Donate
+  default_language: "1819"
+  donation_title: Donate
+  donation_amount: 
+  id: "1"
+  webmoney_wme: 
+  webmoney_wmz: 
+  show_donation_basket: "0"
+  user_id: "1"
+  webmoney_wmr: 
+  paypal_email: 
+  created_at: 2008-04-01 19:23:48
+
+chief:
+  updated_at: 2008-06-12 00:25:26
+  donation_request_explanation: 
+  money_status: inactive
+  donation_button_label: Donate
+  default_language: "1819"
+  donation_title: Donate
+  donation_amount: 
+  id: "2"
+  webmoney_wme: 
+  webmoney_wmz: 
+  show_donation_basket: "0"
+  user_id: "2"
+  webmoney_wmr: 
+  webmoney_account: 123456789
+  paypal_email: 
+  created_at: 2008-04-01 19:23:48
+
+joe:
+  updated_at: 2008-06-12 00:25:26
+  donation_request_explanation: 
+  money_status: inactive
+  donation_button_label: Donate
+  default_language: "1819"
+  donation_title: Donate
+  donation_amount: 
+  id: "3"
+  webmoney_wme: E12345678
+  webmoney_wmz: Z12345678
+  show_donation_basket: "0"
+  user_id: "3"
+  webmoney_wmr: R12345678
+  paypal_email:
+  created_at: 2008-04-01 19:23:48
+
+kroogi:
+  updated_at: 2008-06-12 00:25:26
+  donation_request_explanation: 
+  money_status: inactive
+  donation_button_label: Donate
+  default_language: "1819"
+  donation_title: Donate
+  donation_amount: 
+  id: "4"
+  webmoney_wme: 
+  webmoney_wmz: 
+  show_donation_basket: "0"
+  user_id: "4"
+  webmoney_wmr: 
+  paypal_email: 
+  created_at: 2008-04-01 19:23:48
+
+joy_division:
+  id: 8
+  user_id: 8
+  money_status: verified
+  paypal_status: verified
+
+kroogi-music:
+  id: 9
+  user_id: 9
+  money_status: verified
+
+notcollectionyet:
+  id: 10
+  user_id: 10
+  money_status: verified
+
+empty_collection:
+  id: 11
+  user_id: 13
+
+matisyahu:
+  id: 12
+  user_id: 21
+
+matisyahu1:
+  id: 13
+  user_id: 24

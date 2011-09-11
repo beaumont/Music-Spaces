@@ -1,0 +1,90 @@
+<% @content_kind_displayname ||= is_edit? ? (@content.featured_album? ? 'Reorder Featured Content Items'.t : 'Edit Folder'.t) : 'New Folder'.t
+   @title = @user.login + ' :: ' + @content_kind_displayname
+   @album_contents ||= @content.album_contents_items
+%>
+
+<% main_block(:header_title => 'Add Content'.t, :content_head => 'Folder'.t) do %>
+  <% form_for 'content[]', @content,
+              :url => {:controller => 'submit', :action => (is_edit? ? 'update' : 'add_album')},
+              :html => {:multipart => true, :id => 'album_form'} do |f| -%>
+    <%= f.hidden_field("id") if is_edit? %>
+    <%= f.hidden_field 'user_id' %>
+    <%= f.hidden_field("is_in_gallery") %>
+    <% unless is_edit? && @content.featured_album? %>
+      <%= error_messages_for :content %>&nbsp;
+      <%= render :partial => "shared/translatable_fields", :locals => {
+                    :f => f,
+                    :content => @content,
+                    :fields => [["Title", :title], ["Description", :description]]} %>
+        <%= render :partial => "tags", :locals => {:f => f} %>
+    <% end %>
+    <% if is_edit? %>
+      <% if @content.album_contents.empty? %>
+         <div class="section_empty">
+          <%= 'This folder is empty'.t %>
+          <br/>
+          <%= 'Go to %s to move existing items, or view %s to add new ones.' / [(link_to 'Content'.t, :controller => 'user', :action => 'gallery', :id => current_actor), (link_to 'this folder'.t, content_url(@content))] %>
+        </div>
+      <% else %>
+      <% if !@content.featured_album? && !@content.album_contents.any? { |x| x.is_a?(Image) } && permitted?(@content.user, :content_add) %>
+      <% end %>
+      
+      <div class="form_head"><%= 'Reorder items'.t %></div>
+      <div id="queue">
+        <div class="form_center"><span class="title"><%= @content.featured_album? ? 'Drag item to change position'.t : 'Drag item to change position in the folder'.t %></span></div>
+        <% unless is_edit? && @content.featured_album? %>
+          <div class="form_center"><%= 'Removed items will appear in the Content'.t -%></div>
+        <% end %>
+        <div class="form_center">
+          <span id="album_list_holder_id">
+            <ul id="album_list_id">
+              <% @album_contents.each do |album_item| %>
+                <li class="dragme alb_row" id="item_<%= album_item.id.to_s %>" style="cursor:move">
+                  <div class="title iconized <%= icon_class(album_item.content) %>"><%= truncate_with_hint(album_item.content.title_long, :length => 65) %></div>
+                  <div class="delete"><%= link_to_remote(image_tag("/images/delete.gif", {:class => 'delete_btn', :alt => "Delete".t, :size => '12x12', :border => 0}), {:url => {:controller => 'content', :action => 'remove_from_album', :id => album_item.content_id, :album_id => @content.id}, :before => 'this.up("li.alb_row").fade();'}) %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  
+    <% unless is_edit? && @content.featured_album? %>
+      <%= render :partial => 'download_options', :locals => {:f => f, :content => @content} %>
+      <%= render :partial => "donation_options", :locals => {:f => f, :content => @content} %>
+      <%= render :partial => "display_settings", :locals => {:f => f, :content => @content} %>
+    <% end %>
+    <div class="form_head">&nbsp;</div>
+    <div class="form_buttons">
+        <%= render :partial => "buttons", :locals => {:is_editing => true, 
+                                                      :center => true, 
+                                                      :upload => true, 
+                                                      :ok_label => 'Save'.t, 
+                                                      :use_button_submit => true, 
+                                                      :validate => 'check_min_contribution()'} unless is_edit? && @content.featured_album? %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% end %>
+
+<% content_for :bottom_javascript do %>
+  <script>
+    if ($('album_list_id')) {
+      Sortable.create("album_list_id", {
+        constraint:'vertical',
+        handle: 'dragme',
+        tag: 'li',
+        onUpdate: function() {
+          new Ajax.Request('/content/album_order',
+          {asynchronous:true, evalScripts:true, onComplete:function(request) {
+            new Effect.Highlight("album_list_id", {});
+          },
+            parameters:Sortable.serialize("album_list_id")})
+        }
+      });
+    }
+  </script>
+<% end %>

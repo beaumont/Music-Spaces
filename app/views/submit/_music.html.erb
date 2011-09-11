@@ -1,0 +1,71 @@
+
+  <%= render :partial => "shared/translatable_fields", :locals => { :f => f, :content => @content, 
+            :fields => [["Title", :title], ["Description", :description], ["Album", :album], ["Artist",:artist]]} %>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Bitrate'.t -%>:
+  	</div>
+  	<div class="form_right">
+      <%= @content.bitrate %> <%= 'Kbps'.t -%>
+  	</div>
+  </div>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Channels'.t -%>:
+  	</div>
+  	<div class="form_right">
+      <%= @content.chanels %>
+  	</div>
+  </div>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Samplerate'.t -%>:
+  	</div>
+  	<div class="form_right">
+      <%= @content.samplerate %> <%= 'Hz'.t -%>
+  	</div>
+  </div>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Length'.t -%>:
+  	</div>
+  	<div class="form_right">
+      <%= track_length(@content.length) if @content.length -%>
+  	</div>
+  </div>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'File'.t %>:
+  	</div>
+  	<div class="form_right">
+      <div class="default"><%= truncate_with_hint(@content.filename, :length => 65) %></div>
+      <%= link_to_function 'Replace file...'.t, "$('replace_file').show();this.hide();" %>
+      <div class="default" style="display: none;" id="replace_file">
+        <label for="uploaded_data">
+          <strong><%= 'Upload new file'.t -%>:</strong>
+        </label>
+        <%= f.file_field :uploaded_data %>
+      </div>
+  	</div>
+  </div>
+  <%= render :partial => "tags", :locals => { :f => f } %>
+  <%= render :partial => "copyrights", :locals => { :f => f } %>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Genre'.t -%>
+  	</div>
+  	<div class="form_right">
+      <%= f.text_field('genre', :size => 30, :maxsize => 60)  %>
+  	</div>
+  </div>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Year'.t -%>
+  	</div>
+  	<div class="form_right">
+      <%= f.text_field('year', :size => 4, :maxsize => 4)  %>
+  	</div>
+  </div>
+  <%= render :partial => "donation_options", :locals => {:f => f, :content => @content} %>
+  <%= render :partial => "display_settings", :locals => {:f => f, :content => @content} %>
+

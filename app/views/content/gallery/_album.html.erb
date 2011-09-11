@@ -1,0 +1,27 @@
+<%
+  timg = nil
+
+  if (content.respond_to?(:cover_art) && content.cover_art) || content.has_image?
+    if base_img = image_for_item(content)
+      timg = base_img.thumb(:thumb) # This is not deterministic, so can't call more than once per view
+    end
+  end
+
+  img = if timg.is_a?(ImageThumbnail)
+    image_tag(timg.public_filename, :style => css_cropping_for(timg, :album_image, false))
+  else
+    image_tag("AlbumNoPictureSmall.png", :style => "margin-top: 25px;")
+  end
+%>
+
+<div class="gallery_album2">
+  <%= link_to img, url %>
+
+  <div class="g_title2">
+    <%= gallery_content_title_link(content, url, :from_related => from_related) %>
+  </div>
+
+  <div class="gallery_album_icons">
+    <%= album_content_icons(content) %>
+  </div>
+</div>

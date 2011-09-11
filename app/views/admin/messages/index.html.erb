@@ -1,0 +1,45 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Managing Admin Messages'.t %>
+
+<div class="admin">
+  
+  <h2><%= 'Admin Messages'.t %></h2>
+  
+  <table class="admin">
+    <tr>
+      <th>Id</th>
+      <th><%= 'English Message'.t %></th>
+      <th><%= 'Russian Message'.t %></th>
+      <th><%= 'Start'.t %></th>
+      <th><%= 'End'.t %></th>
+      <th><%= 'Status'.t %></th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+    
+    <% @messages.each do |@admin_flash| %>
+      <% set_in_place_edit_defaults(@admin_flash, [:message, :message_ru]) %>
+      <tr class="<%= cycle("dark", "light") %>">
+        <td><%= @admin_flash.id %></td>
+        <td><%= in_place_editor_field :admin_flash, 'message', {}, :load_text_url => {:action => 'unformatted_message', :id => @admin_flash, :lang => 'en'}, :rows => 2 %></td>
+        <td><%= in_place_editor_field :admin_flash, 'message_ru', {}, :load_text_url => {:action => 'unformatted_message', :id => @admin_flash, :lang => 'ru'}, :rows => 2 %></td>
+        <td><%= @admin_flash.start ? @admin_flash.start : '&nbsp;' %></td>
+        <td><%= @admin_flash.end ? @admin_flash.end : '&nbsp;' %></td>
+        <td style="<%= 'background: red;' unless @admin_flash.shown? %>"><%=h @admin_flash.shown? ? 'Show'.t : 'Hide'.t %></td>
+        <td><%= link_to(@admin_flash.shown? ? 'Hide'.t : 'Show'.t, { :action => 'toggle', :id => @admin_flash }, :method => :post) %></td>
+        <td><%= link_to('Edit'.t, :action => 'edit', :id => @admin_flash) %></td>
+        <td><%= link_to('Destroy'.t, { :action => 'destroy', :id => @admin_flash }, :confirm => 'Are you sure you want to permanently delete this message?'.t, :method => :post) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% @admin_flash = nil %>
+
+  <% form_for :admin_flash, :url => {:action => :create } do |f| %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+    <%= submit_tag "Create".t %>
+  <% end %>
+
+  <br/><br/>
+  <%= link_to 'Clear the message cache'.t, :action => :clear_messages_cache %>
+</div>

@@ -1,0 +1,5 @@
+<% if content.user.project? %>
+  <%= 'has left the circles of your project {{project}}.' / [user_link(content.user, :icon => true)] %>
+<% else %>
+  <%= 'has left your circles.'.t %>
+<% end %>

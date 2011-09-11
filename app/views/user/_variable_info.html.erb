@@ -1,0 +1,23 @@
+<!-- second basic user info set -->
+<% questions_set = user.profile.question_group(user.project? ? :basic_project_1 : :basic_user_2, false, {:start => true}).sort{|q1, q2| q1.name <=> q2.name} %>
+<% questions_set.each do | question | %>
+  <%= render :partial => "content_simple", :locals => { :question => question} %>
+<% end %>
+
+<!-- contact info set -->
+<% questions_set = user.profile.question_group(:contact, false, {:start => true}) %>
+<% questions_set.each do | question | %>
+  <%= render :partial => "content_simple", :locals => { :question => question, :char_limit => 255} %>
+<% end %>
+
+<div class="profile_detail">
+  <!-- trivia question/answers set -->
+  <% user.profile.trivia_questions({:show_on_kroogi_page => true}).each do | question | %>
+    <div class="profile_q_a">
+      <div class="profile_q"><%= kf_simple(question.question) %></div>
+      <div class="profile_a"> <%= kf_simple(question.answer) %></div>
+    </div>
+  <% end %>
+  
+</div>
+

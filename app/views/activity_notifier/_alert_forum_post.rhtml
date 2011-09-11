@@ -1,0 +1,22 @@
+
+<p>
+  <strong>
+    <%= @from_user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> (<%= @from_user.display_name %>) 
+	  <% if @content.commentable.user.project? %> 
+	    <%= "posted on %s forum of project %s" / [@content.commentable.user.circle_name(@content.commentable.relationshiptype_id),@content.commentable.user.login] %>
+	  <% else -%>
+	    <%= 'posted on your %s forum' / @content.commentable.user.circle_name(@content.commentable.relationshiptype_id) -%> 
+	  <% end -%>
+  </strong>
+</p>
+
+<p>
+  <blockquote><em><%= kf_simple @content.comment %></em></blockquote>
+</p>
+
+<p>
+  <%= link_to "Open '%s' forum" / @content.commentable.name, "#{@url}/kroogi/privatewall/#{@content.commentable.user.id}?commentable=#{@content.commentable.id}&type=#{@content.commentable.relationshiptype_id}" %><br />
+  <%= link_to "Open '%s' Circle page" / @content.commentable.name, "#{@url}/kroogi/show/#{@content.commentable.user.id}?type=#{@content.commentable.relationshiptype_id}" %>
+</p>
+

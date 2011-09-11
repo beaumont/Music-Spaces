@@ -1,0 +1,40 @@
+<% @entry.each do |music_album|%>
+  <div class="whiteBox" id="container">
+    <div class="cover">
+      <% if music_album.cover_art %>
+        <%= link_to image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+          :border => 0,:width => 100, :class => "cover_art",
+          :alt => h(music_album.cover_art.thumb(:thumb).filename)),
+          {:controller => 'content', :action => 'show', :id => music_album.id, :canvas => true} %>
+      <%end%>
+    </div>
+    <div class="whiteBoxContent">
+      <div class="title"><%= link_to music_album.title, :controller => 'content', :action => 'show', :id => music_album.id, :canvas => true %></div>
+      <div class="artist"><%= music_album.artist %></div>
+      <div class="year"><%= music_album.year %></div>
+      <div class="style"><%= music_album.genre %></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+<%end%>
+<div class="findFooter">
+  <div style="display:inline;white-space: nowrap;">
+    <table border="0">
+      <tr>
+        <% if @entry.next_page %>
+          <td width="550px">
+            <% url = facebook_absolute_url("/facebook/search/albums?page=#{@page}&filter=#{params[:filter]}&canvas=false")%>
+            <%= link_to("More Albums #{image_tag('FBArrowDown.png')}","#",{
+                        :clickrewriteurl => url,
+                        :clickrewriteform => 'dummy_form',
+                        :clickrewriteid => 'ajaxUpdater',
+                        :clicktoshow => 'spinner'}) %>
+
+           <form id="dummy_form"></form>
+          </td>
+          <td><span id="spinner" style="display:none;"> <%=image_tag('indicator_blue_small.gif')%> </span></td>
+        <%end%>
+      </tr>
+    </table>
+  </div>
+</div>

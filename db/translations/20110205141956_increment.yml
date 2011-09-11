@@ -1,0 +1,356 @@
+--- 
+- 
+  created_at: 2008-08-23 14:27:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "общайтесь и будьте в курсе всех обновлений {{username}}"
+  tr_key: "Express interest in {{username}}, get updates from him"
+  tr_origin: /app/models/facebook/user.rb
+  updated_at: 2011-02-02 14:15:29 +00:00
+- 
+  created_at: 2008-12-25 02:02:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кураторы проекта &mdash; это люди, которые его создали и поддерживают. Каждый из них может представлять проект. Кураторы могут добавлять и редактировать материалы проекта, а также общаться с другими от его лица."
+  tr_key: "Project Hosts are the people who created this project and run it. Each of the people listed can represent the project at any given time. They can post and edit content. They can also talk to others on behalf of the project."
+  tr_origin: /app/views/user/founders.html.erb
+  updated_at: 2011-02-01 19:08:17 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Общедоступно
+  tr_key: "Anyone can join"
+  tr_origin: /app/views/account_settings/_circle_settings_table.html.erb
+  updated_at: 2011-02-01 19:08:36 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "открытое приглашение"
+  tr_key: "pending invitation"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: " и "
+  tr_key: " and "
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вот %s можно настроить состав участников и приглашения"
+  tr_key: "Click %s to manage members and invites"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настроить информацию для посетителей вне круга"
+  tr_key: "Customize information displayed to people not in this circle"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-09-08 17:14:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Как присоединиться к этому кругу"
+  tr_key: "How can people join this circle"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-09-08 17:14:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сохранить изменения во всех кругах"
+  tr_key: "Save Changes to All Circles"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "открытые приглашения"
+  tr_key: "pending invitations"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-09-03 13:23:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Картинка
+  tr_key: "Kroogi Picture"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-09-25 17:22:49 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Участие в кругах %s"
+  tr_key: "Membership in %s's Circles"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-10-09 05:05:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Можно попросить приглашение"
+  tr_key: "People can request to join"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-10-09 05:05:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Никто не может присоединться без приглашения"
+  tr_key: "Nobody can join unless invited"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-10-27 15:04:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "находится зритель"
+  tr_key: "one follower"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-11-18 16:53:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы не можете отключить этот круг &mdash; в нём %s"
+  tr_key: "You cannot turn off this circle &mdash; it has %s"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-12-25 02:02:32 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто такие \"кураторы проекта\"?"
+  tr_key: "Who are Project Hosts?"
+  tr_origin: /app/views/user/founders.html.erb
+  updated_at: 2011-02-01 19:08:30 +00:00
+- 
+  created_at: 2010-03-10 16:43:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пресс релизы"
+  tr_key: "Press Releases"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2010-03-10 16:43:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: События
+  tr_key: Events
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2010-03-15 20:29:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Зрительный зал {{project_name}}"
+  tr_key: "Appreciate {{project_name}}"
+  tr_origin: ~
+  updated_at: 2011-02-02 14:15:37 +00:00
+- 
+  created_at: 2010-03-15 20:29:16 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Войдите во внутренний круг!"
+  tr_key: "Join the Inner Circle"
+  tr_origin: ~
+  updated_at: 2011-02-02 14:15:37 +00:00
+- 
+  created_at: 2010-03-15 20:29:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Избранныx мало"
+  tr_key: "Be the Chosen One"
+  tr_origin: ~
+  updated_at: 2011-02-02 14:15:37 +00:00
+- 
+  created_at: 2010-04-20 21:18:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы оставите это поле пустым, по умолчанию будет показан следующий текст:"
+  tr_key: "Default text will be inserted if you leave this blank:"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2008-08-23 14:27:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Близкие друзья {{username}}"
+  tr_key: "Get invited into {{username}}'s circle of close friends"
+  tr_origin: ~
+  updated_at: 2011-02-02 14:15:37 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Управление кругами"
+  tr_key: "Circles Management"
+  tr_origin: ~
+  updated_at: 2011-02-01 19:08:45 +00:00
+- 
+  created_at: 2011-02-01 19:08:44 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Зарегистрироваться в Кругах с помощью Facebook"
+  tr_key: "Create Kroogi Account Using Facebook"
+  tr_origin: /app/views/content/_download_donate_widget.html.erb
+  updated_at: 2011-02-01 20:56:52 +00:00
+- 
+  created_at: 2011-02-05 11:49:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Подробнее...
+  tr_key: "View More..."
+  tr_origin: /app/views/shared/_public_history_entry.html.erb
+  updated_at: 2011-02-05 14:19:48 +00:00
+- 
+  created_at: 2011-02-05 11:49:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вход в систему"
+  tr_key: Login
+  tr_origin: /app/views/shared/many_rpm.html.erb
+  updated_at: 2011-02-05 14:19:33 +00:00
+- 
+  created_at: 2011-02-05 11:49:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Удалить сообщение?"
+  tr_key: "Delete message?"
+  tr_origin: /app/views/shared/_delete_private_message.html.erb
+  updated_at: 2011-02-05 14:19:04 +00:00
+- 
+  created_at: 2011-02-05 11:49:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{user}} заблокирован."
+  tr_key: "{{user}} was successfully blocked."
+  tr_origin: /app/views/activity/remove.rjs
+  updated_at: 2011-02-05 14:19:23 +00:00
+- 
+  created_at: 2011-02-05 11:49:58 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Параметры поиска"
+  tr_key: "Search Terms"
+  tr_origin: /app/views/admin/site_activity_logs/search_terms.html.erb
+  updated_at: 2011-02-05 14:18:42 +00:00
+- 
+  created_at: 2011-02-05 11:49:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Платёжная система уже подключена"
+  tr_key: "You already have a connected payment system"
+  tr_origin: /app/views/wizard/agreement.html.erb
+  updated_at: 2011-02-05 14:18:24 +00:00
+- 
+  created_at: 2011-02-05 11:50:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Удалить все сообщения {{user}}"
+  tr_key: "Delete all {{user}} messages"
+  tr_origin: /app/views/shared/_delete_private_message.html.erb
+  updated_at: 2011-02-05 14:17:43 +00:00
+- 
+  created_at: 2011-02-05 11:50:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы Автор:"
+  tr_key: "If You are an Artist:"
+  tr_origin: /app/views/home/signup.html.erb
+  updated_at: 2011-02-05 14:16:01 +00:00
+- 
+  created_at: 2011-02-05 11:50:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Отправить Кругам"
+  tr_key: "Submit to Kroogi"
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-02-05 14:16:55 +00:00
+- 
+  created_at: 2011-02-05 11:50:17 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Для скачивания регистрация необязательна."
+  tr_key: "Registration is not required to download."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-05 14:16:39 +00:00
+- 
+  created_at: 2011-02-05 11:50:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Заблокировать {{user}}"
+  tr_key: "Block {{user}}"
+  tr_origin: /app/views/shared/_delete_private_message.html.erb
+  updated_at: 2011-02-05 14:15:24 +00:00
+- 
+  created_at: 2011-02-05 11:50:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто наблюдает за мной."
+  tr_key: "People who follow me."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-05 14:15:28 +00:00
+- 
+  created_at: 2011-02-05 11:50:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Сообщение удалено."
+  tr_key: "Message was successfully deleted."
+  tr_origin: /app/views/activity/remove.rjs
+  updated_at: 2011-02-05 14:14:46 +00:00
+- 
+  created_at: 2011-02-05 11:50:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вы на можете отправить личное сообщение {{user}}, так как {{user}} установил блокировку на сообщения от вас. Нам жаль, что так вышло."
+  tr_key: "You can not send a private message to {{user}} because {{user}} has blocked you from sending any messages. Sorry"
+  tr_origin: /app/views/activity/dialogue.html.erb
+  updated_at: 2011-02-05 14:13:52 +00:00
+- 
+  created_at: 2011-02-05 11:50:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: |-
+      Если вам не хочется ждать, пожалуйста {{login}} или {{register}}, чтобы получить мгновенный доступ к поисковой системе Кругов. 
+      
+      If you don't want to wait please {{login}} or {{register}} to have instant access to Kroogi search engine.
+  tr_key: "If you don't want to wait please {{login}} or {{register}} to have instant access to Kroogi search engine."
+  tr_origin: /app/views/shared/many_rpm.html.erb
+  updated_at: 2011-02-05 14:11:49 +00:00
+- 
+  created_at: 2011-02-05 11:50:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Автоматически добавлять участников в ваш круг<b>Зрители</b>"
+  tr_key: "You want to add participants automaticaly to your <b>Interested circle</b>"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-02-05 14:05:19 +00:00
+- 
+  created_at: 2011-02-05 11:50:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Переслать
+  tr_key: "Submit ((to inbox))"
+  tr_origin: /app/views/content/sidebar/_post_to_inbox.html.erb
+  updated_at: 2011-02-05 13:37:59 +00:00
+- 
+  created_at: 2011-02-05 11:50:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Участники нашего проекта."
+  tr_key: "Our project participants."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-05 13:37:45 +00:00

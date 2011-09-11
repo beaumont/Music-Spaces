@@ -1,0 +1,93 @@
+<%# STEP 3. Show emails of users that are not on Kroogi and suggest to invite them. %>
+<%# In case of Invite widget we`re including Kroogi user emails -%>
+
+<% suggest_following ||= []
+   suggest_inviting = sort_contacts(external_emails + suggest_following)
+   external_emails = external_emails.map {|name, email| email.downcase}
+%>
+<%= wait_indicator('emergency_busy') %>
+<div id="bas_errmsg"></div>
+<div style="padding-bottom: 2em;">
+  <% form_remote_tag :url => {:controller => 'invite', :action => 'send_invitations'},
+                     :update => 'thank_you_overlay', :method => :post,
+                     :html => {:id => 'select_email_iform'} do %>
+    <%= hidden_field_tag 'contacts_number', suggest_inviting.size -%>
+    <%= hidden_field_tag 'start_following_step', start_following_step %>
+    <div class="widget_area_text"><%= 'Here are your contacts from address book. Please select who you want to share the Kroogi experience with.'.t %></div>
+
+    <div id="table_of_emails" class="wizard_checkbox_list">
+      <% unless suggest_inviting.blank? %>
+        <table class="list" width="100%">
+          <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+            <td colspan="2" style="font-style:italic;">
+              <%= render :partial => 'invite/select_all' %>
+            </td>
+          </tr>
+          <% suggest_inviting.each do |name, email| %>
+              <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+                <td class="name">
+                  <% if already_invited_or_followers.include?(email.downcase) %>
+                    <%= check_box_tag 'nomatter[]', '', true, :disabled => true %>
+                  <% else %>
+                    <%= check_box_tag external_emails.include?(email.downcase) ? 'external_mails[]' : 'kroogi_mails[]', email,
+                                      preselect.include?(email), :class => 'active_checkbox' %>
+                  <% end %>
+                  &nbsp;<%= h name %>
+                </td>
+                <td class="last">
+                  <%= h email %>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+
+    <div class="widget_area_text" style="padding-top:15px; font-weight:bold;"><%= "Your invitation message".t -%></div>
+    <div id="users_message_text">
+      <%= text_area_tag 'user_message', nil, :maxlength => 255, :cols => 74, :rows => 3,  :class => "fixed_width" -%>
+    </div>
+    <div class="widget_button_right">
+      <%= invoke_widget_button 'Invite'.t, 'send_emails_busy', 'thank_you_overlay', 'send_invitations', :form_id => 'select_email_iform' %>
+  <% end %>
+  </div>
+</div>
+
+<div class="widget_text" style="padding-top:7px;"><%= 'Or would you like to'.t -%>
+  <%= link_to_remote 'try a different email address?'.t,
+                     :update => 'add_friends_overlay', :url => {:action => 'add_friends_wizard',
+                                                                :controller => 'invite',
+                                                                :start_following_step => start_following_step},
+                     :html => {:onclick => "jQuery('#tryanother_busy').show();"} -%>
+  <%= wait_indicator('tryanother_busy') %>
+</div>
+
+<script type="text/javascript">
+  jQuery("#overlay_waitindicator").hide();
+  cleanup_ovr('externals_to_invite_overlay');
+
+  <%# if list of emails is big we grow the window %>
+  <% if suggest_inviting.size > 5 %>
+  <%= %q[ modal_height = document.viewport.getHeight() * 0.9; ] %>
+  <% else %>
+  <%= %q[ modal_height = 'auto' ] %>
+  <% end %>
+
+  jQuery('.ui-dialog').css('top', '4em');
+  var select_contacts_dialog_opts = {
+    modal: true,
+    height: 'auto',
+    <%#	height: modal_height, %>
+    width: 500,
+    minWidth: 500,
+    close: function() {
+      cleanup_ovr('externals_to_invite_overlay');
+      create_new_div('add_friends_overlay');
+      jQuery('#externals_to_invite_overlay').dialog('destroy');
+    }};
+  <%#  if(modal_height != 'auto' ){ jQuery('#table_of_emails').css('height',modal_height-200); } %>
+  jQuery('#externals_to_invite_overlay').attr('title', "<%= 'Invite People'.t %>");
+  jQuery('#externals_to_invite_overlay').dialog(select_contacts_dialog_opts);
+  create_new_div('add_friends_overlay');
+
+</script>

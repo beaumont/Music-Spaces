@@ -1,0 +1,13 @@
+<%= 'your account in Kroogi Network is blocked'.t %>
+
+<p>
+
+<%=
+  msg_txt = []
+  msg_txt << "<p><strong>#{'Reason'.t}:</strong> <em>#{activity.content.display_reason}</em></p>" unless activity.content.display_reason.blank?
+  msg_txt << "<p><strong>#{'Details'.t}:</strong> <em>#{activity.content.message}</em></p>" unless activity.content.message.blank?
+  msg_txt.join
+%>
+
+</p>
+

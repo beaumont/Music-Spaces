@@ -1,0 +1,13 @@
+<% preference ||= nil %>
+
+<%= "We will never share your email address with third parties. Your information will be kept <a {{link_attributes}}>private</a>." /
+            "href=\"javascript:void(0)\" onclick=\"$(this).next('.more_email_privacy_details_block').toggle()\"" %>
+<div class="more_email_privacy_details_block" <%= 'style="display:none"' if !preference || preference.email_searchable? %> >
+	<br />
+	<%= 'For more information read our <a {{tos_link_attributes}}>Privacy Policy</a>.' / kroogi_tos_link_attributes -%>
+	<br /> 
+	<% fields_for :preference do |fields| %>
+    	<%= fields.check_box :email_searchable, :checked => (preference ? preference.email_searchable? : true) %>
+  	<% end %>
+	<%= "Allow friends to search for you on Kroogi using your email address.".t %>
+</div>

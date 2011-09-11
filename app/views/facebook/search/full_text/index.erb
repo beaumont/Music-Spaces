@@ -1,0 +1,94 @@
+<%unless ((@projects.nil? && @music_albums.nil?) || (@projects.empty? && @music_albums.empty?) || (@projects.count < 1 && @music_albums.count < 1) )%>
+  <div id="artists" style="<%=@projects.count < 1 ? 'display:none;' : ''%>">
+    <div class="searchMenu">
+      <ul><li class="selected"><%= link_to("Artist (#{@projects.total_entries})", "#", :clicktoshow=> 'artists', :clicktohide=> 'albums', :filter=>'artist') %></li>
+        <li><%= link_to("Albums (#{@music_albums.total_entries})", "#", :clicktoshow=> 'albums', :clicktohide=> 'artists', :filter=>'albums') %></li>
+      </ul>
+    </div>
+    <div class="searchContainer">
+      <div class="searchResult"><%=will_paginate @projects, :param_name => 'projects_page'%></div>
+      <div class="searchHeader"><%= page_entries_info @projects, :entry_name => 'result' %> for: <span class="searchWord"><%=params[:term]%></span></div>
+      <%@projects.each do |p|%>
+        <div class="whiteBox">
+          <div class="cover"> <%= link_to(fb_profile_picture(p, {:max_width => 100, :max_height => 100, :content_link => nil}), :controller => 'project', :action => 'show', :id => p.id) %> </div>
+          <div class="whiteBoxContent">
+            <ul class="question">
+              <li>Artist:</li>
+              <%unless p.profile.city_and_country.empty?%> <li>Location: </li><%end%>
+            </ul>
+            <ul class="result">
+              <li><%= link_to(p.display_name, :controller => 'project', :action => 'show', :id => p.id, :class=>'album') %></li>
+               <%unless p.profile.city_and_country.empty?%><li><%= p.profile.city_and_country%></li><%end%>
+            </ul>
+            <ul class="searchRight">
+              <li>
+                <% music_album_size = p.contents.music_albums.select{|ma| ma.qualify_for_fb}.size %>
+                <% music_album_size_pluralized = pluralize(music_album_size, 'album') %>
+                <%= link_to "Download #{music_album_size_pluralized} >>", {:controller => 'project', :action => 'show', :id => p.id} %>
+              </li>
+            </ul>
+            <div class="clear"> </div>
+          </div>
+        </div>
+      <%end%>
+      <div class="searchResult"><%=will_paginate @projects, :param_name => 'projects_page'%></div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div id='albums' style="<%=@projects.count < 1 ? '' : 'display:none;'%>">
+    <div class="searchMenu">
+      <ul><li><%= link_to("Artist (#{@projects.total_entries})", "#", :clicktoshow=> 'artists', :clicktohide=> 'albums', :filter=>'artist') %></li>
+        <li class="selected"><%= link_to("Albums (#{@music_albums.total_entries})", "#", :clicktoshow=> 'albums', :clicktohide=> 'artists', :filter=>'albums') %></li>
+      </ul>
+    </div>
+    <div class="searchContainer">
+      <div class="searchResult" style="padding-top:10px;"><%=will_paginate @music_albums, :param_name => 'albums_page'%></div>
+      <div class="searchHeader"><%= page_entries_info @music_albums, :entry_name => 'result' %> for: <span class="searchWord"><%=params[:term]%></span></div>
+      <%@music_albums.each do |music_album|%>
+        <div class="whiteBox">
+          <div class="cover">
+            <% if music_album.cover_art %>
+              <%= link_to image_tag(music_album.cover_art.thumb(:thumb).public_filename,
+                :border => 0,:width => 100, :class => "cover_art",
+                :alt => h(music_album.cover_art.thumb(:thumb).filename)),
+                {:controller => 'content', :action => 'show', :id => music_album.id, :canvas => true} %>
+            <%end%>
+          </div>
+          <div class="whiteBoxContent">
+            <ul class="question">
+              <%unless music_album.artist.empty?%><li>Artist:</li><%end%>
+              <%unless music_album.title.empty?%><li>Album:</li><%end%>
+              <%unless music_album.year.to_s.empty?%><li>Year:</li><%end%>
+              <%unless music_album.genre.nil?%><li>Style:</li><%end%>
+              <%unless music_album.user.display_name.empty?%><li>From:</li><%end%>
+            </ul>
+            <ul class="result">
+              <%unless music_album.artist.empty?%><li><%= music_album.artist %></li><%end%>
+              <%unless music_album.title.empty?%><li style="width:300px;"><%= link_to truncate(music_album.title, :length => 60, :omission => " ... "), :controller => 'content', :action => 'show', :id => music_album.id, :canvas => true %></li><%end%>
+              <%unless music_album.year.to_s.empty?%><li><%= music_album.year ? music_album.year : "&nbsp;" %></li><%end%>
+              <%unless music_album.genre.nil?%><li><%= music_album.genre ? music_album.genre : "&nbsp;"%></li><%end%>
+              <%unless music_album.user.display_name.empty?%><li><%= music_album.user.display_name ? link_to(music_album.user.display_name, :controller => 'project', :action => 'show', :id => music_album.user.id) : '&nbsp;'%></li><%end%>
+            </ul>
+            <ul class="searchRight">
+              <li><%= link_to('Download',{:controller => 'content', :action => 'show', :id => music_album.id, :expand => 'downloadboxContent'}) %></li>
+              <li><%= link_to('Contribute',{:controller => 'content', :action => 'show', :id => music_album.id, :expand => 'donateboxContent'}) %></li>
+              <li><%= send_album_link("Send to Friends", music_album.id, 1) %> </li>
+            </ul>
+            <div class="clear"> </div>
+          </div>
+        </div>
+      <%end%>
+      <div class="searchResult" style="padding-bottom:10px;"><%=will_paginate @music_albums, :param_name => 'albums_page'%></div>
+      <div class="clear"></div>
+    </div>
+  </div>
+<%else%>
+  <div class="noResult">No results for <span class="searchWord"><%=params[:term]%></span> were found in Kroogi Downloads.<br />
+    Please try again.<br />
+    <% form_tag({:controller => 'search', :action => 'index'}, {:class=>'anotherSearch', :method => :get}) do %>
+      <div class="searchBox"><%= text_field_tag :term , '', :id => 'anotherSearchTerm'%></div>
+      <div class="searchButton"><%= image_submit_tag 'search.gif' ,:onclick=>"return confirm('anotherSearchTerm');"%> </div>
+    <%end%>
+  </div>
+  <%=verify_search_input%>
+<%end%>

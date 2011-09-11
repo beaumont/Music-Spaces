@@ -1,0 +1,146 @@
+<%
+dialog_id_suffix ||= 1
+project_to_follow ||= nil
+content_to_like ||= nil
+start_following ||= false
+if current_fb_connected_user
+  profile_pic = "<fb:profile-pic size='square' facebook-logo='true' uid='#{current_fb_connected_user.id}'></fb:profile-pic>"
+  name     = current_fb_connected_user.name.gsub(/\s/,'').downcase
+  locale   = current_fb_connected_user.locale[0..1] if current_fb_connected_user.locale
+  email    = current_fb_connected_user.email
+  birthday = current_fb_connected_user.birthday
+  gender   = current_fb_connected_user.gender == 'female' ? 'F' : 'M'
+  show_form = false
+end
+%>
+
+
+<!-- Already linked FB user -->
+<% persistent_connected_user = current_fb_linked_user if current_fb_connected_user %>
+<% unless persistent_connected_user.nil? %>
+  <% form_for :user_to_login, :url => {:controller => 'home', :action => 'login'},
+                              :html => {:id => "loginForm_#{dialog_id_suffix}",
+                              :name => "loginForm_#{dialog_id_suffix};",
+                              :style=> 'display:inline'} do |f| -%>
+    <%= hidden_field_tag "user_to_login[login]", persistent_connected_user.login %>
+    <%= hidden_field_tag "user_to_login[content_to_like]", content_to_like ? content_to_like : nil %>
+    <% form_border do %>
+      <%= 'Hello'.t %>&nbsp;<b><%= persistent_connected_user.login %></b>,
+      <%= 'you already have a Kroogi account associated with your Facebook Account.'.t %>
+    <% end %>
+    <% fb_logout_button = fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+    <%= render :partial => '/submit/buttons.html.erb',
+                :locals => {
+                 :use_button_submit => true,
+                 :disable_cancel => true,
+                 :render_before_submit => fb_logout_button,
+                 :button_wrapper_class => 'button_wrapper',
+                 :ok_label => 'Login to Kroogi'.t} %>
+  <% end %>
+<% end %>
+
+<!-- NOT logged in to FB -->
+<% if current_fb_connected_user.nil? %>
+  <%= render :partial => '/shared/facebook/connect/fb_connect_init_form',
+             :locals => {:dialog_id_suffix => dialog_id_suffix,
+                              :fb_connect_user => nil,
+                              :restore_submit_button_state => true,
+                              :reset_form => true} %>
+<% else %>
+  <!-- LOGGED in to FB -->
+  <% if persistent_connected_user.nil? %>
+    <% form_border do %>
+      <%= 'You are logged into facebook as <b>{{fb_name}}</b>.' / current_fb_connected_user.name %>
+      <%= 'You can create a Kroogi account using your Facebook info.'.t %>
+      <%= 'If you want to use a different Facebook account, please logout from Facebook.'.t %>
+    <% end %>
+    <div class="button_wrapper" id="button_container_<%=dialog_id_suffix%>">
+      <%= fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+      <button class="button" onclick="jQuery('#formfields_<%=dialog_id_suffix%>').show();jQuery('#button_container_<%=dialog_id_suffix%>').hide();">
+        <span> <%= 'Create Account'.t %></span>
+      </button>
+    </div>
+  <% end %>
+<% end %>
+
+<div id="signup_form_errors_<%= dialog_id_suffix %>" class="error"></div>
+
+<!-- NEW USER LOGGED in to FB -->
+<% if persistent_connected_user.nil? && current_fb_connected_user %>
+  <div id="formfields_<%= dialog_id_suffix %>" style="display:<%= show_form ? '' : 'none' %>; padding-top:0px; margin-top:0px;">
+    <% remote_form_for :user_to_create, 
+                       :url => {:controller => 'home', :action => 'signup', :ajax_mode => true},
+                       :type => :synchronous,
+                       :html => {:id => "signupForm_#{dialog_id_suffix}",
+                                 :name => "signupForm_#{dialog_id_suffix}",
+                                 :onsubmit => "if (!checkSignupCheckBoxes_#{dialog_id_suffix}()) {return false};",
+                                 :class=> "signup" }  do |f| -%>
+      <%= f.hidden_field 'project_to_follow', :value => project_to_follow, :class => 'project_to_follow' %>
+      <%= f.hidden_field 'start_following', :value => start_following, :class => 'start_following' %>
+      <%= f.hidden_field 'created_on_event', :class => 'on_event' %>
+      <%= f.hidden_field 'content_to_like', :value => (content_to_like ? content_to_like : nil)%>
+      <% if current_fb_connected_user %>
+        <%= hidden_field_tag 'fb_connect_user', 'true' %>
+        <%= hidden_field_tag 'fb_connect_id', current_fb_connected_user.id %>
+        <%= hidden_field_tag "user_to_create[password]", "dummy_password_#{current_fb_connected_user.id}" %>
+        <%= hidden_field_tag "user_to_create[password_confirmation]", "dummy_password_#{current_fb_connected_user.id}" %>
+        <%= hidden_field_tag "user_to_create[email_verified]", email %>
+      <% end %>
+      <% form_border do %>
+        <div style="padding-left: 90px;">
+          <label for="user_to_create_fb_pic"></label>
+          <%= profile_pic if profile_pic %>
+          <label for="user_to_create_email"><%= 'Email'.t -%></label>
+          <%= f.text_field :email, :value => email,  :style => "width:250px;", :class => 'email' %>
+          <div class="default"><%= render :partial => '/shared/we_will_keep_your_email_private_wording.html.erb' %></div>
+
+          <label for="user_to_create_login"><%= 'Login Name'.t -%></label>
+          <% sub_text = %Q{<div class="default" id="allowed_values_#{dialog_id_suffix}">#{'Letters, numbers, and dashes (-) are allowed.'.t}</div>}%>
+          <%= render :partial => '/shared/form_observable_field',
+                          :locals => {:f => f,
+                                      :field_to_observe => "user_to_create_login_#{dialog_id_suffix}",
+                                      :dialog_id_suffix => dialog_id_suffix,
+                                      :field => 'login',
+                                      :model => 'user',
+                                      :value => name,
+                                      :validate => true,
+                                      :sub_text => sub_text} %>
+
+          <label for="user_to_create_gender"><%= 'Gender'.t -%></label>
+          <%= f.radio_button 'gender', 'M', :checked => "#{ gender == 'M' ? 'checked' : ''}" %>
+          <%= 'Male'.t %>
+          <%= f.radio_button 'gender', 'F', :checked => "#{ gender == 'F' ? 'checked' : ''}" %>
+          <%= 'Female'.t %>
+          <label for="user_to_create_birthdate"><%= 'Birthday'.t -%></label>
+          <%= calendar_date_select_tag "user_to_create[birthdate]", birthday, :time => false ,
+              :year_range => 110.years.ago..13.years.ago,
+              :id => "birthdate_#{dialog_id_suffix}" %>
+          <label for="user_to_create_language"><%= 'Language'.t -%></label>
+          <%= f.radio_button 'language', 'en', :checked => "#{ (locale == 'en' || locale != 'ru') ? 'checked' : ''}" %>
+          <%= 'English'.t %>
+          <%= f.radio_button 'language', 'ru', :checked => "#{ locale == 'ru' ? 'checked' : ''}" %>
+          <%= 'Russian'.t %><br />
+          <%= check_box_tag "tos", "", false, :id => "tos_#{dialog_id_suffix}" %>
+          <label for="tos_<%= dialog_id_suffix %>" style="display: inline; font-weight: normal;"><%= 'I have read and accepted <a {{tos_link_attributes}}>Terms of Service</a>' / kroogi_tos_link_attributes -%></label>
+        </div>
+      <% end %>
+
+      <%= hidden_field_tag :dialog_id_suffix, dialog_id_suffix %>
+      <% fb_logout_button = fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+      <%= render :partial => '/submit/buttons.html.erb',
+                   :locals => 
+                   {
+                   :use_button_submit => true,
+                   :disable_cancel => true,
+                   :reset_button_id => true,
+                   :dialog_id_suffix => dialog_id_suffix,
+                   :validate => "checkSignupCheckBoxes_#{dialog_id_suffix}()",
+                   :ajax_mode => true,
+                   :cleanup_after => restore_submit_button_state,
+                   :render_before_submit => fb_logout_button,
+                   :button_wrapper_class => 'button_wrapper',
+                   :ok_label => 'Create Account'.t
+                   } %>
+    <% end %>
+  </div>
+<% end %>

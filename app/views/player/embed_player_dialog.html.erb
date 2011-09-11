@@ -1,0 +1,16 @@
+  <div id="embed_player_divs">
+    <div id="embed_player_code_400">
+      <div style="font-weight: bold;">
+        <%= "Embed Code".t %>
+      </div>
+      <textarea id="embed_player_code_text_400" class="embed_player_code_text" onclick="jQuery('#embed_player_code_text_400').select()" style="width:390px;" readonly="readonly"><%= render(:partial => "embed_code", :locals => @vars.merge(:width => @player_width) ).squish %></textarea>
+      <script type="text/javascript">jQuery('#embed_player_code_text_400').select()</script>
+
+      <div style="font-weight: bold; margin-top:20px;">
+        <%= "Embedded Player".t %>
+      </div>
+      <div id="embed_test" style="margin:12px;" >
+        <%= render :partial => "embed_code", :locals => @vars  %>
+      </div>
+    </div>
+  </div>

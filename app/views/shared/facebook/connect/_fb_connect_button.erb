@@ -1,0 +1,36 @@
+<%
+mock_fb_button ||= false
+button_text ||= nil
+title_text ||= 'Create an account using'.t
+no_padding ||= nil
+show_faces ||= false
+onclick_handler ||= 'return true;'
+%>
+<% if mock_fb_button %>
+<span id="fb_mock_login_button">
+  <span class="seperator">|</span>
+  <%= link_to image_tag('connect_light_large_long.gif', :height=>'20px;', :style => 'padding:0 0 1px 0; vertical-align:bottom;') , "#", :id => 'button_id' -%>
+
+  <script type="text/javascript">
+    jQuery("#signin_form #button_id").bind('click', function() {
+      jQuery("#signin_form #login").val('<%=current_fb_linked_user.login%>');
+      jQuery('#<%=form_id%>').submit();
+    });
+  </script>
+</span>
+<% else %>
+
+  <span id="login_button_block">
+    <%= link_to title_text , '#' %>
+      <fb:login-button onlogin="<%= onclick_handler %>",
+                       autologoutlink="false" max-rows="1"
+                       show-faces="<%= show_faces %>"
+                       perms="email,user_birthday,user_interests,user_likes,read_friendlists,publish_stream,offline_access"
+                       width="140px">
+        <%= button_text -%>
+      </fb:login-button>
+      <span class="update_progress" style="display:none;vertical-align: middle;padding-left:3px;padding-top:5px;"><img src="/images/ajax-loader.gif" /></span>
+  </span>
+
+<% end %>
+

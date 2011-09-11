@@ -1,0 +1,45 @@
+<% hat = goodie.content %> 
+<% recipient = hat.user %>
+<% donor = current_user %>
+<% donation_dialog_number = goodie.identifier %>
+<% title = truncate('Pay for {{title}}' / goodie.title, :length => 57) %>
+<% container_selector ||= 'tr' %>
+
+<div style="display: none;" id="donation_dialog_<%= donation_dialog_number %>"></div>
+
+<% form_remote_for :goodie_checkout,
+                  :url => { :controller => '/donate', :action => 'create_tps_goodie_ticket'},
+                  :type => :synchronous,
+                  :html => {:style => "display:none", :id => "prepare_goodie_checkout_#{donation_dialog_number}"} do |f| -%>
+  <%= hidden_field_tag(:id, goodie.id) %>
+  <%= hidden_field_tag(:ticket_id, @ticket_ids[goodie.id], :id => "ticket_id_#{goodie.id}") %>
+<% end %>
+
+<script type="text/javascript">
+  var donation_dialog_opts_<%= donation_dialog_number %> = {
+    title: "<%= js(title) %>",
+    modal: true,
+    height: 'auto',
+    position: 'top',
+    width: 400,
+    open:  function() {
+      jQuery("#donation_dialog_<%= donation_dialog_number %>").load(
+        '/donate/choose?recipient_id=<%= recipient.id %>&content_id='+ $('<%= "ticket_id_#{goodie.id}" %>').value +
+        '&content_type=Tps::GoodieTicket' +
+        '<%= (!donor.blank? and (donor.id >= 0)) ? "&donor_id=#{donor.id}"     : "" %>' +
+        '&dialog_id_suffix=<%= donation_dialog_number %>');
+    },
+    close: function() {
+      jQuery("#donation_dialog_<%= donation_dialog_number %>").html('');
+      jQuery("#donation_dialog_<%= donation_dialog_number %>").dialog('destroy');
+    }
+  };
+  function do_contribution_<%= donation_dialog_number %>(element) {
+    <% unless @ticket_ids[goodie.id] %>
+    $(element).up('<%= container_selector %>').down('.wait_up_homie').show();
+      jQuery('<%= "#ticket_id_#{goodie.id}" %>').attr('form').onsubmit();
+    $(element).up('<%= container_selector %>').down('.wait_up_homie').hide();
+    <% end %>
+    jQuery('<%= "#donation_dialog_#{donation_dialog_number}" %>').dialog(donation_dialog_opts_<%= donation_dialog_number %>);
+  }
+</script>

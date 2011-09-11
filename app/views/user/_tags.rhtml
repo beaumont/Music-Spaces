@@ -1,0 +1,3 @@
+<% tag_cloud tags, %w( cloud_css1 cloud_css2 cloud_css3 cloud_css4 ) do |tag, css_class| %>
+  <%= link_to tag.name, controller.user_url_for(@user, :action => "tags", :tag => tag.name) %>&nbsp;&nbsp;&nbsp;
+<% end %>

@@ -1,0 +1,74 @@
+<% dialog_id = "#{commentable.class.name}_#{commentable.id}".gsub('::', '_') %>
+<% hidden ||= false %>
+<% unless defined?(autoshow); autoshow = true; end %>
+<% unless defined?(full_width); full_width = true; end %>
+<% prompt_label ||= 'Click to Leave Comment'.t %>
+<% submit_url_options ||= {:controller=> 'comment', :action => 'add_comment', :id => commentable.id, :commentable_type => commentable.class } %>
+<% return_to ||= url_for( request.request_uri) %>
+<% unless defined?(allow_acting_as_project); allow_acting_as_project = true; end %>
+<% after_button ||= nil %>
+<% allow_guests ||= nil %>
+<% before_form ||= nil %>
+<% textarea_id ||= 'comment_field' %>
+
+<% return unless logged_in? || allow_guests %>
+  <div id="comment_form_block_<%= dialog_id %>">
+  <div id="reply_holder"></div>
+  <% if hidden %>
+      <div class="leave_comment_link">
+        <strong><%= link_to_function prompt_label, "showCommentForm(this);" %></strong>
+      </div>
+  <% end %>
+  
+  <div class="comment_form comment" style="<%= hidden ? 'display:none;' : 'display:block;' -%> <%= "width: 100%;" if full_width -%>">
+    <%= before_form %>
+    <% form_tag(submit_url_options, :style=>"margin:0 !important;padding:0 !important;display:inline;") do -%>
+      <%= hidden_field_tag 'curr_url', return_to %>
+      <% if logged_in? %>
+        <div class="comment_head">
+          <%= render :partial => '/comments/avatar_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .showAvatarComment", :commentable => commentable} %>
+
+          <%= render :partial => '/comments/acting_as_selector', :locals => {:target => "#comment_form_block_#{dialog_id} .selectAvatar", :commentable => commentable, :allow_acting_as_project => allow_acting_as_project} %>
+        </div>
+      <% end %>
+      <%= avatar_md(current_actor, {:class => "showAvatarComment", :skip_add_link => true}) %>
+      <div class="block_body">
+        <%= text_area("comment", "comment", {"id" => textarea_id, "cols" => 64, "rows" => 10, :class => 'comment', :style => defined?(boxstyle) ? boxstyle : nil}) %>
+      </div>
+      <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+                                                            :disable_cancel => true,
+                                                            :ok_label => 'Post ((button))'.t,
+                                                            :ok_button_class => 'button',
+                                                            :disable_float => true,
+      } %>
+      <%= after_button %>
+     <div class="default">&nbsp;</div>
+
+    <% end %>
+  </div>
+  <script type="text/javascript" charset="utf-8">
+    function showCommentForm(element) {
+      if (typeof element == "undefined") {
+        link_div = $$('#comment_form_block_<%= dialog_id %> .leave_comment_link').first();
+        if (link_div) link_div.hide();
+        form_div = $$('#comment_form_block_<%= dialog_id %> .comment_form').first();
+      } else {
+        element = $(element);
+        link_div = element.up('.leave_comment_link');
+        link_div.hide();
+        form_div = link_div.next('.comment_form');
+      }
+      form_div.show();
+      form_div.scrollTo();
+      form_div.down("textarea").focus();
+    }
+    <% if autoshow %>
+      Event.observe(window, 'load', function(){
+        if (document.location.hash == '#comment_form') {
+          showCommentForm();
+        }
+      });
+    <% end %>
+  </script>
+  </div>
+

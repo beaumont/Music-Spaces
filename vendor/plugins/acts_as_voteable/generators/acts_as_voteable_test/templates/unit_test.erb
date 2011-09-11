@@ -1,0 +1,432 @@
+require File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../test_helper'
+
+class ActsAsVoteable<%= class_name %>Test < Test::Unit::TestCase
+  
+  def test_vote_up_before_any_votes
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    assert_equal(
+      user.vote_up(<%= file_name %>),
+      user.voted_up?(<%= file_name %>),
+      "user.voted_up?(<%= file_name %>) should return up_vote after " + 
+      " up_vote = user.vote_up(<%= file_name %>)"
+    )
+    
+    assert_equal(
+      user.vote_up(<%= file_name %>, :about => 'topic'),
+      user.voted_up?(<%= file_name %>, :about => 'topic'),
+      "user.voted_up?(<%= file_name %>, :about => 'topic) should return up_vote " + 
+      "after up_vote = user.vote_up(<%= file_name %>, :about => 'topic')"
+    )
+  end
+  
+  def test_vote_up_after_up_vote
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_up(<%= file_name %>)
+
+    assert_nil(
+      user.vote_up(<%= file_name %>),
+      "user.vote_up(<%= file_name %>) should return nil after " + 
+      "user.voted_up?(<%= file_name %>)"
+    )
+    
+    assert_nil(
+      user.voted_up?(<%= file_name %>),
+      "user.voted_up?(<%= file_name %>) should return nil after " + 
+      "user.voted_up?(<%= file_name %>) and then " + 
+			"user.vote_up(<%= file_name %>)"
+    )
+    
+    user.vote_up(<%= file_name %>, :about => 'topic')
+    
+    assert_nil(
+      user.vote_up(<%= file_name %>, :about => 'topic'),
+      "user.vote_up(<%= file_name %>, :about => 'topic') should return " + 
+			"nil after user.voted_up?(<%= file_name %>, :about => 'topic')"
+    )
+    
+    assert_nil(
+      user.voted_up?(<%= file_name %>, :about => 'topic'),
+      "user.voted_up?(<%= file_name %>, :about => 'topic') should return "  + 
+			"nil after user.voted_up?(<%= file_name %>, :about => 'topic') and " + 
+			"then user.vote_up(<%= file_name %>, :about => 'topic')"
+    )
+  end
+  
+  def test_voted_up_after_down_vote
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_up(<%= file_name %>)
+		user.vote_down(<%= file_name %>)
+    
+    assert_nil(
+      user.voted_up?(<%= file_name %>),
+      "user.voted_up?(<%= file_name %>) should return nil after " + 
+      "user.vote_down(<%= file_name %>)"
+    )
+    
+    user.vote_up(<%= file_name %>, :about => 'topic')
+		user.vote_down(<%= file_name %>, :about => 'topic')
+    
+    assert_nil(
+      user.voted_up?(<%= file_name %>, :about => 'topic'),
+      "user.voted_up?(<%= file_name %>) should return nil after " + 
+      "user.vote_down(<%= file_name %>)"
+    )
+  end
+  
+  # DOWN VOTES #
+  
+  def test_vote_down_before_any_votes
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    assert_equal(
+      user.vote_down(<%= file_name %>),
+      user.voted_down?(<%= file_name %>),
+      "user.voted_down?(<%= file_name %>) should return down_vote after " + 
+      " down_vote = user.vote_down(<%= file_name %>)"
+    )
+    
+    assert_equal(
+      user.vote_down(<%= file_name %>, :about => 'topic'),
+      user.voted_down?(<%= file_name %>, :about => 'topic'),
+      "user.voted_down?(<%= file_name %>, :about => 'topic) should return " + 
+      "down_vote after down_vote = user.vote_down(<%= file_name %>, :about " + 
+      "=> 'topic')"
+    )
+  end
+  
+  def test_vote_down_after_down_vote
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_down(<%= file_name %>)
+    
+    assert_nil(
+      user.vote_down(<%= file_name %>),
+      "user.vote_down(<%= file_name %>) should return nil after " + 
+      "user.voted_down?(<%= file_name %>)"
+    )
+    
+    assert_nil(
+      user.voted_down?(<%= file_name %>),
+      "user.voted_down?(<%= file_name %>) should return nil after " + 
+      "user.voted_down?(<%= file_name %>) and then " + 
+			"user.vote_down(<%= file_name %>)"
+    )
+    
+    user.vote_down(<%= file_name %>, :about => 'topic')
+    
+    assert_nil(
+      user.vote_down(<%= file_name %>, :about => 'topic'),
+      "user.vote_down(<%= file_name %>, :about => 'topic') should return " + 
+			"nil after user.voted_down?(<%= file_name %>, :about => 'topic')"
+    )
+    
+    assert_nil(
+      user.voted_down?(<%= file_name %>, :about => 'topic'),
+      "user.voted_down?(<%= file_name %>, :about => 'topic') should " + 
+			"return nil after " + 
+			"user.voted_down?(<%= file_name %>, :about => 'topic') and then " +
+      "user.vote_down(<%= file_name %>, :about => 'topic')"
+    )
+  end
+  
+  def test_voted_down_after_up_vote
+		user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_down(<%= file_name %>)
+    user.vote_up(<%= file_name %>)
+    
+    assert_nil(
+      user.voted_down?(<%= file_name %>),
+      "user.voted_down?(<%= file_name %>) should return nil after " + 
+      "user.vote_up(<%= file_name %>)"
+    )
+    
+    user.vote_down(<%= file_name %>, :about => 'topic')
+    user.vote_up(<%= file_name %>, :about => 'topic')
+    
+    assert_nil(
+      user.voted_down?(<%= file_name %>, :about => 'topic'),
+      "user.voted_down?(<%= file_name %>) should return nil after " + 
+      "user.vote_up(<%= file_name %>)"
+    )
+  end
+
+  def test_vote_validation
+    vote = Vote.new
+    vote.valid?
+    
+    assert_equal(
+      Vote::ERROR_MESSAGES[:voteable][:presence],
+      vote.errors[:voteable],
+      "There should be one error on <%= file_name %> after validation on " + 
+			"a vote with no associated <%= file_name %>"
+    )
+    
+    assert_equal(
+      Vote::ERROR_MESSAGES[:user][:presence],
+      vote.errors[:user],
+      "There should be one error on user after validation on a vote" + 
+      " with no associated user"
+    )
+  end
+
+  def test_votes_count
+		user = User.create
+		another_user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_up(<%= file_name %>)
+    another_user.vote_down(<%= file_name %>)
+    
+    assert_equal(
+      2, 
+      <%= file_name %>.votes.count, 
+      "<%= file_name %>.votes.count should return 2 after 2 total votes"
+    )
+    
+    assert_equal(
+      1, 
+      <%= file_name %>.up_votes.count,
+      "<%= file_name %>.up_votes.count should return 1 after 1 up_vote"
+    )
+    
+    assert_equal(
+      1, 
+      <%= file_name %>.down_votes.count,
+      "<%= file_name %>.down_votes.count should return 1 after 1 down_vote"
+    )
+  end
+  
+  
+  def test_points
+		user = User.create
+		another_user = User.create
+		third_user = User.create
+		<%= file_name %> = <%= class_name %>.create
+	
+    user.vote_up(<%= file_name %>)
+    another_user.vote_down(<%= file_name %>)
+    third_user.vote_down(<%= file_name %>)
+    
+    assert_equal(
+      -1,
+      <%= file_name %>.points,
+      "<%= file_name %>.points should be equal to " + 
+			" up_votes.count - down_votes.count"
+    )
+
+		<%= file_name %>_about_topic = <%= class_name %>.create
+		
+		user.vote_up(<%= file_name %>_about_topic, :about => 'topic')
+    another_user.vote_up(<%= file_name %>_about_topic, :about => 'topic')
+    third_user.vote_down(<%= file_name %>_about_topic)
+    
+    assert_equal(
+      2,
+      <%= file_name %>_about_topic.points(:about => 'topic'),
+      "<%= file_name %>.points(:about => 'topic'), should be equal to " + 
+			" the number of up_votes about the topic minus the number of " + 
+			"down_votes about the topic"
+    )
+  end
+  
+  def test_find_top_illegal_options
+    [:order, :joins, :include, :select, :group].each do |illegal_option|
+      assert_raise(
+        ArgumentError,
+        "<%= class_name %>.find_top should raise ArgumentError when " + 
+				"illegal option :#{illegal_option} is passed"
+      ) do 
+        <%= class_name %>.find_top(:first, illegal_option => 'option_value')
+      end
+    end
+  end
+  
+
+  def test_find_top
+		user = User.create
+		another_user = User.create
+		third_user = User.create
+	
+		best_<%= file_name %> = <%= class_name %>.create
+		middle_<%= file_name %> = <%= class_name %>.create
+		last_<%= file_name %> = <%= class_name %>.create
+	
+		now = Time.now
+	
+		UpVote.create(
+			:user => user, 
+			:voteable => best_<%= file_name %>, 
+			:created_at => 4.minutes.ago(now)
+		)
+	
+		UpVote.create(
+			:user => another_user, 
+			:voteable => best_<%= file_name %>, 
+			:created_at => 3.minutes.ago(now)
+		)
+	
+		UpVote.create(
+			:user => third_user, 
+			:voteable => best_<%= file_name %>, 
+			:created_at => 1.minutes.ago(now)
+		)
+		
+		DownVote.create(
+			:user => user, 
+			:voteable => middle_<%= file_name %>, 
+			:created_at => 4.minutes.ago(now)
+		)
+	
+		UpVote.create(
+			:user => another_user, 
+			:voteable => middle_<%= file_name %>, 
+			:created_at => 2.minutes.ago(now)
+		)
+	
+		UpVote.create(
+			:user => third_user, 
+			:voteable => middle_<%= file_name %>, 
+			:created_at => 1.minutes.ago(now)
+		)
+	
+    assert_equal(
+      [best_<%= file_name %>, middle_<%= file_name %>, last_<%= file_name %>],
+      <%= class_name %>.find_top(
+        :all, 
+        :conditions => [
+          "<%= table_name %>.id in(?)", 
+          [
+						best_<%= file_name %>.id,
+						middle_<%= file_name %>.id,
+						last_<%= file_name %>.id
+        	]
+				]
+      ),
+      "<%= class_name %>.find_top should return all <%= table_name %> " + 
+			"ordered from most points to least points"
+    )
+    
+    assert_equal(
+      [middle_<%= file_name %>, best_<%= file_name %>, last_<%= file_name %>],
+      <%= class_name %>.find_top(
+        :all,
+				:conditions => [
+          "<%= table_name %>.id in(?)", 
+          [
+						best_<%= file_name %>.id,
+						middle_<%= file_name %>.id,
+						last_<%= file_name %>.id
+        	]
+				],
+        :since => 2.minutes.ago(now)
+      ),
+      "<%= class_name %>.find_top(find_type, :since => time) should return " + 
+			"all <%= table_name %> ordered from most points to least points " + 
+			" excluding votes after time specified by :since option"
+    )
+
+		best_<%= file_name %>_about_topic = <%= class_name %>.create
+		middle_<%= file_name %>_about_topic = <%= class_name %>.create
+		last_<%= file_name %>_about_topic = <%= class_name %>.create
+
+		UpVote.create(
+			:user => user, 
+			:voteable => best_<%= file_name %>_about_topic, 
+			:created_at => 4.minutes.ago(now),
+			:about => 'topic'
+		)
+	
+		UpVote.create(
+			:user => another_user, 
+			:voteable => best_<%= file_name %>_about_topic, 
+			:created_at => 3.minutes.ago(now),
+			:about => 'topic'
+		)
+	
+		UpVote.create(
+			:user => third_user, 
+			:voteable => best_<%= file_name %>_about_topic, 
+			:created_at => 1.minutes.ago(now),
+			:about => 'topic'
+		)
+		
+		DownVote.create(
+			:user => user, 
+			:voteable => middle_<%= file_name %>_about_topic, 
+			:created_at => 4.minutes.ago(now),
+			:about => 'topic'
+		)
+	
+		UpVote.create(
+			:user => another_user, 
+			:voteable => middle_<%= file_name %>_about_topic, 
+			:created_at => 2.minutes.ago(now),
+			:about => 'topic'
+		)
+	
+		UpVote.create(
+			:user => third_user, 
+			:voteable => middle_<%= file_name %>_about_topic, 
+			:created_at => 1.minutes.ago(now),
+			:about => 'topic'
+		)
+  
+    assert_equal(
+      [
+				best_<%= file_name %>_about_topic,
+				middle_<%= file_name %>_about_topic,
+				last_<%= file_name %>_about_topic
+			],
+      <%= class_name %>.find_top(
+        :all, 
+        :about => 'topic', 
+        :conditions => [
+          "<%= table_name %>.id in(?)", 
+          [
+						best_<%= file_name %>_about_topic.id,
+						middle_<%= file_name %>_about_topic.id,
+						last_<%= file_name %>_about_topic.id
+        	]
+				]
+      ),
+      "<%= class_name %>.find_top should return all <%= table_name %> " + 
+			"ordered from most points to least points excluding votes not " + 
+			"about topic specified by :about option"
+    )
+  
+    assert_equal(
+      [
+				middle_<%= file_name %>_about_topic,
+				best_<%= file_name %>_about_topic,
+				last_<%= file_name %>_about_topic
+			],
+      <%= class_name %>.find_top(
+        :all, 
+        :about => 'topic', 
+        :conditions => [
+          "<%= table_name %>.id in(?)", 
+          [
+						best_<%= file_name %>_about_topic.id,
+						middle_<%= file_name %>_about_topic.id,
+						last_<%= file_name %>_about_topic.id
+        	]
+				],
+        :since => 2.minutes.ago(now)
+      ),
+      "<%= class_name %>.find_top(find_type, :since => time) should return " + 
+			"all <%= table_name %> ordered from most points to least points " + 
+			"excluding votes after time specified by :since option and not " + 
+			"about topic specified by :about option"
+    )
+  end
+end

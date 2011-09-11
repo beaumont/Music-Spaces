@@ -1,0 +1,71 @@
+<div id="delete_private_messages" style="display:none;">
+  <% form_remote_tag :url => "/activity/remove", :html => {:id => "delete_private_messages_form"} do %>
+    <%= hidden_field_tag("activityids[]", 0) %>
+    <%= hidden_field_tag("back_to", 'list') %>
+    <%= hidden_field_tag("from_user_id", 0) %>
+    <div class="default_text">
+      <%= check_box_tag("block", true) %>
+      <%= label_tag "block", "Block {{user}}" / '<b><span id="pvt_user_for"></span></b>' %>
+    </div>
+    <div class="default_text">
+      <%= check_box_tag("delete_all", true) %>
+      <%= label_tag "delete_all", "Delete all {{user}} messages" / '<b><span id="pvt_user_for"></span></b>' %>
+    </div>
+    <div id="action_buttons">
+      <%= link_to(content_tag(:span, 'Delete'.t), "javascript:void(0);", :class => "button", :id => "delete_pvt") %>
+      <%= link_to(content_tag(:span, 'Cancel'.t), "javascript:void(0);", :class => "button", :id => "delete_pvt_cancel") %>
+    </div>
+  <% end %>
+</div>
+<% content_for :js do %>
+<%= javascript_tag("
+  jQuery(document).ready(function() {
+
+    jQuery('#delete_private_messages #delete_pvt').click(function() {
+      jQuery('#delete_private_messages_form').trigger('onsubmit');
+      jQuery('#delete_private_messages').dialog('destroy');
+      if (jQuery('#delete_private_messages_form #delete_all').attr('checked')) selector = '.user_pvt_' + jQuery('#delete_private_messages #from_user_id').val()
+      else selector = '#message_' + jQuery('#delete_private_messages #activityids_').val()
+      jQuery(selector + ' .private_message_links').replaceWith('#{js wait_up_homie(:display => true)}');
+    })
+
+    jQuery('#delete_private_messages #delete_pvt_cancel').click(function() {
+      jQuery('#delete_private_messages').dialog('destroy');
+    })
+
+    jQuery('.private_message_links').click(function() {
+      jQuery('#delete_private_messages').dialog('destroy')
+
+      jQuery('#delete_private_messages #activityids_').val(jQuery(this).attr('activity_id'))
+
+      jQuery('#delete_private_messages #from_user_id').val(jQuery(this).attr('from_user_id'))
+
+      jQuery('#delete_private_messages #pvt_user_for').html(jQuery(this).attr('user'))
+
+      jQuery('#delete_private_messages').dialog({
+        draggable: false,
+        resizable: false,
+        height: 'auto',
+        width: '200px',
+        position: [jQuery(this).offset().left - jQuery(document).scrollLeft(), jQuery(this).offset().top - jQuery(document).scrollTop()],
+        open: function(event, ui) {
+          jQuery(this).parent().children('div.ui-widget-header').replaceWith('<div class=\"block_column_header\">#{ 'Delete message?'.t }</div>');
+          jQuery('#delete_private_messages_form #delete_all').attr('checked', false)
+          jQuery('#delete_private_messages_form #block').attr('checked', false);
+          jQuery('#delete_private_messages').css({'min-height': '0px'})
+          jQuery('div.ui-dialog:has(#delete_private_messages)').click(function(event) {event.stopPropagation()})
+        },
+        close: function() {jQuery(this).dialog('destroy')}
+      })
+    })
+
+    jQuery('body').click(function() {
+      if (jQuery('#delete_private_messages').dialog('isOpen')) jQuery('#delete_private_messages').dialog('destroy')
+    })
+
+    jQuery('.private_message_links').click(function(event) {
+      event.stopPropagation();
+    })
+  })
+") %>
+<% end %>

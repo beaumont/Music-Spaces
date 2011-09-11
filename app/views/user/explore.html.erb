@@ -1,0 +1,59 @@
+
+<%# translation ver 1 pass 2 -- AK %>
+<% @additional_content_body_classes = "gray_background" %>
+
+<% @title = 'Explore Kroogi'.t %>
+<!-- almost TV -->
+<% content_for :additional_body_headers do %>
+  <div style="width:980px; height:290px; background-color:#000; opacity:0.6; margin-bottom:20px"></div>
+<% end %>
+<!--RIGHT COLUMN starts here -->
+<% right_column_block(:header_title => 'Weekly Top'.t) do %>
+  <% cache(weekly_top_section_key, :expires_in => 10.minutes) do %>
+    <% @weekly_top ||= [] %>
+    <% @weekly_top.each do |content| %>
+      <% link_to(content_url(content), :class => 'weekly_top') do %>
+        <div class="box">
+          <div class="album_info">
+            <div class="artist_name"><%= content.user.display_name if content.user %></div>
+            <div class="album_name"><%= content.title %></div>
+          </div>
+        </div>
+        <%= image_tag(content.cover_art_url, :width => 220, :alt => h(content.title)) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<!-- LEFT COLUMN -->
+<div id="entries_list">
+  <div class="tabs_container">
+    <span class="headers_left"></span><span class="headers_body">
+      <span class="headers_content">
+        <ul id="tabulone" class="tabs-nav" style="overflow: hidden;">
+          <li class="no_list"><a href="#news"><span><%= 'News'.t %> </span></a></li>
+          <li class="no_list"><a href="#new_content"><span><%= 'New Content'.t %> </span></a></li>
+        </ul>
+    </span>
+  </span><span class="headers_right"></span>
+    <div class="main_container" id="news">
+      <%= render :partial => "news", :locals => { :announcements => @announcements, :limit => 5 } %>
+    </div>
+    <div class="main_container" id="new_content">
+      <% cache(news_section_key, :expires_in => 15.minutes) do %>
+        <div class="content_body">
+          <% @new_content[0..4].each do |content| %>
+            <%= render :partial => "shared/new_content_entry", :locals => { :content => content } %>
+          <% end %>
+        </div>
+        <div class="under_box">
+          <div class="block_action">
+            <% unless @new_content.blank? %>
+              <%= link_to "#{'View All'.t} >>", {:controller => 'content', :action => 'recent'} %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

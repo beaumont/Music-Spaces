@@ -1,0 +1,30 @@
+
+<% is_profile_or_private_board = @content.commentable.is_a?(Profile) || @content.commentable.is_a?(UserKroog)%>
+<% content_type = is_profile_or_private_board ? 'a greeting'.t : @content.commentable.display_type.tdown -%>
+<% title_link   = is_profile_or_private_board ? '' :  ' '+ link_to(kf_title(@content.commentable.title_long), "#{@url}/content/show/#{@content.commentable_id}") -%>
+<% extra_info   = is_profile_or_private_board ? '' : (" by %s" / @content.commentable.user.login) -%>
+<% detail_link  = is_profile_or_private_board ? "#{@url}/user/thread/#{@content.top.commentable.user_id}?thread_id=#{@content.top.id}" : comment_permalink(@content) -%>
+
+<p>
+  <strong>
+    <%= @content.user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> (<%= @from_user.display_name %>)
+	  <% if @content.parent.user.project? %>
+		  <%= ('replied to a comment on %s %s %s, left by your project %s' / [content_type, title_link, extra_info, @content.parent.user.login]).gsub(/\s+,/, ',') -%>: 
+	  <% elsif @content.parent.user == @to_user -%>
+		  <%= 'replied to your comment on %s %s %s' / [content_type, title_link, extra_info] -%>:
+    <% else -%>
+		  <%= 'replied to a comment on %s %s %s' / [content_type, title_link, extra_info] -%>:
+	  <% end -%>
+  </strong>
+</p>
+
+<p>
+  <blockquote><em><%= kf_simple @content.comment %></em></blockquote>
+</p>
+
+<p>
+  <%= link_to "Read this comment and reply".t, detail_link %><br />
+  <%= link_to "Open %s" / title_link, "#{@url}/content/show/#{@content.commentable_id}" if @content.commentable.is_a?(Content) %><br />
+</p>
+

@@ -1,0 +1,103 @@
+common:
+  :backgroundrb: &default_bdrb
+    :port: 11006
+    :log: foreground
+    :ip: 127.0.0.1
+    :persistent_delay: 30 # Default is 5. Seconds between checks (less queries - wider range of fluxuation)
+    :persistent_multi: true
+  :schedules: &default_schedules
+    :daily_worker:
+      :apply_available_donations:
+        :trigger_args: "0 0 3,15 * * *"
+      # :update_paid_invoices:
+      #   :trigger_args: "0 20,50 * * * *" 
+      :clean_stats_table:
+        :trigger_args: "0 5,35 * * * * *"
+      :update_livejournal_entries:
+        :trigger_args: 0 0 */4 * * * *
+      #:update_movable_sms_data:
+      #  :trigger_args: 0 */5 * * * * *
+      :send_out_activity_digest_emails:
+        :trigger_args: 0 0 */12 * * * *
+      # :handle_donation_requests:
+      #   :trigger_args: 0 5 */2 * * * *
+      :update_content_popularity:
+        :trigger_args: "0 15 03 * * *"
+      :update_user_popularity:
+        :trigger_args: "0 45 03 * * *"
+      :truncate_new_contents:
+        :trigger_args: "0 10,40 * * * *"
+      :fetch_email_invitation_requests:
+        :trigger_args: "0 * * * * *"
+      :email_invitation_requests_inbox_cleanup:
+        :trigger_args: "0 0 0 * * *"
+      :digest_error_emails:
+        :trigger_args: 0 * * * * *
+      :update_related_contents:
+        :trigger_args: 0 13 3 * * *
+      :update_smscoin_sms_data:
+        :trigger_args: 0 0 * * * * *
+      :reload_currencies_cache:
+        :trigger_args: 0 0 */6 * * * *
+      :remove_finished_bdrb_jobs:
+        :trigger_args: 0 0 23 * * * *
+      :restore_restorable_bdrb_jobs:
+        :trigger_args: 0 0 */1 * * * *
+      :remove_junk_collection_inclusions:
+        :trigger_args: 0 0 12 * * * *
+      :expire_unfinished_tps_tickets:
+        :trigger_args: 0 */10 * * * * *
+      :remove_old_invites:
+        :trigger_args: 0 0 0 * * *
+      :rotate_feed_entries:
+        :trigger_args: 0 0 1 * * *
+      
+
+production:
+  :backgroundrb:
+    <<: *default_bdrb
+    :environment: production
+    :result_storage: memcache
+    :ip: 0.0.0.0
+  :client: "async01:11006"
+  :memcache: "web06:11211,web07:11211"
+  :schedules:
+    <<: *default_schedules
+
+staging:
+  :backgroundrb: 
+    <<: *default_bdrb
+    :environment: staging
+    :result_storage: memcache
+  :memcache: "web03:11211" 
+  :schedules:
+    <<: *default_schedules
+rc:
+  :backgroundrb: 
+    <<: *default_bdrb
+    :environment: rc
+    :result_storage: memcache
+  :memcache: "web05:11211" 
+  :schedules:
+    <<: *default_schedules
+
+development: &development
+  :backgroundrb: 
+    <<: *default_bdrb
+    :environment: development
+    :result_storage: memcache
+  :memcache: "localhost:11211"
+  :schedules:
+    <<: *default_schedules
+
+test:
+  <<: *development
+
+selenium:
+  :backgroundrb: 
+    <<: *default_bdrb
+    :environment: selenium
+    :result_storage: memcache
+  :memcache: "localhost:11211"
+  :schedules:
+    <<: *default_schedules

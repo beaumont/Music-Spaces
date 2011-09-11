@@ -1,0 +1,7 @@
+<%= 'has granted permission to download %s' / link_to(kf_title("#{activity.content.title_long}"), :controller => 'activity', :action => 'read_and_frwd', :id => activity.id, :type => 'content') %>.<br/>
+<br/>
+<% content = activity.content %>
+<% content = content.goodie.downloadable_album.bundles if content.is_a?(Tps::GoodieTicket) %>
+<% bundles ||= content.respond_to?(:bundles) ? content.bundles : [] %>
+<%= bundle_links(bundles) %>
+

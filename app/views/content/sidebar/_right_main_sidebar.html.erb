@@ -1,0 +1,110 @@
+<% entry ||= @entry %>
+<% unless entry.is_a?(ProjectAsContent) %>
+<div class="blue_block sidebar">
+<!-- -->  <!-- Donation Button -->
+    <%# this is just for download %>
+     <%= render :partial => "/content/download_donate_widget", :locals => {
+             :content => @entry,
+             :recipient => @entry.user,
+             :donor => current_user,
+             :contribute_rightaway => @contribute_rightaway && @download,
+             :allow_downloading_sequence => @entry.downloadable?,
+             :allow_showing_download_links => @download, 
+     } %>
+     <% if !@download && @contribute_rightaway %>
+       <%= render :partial => '/content/donate_widget', :locals => {
+               :content => @entry,
+               :recipient => @entry.user,
+               :donor => current_user,
+               :donate_widget_suffix => "just_contribute_#{@entry.id}",
+               :contribute_rightaway => @contribute_rightaway,
+               :download => false,
+               } %>
+       <% end %>
+
+  <!-- Goodies Button -->
+  <% if @goodies_button %>
+      <% if @entry.is_a?(Tps::Content) && @entry.stopped? %>
+        <div class="special_notice" style="margin:0 0 5px 2px; width:143px;">
+          <%= 'This pledge is over but you can still get the goodies on {{project}} Goodies page' / @user.display_name %>
+        </div>
+      <% end %>
+      <a href="<%= project_goodies_url(@entry.user) %>" class="button" style="width: 156px;">
+        <span><%= '((store))Goodies'.t %>&nbsp;</span>
+      </a>
+  <% end %>
+  
+<!-- -->   <!-- Voting -->
+  <div class="blue_block light">
+    <%= render :partial => 'voting/voting', :locals => {:entry => @entry,
+                                                           :meta_description => @meta_description,
+                                                           :content_title => content_title,
+                                                           :artist_name => artist_name,
+                                                           :show_fb_like => true,
+                                                           :show_vk_like => true,
+                                                           :show_odkl_like => true} %>
+  </div>
+  <% if entry.active? %>
+<!-- -->    <!-- Stats -->
+  <% if  can_view_donations_for?(entry.user)  %>
+    <%= render :partial => '/content/sidebar/stats', :locals => {:entry => entry} %>
+  <% end %>
+  
+<!-- -->    <!-- Edit Content -->
+  <% if permitted?(entry.user, :content_edit) && editable?(entry) %>
+    <div id="edit_content_links">
+      <%= render :partial => '/content/sidebar/edit_content', :locals => {:entry => entry} %>
+    </div>
+  <% end %>
+  
+<!-- -->    <!-- Edit Music Album -->
+  <% if permitted?(entry.user, :content_edit) && entry.is_a?(MusicAlbum) && entry.downloadable? %>
+    <%= render :partial => '/content/sidebar/edit_music_album', :locals => {:entry => entry} %>
+  <% end %>
+  
+<!-- -->    <!-- Submit to other users inbox -->
+  <% if can_be_submitted_to_inbox?(entry)  %>
+    <%= render :partial => '/content/sidebar/submit_to_other', :locals => {:entry => entry} %>
+  <% end %>
+  
+<!-- -->     <!-- Upload -->
+  <% if @show_post_options %>
+    <%= render :partial => '/content/sidebar/post_options', :locals => {:entry => entry} %>
+  <% end -%>  
+  
+<!-- -->     <!-- Upload to Submitted by Others-->
+  <% unless @entry.user.collection? %>
+    <%= render :partial => '/content/sidebar/post_to_inbox', :locals => {:entry => entry} %>
+  <% end %>
+  
+<!--wip-->     <!-- Goodies -->
+  <%= render(:partial => '/content/sidebar/goodies', :locals => {:hat => entry}) if entry.is_a?(Tps::Content) %>
+
+<!-- -->     <!-- Add Track to Contest -->
+  <% if entry.is_a?(MusicContest) && entry.accepts_submissions? %>
+    <%= link_to('<span>'+'Submit Track'.t+'</span>', {:controller => 'submit', :action => 'add_track_to_contest', :for_album => entry.id}, {:class => "button_or", :style => "margin-bottom:20px;", :method => :post}) %>
+  <% end %>
+
+<!-- -->     <!-- Download Originals -->
+  <% if entry.is_a?(MusicContest) && !entry.bundles.empty? %>
+    <%= render :partial => '/content/sidebar/download_originals', :locals => {:content => entry} %>
+  <% end %>
+  
+<!-- -->     <!-- Sharing tools -->
+  <% if @entry.public? %>
+    <%= render :partial => "content/sidebar/sharing_tools", :locals => {:entry => @entry, :content_title => content_title, :artist_name => artist_name} %>
+  <% end %>
+  
+<!-- -->     <!-- Report & Block -->
+  <%= render :partial => '/content/sidebar/report_and_block', :locals => {:entry => entry} %>
+</div>
+  <!-- related content -->
+  <%= render :partial => "/content/sidebar/related_contents", :locals => { :content => entry } unless entry.is_a?(MusicContest) %>
+
+  <% else %>
+    <!-- Restore -->
+    <% if permitted?(current_actor, :moderate) && !current_user.is_self_or_owner?(entry.user) %>
+      <%= render :partial => '/content/sidebar/restore', :locals => {:entry => entry} %>
+    <% end %>
+  <% end %>
+<% end %>

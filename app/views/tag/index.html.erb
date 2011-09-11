@@ -1,0 +1,44 @@
+<% cache(search_cache_key, :expires_in => 10.minutes) do %>
+  <div id="main_block">
+    <div><%= image_tag('960_o_top.gif') %></div>
+    <div class="main_block_side_sdw">
+      <div class="main_header">
+        <div class="main_header_title"><%= 'Search result for'.t -%>: <%=h @query %></div>
+      </div>
+      <div class="main_left">
+        <%= search_tabs(@user_count, @content_count, @type, @query) %>
+      </div>
+      <div class="main_body">
+        <% if @results.blank? %>
+            <div class="section_empty"><%= 'The search returned no results'.t -%>.</div>
+        <% else %>
+          <% @results.each do |result| %>
+            <% if result.is_a?(User) %>
+              <div class="user_block">
+                <div class="block_username"><%= user_link(result, :icon => true) %></div>
+                <%= avatar_md(result) %>
+                <div class="block_body">
+                  <div class="default_lg"><b><%= user_link(result, :use_display_name => true) %></b></div>
+                  <div class="default_lg">
+                    <div><%= h(result.profile.occupation_value) if result.profile %></div>
+                    <div><%= result.profile.city_and_country if result.profile %></div>
+                    <div><%= "%d followers" / [result.relationships.followers.count] %></div>
+                  </div>
+                </div>
+              </div>
+              <% unless @results.last == result %>
+                <div class="grey_line2"></div>
+              <% end %>
+            <% else %>
+              <%= render :partial => 'content/vertical_stream_item',
+                :locals => {:content => result, :last => (@results.last == result)} %>
+            <% end %>
+          <% end %>
+          <%= render :partial => '/shared/pager', :locals => { :results => @results} %>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="shadow"><%= image_tag('960_gw_btm.gif') %></div>
+  </div>
+<% end %>

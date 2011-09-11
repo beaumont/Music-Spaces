@@ -1,0 +1,14 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Activity Log'.t + 'Browsers'.t %>
+
+
+<div class="admin">
+  <% @browsers.each_with_index do |browser, index| %>
+    <div>
+      <% width = (browser[:total] / @total.to_f) %>
+      <%= index.next %>. <b><%= browser[:name] %> <%= browser[:version] %></b> <%= browser[:total] %>
+      <i>(<%= number_to_percentage width * 100, :precision => 2 %>)</i><br />
+
+      <div style="width:<%= (width * 900).to_i %>px;background-color:#<%= browser_color(browser[:version] + browser[:name]) %>;">&nbsp;</div>
+    </div>
+  <% end %>
+</div>

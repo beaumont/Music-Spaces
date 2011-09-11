@@ -1,0 +1,31 @@
+<% render :layout => 'settings_template' do %>
+  <% form_for :public_question, :url => { :controller => 'public_question', :action => 'new'}, :html => { } do |f| -%>
+    <%= hidden_field_tag :publish_directly, false %>
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info" style="padding-bottom:0;">
+      <tr>
+        <td colspan="2" style="padding-bottom:0;">
+          <%= render :partial => "shared/translatable_fields2",
+            :locals => {:fields =>
+              [{:object => @public_question,
+                :title => nil, :field => :text,
+                :options => {:size => "29x10", :maxsize => 200}}
+            ]} %>
+
+        </td>
+      </tr>
+    </table>
+    <div>
+      <%= check_box_tag('public_question[show_on_events]', '0', false, :class => 'checkbox') %>
+      <%= f.hidden_field :show_on_events %>
+      <label for="public_question_show_on_events"><%= 'Show only in forum'.t %></label>
+    </div>
+    <div style="float:right; margin-top:20px;">
+      <button class="button" name="commit" type="submit" onclick="jQuery('#publish_directly').val('true');">
+        <span><%= 'Publish'.t -%></span>
+      </button>
+    </div>
+    <div style="float:right; margin-top:20px;">
+      <%= render :partial => '/shared/button', :locals => {:label => 'Save Draft'.t} %>
+    </div>
+  <% end %>
+<% end %>

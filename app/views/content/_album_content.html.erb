@@ -1,0 +1,12 @@
+<% unless entry.description.blank? %>
+  <div class="default">
+    <%= kf_simple entry.description, {
+            :tags => %w(embed object param a),
+            :attributes => %w(width height name value type allowscriptaccess allowfullscreen id onclick style data),
+            :bigger_truncation => nil,
+    } %>
+  </div>
+<% end %>
+
+<%= render :partial => "album_tracks_and_stuff", :locals => {:entry => entry, :no_contents_text => 'This folder is empty'.t} %>
+

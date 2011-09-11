@@ -1,0 +1,7 @@
+make_chief_admin:
+  user_id: 2
+  role_id: 2
+
+make_kroogi_admin:
+  user_id: 4
+  role_id: 2

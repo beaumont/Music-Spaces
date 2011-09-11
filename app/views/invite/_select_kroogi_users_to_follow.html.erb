@@ -1,0 +1,96 @@
+<%# STEP 2. Show emails of users already on Kroogi and suggest to follow them. %>
+
+<%= wait_indicator('emergency_busy') %>
+<div id="bas_errmsg"></div>
+<div style="padding-bottom: 2em;">
+  <% next_step_block = 'externals_to_invite_overlay' %>
+  <div class="widget_note right">
+    <%= link_to_remote("Skip this step".tdown, :update => next_step_block,
+                       :before => "jQuery('#skip_this_step_progress').show(); create_new_div('#{next_step_block}')",
+                       :url => {:controller => '/invite', :action => 'follow_users'}
+    ) %>
+    <span id="skip_this_step_progress" style="display:none; vertical-align: top;">
+      <img src="/images/ajax-loader.gif"/>
+    </span>
+  </div>
+  <% form_remote_tag :method => :post, :html => {:id => 'select_email_iform'} do %>
+    <%= hidden_field_tag 'start_following_step', start_following_step %>
+    <%= hidden_field_tag 'contacts_number', suggest_following.size -%>
+    <div class="widget_area_text">
+      <%= 'We found {{count}} of your friends that are already on Kroogi.' / suggest_following.size %>
+      <br/>
+      <%= 'Select who would you like to follow'.t %>
+    </div>
+
+    <div class="wizard_checkbox_list">
+      <table class="list" width="100%">
+        <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+          <td colspan="3">
+            <%= render :partial => 'invite/select_all' %>
+          </td>
+        </tr>
+        <% suggest_following.each do |name, email| %>
+          <% user = User.active.users_first.find_by_email(email) %>
+          <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+            <td class="name">
+              <% if already_followed.include?(email.downcase) %>
+                <%= check_box_tag 'nomatter[]', '', true, :disabled => true %>
+              <% else %>
+                <%= check_box_tag 'follow[]', user.id, false, :class => 'active_checkbox' %>
+              <% end %>
+              &nbsp;<%= h name %>
+            </td>
+            <td class="user_name">
+              <%= user_link(user, :icon => true) %>
+            </td>
+            <td class="last">
+              <%= h email %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <div class="widget_button_right">
+      <%= invoke_widget_button 'Start Following'.t, 'send_emails_busy', next_step_block, 'follow_users', :form_id => 'select_email_iform' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="widget_text" style="padding-top:7px;"><%= 'Or would you like to'.t -%>
+  <%= link_to_remote 'try a different email address?'.t,
+                     :update => 'add_friends_overlay', :url => {:action => 'add_friends_wizard',
+                                                                :controller => 'invite',
+                                                                :start_following_step => start_following_step},
+                     :html => {:onclick => "jQuery('#tryanother_busy').show();"} -%>
+  <%= wait_indicator('tryanother_busy') %>
+</div>
+
+<script type="text/javascript">
+  jQuery("#overlay_waitindicator").hide();
+  cleanup_ovr('select_followed_overlay');
+
+  <%# if list of emails is big we grow the window %>
+  <% if suggest_following.size > 5 %>
+  <%= %q[ modal_height = document.viewport.getHeight() * 0.9; ] %>
+  <% else %>
+  <%= %q[ modal_height = 'auto' ] %>
+  <% end %>
+
+  jQuery('.ui-dialog').css('top', '4em');
+  var select_kroogi_users_to_follow_dialog_opts = {
+    modal: true,
+    height: 'auto',
+    <%#	height: modal_height, %>
+    width: 500,
+    minWidth: 500,
+    close: function() {
+      cleanup_ovr('select_followed_overlay');
+      create_new_div('add_friends_overlay');
+      jQuery('#select_followed_overlay').dialog('destroy');
+    }};
+  jQuery('#select_followed_overlay').attr('title', "<%= 'Start Following Friends'.t %>");
+  jQuery('#select_followed_overlay').dialog(select_kroogi_users_to_follow_dialog_opts);
+  create_new_div('add_friends_overlay');
+
+</script>

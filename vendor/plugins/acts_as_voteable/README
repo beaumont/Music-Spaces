@@ -1,0 +1,154 @@
+= ActsAsVoteable
+
+== INSTALLATION GUIDE
+
+Prerequisite:
+A rails installation and the database backing it
+
+=== Download / install the plugin:
+
+  script/plugin install http://richcollins.net/svn/acts_as_voteable/
+
+=== Create a User model if you have not already done so:
+
+  script/generate model user
+
+=== Edit your User model:
+
+  class User < ActiveRecord::Base
+    acts_as_voter
+  end
+
+=== Create a model for each entity that will be voteable if you have not 		already done so:
+
+  script/generate model post
+  script/generate model comment
+  ... etc
+
+=== Edit your voteable models:
+
+  class Post < ActiveRecord::Base
+    acts_as_voteable
+    ...
+  end
+
+  class Comment < ActiveRecord::Base
+    acts_as_voteable
+    ...
+  end
+
+  ... etc
+
+=== Create migration for acts_as_voteable:
+
+  script/generate acts_as_voteable_migration
+  rake migrate
+  rake migrate RAILS_ENV=test
+
+=== Create and run the configuration tests:
+
+  script/generate acts_as_voteable_test post
+  script/generate acts_as_voteable_test comment
+  rake test
+
+== Using acts_as_voteable
+
+The acts_as_voteable provides mixin voting functionality for any model.
+A quick example illustrates potential uses for acts_as_voteable:
+
+  class User < ActiveRecord::Base
+    acts_as_voter
+  end
+
+  class Post < ActiveRecord::Base
+    acts_as_voteable
+  end
+
+  rich = User.find(1)
+  adam = User.find(2)
+  meg = User.find(3)
+  mike = User.find(4)
+  ted = User.find(5)
+
+  richs_post = Post.create(:user => rich, :title => 'I will be victorious')
+  adams_post = Post.create(:user => adam, :title => 'You wish')
+
+  mike.vote_up(adams_post)
+  # adam is winning, 1 to 0
+
+  sleep(1.hour)
+  # wait for a while 
+
+  ted.vote_down(richs_post)
+  #you can vote_up for vote_down
+  # adam is winning, 1 to -1
+
+  sleep(2.hours) # wait for a while 
+  meg.vote_up(richs_post)
+  #adam is winning, 1 to 0
+
+  #adam is winning 
+  [adams_post, richs_post] == Post.find_top(:all)
+
+  rich_post == Post.find_top(:first, :conditions => "posts.user_id <> #{adam.id}")
+  #You can use find_top just like the normal find with a few exceptions 
+  #(see the docs for more info)
+
+  #votes in the last hour
+  richs_post == Post.find_top(:first, :since => 1.hour.ago)
+
+  #some other goodies:
+  nil == rich.voted_down?(richs_post)
+  #you can check to see if a user has already voted on a post
+
+  richs_post.up_votes.count ==  1
+  richs_post.down_votes.count == 1
+  richs_post.points == 0
+
+You can also vote about different topics.  Just add the :about => 'some topic'
+option to any method described here:
+
+  rich.vote_up(adams_post, :about => 'spam')
+  rich.vote_up?(adams_post, :about => 'spam')
+  # true
+  Post.find_top(:first, :about => 'spam')
+  #[richs_post]
+  richs_post.up_votes.count(['about = ?', 'spam'])
+  #1
+  richs_post.points(:about => 'spam')
+	
+That's it!
+
+If any of this is confusing, please see the full screencast (sorry - coming soon!):
+
+You can also read the rdoc:
+  rake doc:plugins
+  cd vendor/plugins/acts_as_voteable/rdoc
+or 
+  http://acts_as_voteable.richcollins.net/rdoc/
+
+If you have any additional questions, please contact me:
+richcollins@gmail.com
+
+== MIT License
+
+Copyright (c) 2006 Rich Collins
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

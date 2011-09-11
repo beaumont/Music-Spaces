@@ -1,0 +1,40 @@
+<div class="two_column">
+  <div class="inner">
+    <div class="albums">
+      <div class="cover"> <%= image_tag(@entry.cover_art.thumb(:thumb).public_filename, :width=> 150, :border => 0, :alt => h(@entry.cover_art.thumb(:thumb).filename)) if @entry.respond_to?(:cover_art) && @entry.cover_art %> </div>
+      <div class="albumsContainer">
+        <div class="title"><%= h(@entry.title_long) %></div>
+        <div class="artist" style="width:300px;">
+          <%= "#{@entry.artist}" unless @entry.artist.blank? -%>
+          <%= " / " unless @entry.artist.blank? || @entry.year.blank?%>
+          <%= "#{@entry.year}" unless @entry.year.blank? -%>
+        </div>
+        <div class="style"><%= h(@entry.genre) unless @entry.genre.blank? %></div>
+        <div class="moreFrom"><%= link_to "More from #{@entry.user.display_name}>", :controller => 'project', :action => 'show', :id => @entry.user.id %></div>
+        <div class="boxes">
+          <%= render :partial => 'download_box'%>
+          <%= render :partial => 'donate_box'%>
+        </div>
+      </div>
+      <div class="description">
+        <% unless @entry.description.blank? %>
+          <%= kdf_simple @entry.description, {:characters => 270} %>
+        <% end %>
+      </div>
+      <!--Player-->
+      <div class="player"><%= render :partial => "album_content.html.erb", :locals => { :entry => @entry } %></div>
+      <!--Inner Footer-->
+      <div class="innerFooter">
+        <%= received_history(@entry) %>
+      </div>
+    </div>
+  </div>
+  <!--Right Sidebar-->
+  <%= render :partial => 'shared/facebook/right_sidebar', :locals => {:box => ['influence_on_album', current_fb_user && (!@friends_list.nil? and !@friends_list.empty?) ? 'sent_album' : 'empty'], :content => @entry} %>
+</div>
+
+<div class="clear"></div>
+
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <%= render :partial => "shared/facebook/feed_form.erb", :locals => { :entry => @entry } %>
+<%end%>

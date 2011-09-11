@@ -1,0 +1,10 @@
+<input type="hidden" name="LMI_RESULT_URL" value="<%= WEBMONEY_CONFIG[:postback_url]%>" />
+<input type="hidden" name="LMI_SUCCESS_URL" value="<%= return_url %>"/>
+<input type="hidden" name="LMI_SUCCESS_METHOD" value="2"/>
+<input type="hidden" name="LMI_FAIL_URL" value="<%= return_url %>" />
+<input type="hidden" name="LMI_FAIL_METHOD" value="2"/>
+<input type="hidden" name="item_name" value="<%= h(title) %>" />
+<input type="hidden" name="p_id" value="<%= CGI::escape(donor_id) %>" />
+<input type="hidden" name="ann_id" value="<%= CGI::escape(content_id) %>" />
+<input type="hidden" name="user_acc" value="<%= CGI::escape(recipient_id) %>" />
+

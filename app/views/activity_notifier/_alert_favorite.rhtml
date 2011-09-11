@@ -1,0 +1,21 @@
+<p>
+  <strong>
+    <%= @from_user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> (<%= @from_user.display_name %>) 
+	  <% 
+	    display_type = @content.display_type.tdown
+	    clink = link_to(kf_title(@content.title_long), @content.is_a?(Content) ? "#{@url}/content/show/#{@content.id}" : "#{@url}/user/#{@content.login}")
+	   %>
+	  <% if @from_user.project? %> 
+	    <%= "added the %s %s from your project %s as a favorite" / [display_type,clink,@content.is_a?(User) ? @content.login : @content.respond_to?(:user) ? @content.user.login : ''] %>
+	  <% else -%>
+	    <%= 'added your %s %s as a favorite' / [display_type,clink] -%>
+	  <% end -%>.
+  </strong>
+</p>
+
+<p>
+  <%= link_to "Open %s" / kf_title(@content.title_long), @content.is_a?(Content) ? "#{@url}/content/show/#{@content.id}" : "#{@url}/user/#{@content.login}" %><br />
+  <%= link_to "Go to %s's Kroogi Page" / @from_user.login, "#{@url}/user/#{@from_user.login}" %><br />
+</p>
+

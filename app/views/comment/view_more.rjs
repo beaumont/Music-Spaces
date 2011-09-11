@@ -1,0 +1,1 @@
+page.replace_html "comments_#{dom_id(@entry)}", :partial => "comment/comments", :locals => {:commentable => @entry, :all_comments => @all_comments}

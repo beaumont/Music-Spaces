@@ -1,0 +1,78 @@
+
+<%
+options = {}
+options[:limit] = 500;
+options[:threaded] = true
+comments_number = 0
+left_offset = 0
+parent_user_id = 0
+commentable = nil
+
+Profile.find_comments_thread(params[:thread_id]) do | comment |
+    left_offset = 25 * comment.level
+    comments_number = comments_number.next
+    break if options[:limit] && comments_number >= options[:limit].to_i
+    if commentable.nil?
+        commentable = comment.commentable %>
+<% content_for :right_column do %>
+  <div style="padding:20px 10px 10px; font-weight:bold;">
+    <% if current_actor.is_self_or_owner?(commentable.user) %>
+      <span class="iconized i_delete" id="delete_comment_<%= comment.id -%>">
+        <%= link_to_remote 'Delete Thread'.t, :url => {:controller => '/comment', :action => 'delete_thread', :id => comment.id}, :confirm => 'Are you sure you wish to delete ALL comments in this thread?'.t %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
+<div><%= image_tag '732_o_top.gif' %></div>
+<div class="white_side_sdw">
+<div class="main_header">
+  <div class="main_header_title">
+		<% if commentable.is_a?(UserKroog)
+ 			# we're in a Forum situation
+			kroog_name = commentable.name 
+              # page title
+              @title = @user.login + ' :: ' + 'Forum Posting'.t
+              # page header
+              @content_kind_displayname = "Circle message".t %>
+              <%= @content_kind_displayname -%>
+              <span class="subtopic_right">
+                <%= link_to ('The Forum for %s Circle of %s' / [kroog_name, commentable.user.login]), {:controller => '/kroogi', :action => 'show', :id => commentable.user.id, :type => commentable.relationshiptype_id} %>
+              </span>
+
+            <% elsif commentable.is_a?(Profile)
+
+              # we're on a user's front page Wall
+
+              # page title
+              @title = @user.login + ' :: ' + 'Wall Posting'.t
+              # page header
+              @content_kind_displayname = "Wall Posting".t %>
+              <%= @content_kind_displayname -%>
+              <span class="subtopic_right">
+                <% if params[:thread_id] %>
+                  <%= link_to(("Back to %s's Wall" / [commentable.user.login]), {:controller => 'user', :action => 'comments', :id => commentable.user}) -%>
+                <% else %>
+                  <%= 'Back to'.t -%> <%= user_link(commentable.user) %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+	</div>
+	<div class="white_body">
+         
+      
+      <%# show nothing if user has no permission to see root comment thread %>
+      <% if !commentable.is_view_permitted?
+          %><h2><%= 'Sorry, this thread is private.'.t -%></h2><%
+          break
+      end
+  end
+  %>
+
+  <%= render :partial => '/comments/comments_threaded', :locals => { :comment => comment, :left_offset => left_offset, :options => options, :commentable => commentable, :parent_user_id => parent_user_id, :nodelete_thread_head => true} %>
+  <% parent_user_id = comment.user_id %>
+<% end %>
+</div>
+</div>
+<div class="shadow"><%= image_tag '732_w_btm.gif' %></div>

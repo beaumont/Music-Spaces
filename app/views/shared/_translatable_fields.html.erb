@@ -1,0 +1,14 @@
+<%-
+   english_body ||= nil
+   russian_body ||= nil
+   msg ||= nil
+   fields ||= [] 
+   new_fields = fields.map do |title, field, options|
+  {:field => field, :title => title, :form => f, :object => content, :options => options}
+end -%>
+<%= render :partial => "shared/translatable_fields2",
+           :locals => {:fields => new_fields,
+                       :english_body => english_body,
+                       :russian_body => russian_body,
+                       :msg => msg,
+} -%>

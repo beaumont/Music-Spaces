@@ -1,0 +1,29 @@
+<% @title = @user.login + ' :: ' + 'Email Notifications'.t %>
+<% @content_kind_displayname = 'Email Notifications'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@profile.user, @content_kind_displayname)) do %>
+  <% form_border(:subhead_title => 'Which project hosts are receiving notifications?'.t) do %>
+    <%= "To start or stop receiving email on behalf of this project, visit your own %s page" / [link_to('Email Settings'.tdown, :controller => 'preference', :action => 'emails', :id => current_user)] %>.
+
+    <ul style="margin:10px 0 0 90px; list-style-type:none; font-size: 12px;">
+      <% tracking_users = @user.people_tracking_me.email_delivery.tracked_item_is_user.users %>
+      <% @user.founders.each do |u| %>
+        <li style="margin-bottom:5px;">
+          <% is_tracked = tracking_users.include?(u) && u.preference.email? %>
+          <% if is_tracked %>
+            <%= image_tag('yes.gif', :alt => '', :style => 'position:relative; left: 3px;top: 2px;') %>
+          <% else %>
+            <%= image_tag('remove.png', :alt => '', :style => 'position:relative; top: 5px;') %>
+          <% end %>
+          <%= user_link(u, :icon => true) %>
+          
+          <% if is_tracked %>
+            <span style="color: #555;">(<%= u.preference.email_realtime? ? 'Immediate Email'.t : 'Digest'.t %>)</span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

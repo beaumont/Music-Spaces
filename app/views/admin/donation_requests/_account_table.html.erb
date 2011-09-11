@@ -1,0 +1,65 @@
+<div style="font-size: 10px;">
+  <strong><%= 'Key'.t %></strong><br/>
+  <div style="margin-left: 25px;">
+    <span style="color: yellow;"><%= 'Pending'.t %></span> - 
+      <%= 'The account is currently pending approval or denial.'.t -%><br />
+    <span style="color: orange;"><%= 'Unverified'.t %></span> - 
+      <%= 'User has not verified their attached account yet.'.t -%><br />
+    <span style="color: green;"><%= 'Verified'.t %></span> - 
+      <%= 'User has an approved monetary account attached.'.t -%><br />
+    <span style="color: blue;"><%= 'Processing'.t %></span> - 
+      <%= 'The account is currently in the process of approval.'.t -%><br />
+    <span style="color: red;"><%= 'Rejected'.t %></span> - 
+      <%= 'User has attempted to attach an invalid account.'.t -%><br />
+    <span style="color: black;"><%= 'Removed'.t %></span> - 
+      <%= 'User has removed their primary monetary account.'.t %><br/>
+  </div>
+</div>
+
+
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'User/Project Login'.t %></th>
+    <th><%= 'User/Project Display Name'.t %></th>
+    <th><%= 'Account Type'.t %></th>
+    <th><%= 'Identifier'.t %></th>
+    <th><%= 'Status'.t %></th>
+    <th colspan="2"><%= 'Money Actions'.t %></th>
+  </tr>  
+  <% accounts.select{|acc| acc.account_setting.try(:user) && acc.user.active?}.each do |acc| %>
+    <tr class="<%= cycle("dark", "light") %>">
+      <td><%= acc.id %></td>
+      <td><%= user_link(acc.account_setting.user, :icon => true) %></td>
+      <td><%=h acc.account_setting.user.display_name %></td>
+      <td><%= acc.type.to_s.gsub('Account','') %></td>
+      <td><%= acc.account_identifier %></td>
+      <% 
+        money_status_color = 
+          case acc.state.try(:to_sym)
+          when :pending
+            'yellow'
+          when :unverified
+            'orange'
+          when :verified
+            'green'
+          when :processing
+            'blue'
+          when :rejected
+            'red'
+          when :removed
+            'black'
+          end
+      %>
+      <td style="<%= "font-weight: bold; color: #{money_status_color};" -%>"><%=h acc.state %></td>
+      
+      <td>
+        <% if [:pending, :processing, :unverified].map {|s| s.to_s}.include?(acc.state) %>
+          <%= link_to('Verify'.t, {:action => 'verify', :id => acc}, :method => :put, :confirm => 'Have you made sure that this account is verifiable?'.t) %><br />
+          <%= link_to('Reject'.t, {:action => 'reject', :id => acc}, :method => :put, :confirm => 'Are you sure you want to reject this account?'.t) %>
+        <% end -%>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+

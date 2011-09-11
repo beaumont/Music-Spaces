@@ -1,0 +1,12 @@
+if @balances.respond_to?(:each)
+  @balances.each do |balance|
+    # Handle display of -1 (which is unkown amount or needs some attention to permissions)
+    if balance.balance.to_s == '-1'
+      page.replace("#{balance.purse}_amount", 'Unknown'.t)
+      page.replace("#{balance.purse}_attach", '')
+    else
+      page.replace("#{balance.purse}_amount", '%0.2f' % balance.balance)
+      page.replace("#{balance.purse}_attach", '')
+    end
+  end
+end

@@ -1,0 +1,65 @@
+--- 
+- 
+  created_at: 2010-09-10 14:56:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Расскажите нам о СЕБЕ "
+  tr_key: "Tell us ABOUT yourself"
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-12 15:38:13 +00:00
+- 
+  created_at: 2008-10-13 16:39:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Открыть \"Стену\""
+  tr_key: "Open the Wall"
+  tr_origin: /app/views/activity_notifier/_alert_greeting.rhtml
+  updated_at: 2011-01-14 08:15:14 +00:00
+- 
+  created_at: 2008-11-06 05:52:13 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Вернуться к стене %s"
+  tr_key: "Back to %s's Wall"
+  tr_origin: /app/views/user/thread.html.erb
+  updated_at: 2011-01-14 08:15:02 +00:00
+- 
+  created_at: 2008-12-25 02:02:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кураторы проекта – не просто зрители! У них есть полный контроль над материалами и коммуникациями проекта. Вы уверены, что хотите сделать именно это?"
+  tr_key: "The hosts circle is not like other circles! Inviting users to this circle means they will have full control to manage the project. Are you sure this is what you want to do?"
+  tr_origin: /app/views/invite/find.html.erb
+  updated_at: 2011-01-12 16:40:05 +00:00
+- 
+  created_at: 2010-09-10 14:55:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Что нравится вам?"
+  tr_key: "Tell us WHAT you like"
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-12 15:37:59 +00:00
+- 
+  created_at: 2010-09-09 18:50:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Привет {{user}}."
+  tr_key: "Hello {{user}}."
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-12 15:37:59 +00:00
+- 
+  created_at: 2011-01-12 14:03:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Информация вашей регистрационной записи не хранится в нашей системе и не может быть передана сторонним лицам."
+  tr_key: "We do not save or share with any third party your account information."
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-12 14:33:19 +00:00
+- 
+  created_at: 2011-01-12 14:04:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Убедитесь, что e-mail адрес {{email}} введён верно."
+  tr_key: "Make sure you entered your email address {{email}} correctly."
+  tr_origin: /app/controllers/wizard_controller.rb
+  updated_at: 2011-01-12 14:16:11 +00:00

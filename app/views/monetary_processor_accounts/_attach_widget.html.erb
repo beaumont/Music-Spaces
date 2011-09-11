@@ -1,0 +1,40 @@
+<%
+   auto_open ||= false
+   verify ||= false
+   title = verify ? "Verify ((money)) account".t : "Connect Payment System".t
+   is_for_wizard ||= false
+   user_id = user.id if user
+   extra_css_style ||= false
+%>
+
+<% unless auto_open %>
+  <%= link_to(
+    "<span>#{'<strong>%s</strong>' % title}</span>",
+    "#",
+    { :class=> verify ? "" : "button",
+      :style => "#{extra_css_style if extra_css_style}",
+      :onclick=>"script:jQuery('#attach_payment_system_dialog').dialog(attach_payment_system_dialog_opts);return false;"} ) %>
+<% end %>
+
+<span style="display: none;" id="attach_payment_system_dialog" title="<%= title %>"></span>
+
+<!-- Javascript includes to drive this functionality -->
+<% content_for :js do %>
+  <script type="text/javascript">
+    var attach_payment_system_dialog_opts = {
+      title: "<%= title %>",
+      modal: true,
+      height: 'auto',
+      width: 800,
+      position: 'top',
+      open:  function() {jQuery("#attach_payment_system_dialog").load( '<%= url_for :controller => '/monetary_processor_accounts/dialog', :action => 'attach', :id => user_id, :is_for_wizard => is_for_wizard %>')},
+      close: function() {jQuery("#attach_payment_system_dialog").dialog('destroy');}
+    };
+  </script>
+<% end %>
+
+<script type="text/javascript">
+  <% if auto_open %>
+    jQuery('#attach_payment_system_dialog').dialog(attach_payment_system_dialog_opts)
+  <% end %>
+</script>

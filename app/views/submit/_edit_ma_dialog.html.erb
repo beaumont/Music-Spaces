@@ -1,0 +1,11 @@
+<div class="wellspaced" style="padding: 0 1em 1em 1em;">
+  <%= 'This will switch your Music Album to editing mode'.t %>.<br/>
+  <%= 'While in editing mode, this Music Album will not be available for donations and downloads'.t %>.
+</div>
+<div class="buttons">
+  <%= link_to '<button class="button"><span>'+'Remove Downloads'.t+'</span></button>',
+                            {:controller => 'submit', :action => "remove_downloads", :id => content.id},
+                            { :style => "text-decoration:none", :method => :post} %>
+  &nbsp;
+  <button class="button" onclick="jQuery('#edit_ma_dialog').dialog('destroy');return false;"><span> <%= 'Cancel'.t %></span></button>
+</div>

@@ -1,0 +1,59 @@
+
+<% @title = @user.display_name + ' :: ' + 'Entries tagged as'.t + ' "' + h(CGI::unescape(params[:tag])) + '"' %>
+
+<table cellpadding="1" cellspacing="0" border="0" class="tags_full gr_border" style="border: 1px solid #6a6a6a">
+    <tr style="border: 1px solid #FFF;">
+      <td colspan="2">
+        <div class="subtopic_h1" style="margin: 0px;">
+          <div style="width: 650px; float: left;">
+            <%= 'Searched for %s' / ["<strong>#{h(CGI::unescape(params[:tag]))}</strong>"] -%> -
+            <%= 'Content Items'.tdown %>
+            (<%= @search_pages.total_entries %>)
+          </div>
+          <div style="width: 250px; float: right; text-align: right; padding-right: 15px; padding-top: 1px;">
+            <%= link_to 'View results from entire network'.t, search_results_url(params[:tag], 'content'), :style => 'font-weight: normal;' %>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+        <td class="left" style="padding: 5px;">
+            <div>
+              <% if @search_pages.blank? %>
+                  <div class="section_empty"><%= 'No search results'.t -%></div>
+              <% end %>
+              
+              <% @search_pages.each do | content |
+                next if content.nil?
+                next unless content.is_view_permitted?
+              %>
+              
+              
+              <div class="newentry_full <%= cycle('offwhite_dark', "offwhite") -%>">
+                <div class="iconized <%= icon_class(content) %>" style="font-weight: bold; margin-bottom: 8px;">
+                  <%= link_to h(content.title_long), content_url(content) %>
+                </div>
+                <div class="entry <%= content.class.name.underscore %>">
+                  <% if content.is_a?(Inbox) %>
+                    <%= render :partial => 'content/inbox_overview', :locals => {:inbox => content} %>
+                  <% else %>
+                    <%= render(:partial => '/shared/public_history_entry', :locals => {:content => content}) %>
+                  <% end %>
+                </div>
+              </div>
+                
+              <% end %>
+              
+            </div>
+            
+              <%= render :partial => '/shared/pager', :locals => { :pages => @search_pages} %>
+     
+        </td>
+        <td class="right" style="padding: 10px; padding-top: 35px; text-align: justify; line-height: 2em;">
+            <% tag_cloud @tags, %w(cloud_css1 cloud_css2 cloud_css3 cloud_css4) do |tag, css_class| %>
+            <%=   link_to tag.name, user_url_for(@user, :action => 'tags', :tag => tag.name), :class => "#{css_class}" %>&nbsp;&nbsp;&nbsp;
+            <% end %>
+        </td>
+    </tr>
+</table>
+

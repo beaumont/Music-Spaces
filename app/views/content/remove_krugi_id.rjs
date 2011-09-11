@@ -1,0 +1,4 @@
+page['krugi_existing'].hide
+page['krugi_remove'].hide
+page['krugi_blank'].show
+

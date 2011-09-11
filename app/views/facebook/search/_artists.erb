@@ -1,0 +1,42 @@
+<div class="whiteBox">
+  <% @entry.each_with_index do |p,i| -%>
+    <% if i % 2 == 0 %><div class="clear"></div><%end%>
+    <div class="artistContent">
+      <div class="cover" style="width:100px;">
+        <%= link_to(fb_profile_picture(p, {:max_width => 100, :max_height => 100, :content_link => nil}), :controller => 'project', :action => 'show', :id => p.id, :canvas => true) %>
+      </div>
+      <div style="width:140px;float:left;">
+        <div class="artist"><%= link_to p.display_name, :controller => 'project', :action => 'show', :id => p.id, :canvas => true %></div>
+        <div class="country"><%= p.profile.city_and_country %></div>
+        <div class="style"><%#= artist_genre_list(p) %></div>
+        <div class="moreAlbums">
+              <% music_album_size_pluralized = pluralize(p.ma_count, 'album') %>
+              <%= link_to "Download #{music_album_size_pluralized} >>", {:controller => 'project', :action => 'show', :id => p.id, :canvas => true} %>
+            </div>
+      </div>
+    </div>
+  <%end%>
+  <div class="clear"></div>
+</div>
+
+<div class="findFooter">
+  <div style="display:inline;white-space: nowrap;">
+    <table border="0">
+      <tr>
+        <% if @entry.next_page %>
+          <td width="550px">
+            <% url = facebook_absolute_url("/facebook/search/artists?page=#{@page}&filter=#{params[:filter]}")%>
+            <%= link_to("More Artists #{image_tag('FBArrowDown.png')}","#",{
+                        :clickrewriteurl => url,
+                        :clickrewriteform => 'dummy_form',
+                        :clickrewriteid => 'ajaxUpdater',
+                        :clicktoshow => 'spinner'}) %>
+
+           <form id="dummy_form"></form>
+          </td>
+          <td><span id="spinner" style="display:none;"> <%=image_tag('indicator_blue_small.gif')%> </span></td>
+        <%end%>
+      </tr>
+    </table>
+  </div>
+</div>

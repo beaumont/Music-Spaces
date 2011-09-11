@@ -1,0 +1,31 @@
+<% filters = smscoin_params_filters %>
+<% passthrough = {:return_url => return_url, :recipient_id => @recipient.id, :donor_id => (@donor ? @donor.id : nil),
+                  :content_id => (@content ? @content.id : nil), :karma_point_id => @karma_point_id,
+                  :content_type => (@content ? @content.class.name : nil),
+                  :download => boolean_param_value(download),
+} %>
+<h3 <%= available_processor ? "" : "style='display:none'" %> ><a href="#"> <%= p[:name].t %> </a></h3>
+<div class="contribution_option_body smscoin">
+  <% if Smscoin::Version.last(:order => 'last_checked_at').json['502 Bad Gateway'] %>
+    <%= 'Sorry, the SmsCoin payments service is down currently. Try again in few hours please.'.t %>
+  <% else %>
+    <div class="choice">
+      <ul>
+        <% Smscoin::Version.countries(filters).each do |country_code, country_name| %>
+          <% providers = Smscoin::Version.country_providers(country_code, filters) %>
+          <% next if providers.blank? %>
+          <li class="country_<%= country_code %>">
+            <%= link_to_remote(country_name,
+              :loading => "jQuery('#{smscoin_element_selector} .country_#{country_code} .progress').show();",
+              :url => passthrough.merge(:action => "load_smscoin_providers", :country => country_code,
+                                        :dialog_id_suffix => params[:dialog_id_suffix]),
+              :method => :post) %>
+            <span class="progress" style="display:none;vertical-align: middle;"><img src="/images/ajax-loader.gif" /></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="status"></div>
+</div>
+

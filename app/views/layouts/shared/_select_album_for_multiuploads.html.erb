@@ -1,0 +1,155 @@
+<div id="upload_multiple_files" title="<%= 'Upload Multiple Files'.t %>">
+  <% form_tag('javascript:void(0);', :id => "this_form") do %>
+    <div class="select_multiupload_album">
+      <%= hidden_field_tag('multiupload_album_id', '') %>
+      <%= hidden_field_tag('multiupload_type', '') %>
+      <%= hidden_field_tag('current_content_id', controller.controller_name == "content" && controller.action_name == "show" ? params[:id] : "" ) %>
+      <p><%= 'What folder do you want to upload files to'.t %>:</p>
+      <select id="music_album_selector">
+        <option value=""><%= 'Select one'.t %></option>
+        <%= options_for_select Album.upload_tracks_album_menu(current_actor) %>
+        <option value="new_folder"><%= 'Create New Folder'.t %></option>
+      </select>
+      <select id="image_album_selector">
+        <option value=""><%= 'Select one'.t %></option>
+        <%= options_for_select Album.upload_images_album_menu(current_actor) %>
+        <option value="new_folder"><%= 'Create New Folder'.t %></option>
+      </select>
+      <div class="create_new_folder" id="create_new_folder" style="display:none;">
+        <span id="multiupload_album_title_label"><%= 'Folder name'.t %>:</span> <%= text_field_tag("multiupload_album_title") %>
+
+        <div id="turn_folder_into_a_music_album_contaner">
+          <%= check_box_tag("turn_folder_into_a_music_album") %>
+          <%= label_tag("turn_folder_into_a_music_album", "Turn this folder into a music album.".t) %>
+        </div>
+
+        
+        <div class="notice"><b><%= 'Note' %></b>: <%= 'Once the files are uploaded, go to the folder and click "Edit" to make this folder downloadable, add description and adjust other settings.'.t %></div>
+      </div>
+      <div class="error"></div>
+    </div>
+
+    <div class="widget_button_right" id="album_choose_button">
+      <%= render :partial => '/submit/buttons',
+        :locals => {
+          :disable_cancel => true,
+          :ok_label => 'Choose'.t,
+          :use_button_submit => true,
+          :ajax_mode => true, :cleanup_after => false,
+          :form_submit_event => "submit",
+          :clear_errors_contaner => true
+        } %>
+    </div>
+  <% end %>
+</div>
+<% content_for :js do %>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    
+    jQuery("#upload_multiple_files").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 370
+    });
+
+    function open_album_dialog(type) {
+      var album_id = jQuery("#multiupload_album_id").val();
+
+      if (album_id == "" || album_id == null) {
+        jQuery("#album_choose_button button").attr('disabled', 'disabled');
+      }
+
+      jQuery("#upload_multiple_files").dialog("open");
+      jQuery("#multiupload_type").val(type);
+      jQuery("#music_album_selector, #image_album_selector").val("");
+      jQuery(".select_multiupload_album div.error").html("");
+      jQuery("#multiupload_album_title").css({"border": "1px solid grey"});
+      jQuery("#music_album_selector, #image_album_selector").trigger("change");
+    }
+
+    jQuery("#upload_image_link").click(function() {
+        open_album_dialog('images')
+        jQuery("#music_album_selector").hide();
+        jQuery("#image_album_selector").show();
+        return false;
+    })
+
+    if (false) {
+      jQuery("#upload_music_link").click(function() {
+          open_album_dialog('tracks')
+          jQuery("#music_album_selector").show();
+          jQuery("#image_album_selector").hide();
+          return false;
+      });
+    }
+
+    jQuery("#music_album_selector, #image_album_selector").change(function() {
+        jQuery("#multiupload_album_id").val(this.value);
+
+        if (this.value == "" || this.value == null) jQuery("#album_choose_button button").attr('disabled', 'disabled');
+        else jQuery("#album_choose_button button").attr('disabled', '');
+
+        if (this.value == "new_folder") jQuery("#create_new_folder").show();
+        else {
+          jQuery("#create_new_folder").hide();
+          jQuery("#multiupload_album_title").val("");
+          jQuery("#turn_folder_into_a_music_album").val("0")
+        }
+
+        if (jQuery("#multiupload_type").val() == "tracks") jQuery("#turn_folder_into_a_music_album_contaner").show();
+        else jQuery("#turn_folder_into_a_music_album_contaner").hide();
+    })
+
+    jQuery("#this_form").submit(function() {
+      var album_id = jQuery("#multiupload_album_id").val();
+      var current_content_id = jQuery("#current_content_id").val();
+      var type = jQuery("#multiupload_type").val();
+      jQuery(".select_multiupload_album .error").html("");
+      jQuery("#multiupload_album_title").css({"border": "1px solid grey"});
+
+      if (album_id == "" || album_id == null || album_id == undefined) {
+        return
+      }
+
+      if (album_id == "new_folder") {
+        var title = jQuery("#multiupload_album_title").val();
+        var muz_album = jQuery('#turn_folder_into_a_music_album').attr("checked");
+
+        if (title == "" || title == null || title == undefined) {
+            jQuery("#multiupload_album_title").css({"border": "1px solid red"});
+            jQuery(".select_multiupload_album div.error").html('<%= 'Enter Folder Name'.t %>')
+            return
+        }
+
+        var ajax_url = "/submit/add_album";
+
+        if (type == 'tracks' && muz_album) ajax_url = "/submit/add_music_album";
+
+        jQuery.ajax({
+           type: "POST",
+           url: ajax_url,
+           data: "content[_title]=" + title + "&content[is_in_startpage]=1&content[is_in_gallery]=true&content[relationshiptype_id]=-2&content[_donation_button_label]=Download&" + Form.serialize(form),
+           async: false,
+           success: function(msg){
+               album_id = msg;
+           },
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+               jQuery(".select_multiupload_album div.error").html(textStatus);
+               return
+           }
+         });
+      }
+
+      if (album_id == current_content_id) {
+          jQuery("#upload_multiple_files").dialog("close");
+
+          if (type == 'tracks') showMultipleTracksUploader();
+          else showMultipleImagesUploader();
+      } else window.location = window.location.protocol + "//" + window.location.host + '/<%= I18n.locale %>/content/' + album_id + ".html?method=uploader&type=" + type;
+
+      return;
+    })
+
+  });
+</script>
+<% end %>

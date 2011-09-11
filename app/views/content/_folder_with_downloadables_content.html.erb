@@ -1,0 +1,22 @@
+<div class="folder_with_downloadables">
+  <div class="dotted_b" style="margin-bottom:5px;">
+    <% if entry.unpublished? %>
+      <p class="special_notice">
+        <%= "This downloadable folder isn't published yet. Publish it to make it available!".t %><br/>
+      </p>
+    <% end -%>
+
+    <div style="font-weight: bold; margin-bottom: 8px;">
+      <%= [entry.artist, entry.year].compact.join(' / ') %>
+    </div>
+
+    <% unless entry.description.blank? %>
+      <div style="color: #666; padding-bottom: 6px;">
+        <%= formatted_description entry %>
+      </div>
+    <% end %>
+  </div>
+  <%= render :partial => "album_tracks_and_stuff",
+             :locals => {:entry => entry, :no_contents_text => 'This downloadable folder has no preview items available'.t} %>
+</div>
+

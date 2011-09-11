@@ -1,0 +1,5 @@
+<%= 'sent you a link to download the %s "%s"' / [activity.content.type.to_s.humanize.downcase, content_link(activity.content)] %>
+
+<div class="message-extended">
+  <%= link_to( 'Download link'.t , activity.content.file_download.s3_url) %>
+</div>

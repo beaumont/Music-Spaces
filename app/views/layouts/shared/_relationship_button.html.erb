@@ -1,0 +1,47 @@
+  <% if relationship %>
+    <!-- if there are no other circle I can get closer to - hide button-->
+    <% if user.has_closer_non_joined_open_circle?(current_actor) %>
+      <%= link_to content_tag(:span, 'Get Closer'.t), {:controller => "kroogi", :action => "join_circles", :id => user.id}, :class => 'button' %>
+    <% end %>
+  <% else %>
+    <% if current_actor.can_not_follow? %>
+      <%= link_to(content_tag(:span, 'Start Following'.t), "javascript:void(0);", :class => 'button', :id => "can_not_follow_button") %>
+      <div style="display:none;" id="can_not_follow" title="<%= 'Can not follow the user'.t %>">
+        <%= 'You can not start following {{user}} because you have reached the limit of one thousand users that you are allowed to follow.' / [user.display_name] %>
+        <div class="clear"></div>
+        <button class="button_lg wizard"><span>&nbsp;<%= 'OK'.t -%>&nbsp;</span></button>
+      </div>
+      <%= javascript_tag("
+        jQuery(document).ready(function() {
+          jQuery('#can_not_follow_button').click(function() {
+            jQuery('#can_not_follow').dialog({
+              modal: true,
+              width: '300px',
+              resizable: false,
+              minHeight: '100px',
+              close: function() {
+                jQuery(this).dialog('destroy');
+              }
+            })
+          })
+          jQuery('#can_not_follow button').click(function() {
+            jQuery('#can_not_follow').dialog('destroy');
+          })
+        })
+      ") %>
+    <% elsif user.has_open_circles? %>
+    <% kroog = user.furthest_open_circle %>
+      <%= link_to_remote(content_tag(:span, 'Start Following'.t),
+                         :url => {:controller => 'invite',
+                                  :action => 'join',
+                                  :id => user.id,
+                                  :circle => kroog.relationshiptype_id,
+                                  },
+                         :loading => "$('ajax_spinner').show();",
+                         :html => {:class => "button"}) %>
+    <div id="ajax_spinner" class="ajax_spinner" style="display:none;float:right;padding:2px;"><img src="/images/ajax-loader.gif" /></div>
+    <% else %>
+      <%= link_to content_tag(:span, 'Start Following'.t), {:controller => "kroogi", :action => "join_circles", :id => user.id}, :class => 'button' %>
+    <% end %>
+  <% end %>
+

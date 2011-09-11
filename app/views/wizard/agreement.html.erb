@@ -1,0 +1,25 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('Connect Money System'.t) do %>
+  <% if !@user.account_setting.current_monetary_processor_account.nil? %>
+    <% form_border(:subhead_title => skip_step_link(5, @user) + 'You already have a connected payment system'.t) do %>
+      <div class="default"><%= 'Start adding content !'.t %></div>
+    <% end %>
+  <% else %>
+    <% form_border(:subhead_title => skip_step_link(5, @user) + 'This is how receiving contributions works for artists and projects on Kroogi.com'.t) do %>
+      <%= render :partial => "wizard/text/agreement_#{I18n.locale}"%>
+    <% end %>
+    <% if @user.account_setting.invoice_agreement_accepted? %>
+      <%= render :partial => '/monetary_processor_accounts/attach_widget',
+        :locals => {:user => @user, :is_for_wizard =>  'true',
+        :extra_css_class => 'wizard',
+        :extra_css_style => 'float:right;margin:5px 0 15px;'}%>
+    <% else %>
+      <%= render :partial => '/account_settings/invoice_agreement_widget',
+        :locals => {:link_label => 'Get Started'.t,
+        :is_for_wizard => 'true',
+        :extra_css_class => 'wizard',
+        :extra_css_style => 'float:right;margin:5px 0 15px;'}%>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,141 @@
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<% content_for :css do %>
+  <style title="text/css">
+    #birthdate {width:80px;}
+  </style>
+<% end %>
+
+<% @title = @user.login + ' :: ' + 'Edit Details'.t %>
+<% @content_kind_displayname = 'Edit Details'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %> 
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, 'Edit Details'.t)) do %>
+  <div class="default"><b><%= 'Edit information about you that is available to others.'.t %></b></div>
+  <% form_for :profile, :url => { :action => 'update_account', :id => @profile.id }, :html => { } do |f| -%>
+    <input type="hidden" name="from_action" value="edit_basic">
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+      <tr>
+        <td colspan="2">
+        <%= error_messages_for :profile %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= render :partial => "shared/translatable_fields2", :locals => {
+                       :fields => [{:object => @user, :title => lambda {"Display Name".t}, :field => :display_name,
+                                    :options => {:size => 30, :maxsize => 200}, :param_name => :user},
+                                   {:object => @profile     , :title => lambda {"Motto".t},        :field => :tagline,
+                                    :options => {:size => 30, :maxsize => 200}}
+                                   ]} %>
+        </td>
+      </tr>
+      <% unless @user.basic_user? %>
+        <tr>
+          <%= profile_question_input(@profile.question_object(:occupation, true), false, @profile.is_person? ? 'Occupation'.t : 'Project Type'.t) %>
+        </tr>
+        <% @profile.question_group(:basic_user_1).each do | question | %>
+          <tr>
+            <%= profile_question_input(question, false) %>
+          </tr>
+        <% end %>
+      <% end %>
+      <% unless @user.project? %>
+        <% fields_for :user, @user do |u| %>
+          <%= u.error_messages %>
+          <tr>
+            <td class="left"><%= 'Birthdate'.t %></td>
+            <td class="center">
+              <% legacy_birthdate =  @profile.profile_questions.by_name('birthdate') %>
+              <% value = (legacy_birthdate && legacy_birthdate.answer && !@user.has_new_birthdate?) ? legacy_birthdate.answer : @user.birthdate %>
+              <%= calendar_date_select_tag "user[birthdate]", value, :time => false ,
+                                                          :year_range => 110.years.ago..13.years.ago,
+                                                          :id => 'birthdate' %>
+              <% unless @user.basic_user? %>
+                <div>
+                  <label>
+                  <%= u.check_box(:birthdate_visiblity, :class => 'auto_width') %>
+                  <%= 'Show on Profile page'.t %>
+                  </label>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+          <% unless @user.basic_user? %>
+            <tr>
+              <td class="left"><%= 'Gender'.t %></td>
+              <td>
+                <%= u.radio_button 'gender', 'M', :class => 'auto_width' %>
+                <%= 'Male'.t %>
+                <%= u.radio_button 'gender', 'F', :class => 'auto_width' %>
+                <%= 'Female'.t %>
+              </td>
+            </tr>
+            <tr>
+              <td class="left"><%= 'Language'.t %></td>
+              <td>
+                <%= u.radio_button 'language', 'en', :class => 'auto_width' %>
+                <%= 'English'.t %>
+                <%= u.radio_button 'language', 'ru', :class => 'auto_width' %>
+                <%= 'Russian'.t %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% unless @user.basic_user? %>
+        <% (@profile.is_person? ? @profile.question_group(:basic_user_2) : @profile.question_group(:basic_project_1)).each do | question | %>
+          <tr><%= profile_question_input(question, false) %></tr>
+        <% end %>
+
+        <tr class="header">
+          <td>&nbsp;</td>
+          <td colspan="2"><%= @user.project? ? "Project's Contact Information".t : 'Your Contact Information'.t -%></td>
+        </tr>
+        <% @profile.question_group(:contact).each do | question | %>
+          <tr><%= profile_question_input(question, false) %></tr>
+        <% end %>
+
+        <tr class="header">
+          <td>&nbsp;</td>
+          <td colspan="2">
+            <%= @user.project? ? 'More Information About Project (Free-form entry)'.t : 'More Information About Me (Free-form entry)'.t -%>
+          </td>
+        </tr>
+
+        <% @profile.trivia_group.each do | question | %>
+          <tr>
+            <td colspan="2">
+              <% fields_for "profile[question_list][]", question do |q| %>
+                <% unless question.new_record? %>
+                  <%= q.hidden_field(:id, :index => nil) %>
+                <% end %>
+                <%= render :partial => "shared/translatable_fields2", :locals => {
+                  :fields => [{:form => q, :object => question, :title => "Question", :field => :question, :options =>
+                          {:index => nil, :size => question.html[:size] || 30, :maxsize =>  question.html[:maxsize] || 200}},
+                    {:form => q, :object => question, :title => "Answer", :field => :answer, :options =>
+                            {:index => nil, :size => question.html[:size] || "29x6"} }]} %>
+              <% end %>
+              <div></div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr>
+        <td colspan="2">
+          <button class="button wizard" type="submit" name="commit">
+            <span><%= 'Save'.t -%></span>
+          </button>
+          <button class="button_gr" style="margin-top:5px;" onClick="window.location = '<%= local_referer %>';return false;">
+            <span><%= 'Cancel'.t -%></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+<% end %>

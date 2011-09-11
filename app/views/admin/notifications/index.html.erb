@@ -1,0 +1,55 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Change Notification Method'.t %>
+
+<div class="admin">
+  <% form_tag((controller.action_name == "index" ? admin_notifications_path : deleted_admin_notifications_path), :method => :get) do %>
+    <%= text_field_tag("q", params[:q]) %>
+    <div style="display:inline-table">
+      <%= render :partial => '/submit/buttons',
+        :locals => {
+          :disable_cancel => true,
+          :ok_label => 'Find'.t,
+          :use_button_submit => true,
+          :ok_button_class => "button"
+        } %>
+    </div>
+
+  <% end %>
+
+  <div class="paging_status">
+    <%= @paging_header %>
+    <% if controller.action_name == "index" %>
+      <%= link_to("Switch to deleted".t, deleted_admin_notifications_path) %>
+    <% else %>
+      <%= link_to("Switch to active".t, admin_notifications_path) %>
+    <% end %>
+  </div>
+
+  <table class="admin users">
+    <tr>
+      <th><%= 'Login Name'.t %></th>
+      <th>
+        <% if controller.action_name == "index" %>
+          <%= 'Delete from this list'.t %>
+        <% else %>
+          <%= 'Restore'.t %>
+        <% end %>
+      </th>
+    </tr>
+    <% unless @notifications.blank? %>
+      <% for notification in @notifications %>
+        <tr class="<%= cycle("dark", "light") %>">
+          <td><%= user_link(notification.user, :icon => true) %></td>
+          <td>
+            <% if controller.action_name == "index" %>
+              <%= link_to("Delete".t, admin_notification_path(:id => notification.id, :q => params[:q]), :method => :delete) %>
+            <% else %>
+              <%= link_to("Restore".t, restore_admin_notification_path(:id => notification.id, :q => params[:q])) unless notification.token.blank? %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <%= render :partial => '/shared/pager', :locals => {:results => @notifications, :skip_padding => true} %>
+</div>

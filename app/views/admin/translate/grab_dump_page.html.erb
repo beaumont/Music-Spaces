@@ -1,0 +1,23 @@
+<% unless @error %>
+  <% unless @easy_mode %>
+  <div class="wellspaced">
+    'Grab the dump' link will send you latest translations dump file.
+    Don't change its name; save it to db/translations directory in your Kroogi working copy; then add it to SVN.
+    Your translations will appear after you commit it and Stage is redeployed.
+    <div>
+    [ <%= link_to 'Grab the dump'.t, { :action => 'grab_dump' } %> ]
+    </div>
+  </div>
+  <% else %>
+    <div class="wellspaced">
+      Dumped <%= @records_num %> fresh translations to <%= @file_name %> file. The file is waiting to be committed to SVN. The fresh translations keep marked to be dumped; run rake db:trans:load to apply them.
+    </div>
+  <% end %>
+<% else %>
+  <div class="wellspaced">
+    <%= simple_format(@error)%>
+  </div>
+<% end %>
+<p>
+[ <%= link_to 'Back'.t, { :action => 'index' } %> ]
+</p>

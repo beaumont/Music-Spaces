@@ -1,0 +1,55 @@
+<div style="font-size: 10px;">
+  <strong><%= 'Key'.t %></strong><br/>
+  <div style="margin-left: 25px;">
+    <span style="color: green;"><%= 'Approved'.t %></span> - 
+      <%= 'User has asked to join pilot program'.t -%>,
+      <%= 'and an admin has approved their request'.t -%>.
+      <%= 'Money is enabled.'.t %><br/>
+    <span style="color: red;"><%= 'Denied'.t %></span> - 
+      <%= 'User has asked to join pilot program'.t -%>,
+      <%= 'and an admin has rejected their request'.t -%>.
+      <%= 'Money is NOT enabled.'.t %><br/>
+    <span style="color: orange;"><%= 'Requested'.t %></span> - 
+      <strong><%= 'ADMIN ATTENTION REQUIRED!'.t -%></strong>
+      <%= 'User has asked to join pilot program'.t -%>,
+      <%= 'and an admin needs to either approve or reject their request'.t -%>.<br/>
+    <span style="color: black;"><%= 'Not Requested'.t %></span> - 
+      <%= 'User has not asked to join the pilot program'.t %><br/>
+  </div>
+</div>
+
+
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'User/Project Login'.t %></th>
+    <th><%= 'User/Project Display Name'.t %></th>
+    <th><%= 'Current Status'.t %></th>
+    <th colspan="2"><%= 'Money Actions'.t %></th>
+  </tr>  
+  <% @donation_requests.select{|acc| acc.user && acc.user.active?}.each do |dr| %>
+    <tr class="<%= cycle("dark", "light") %>">
+      <td><%= dr.id %></td>
+      <td><%= user_link(dr.user, :icon => true) %></td>
+      <td><%=h dr.user.display_name %></td>
+      <% 
+        money_status_color = if dr.money_approved? then 'green'
+        elsif dr.money_denied? then 'orange'
+        elsif dr.money_requested? then 'red'
+        else nil
+        end
+      %>
+      <td style="<%= "font-weight: bold; color: #{money_status_color};" if money_status_color -%>"><%=h dr.money_status.humanize %></td>
+      <td><%= link_to('Approve'.t, {:action => 'approve', :id => dr}, :method => :put) unless dr.money_approved? %> &nbsp;</td>
+      <td>
+        <% if dr.money_denied? %>
+          <%= link_to('Remove Denial'.t, {:action => 'undeny', :id => dr}, :method => :put) %>
+          <small>- <%= 'Reset to not requested'.t %></small>
+        <% else %>
+          <%= link_to('Deny'.t, {:action => 'deny', :id => dr}, :method => :put) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

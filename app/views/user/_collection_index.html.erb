@@ -1,0 +1,38 @@
+<% right_column_block do %>
+  <% if permitted?(@user, :content_add) %>
+    <% right_column_block do %>
+      <div class="blue_block sidebar">
+        <%= all_post_options(@user.id)[:project] %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% header_block = capture do %>
+  <%= collection_breadcrumbs(@user) %>
+<% end %>
+
+<% left_block = capture do %>
+  <div class="main_left_block collection_items_list">
+    <%= render :partial => 'collection_list_item', :collection => @collections %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => header_block, 
+              :left_block => left_block,
+              :tab_container => 'tabs_container',
+              :content_head => '') do %>
+  <% if current_user.is_self_or_owner?(@user) %>
+    <div class="default right" style="padding-bottom:15px;">
+      <% unless @include_stopped %>
+        <%= link_to('Show hidden ((projects))'.t, params_without_paging(:keep_size => true).merge(:include_stopped => true)) %>
+      <% else %>
+        <%= link_to("Don't show hidden ((projects))".t, params_without_paging(:keep_size => true, :exclude => :include_stopped)) %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="collection_items<%= ' owner_view' if current_user.is_self_or_owner?(@user) %>">
+    <%= render :partial => 'collection_list_item', :collection => @projects, :locals => {:show_info => true} %>
+    <%= render :partial => '/shared/pager', :locals => {:results => @projects, :page_sizes => @page_sizes} %>
+  </div>           
+<% end %>

@@ -1,0 +1,17 @@
+#  create_table "public_answers", :force => true do |t|
+#    t.column "question_id",   :integer,                     :null => false
+#    t.column "user_id",       :integer,                     :null => false
+#    t.column "text",          :text
+#    t.column "created_at",    :datetime
+#    t.column "updated_at",    :datetime
+#    t.column "created_by_id", :integer
+#    t.column "updated_by_id", :integer
+#    t.column "avatar_id",     :integer
+#    t.column "deleted",       :boolean,  :default => false
+#  end
+#
+answer_1_to_question_number_one:
+ id: 1
+ question_id: 1
+ user_id: 3
+ text: keep fighting bro

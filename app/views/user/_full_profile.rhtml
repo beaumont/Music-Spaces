@@ -1,0 +1,38 @@
+<% controls = controls if defined?(controls) %>
+<% link_pic_to_content ||= false %>
+<% main_block(:content_head => 'Name Name') do %>
+  <div id="profile">
+    <% unless user.collection? %>
+      <div class="profile_left">
+        <%= picture_profile(profile_picture(user, :zoom => true, :content_link => link_pic_to_content),
+                          profile_picture(user, :just_dimensions => true)[0] + 22,
+                          :center => true) %>
+        <% if user.profile.userpic.nil? && logged_in? && current_actor.is_self_or_owner?(user) %>
+          <div style="text-align: center; position: relative; top: -<%= user.project? ? '40' : '150' -%>px; white-space:nowrap">
+            <%= link_to('Add Profile Picture'.t,
+                      {:controller => 'submit',
+                       :action => 'upload_image',
+                       :user_id => user,
+                       :cat_id => Content::CATEGORIES[:userpic][:id]},
+                      {:style => 'float:center; color:#000; text-decoration:underline;'}) %>
+          </div>
+        <% end %>
+        <%= render :partial => '/user/profile_controls', :locals => {:user => user} unless controls %>
+      </div>
+    <% end %>
+    <div class="profile_right">
+      <% if user.account_setting.verified_by_kroogi? %>
+        <div class="float_right" style="margin:-10px -20px 0 0;">
+          <%= image_tag("kroogi_verified.gif", :style => 'margin:0 3px -3px 0;') %>
+          <%= "Identity verified by Kroogi".t %>
+        </div>
+      <% end %>
+      <% if controls %>
+        <%= render :partial => '/user/controls', :locals => {:user => user} %>
+      <% else %>
+        <%= render :partial => '/user/permanent_info', :locals => {:user => user} %>
+      <% end %>
+      <%= render :partial => '/user/permanent_info_details', :locals => {:profile => user.profile} %>
+    </div>
+  </div>
+<% end %>

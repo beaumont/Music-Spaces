@@ -1,0 +1,65 @@
+<div class="two_column">
+  <div class="inner">
+    <div class="artistEntrance">
+      <div class="pageTitle">Artist’s Entrance</div>
+      <div class="artistContainer">
+        <div class="artistHeader">
+          <div class="artistHeaderH1">Do you make music?<br />
+          Let Facebook users enjoy, support, and own your music legally.</div>
+          <div class="artistHeaderH2"><%= link_to('Register your band or music project', 'http://www.kroogi.com/signup', :target=> '_blank') %> on Kroogi.com, upload your music, and your content will immediately appear on  Facebook  for people to download, distribute, and pay to you.</div>
+        </div>
+        <div class="whiteBox">
+          <div class="logIn">Already a Kroogi Member? <%= link_to('LOG IN!', 'http://www.kroogi.com', :target=> '_blank') %></div>
+          <div class="singUp"><%= link_to('Sign Up on Kroogi.com', 'http://www.kroogi.com/signup', :target=> '_blank') %></div>
+        </div>
+        <div class="whiteBox">
+          <div class="kroogiPages"><%= image_tag('kroogi_pages.jpg') %></div>
+          <div class="artistKroogiInfo">
+            <ul class="art_entrance_list" style="list-style-image:url(<%=image_path('/images/bullet.gif')%>)">
+              <li class="art_entrance_list_li">Money goes directly to your personal PayPal account</li>
+              <li class="art_entrance_list_li">Any collection of music can receive a contribution from your listeners</li>
+              <li class="art_entrance_list_li">Great for full Albums, B-Sides, Demos, and unfinished Projects</li>
+              <li class="art_entrance_list_li">Monetary and social performance data for your music</li>
+            </ul>
+            <div class="kroogiInfoH2">For your listeners</div>
+            <ul class="art_entrance_list" style="list-style-image:url(<%=image_path('/images/bullet.gif')%>)">
+              <li class="art_entrance_list_li">Unlimited downloads</li>
+              <li class="art_entrance_list_li">Ability to pay what they can, if they can</li>
+              <li class="art_entrance_list_li">Powerful artist communication tools</li>
+              <li class="art_entrance_list_li">Direct influence on the success of their favorite artists</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right_sidebar">
+    <div class="rightTitle">How to Get Your Music Here </div>
+    <div class="rightBoxes">
+      <div class="boxContent">
+        <div class="steps">
+          <p><b>Step 1:  Create an account</b><br />
+          Sign up and create an account at <%= link_to('Kroogi.com', 'http://www.kroogi.com/signup', :target=> '_blank') %></p>
+          <p><b>Step 2: Add PayPal</b><br />
+          Go to the Money tab on your Kroogi profile and add your PayPal account.</p>
+          <p><b>Step 3: Upload Music</b><br />
+          On your main Kroogi page click on the Create Music Album link, create your Music Album, and start uploading tracks.</p>
+          <p><b>Step 4: Make It Downloadable</b><br />
+          Once the tracks are uploaded, we will generate a downloadable zip file. When complete, your Album will appear on this Facebook App instantly. Follow the link on Kroogi.com to open your Album in Facebook.</p>
+          <p><b>Step 5: Send Album to Friends on Facebook</b><br />
+          Send albums to your Facebook friends through this application. See the number of contributions and downloads grow as your friends send the album further.</p>
+        </div>
+      </div>
+      <div class="greyLine2"></div>
+      <div class="boxContent">
+        <div class="startHere"> <%= link_to(image_tag('start.gif', :class=>'rightButton'), 'http://kroogi.com/signup', :target=> '_blank') %></div>
+      </div>
+    </div>
+    <div class="br10"></div>
+    <div class="rightBoxes">
+      <div class="boxContent2">
+        <div class="artistNote">IMPORTANT: You must own the rights for digital distribution of the material you upload. Any albums distributed illegally will be removed immediately.</div>
+      </div>
+    </div>
+  </div>
+</div>

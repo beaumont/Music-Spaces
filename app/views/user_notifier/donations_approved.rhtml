@@ -1,0 +1,22 @@
+
+<p><%= 'Hi %s,' / (h @user.login) -%></p>
+
+<p>
+  <%= 'Contributions for'.t -%>
+  <% if @project %>
+    <%= 'project %s' / (h @project.login) -%>
+  <% else %>
+    <%= h @user.login -%>
+  <% end %>
+  <%= 'have been activated. You may now add payment systems (e.g. PayPal) to your account, set up a contribution area on the Kroogi Page. or create announcements containing direct donation options.'.t -%>
+</p>
+
+<p>
+  <%= 'To edit payment system and contribution options, please log in and visit %s' / [(link_to 'your money page'.t, @url)] -%>.
+</p>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+<%= 'The Kroogi Team'.t -%>
+</p>
+

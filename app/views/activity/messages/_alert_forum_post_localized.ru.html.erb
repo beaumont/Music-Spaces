@@ -1,0 +1,8 @@
+<% if activity.from_user.id == forum.user.id %>
+  известил аудиторию круга '<%= link_to(forum.name, :controller => 'kroogi', :action => 'show', :id => forum.user_id, :type => forum.circle_id) %>'
+  и ближе о <%= link_to('новом сообщении форума', read_and_fwd_url(activity.id, "comment")) %> 
+<% else %>
+  известил аудиторию круга '<%= link_to(forum.name, :controller => 'kroogi', :action => 'show', :id => forum.user_id, :type => forum.circle_id) %>'
+  и ближе о <%= link_to('новом сообщении форума', read_and_fwd_url(activity.id, "comment")) %> проекта <%= user_link(forum.user) %>  
+<% end %>
+

@@ -1,0 +1,32 @@
+<% force_inbox_open ||= false %>
+<% viewable_boxes = @user.inboxes.viewable.select { |x| !x.archived? } %>
+
+<% unless @user.inboxes.empty? && !current_actor.is_self_or_owner?(@user) %>
+  <% right_column_block(:header_title => 'Submitted by Others'.t) do %>
+    <% if permitted?(@user, :content_add) %>
+      <div class="subtopic_h3" style="margin-top: -4px;"> <%= link_to 'New Folder'.t, {:controller => 'submit', :action => 'inbox', :user_id => @user.id}, {:class => 'iconized i_album'} %> </div>
+    <% end %>
+    <% if viewable_boxes.empty? %>
+        <div class="section_empty">
+        <% if @user.inboxes.empty? && permitted?(@user, :content_add) %>
+          <%= 'Create your first folder to receive items from your friends.'.t %>
+        <% else %>
+          <%= 'There are no active folders'.t %><br/>
+          <%= link_to 'See all archived folders'.t, :controller => 'user', :action => 'inboxes', :id => @user %>
+        <% end %>
+      </div>
+    <% else %>
+      <% viewable_boxes.each_with_index do |inbox, index| %>
+        <%= render :partial => 'content/inbox_overview', :locals => {:inbox => inbox,
+                                                                     :index => index} %>
+        <% unless index == viewable_boxes.count - 1 %>
+          <div class="grey_line2"></div>
+        <% end %>
+      <% end %>
+      <div class="orng_line" style="margin-top:10px;"></div>
+      <div class="right" style="<%= 'display: none;' if viewable_boxes.empty? -%>">
+        <%= link_to "#{'View All Folders'.t} >>", {:controller => 'user', :action => 'inboxes', :id => @user} unless viewable_boxes.empty? %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,46 @@
+<%#- This differs from _translatable_fields in that it allows you to specify
+the content as part of the input fields
+
+this partial can be used multiple times, so need to uniqueify ids %>
+<% @tab_container_offset = (@tab_container_offset || 0) + 1
+   english_body ||= nil
+   russian_body ||= nil
+   msg ||= nil
+%>
+<% content_for :js do %>
+  <%= include_jquery_tabs %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function($){
+      $('#tabs_container_<%= @tab_container_offset %>').tabs({ fxFade: true, fxSpeed: 'fast'<%= ", initial: 1" if I18n.language_code[/ru/] %> });
+    });
+  </script>
+<% end %>
+
+<div class="tabs_container" id="tabs_container_<%= @tab_container_offset %>">
+  <ul class="tabs-nav">
+    <li class="round"><a href="#tab_english_translation_<%= @tab_container_offset %>"><span><%= image_tag 'tab_en.png' %></span></a></li>
+    <li class="round"><a href="#tab_russian_translation_<%= @tab_container_offset %>"><span><%= image_tag 'tab_ru.png' %></span></a></li>
+  </ul>
+  <% [['en', "tab_english_translation_#{@tab_container_offset}", english_body, {:prefix => '_'}],
+      ['ru', "tab_russian_translation_#{@tab_container_offset}", russian_body, {:suffix => '_ru'}]].each do |locale, box_id, body, params| %>
+    <% I18n.with_locale(locale) do %>
+      <div class="box" id="<%= box_id %>">
+        <% unless body %>
+          <table class="translatable_fields">
+            <%= render :partial => 'shared/translatable_fields_body', :locals => params.reverse_merge(:fields => fields) %>
+          </table>
+          <% if msg %>
+            <div class="right" style="padding-right:20px">
+              <%= msg.call %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= body.call %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div> 

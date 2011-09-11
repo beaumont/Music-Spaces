@@ -1,0 +1,12 @@
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'public_question', :action => 'new') %>">
+  <%= link_to_unless_current 'Add Question'.t , :controller => 'public_question', :action => 'new' %>
+</div>
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'public_question', :action => 'unpublished') %>">
+  <%= link_to_unless_current 'Drafts'.t , :controller => 'public_question', :action => 'unpublished' %>
+</div>
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'public_question', :action => 'published') %>">
+   <%= link_to_unless_current 'Published Questions'.t , :controller => 'public_question', :action => 'published' %>
+</div>
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(url_params = {:controller => 'public_question', :action => 'reorder_questions'}) %>">
+   <%= link_to_unless_current 'Reorder Questions'.t , url_params %>
+</div>

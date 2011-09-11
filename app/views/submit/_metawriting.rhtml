@@ -1,0 +1,9 @@
+
+<%= f.hidden_field 'user_id' %>
+<td class="left"><label for="title"><%= 'Title'.t %></label></td>
+<td class="center"><%= f.text_field('title', :size => 30, :maxsize => 200)  %></td>
+</tr><tr>
+<td class="left"><label for="tags"><%= 'Tags'.t %></label> <small><%= '(comma separated)'.t %></small></td>
+<td class="center"><%=  f.text_field('tag_list', :size => 30, :maxsize => 200)  %></td>
+
+

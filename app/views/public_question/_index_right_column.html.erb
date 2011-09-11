@@ -1,0 +1,12 @@
+<% content_for :right_column do %>
+  <div class="blue_block sidebar"> 
+    <% if current_user.is_self_or_owner?(@user) %>
+      <div class="default">
+        <%= link_to 'Forum Settings'.t, :controller => 'public_question', :action => 'new' %>
+      </div>
+    <% end %>
+    <div class="default">
+      <%= link_to h(archive ? 'Published Questions'.t : 'Forum Archive'.t), :controller => 'public_question', :action => (archive ? 'index' : 'archive') %>
+    </div>
+  </div>
+<% end %>

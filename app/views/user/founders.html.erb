@@ -1,0 +1,49 @@
+<%# translation ver 1 pass 2 -- AK %>
+
+<% @title = @user.login + ' :: ' + 'Hosts'.t %>
+<% show_founder_stuff = current_actor.is_self_or_owner?(@user) || @user.project_founders_include?(current_actor) %>
+
+<% right_column_block(:header_title => 'Project Hosts'.t) do %>
+  <div class="<%= 'manage_followers' unless current_actor.is_self_or_owner?(@user) -%>">
+    <div class="default">
+      <% if params[:action] == 'pending_founders' %>
+        <%= link_to(
+            '{{count}} Hosts' / [@founders.count],
+            :controller => '/user', :action => 'founders', :id => @user) %> | 
+        <%= '{{count}} Invitations' / [@invited_founders.count] %>
+      <% else %>
+        <%= '{{count}} Hosts' / [@founders.count] %>
+        <% if show_founder_stuff %> 
+          | <%= link_to(
+              '{{count}} Invitations' / [@invited_founders.count], 
+              :controller => '/user', :action => 'pending_founders', :id => @user) %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if params[:action] == 'pending_founders' && permitted?(@user, :profile_edit) %>
+      <% if @invited_founders.empty? %>
+          <div class="section_empty"><%= 'No pending founder invitations'.t %></div>
+      <% else %>
+        <%= render :partial => "kroogi/pending_list_item", :collection => @invited_founders, :locals => {:founder => true} %>
+      <% end %>
+    <% else %>
+      <%= render :partial => "kroogi/list_item", :collection => @founders %>
+    <% end %>
+
+    <div style="margin-left:45px;">
+      <% if show_founder_stuff %>
+        <%= link_to '<span>'+'Invite More'.t+'</span>', {:controller => '/invite', :action => 'find', :id => @user, :circle_id => Relationshiptype.founders, :restrict => Relationshiptype.founders} , {:class => 'button', :id => 'invite_more_link'} %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% unless current_actor.is_self_or_owner?(@user) %>
+  <% main_block(:header_title => 'Who are Project Hosts?'.t, :white_body => true) do %>
+    <div id="forum">
+      <div class="default"><%= 'Project Hosts are the people who created this project and run it. Each of the people listed can represent the project at any given time. They can post and edit content. They can also talk to others on behalf of the project.'.t -%></div>
+    </div>
+  <% end %>
+<% else %>
+  <%= render :partial => 'kroogi/forum', :locals => {:circlename => 'Hosts'} %>
+<% end %>

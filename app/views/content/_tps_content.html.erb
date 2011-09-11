@@ -1,0 +1,37 @@
+<%# Thermometer %>
+<% disable_more_button ||= false %>
+<%= render :partial => 'shared/tps_thermometer', :locals => {:hat => entry} %>
+
+<% unless entry.stopped? %>
+  <%# Button %>
+  <div style="float:right;">
+    <%= link_to(
+            "<span>#{'Participate'.t}</span>",
+            {:controller => 'tps', :action => 'goodies', :id => entry.id},
+            :class => "button", :disabled => (disable_more_button ? 'disabled' : nil)
+    ) %>
+  </div>
+
+  <%# Details %>
+  <div class="thermometer_info">
+    <%= '{{count}} participants' / entry.participated_count %><br/>
+    <%= tps_ends_in_caption(entry) %>
+  </div>
+<% else %>
+  <%= 'The pledge is closed'.t %>
+  <br/><br/>
+<% end %>
+
+
+
+<%# Text  %>
+<div class="default"><%= formatted_description entry %></div>
+
+<%# player if exists  %>
+<% unless entry.tracks.empty? %>
+  <%= render :partial => '/content/tracks_player',
+    :locals => {
+      :data_options => {:album_id => entry.related_content.blank? ? entry.id : entry.related_content.id, :tracks => entry.tracks},
+      :player_id => "album_player_#{entry.id}",
+      :css_class => ''} %>
+<% end %>

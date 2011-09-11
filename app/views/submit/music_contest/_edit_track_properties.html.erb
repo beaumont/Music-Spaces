@@ -1,0 +1,39 @@
+<% main_block(:header_title => 'Media'.t) do %>
+  <% form_for :content, :url => { :controller => 'submit', :action => (is_edit? ? 'update' : 'add_music'),
+                                  :for_inbox => params[:for_inbox] },
+              :html => {:onsubmit => "return check_fields();", :name => "uploadForm", :multipart => true} do |form| -%>
+    <% (@uploaded || [@content]).each do |content| -%>
+      <% @content = content %>
+      <% fields_for "content[]", content do |f| %>
+        <%= f.hidden_field("id") %>
+        <%= f.hidden_field("is_in_gallery") %>
+        <%= render :partial => "/submit/music_contest/music", :locals => {:f => f, :content => @content, } %>
+      <% end %>
+    <% end %>
+    <div>
+      <% cancel_button = %Q{
+        <button class="button_gr cancel"
+          onClick="$(this).up('form').action = '/submit/delete/#{@content.id}?submission_cancel=true'; return button_submit1(this, '#{'Cancelling the track'.t}');"
+          style="margin-left: 50px;">
+          <span>#{'Cancel'.t}</span>
+        </button>
+        #{wait_up_homie}
+      }%>
+      <%= render :partial => "buttons", :locals => {:f => form, :is_editing => true, :center => true,
+              :disable_cancel => true, :render_after_submit => cancel_button, :use_button_submit => true,
+              :validate => 'check_fields()', :upload => true, :ok_label => 'Save'.t} %>
+    </div>
+  <% end %>
+<% end %>
+
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript" language="javascript">
+    function check_fields() {
+      if (content_owner.value == '') {
+        alert('<%= js "Copyright owner field cannot be empty. Please enter either your Kroogi name, or the name of the copyright holder".t -%>');
+        return false;
+      }
+      return true;
+    }
+  </script>
+<% end %>

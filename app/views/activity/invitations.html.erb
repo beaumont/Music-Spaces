@@ -1,0 +1,41 @@
+<% main_block(:header_title => 'Message Center'.t, :content_head => 'Invitations'.t) do %>
+  <div class="right">
+    <%= 'Invitations'.t -%>:
+    <b><%= link_to_unless !@is_sent && @is_invite, 'Received'.t, {:controller => 'activity', 
+                                                              :action => :invitations, 
+                                                              :type => :invite, 
+                                                              :direction => :received} %></b>
+    <span class="separator"></span>
+    <b><%= link_to_unless @is_sent && @is_invite, 'Sent'.t, {:controller => 'activity', 
+                                                          :action => :invitations, 
+                                                          :type => :invite, 
+                                                          :direction => :sent} %></b>
+  </div>
+  <div class="right">
+    <%= 'Requests'.t -%>: 
+    <b><%= link_to_unless !@is_sent && !@is_invite, 'Received'.t, {:controller => 'activity', 
+                                                                :action => :invitations, 
+                                                                :type => :request, 
+                                                                :direction => :received} %></b>
+    <span class="separator"></span>
+    <b><%= link_to_unless @is_sent && !@is_invite, 'Sent'.t, {:controller => 'activity', 
+                                                          :action => :invitations, 
+                                                          :type => :request, 
+                                                          :direction => :sent} %></b>
+  </div>
+  <% if @invitations.empty? %>
+    <div class="section_empty">
+      <%= @is_invite ? 'You have no matching invitations at the moment'.t : 'You have no matching invitation requests at the moment'.t %>
+    </div>
+  <% else %>
+    <% @invitations.each do |invite| %>
+      <% unless @invitations.first == invite %>
+        <div class="<%= invite.is_a?(Invite) ? 'invite' : 'request' -%>">
+          <img src="/images/tp.gif" alt="" width="1" height="5"/>
+        </div>
+      <% end %>
+      <%= render :partial => @is_sent ? 'invitation_sent_td' : 'invitation_td', :locals => {:invite => invite} %>
+    <% end %>
+    <%= render :partial => '/shared/pager', :locals => { :results => @invitations} %>
+	<% end %>
+<% end %>

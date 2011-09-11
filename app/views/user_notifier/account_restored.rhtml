@@ -1,0 +1,26 @@
+<p>
+  <%= 'Hi'.t %>
+  <%= @user.display_name -%>,
+</p>
+
+<p>
+  <strong>
+    <% if @project %>
+      <%= "Project %s (%s), where you were a host, has been restored to the Kroogi Network" / [@project.display_name, @project.login] -%>!
+    <% else %>
+      <%= "Your account has been restored to the Kroogi Network" -%>!
+    <% end %>
+  </strong>
+
+  <% if @project %>
+    <%= "The project's Kroogi Page is now accessible to anyone, and you will be able to act on its behalf".t -%>.
+  <% else %>
+    <%= "Your Kroogi Page is now accessible, and you can log in whenever you'd like".t -%>.
+  <% end %>
+</p>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+  <%= 'The Kroogi Team'.t -%>
+</p>
+

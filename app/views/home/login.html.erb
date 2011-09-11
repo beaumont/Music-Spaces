@@ -1,0 +1,63 @@
+
+<div id="logo_and_sig">
+  <%= link_to image_tag('krooglo.gif', :id => "logo"), explore_path %><br/>
+</div>
+
+<div class="login_window">
+  <div class="login_box" style="padding-bottom: 0px;">
+    <% form_tag({:controller=> 'home', :action => 'change_language'}) do -%>
+      <div>
+        <%= hidden_field_tag 'target', url_for(:overwrite_params => {}) %>
+        <select name="locale" style="font-size: 11px; width:100px;" onchange="this.form.submit();">
+          <%= options_for_select(APP_CONFIG.language_menu, I18n.language_code) %>
+        </select>
+      </div>
+    <% end -%>
+  </div>
+
+  <div class="login_window_form login_box">
+    <h2><%= "Please log in to continue".t %></h2>
+    <% @user ||= User.new %>
+
+    <% if flash[:error] %>
+      <p class="login_window_form_el" style="color: red;">
+        <%= error_messages_for 'user' %>
+      </p>
+    <% end%>
+
+    <% form_tag({:host => user_domain, :only_path => false, :controller=> 'home', :action => 'login'}, {:id => "signin_form"}) do -%>
+      <div>
+      <%= hidden_field_tag :failure_action, params[:failure_action] %>
+      <%= hidden_field_tag('return_to', params[:return_to]) %>
+
+      <p>
+        <label for="login" class="login_window_form_el"><%= "Kroogi Name".t %></label>
+        <%= text_field("user", "login", "id" => "login", :size => 15, :maxsize => 30, :style => "width:150px;", :class => "feedback_input") %>
+      </p>
+
+      <p>
+        <label for="password" class="login_window_form_el"><%= "Password".t %></label>
+        <%= password_field_tag('password' , nil, {:size => 15, :maxsize => 30, :style => "width:150px; margin-right: 20px;", :class => "feedback_input"}) %>
+        <%= link_to "Forgot your password?".t, :controller => 'home', :action => 'forgot_password', :locale => I18n.language_code %>
+      </p>
+
+      <p>
+        <label for="remember_me" style="font-weight: normal; vertical-align: middle;" class="tick">
+          <%= check_box_tag('remember_me', 1, nil, :style => "margin:0;") %>
+          &nbsp;<%= "Remember me on this computer".t %>
+        </label>
+      </p>
+
+      <div class="button_wrapper">
+        <button class="button" type="submit" name="commit">
+          <span><%= 'Enter'.t %></span>
+        </button>
+      </div>
+      </div>
+    <% end -%>
+  </div>
+
+  <div class="login_box invite_required_info">
+    <h2 style="text-align: center;"><%= link_to 'Not a Kroogi Member? Join now!'.t, signup_path %></h2>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<% if account_setting.donatable? || current_user.is_self_or_owner?(@user) -%>
+  <% right_column_block do %>
+    <div class="blue_block sidebar">
+      <% if account_setting.donatable? %>
+        <%= render(:partial => "/user/donate_widget", :locals => {:recipient => user, :donor => current_user.guest? ? nil : current_user }) %>
+
+        <% unless kf_simple(account_setting.donation_request_explanation).blank? %>
+          <div class="special_notice"><%= kf_simple(account_setting.donation_request_explanation) %></div>
+        <% end %>
+
+        <% if @user == current_actor %>
+          <div class="right" style="margin:3px 0;">
+            <%= link_to "Change settings".t + '&nbsp;&gt;&gt;', donation_basket_account_setting_path %>
+          </div>
+        <% end -%>
+      <% else %>
+        <div class="blue_block light">
+          <% if !account_setting.has_an_approved_account_set? %>
+            <%= 'Your contribution module will appear here once you have set up your money accounts {{here}}' /
+                    link_to('here'.t, money_path(@user.id)) -%>
+          <% elsif !account_setting.money_approved? %>
+            <%= 'Your contribution module will appear here once the Kroogi admins enable your money settings'.t -%>
+          <% else %>
+            <%= 'Your contribution module will appear here once you allow one-time contributions on Kroogi page {{here}}' /
+                    link_to("here".t, {:controller => "account_setting", :action => "donation_basket", :id => @account_setting.user_id}) -%>.
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end -%>

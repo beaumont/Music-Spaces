@@ -1,0 +1,19 @@
+<div class="blue_block" style="height:80px;">
+  <%= avatar_lg(user) %>
+  <div class="account_middle">
+    <div class="user_link">
+       <div class="prvt float_right">
+          <%= leave_private_message(user) %>
+        </div>
+        <%= user_link(user, :use_display_name => true, :icon => true, :limit => 65) %>
+    </div>
+    <div class="user_motto">
+      <% unless user.profile.tagline.blank? %>
+        <%= "&quot;" + truncate_with_hint(user.profile.tagline, :length => 200)  + "&quot;" %>
+      <% end %>
+    </div>
+    <div class="bluetabs">
+      <%= kroogi_narrow_bluetabs(user) %>
+    </div>
+  </div>
+</div> 

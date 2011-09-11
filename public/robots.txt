@@ -1,0 +1,36 @@
+# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
+#
+# Note - not all bots support wildcards, so double up obvious ones
+Sitemap: http://kroogi.com/smap.xml
+User-Agent: *
+Disallow: /explore
+Disallow: /explore/
+Disallow: /explore/*
+Disallow: /login
+Disallow: /logout
+Disallow: /login*
+Disallow: /*login*
+Disallow: /logout*
+Disallow: /home/
+Disallow: /home/*
+Disallow: /helloworld/
+Disallow: /helloworld/*
+Disallow: /lookfor/*
+Disallow: /search/*
+Disallow: /tags/*
+Disallow: /activity/*
+Disallow: /submit/*
+Disallow: /account*
+Disallow: /comment/*
+Disallow: /invite/*
+Disallow: /preference/*
+Disallow: /project/*
+Disallow: /backgrounds
+Disallow: /donate/*
+Disallow: /content/download/*
+Disallow: /content/download_bundle/*
+Disallow: /content/download_album_without_donation/*
+Disallow: /content/recent
+Disallow: /uploader/*
+Disallow: /player/*
+#Disallow: /*?

@@ -1,0 +1,35 @@
+<% # We should never hit this case...
+if !@user.account_setting.current_monetary_processor_account.nil? and
+    @user.account_setting.current_monetary_processor_account.verified? %>
+  <div style="color:#FAA">You cannot attach a new account until you remove the previous one</div>
+  <%= link_to "Click here to go back", :controller => '/money', :action => "index", :id => @user.id, :target => "_top" %>
+<% else %>
+  <div id="attach_payment_system_accordion">
+    <% # first, see if we already have a mpa attached and only show that one
+    if !@user.account_setting.current_monetary_processor_account.nil? %>
+      <%=  render :partial => "/monetary_processor_accounts/#{@user.account_setting.current_monetary_processor_account.monetary_processor.short_name}/attachment_form",
+        :locals => {
+                    :user => @user,
+                    :monetary_processor_account => @user.account_setting.current_monetary_processor_account,
+                    :href => @user.account_setting.current_monetary_processor_account.monetary_processor.short_name,
+                    :is_for_wizard => @is_for_wizard} %>
+    <% else %>
+      <% mps = MonetaryProcessor.available_for_withdrawals %>
+      <%# for Kroogi project, only WM is allowed to attach, 'cause it's needed for WM withdrawals %>
+      <% mps = mps.select {|p| p.short_name['webmoney']} if @user.kroogi_account?
+      mps.each do |p| %>
+        <%=  render :partial => "/monetary_processor_accounts/#{ p[:short_name] }/attachment_form",
+          :locals => {
+                      :user => @user,
+                      :monetary_processor_account => nil,
+                      :href => p[:short_name],
+                      :is_for_wizard => @is_for_wizard} %>
+      <%  end  %>
+    <%  end  %>
+  </div>
+
+  <script type="text/javascript">
+    jQuery("#attach_payment_system_accordion").accordion();
+  </script>
+<% end  %>
+

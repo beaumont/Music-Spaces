@@ -1,0 +1,20 @@
+<% @custom_content_body_id = 'content_body' %>
+
+<% content_for :js do %>
+  <%= include_jquery_tabs(false) %>
+  <script type="text/javascript">
+      jQuery(document).ready(function($){
+        $('.tabs_container').tabs({ fxFade: true, fxSpeed: 'fast' });
+      });
+  </script>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/stylesheets/jquery.tabs.round.css" type="text/css" media="print, projection, screen" />
+  <%# Additional IE/Win specific style sheet (Conditional Comments) %>
+  <!--[if lte IE 7]>
+  <link rel="stylesheet" href="/stylesheets/jquery.tabs-ie.explore.css" type="text/css" media="projection, screen">
+  <![endif]-->
+<% end %>
+
+<%= render :file => 'layouts/application' -%>

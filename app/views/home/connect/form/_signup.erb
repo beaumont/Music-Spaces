@@ -1,0 +1,94 @@
+<%
+   if current_fb_connected_user
+     email = current_fb_connected_user.email ? email : nil
+     persistent_connected_user = current_fb_linked_user
+     if persistent_connected_user.nil?
+       persistent_kroogi_user = User.active.by_fb_id(current_fb_connected_user.id).first
+     end
+   end
+%>
+
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<% if persistent_kroogi_user %>
+  <div class="main_body">
+    <% form_border do %>
+      <%= '{{login}}, you already have a Kroogi account associated with this Facebook account, and this account can login, using its username ("{{krooginame}}") and password.' /  [persistent_kroogi_user.login.capitalize, persistent_kroogi_user.display_name]%>
+      <%= 'You can also reset your password if you follow the link on the login screen. Click '.t %>
+      <%= link_to 'here'.tup, :controller => 'home', :action => 'login', :locale => I18n.language_code %>
+      <%= 'to proceed to login screen'.t %>
+    <% end %>
+  </div>
+
+<% else %>
+  <% if persistent_connected_user %>
+    <div class="main_body">
+      <% form_for :user_to_login, :url => {:controller => 'home', :action => 'login'},
+                  :html => {:id => "loginForm",
+                            :name => "loginForm;",
+                            :style=> 'display:inline'} do |f| -%>
+        <%= hidden_field_tag "user_to_login[login]", persistent_connected_user.login %>
+        <% form_border do %>
+          <%= 'Hello'.t %>
+          <b><fb:name uid="<%= persistent_connected_user.facebook_id %>" useyou="false" linked="false"></fb:name></b>,
+          <%= 'you already have a Kroogi account associated with your Facebook Account.'.t %>
+        <% end %>
+        <% fb_logout_button = fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+        <%= render :partial => '/submit/buttons.html.erb',
+                   :locals => {:use_button_submit => true,
+                               :disable_cancel => true,
+                               :render_before_submit => fb_logout_button,
+                               :button_wrapper_class => 'button_wrapper',
+                               :ok_label => 'Login to Kroogi'.t} %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <% if current_fb_connected_user %>
+      <div class="main_body">
+        <% form_border do %>
+          <%= 'You are logged into facebook as <b>{{fb_name}}</b>.' / current_fb_connected_user.name %>
+          <%= 'You can create a Kroogi account using your Facebook info.'.t %>
+          <%= 'If you want to use a different Facebook account, please logout from Facebook.'.t %>
+        <% end %>
+        <div class="button_wrapper" id="button_container">
+          <%= fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+          <button class="button" onclick="jQuery('.main_body').show();jQuery('#button_container').hide();<%= birthday_datapicker %>">
+            <span><%= 'Create Account'.t %></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="main_body" style="display:<%=error_messages_for(:user).blank? ? 'none' : 'block'%>; padding-top:0px;">
+        <% form_for :user, :url => {:controller => 'home', 
+                                    :action => 'signup'}, :html => {:name => 'signupFormFB', :id => 'signupFormFB', :onsubmit => "return checkCheckBoxes();"} do |f| -%>
+          <% if current_fb_connected_user %>
+            <%= hidden_field_tag 'fb_connect_user', 'true' %>
+            <%= hidden_field_tag 'fb_connect_id', current_fb_connected_user.id %>
+            <%= hidden_field_tag "user[password]", "dummy_password_#{current_fb_connected_user.id}" %>
+            <%= hidden_field_tag "user[password_confirmation]", "dummy_password_#{current_fb_connected_user.id}" %>
+            <%= hidden_field_tag "user[email_verified]", email %>
+          <% end %>
+          <% form_border do %>
+            <div style="padding-left:90px;">
+              <%= render :partial => '/home/connect/form/signup_fb_user_fields.html.erb', :locals => {:f => f} %>
+            </div>
+          <% end %>
+          <% fb_logout_button = fb_connect_logout_link("<button class='button_gr cancel'><span>#{'FB Logout'.t}</span></button>", '#', :reload => true) %>
+          <%= render :partial => '/submit/buttons.html.erb',
+                     :locals => {:use_button_submit => true,
+                                 :disable_cancel => true,
+                                 :render_before_submit => fb_logout_button,
+                                 :button_wrapper_class => 'button_wrapper',
+                                 :ok_label => 'Create Account'.t,
+                                 :validate => 'checkCheckBoxes()'} %>
+        <% end %>
+      </div>
+
+    <% end %>
+  <% end %>
+<% end %>
+<div class="clear"></div>

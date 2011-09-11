@@ -1,0 +1,92 @@
+<div class="collection">
+  <div class="pageTitle">My Albums</div>
+  <div class="collectionContainer">
+    <div class="collectionHeader">These are the albums you downloaded, contributed to, or sent to your friends</div>
+    <% @activities.each do |activity| -%>
+      <% if activity.content && activity.content.is_a?(MusicAlbum)%>
+        <% if activity.content.qualify_for_fb %>
+          <div class="whiteBox">
+            <div class="cover">
+              <% if activity.content.cover_art %>
+                <%= link_to(image_tag(activity.content.cover_art.thumb(:thumb).public_filename,
+                    :border => 0, :width => 100,
+                    :alt => h(activity.content.cover_art.thumb(:thumb).filename)),{:controller => 'content', :action => 'show', :id => activity.content.id, :canvas => true}) %>
+              <%end%>
+            </div>
+            <div class="whiteBoxContent">
+              <div class="lastAction"><%= activity_last_action_message(activity,nil) -%></div>
+              <div class="name"><%=image_tag('project.png')%> <%= link_to activity.content.user.display_name, :controller => 'project', :action => 'show', :id => activity.content.user.id, :canvas => true %></div>
+              <div class="title"><%= link_to(h(activity.content.title),{:controller => 'content', :action => 'show', :id => activity.content.id, :canvas => true}) %></div>
+              <div class="artist">
+                <%= "#{activity.content.artist}" unless activity.content.artist.blank? -%>
+                <%= " / " unless activity.content.artist.blank? || activity.content.year.blank?%>
+                <%= "#{activity.content.year}" unless activity.content.year.blank? -%>
+              </div>
+              <div class="style"><%= h(activity.content.genre) unless activity.content.genre.blank? %></div>
+              <ul class="actionLinks">
+                <li><%= link_to('Download',{:controller => 'content', :action => 'show', :id => activity.content.id, :expand => 'downloadboxContent'}) %><li> |
+                <li><%= link_to('Contribute',{:controller => 'content', :action => 'show', :id => activity.content.id, :expand => 'donateboxContent'}) %></li> |
+                <li><%= send_album_link("Send", activity.content.id, 1) %> </li> |
+                <li><%= publish_album_link("Publish", activity.content) %> </li>
+              </ul>
+              <%= render :partial => "shared/facebook/feed_form.erb", :locals => { :entry => activity.content } %>
+              <%= render :partial => 'album_activity', :locals => {:activity => activity}%>
+            </div>
+            <div class="clear"></div>
+          </div>
+        <%else%>
+          <div class="whiteBox">
+            <div class="cover opacity">
+              <% if activity.content.cover_art %>
+                <%= image_tag(activity.content.cover_art.thumb(:thumb).public_filename,
+                  :border => 0, :width => 100,
+                  :alt => h(activity.content.cover_art.thumb(:thumb).filename)) %>
+              <%end%>
+            </div>
+            <div class="whiteBoxContent">
+              <div class="noAlbum">This album is no longer available on Kroogi Downloads</div>
+              <div class="noAlbumInfo">
+                <div class="lastAction"><%= activity_last_action_message(activity,nil) -%></div>
+                <div class="name"><%=image_tag('project.png')%> <%= activity.content.user.display_name %></div>
+                <div class="title"><%= activity.content.title %></div>
+                <div class="artist">
+                  <%= "#{activity.content.artist}" unless activity.content.artist.blank? -%>
+                  <%= " / " unless activity.content.artist.blank? || activity.content.year.blank?%>
+                  <%= "#{activity.content.year}" unless activity.content.year.blank? -%>
+                  &nbsp;
+                </div>
+                <div class="style"><%= h(activity.content.genre) unless activity.content.genre.blank? %>&nbsp;</div>
+                <ul class="actionLinks">
+                  <li>&nbsp;<li><li>&nbsp;<li><li>&nbsp;<li>
+                </ul>
+                <br />
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        <%end%>
+      <%end%>
+    <%end%>
+    <div class="findFooter">
+      <div style="display:inline;white-space: nowrap;">
+        <table border="0">
+          <tr>
+            <% if @activities.next_page %>
+              <td width="460px">
+                <% url = facebook_absolute_url("/facebook/user?page=#{@page}")%>
+                <%= link_to("More Albums #{image_tag('FBArrowDown.png')}","#",{
+                        :clickrewriteurl => url,
+                        :clickrewriteform => 'dummy_form',
+                        :clickrewriteid => 'ajaxUpdater',
+                        :clicktoshow => 'spinner'}) %>
+
+               <form id="dummy_form"></form>
+              </td>
+              <td><span id="spinner" style="display:none;"> <%=image_tag('indicator_blue_small.gif')%> </span></td>
+            <%end%>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

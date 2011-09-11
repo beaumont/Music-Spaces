@@ -1,0 +1,52 @@
+<% data_options ||= {}
+   ui_params ||= {}
+   ui_params.reverse_merge!(:info_icon => true)
+
+   vars = calc_playlist_vars_by_options(data_options)
+   ui_params.reverse_merge!(vars[:ui_params]) if vars[:ui_params]
+   begin
+     playlist_xml = playlist_xml_params(vars.merge(:ui_params => ui_params))
+   rescue => e
+     raise 'Playlist generation failed on data_options: %s. Exception: %s' % [data_options.inspect, e.inspect]
+   end
+   tracks = vars[:tracks]
+   before_player ||= nil
+   after_player ||= nil
+   css_class ||= 'player'
+%>
+<% unless tracks.empty? %>
+  <% content_for :js do %>
+    <%= include_swf_loader %>
+  <% end %>
+  <% flashvars = "playlist_xml=#{playlist_xml}&player_mode=kroogi&expires=#{(Time.now + 10.minutes).utc.stamp}"
+     flashvars += "sig=#{User.encrypt(flashvars, "ergherhgae")}"
+  %>
+  <script type="text/javascript">
+    var params = {
+      flashvars: "<%= flashvars %>",
+      align: "middle",
+      wmode: "transparent",
+      allowScriptAccess: "always"
+    };
+
+    swfobject.embedSWF("<%= image_path('/flash/Kroogi_MP3_Player.swf') %>",
+            "<%= player_id %>",
+            "100%", "<%= player_height(tracks) %>",
+            "9.0.0","/flash/expressInstall.swf", false, params);
+  </script>  
+  <div class="<%=css_class%>">
+    <%= before_player %>
+    <div id = "<%= player_id %>">
+      <%= "Oops! Looks like Flash doesn't work in your browser, or page loading is terminated. Otherwise you would see our tracks player here.".t %>
+    </div>
+    <%= after_player %>
+  </div>
+  <ul style="display:none">
+    <% tracks.each do |track| %>
+      <li>
+        <%= content_link(track) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+

@@ -1,0 +1,1 @@
+page << "toggle_junk_commands(%s, '.as_junk', '.as_not_junk');" % @feedback.id

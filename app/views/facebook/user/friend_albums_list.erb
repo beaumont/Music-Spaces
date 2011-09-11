@@ -1,0 +1,32 @@
+<%
+unless @friend.nil?
+friend_first_name = fb_name(@friend.facebook_id, :first_name_only => true, :linked => false)
+%>
+<div class="two_column">
+  <% if @activities.empty? %>
+    <div class="inner">
+      <div class="collection">
+        <div class="pageTitle"><%= fb_name(@friend.facebook_id, :first_name_only => true,
+                                                                :linked => false,
+                                                                :capitalize => true,
+                                                                :class => 'pageTitle') %>'s Albums</div>
+        <div class="collectionContainer">
+          <div class="collectionHeader">These are the albums <%=friend_first_name%> downloaded, contributed to, or sent to his friends</div>
+          <div class="whiteBox">
+            <div class="empty"><%=friend_first_name%> did not download,<br />
+            contribute, or sent out any albums yet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%else%>
+    <div class="inner">
+      <div id="ajaxUpdater">
+        <%= render :partial => "friend_activities", :locals => {:friend_first_name => friend_first_name}%>
+      </div>
+    </div>
+  <%end%>
+  <%= render :partial => 'shared/facebook/right_sidebar', :locals => {:box => ['friend_pic']} %>
+  <div class="clear"></div>
+</div>
+<%end%>

@@ -1,0 +1,22 @@
+<div class="text_container">
+  <div class="text_paper">
+    <div class="text_entry">
+      <div class="text_security">
+        <%= security_icon(text_content) %>
+      </div>
+      <div class="default_lg">
+        <b><%= gallery_content_title_link(text_content, nil, :class => "gallery_text_link", :truncate_to => 75) %></b>
+      </div>
+      <div class="default_lg">
+        <%= kf_simple(text_content.post, {
+            :characters => 240, 
+            :ending => '&nbsp;(' + link_to("...".tdown, content_url(text_content) ) +')',
+            :skip_tags => %w[p embed b strong em i img a] }) %>
+        </div>
+    </div>
+    <div class="text_btm"><div class="text_btm_body"></div></div>
+  </div>
+  <div class="text_comment"> 
+    <%= tiny_comment_count_link(text_content) %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<% @title = "Make a Donation with Yandex Money".t  %>
+
+<div class="left_bordered">
+	<div class="subtopic_h1">
+		<span class="subtopic_left"><%= @title -%></span>
+	</div>
+
+  <p>
+    <%= donation_button(@account_setting, @content, 'yandex_money') %>
+  </p>
+  
+  <p class="special_notice"><%= "Clicking '%s' will take to you the Yandex Money site where you can complete your payment." / @account_setting.donation_button_label %></p>
+</div>

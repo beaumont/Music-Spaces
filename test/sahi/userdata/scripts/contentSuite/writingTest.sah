@@ -1,0 +1,116 @@
+/*
+    'Writing' item test.
+    Checks 'Add/edit writing' form and displaying of writing item.
+
+    Out of scope:
+    - Those fields, where two languages are available - only checking english tab for now
+
+    Known bugs:
+    - #4266 Item security setting bug when moving from folder to 'content'
+
+    Not added yet:
+    - Asking for contributions checkbox
+
+    Test sequence:
+    - Open 'Add writing' form, check form elements and their default values
+    - Fill form and click 'Cancel', check that nothing was saved
+    - Open form, fill it again and save
+    - You should be redirected to 'Content', open item and check it, also check all elements of Writing page
+    - Click 'Edit', open form again and check fields' values
+    - Enter new values and save form
+    - You should be redirercted to item, check it, then open form and check values
+    - Go to profile page and check that 'Feature on profile page' checkbox works - item should be there
+    - Open item, click 'Delete' and make sure that item was deleted
+
+    Tear-down: No need to restore DB state after this test.
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Login as advanced user
+user_login($joeUserName, $joeUserPass, "true", "main");
+
+// Open 'Add writing' form, check form elements and their default values
+_click(_link($addContentWritingLink));
+_assertExists(_div($addWritingFormHeader));
+_assertExists(_cell($addWritingTitleLabel));
+_assertExists(_cell($addWritingBodyLabel));
+_assertExists(_link($addWritingFormatPostLink));
+_assertExists(_label($addWritingTagsLabel));
+_assertExists(_cell($addWritingOwnerLabel));
+_assertExists(_cell($addWritingDonateLabel));
+_assertExists(_cell($addWritingDisplayHeader));
+_assertExists(_label($addWritingShowInLabel));
+_assertExists(_label($addWritingFeatureLabel));
+_assertExists(_label($addWritingShowToLabel));
+_assertExists(_submit($addWritingPostButton));
+_assertFalse(_submit($addWritingSaveButton));
+_assertExists(_submit($addWritingCancelButton));
+writing_form_verify("", "", "", $joeUserName, "no", "Content", "yes", $itemShowEveryone);
+
+// Fill form and click 'Cancel', check that nothing was saved
+writing_form_fill("writing title", "writing body", "tag1,tag2,tag3", "me", "yes", "test folder", "no", "");
+_click(_submit($addWritingCancelButton));
+_click(_link($contentLink));
+_click(_link("test folder"));
+_assertFalse(_link("writing title"));
+
+// Open form, fill it again and save
+_click(_link($addContentWritingLink));
+writing_form_fill("writing title", "writing body", "tag1,tag2,tag3", "me", "yes", "test folder", "no", "");
+_click(_submit($addWritingPostButton));
+
+// You should be redirected to 'Content', open item and check it, also check all elements of Writing page
+_click(_link("writing title"));
+_assertExists(_heading2("writing title"));
+_assertExists(_div("writing body"));
+_assertExists(_div("Tags: tag1, tag2, tag3"));
+_assertExists(_link($itemLikeLink));
+_assertExists(_link($itemCommentLink));
+_assertExists(_div($itemFbLink));
+_assertExists(_div($itemTweetLink));
+_assertExists(_div($itemDiggLink));
+_assertExists(_link($itemEditLink));
+_assertExists(_link($itemDeleteLink));
+_assertExists(_span($itemSubmitLink));
+_assertExists(_div($itemActivityDiv));
+_assertExists(_link($itemLowerCommentLink));
+
+// Click 'Edit', open form again and check fields' values
+_click(_link($itemEditLink));
+_assertFalse(_submit($addWritingPostButton));
+_assertExists(_submit($addWritingSaveButton));
+_assertExists(_submit($addWritingCancelButton));
+writing_form_verify("writing title", "writing body", "tag1, tag2, tag3", "me", "yes", "test folder", "no", "");
+
+// Enter new values and save form
+writing_form_fill("new writing title", "new writing body", "tag4,tag5,tag6", "he", "no", $contentLink, "yes", $itemShowInterested);
+_click(_submit($addWritingSaveButton));
+_assertExists(_span($itemEditingDoneMessage));
+
+// You should be redirercted to item, check it, then open form and check values (checking 'Show to' field will fail due to #4266)
+_assertExists(_heading2("new writing title"));
+_assertExists(_div("new writing body"));
+_assertExists(_div("Tags: tag4, tag5, tag6"));
+_click(_link($itemEditLink));
+writing_form_verify("new writing title", "new writing body", "tag4, tag5, tag6", "he", "no", $contentLink, "yes", $itemShowInterested);
+_click(_submit($addWritingCancelButton));
+
+// Go to profile page and check that 'Feature on profile page' checkbox works - item should be there
+_click(_link($homeLink));
+_assertExists(_link("new writing title"));
+_assertExists(_div("new writing body"));
+
+// Open item, click 'Delete' and make sure that item was deleted
+_click(_link("new writing title"));
+_click(_link($itemDeleteLink));
+_expectConfirm($itemDeleteConfirm, true);
+_assertExists(_span($writingDeletedMessage));
+_assertFalse(_link("new writing title"));

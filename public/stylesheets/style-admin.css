@@ -1,0 +1,269 @@
+div.admin{
+	font-size:12pt;
+	font-family:Verdana;
+	margin-left:10px;
+}
+
+div.admin h2 {
+	font-size:1.1em;
+}
+
+.dark {
+    background-color: #f0f0f0;
+}
+
+.light {
+    background-color: #ffffff;
+}
+
+
+div.admin span.adminmenu {
+    font-size: .8em;
+    font-weight: bold;
+	border: dotted 1px #000;
+	padding: 3px 2px 3px 3px;
+	margin: 0px 2px 2px 0px;
+	color: #9F141A;
+	white-space: nowrap;
+}
+
+div.admin a.button { color: #9F141A; text-decoration: none; }
+div.admin a.button:visited { color: #9F141A; text-decoration: none;}
+div.admin a.button:hover { color: #fff; background-color:#000; }
+
+table {
+    border:0 none;
+    border-collapse:collapse;
+    border-bottom: 1px solid #6a6a6a;
+    margin: 0.5em 0 0.5em 0;
+    width: 100%
+}
+
+td, th {
+    padding: 6px;
+    border-left: 1px solid #6a6a6a;
+    border-right: 1px solid #6a6a6a;
+}
+
+tr {
+    border-top: 1px solid #6a6a6a;
+}
+
+tr.continued {
+    border-top: 1px solid #ccc;
+}
+
+th {
+    font-size: 14px;
+    background-color:#ffffcc;
+}
+
+.feedbacks .long {
+    max-width: 960px;
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+h2 {
+    padding-bottom:1em;
+}
+
+div.pagination {
+    margin-bottom:1em;
+}
+
+.feedbacks th {
+    white-space:nowrap;
+}
+
+.feedbacks th.date {
+    width:15%;
+}
+
+.feedbacks th.user {
+    width:15%;
+}
+
+.feedbacks th.feedback_col {
+    width:50%;
+}
+
+.feedbacks th.sentfrom {
+    width:20%;
+}
+
+.feedbacks tr.reply table td {
+    border-left: 0 none;
+    border-right: 0 none;
+}
+
+span.query_param {
+    margin-right:1em;
+}
+
+.money a.restrict_query {
+    color:gray;
+}
+
+.money .user_select {
+    width:12em;
+}
+
+.money .query_params table {
+    width:70%;
+}
+
+#money .query_params td.label {
+    text-align:right;
+    color: inherit;
+}
+
+.query_params table, .query_params td, .query_params tr {
+    border: 0 none;
+}
+
+.query_params td {
+    padding:3px;
+}
+
+.money h3 {
+    margin: 0;
+}
+
+.money table.totals {
+    width: 40%;
+}
+
+.money table.totals th {
+    font-size:12px;
+}
+
+.money .totals th.name {
+    width:25%;
+}
+
+.money .totals td.currency {
+    width:25%;
+}
+
+#content_body td.currency {
+    text-align:right;
+}
+
+.money .pager-pager-bottom {
+    margin: 0;
+}
+
+.money .pager-bottom {
+    font-weight:inherit;
+    padding:0;
+}
+
+#money .pager-bottom div {
+    margin: 0;
+}
+
+#money table {
+    margin-top: 5px;
+}
+
+#money h2 {
+    padding-bottom:5px;
+}
+
+#money table.totals {
+    margin-bottom:1em;
+}
+
+table.feedbacks {
+    margin-top: 5px;
+}
+
+.reply tr, .reply table {
+    border: 0 none;
+}
+
+div.junk {
+    margin-top:0.5em;
+}
+
+div.junk img {
+  vertical-align:middle;
+}
+
+.footer table, .footer table tr, .footer table td {
+    border: 0 none;
+}
+
+/* Activity logs */
+
+.activity_logs_button .button_wrapper {
+    text-align: left;
+}
+
+#enabled_monitoring {
+    padding-left:20px;
+}
+
+#users_list_content {
+    padding:5px 0px 0px 20px;
+}
+
+#add_user_form .widget_button_right .button_wrapper button.button_lg {
+    margin:0px;
+}
+
+#add_user_form #user_login {
+    width: 150px;
+}
+
+#users_list_content #add_button {
+    display:inline-block;
+}
+
+#users_list_content div#filter {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#add_user_form #add_user_form_login {
+    padding: 10px 0px
+}
+
+div#users_list_content div#users_list div.user {
+    display:inline-block;
+    padding:3px 4px 4px 4px;
+    border:1px solid transparent;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#users_list_content div#users_list div.user:hover {
+    background-color:#eee;
+    border:1px solid #ccc;
+}
+
+div#users_list_content div#users_list div.user span.remove_user {
+    margin-left:5px;
+    width:16px;
+    text-align: right;
+    display:inline-block;
+}
+
+div#users_list_content div#users_list div.user span.remove_user img {
+    vertical-align: bottom;
+}
+
+/* Diff */
+
+del {
+   background-color: #FFDDE2;
+   color:#CC3300;
+}
+
+ins {
+    background-color: #DDFFF0;
+    color:#006633;
+}

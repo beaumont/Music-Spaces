@@ -1,0 +1,486 @@
+# == Schema Information
+# Schema version: 20090211222143
+#
+# Table name: users
+#
+#  id                        :integer(11)     not null, primary key
+#  login                     :string(30)      default(""), not null
+#  display_name              :string(255)
+#  email                     :string(255)     default(""), not null
+#  crypted_password          :string(60)      default(""), not null
+#  salt                      :string(60)
+#  created_at                :datetime        not null
+#  updated_at                :datetime        not null
+#  created_by_id             :integer(11)     default(1), not null
+#  updated_by_id             :integer(11)     default(1), not null
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  type                      :string(30)      default("User")
+#  on_behalf_id              :integer(11)     default(0), not null
+#  state                     :string(255)     default("active")
+#  state_changed_at          :datetime
+#  display_name_ru           :string(255)
+#  display_name_fr           :string(255)
+#  is_private                :boolean(1)
+#  email_verified            :string(255)
+#
+anonymous:
+    salt: 451e3808ca101d314a16d8435c47f05a69fdeb3b
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-12 00:26:48
+    updated_by_id: "1"
+    crypted_password: fe48d7a8a566cae95abdf75205d8f6647976f308
+    type: BasicUser
+    activation_code:
+    remember_token_expires_at: 
+    created_by_id: "1"
+    id: "1"
+    remember_token: 
+    on_behalf_id: "0"
+    display_name: anonymous user
+    login: anonymous
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: anon@kroogi.com
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+chief:
+    salt: 28f86a867f96245eec829b985967ad53353b791a
+    login: chief
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-12 00:26:48
+    updated_by_id: "2"
+    crypted_password: <%= User.encrypt('password', '28f86a867f96245eec829b985967ad53353b791a') %>
+    type: AdvancedUser
+    activation_code: 
+    remember_token_expires_at: 
+    created_by_id: "1"
+    id: "2"
+    remember_token: 
+    on_behalf_id: "0"
+    display_name: The big cahuna
+    login: chief
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: chief@your-net-works.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+joe:
+    salt: saltie
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-13 21:56:08
+    updated_by_id: "3"
+    crypted_password: <%= User.encrypt('password', 'saltie') %>
+    type: AdvancedUser
+    activation_code: 
+    remember_token_expires_at: 
+    created_by_id: "1"
+    id: "3"
+    remember_token: 
+    on_behalf_id: "0"
+    display_name: Joe Blow
+    login: joe
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: joe.blow@sonific.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 34.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+kroogi:
+    salt: a618d8bc9326a9a6963aa99c316ed641e5b166db
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-13 21:56:08
+    updated_by_id: "4"
+    crypted_password: 4dce2437c44a85346243305f7c797273ac7b0d32
+    type: Project
+    activation_code: 
+    remember_token_expires_at: 
+    created_by_id: "4"
+    id: "4"
+    remember_token: 
+    on_behalf_id: "0"
+    display_name: Kroogi
+    login: Kroogi
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: kroogi@your-net-works.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+one_without_settings:
+    salt: a618d8bc9326a9a6963aa99c316ed641e5b166db
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-13 21:56:08
+    updated_by_id: 5
+    crypted_password: 4dce2437c44a85346243305f7c797273ac7b0d32
+    type: AdvancedUser
+    activation_code:
+    remember_token_expires_at:
+    created_by_id: 5
+    id: 5
+    remember_token:
+    on_behalf_id: 0
+    display_name: Kroogi
+    login: no_settings
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: no_settings@your-net-works.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+not_activated:
+    type: BasicUser
+    activation_code: ddd
+    id: 6
+    display_name: not_activated
+    login: not-activated
+    state: active
+    email: not_activated@your-net-works.com
+    crypted_password: blah
+    salt: blah
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+filka:
+    type: AdvancedUser
+    id: 7
+    display_name: Filka Shkvoren
+    display_name_ru: Филька Шкворень
+    login: filka
+    state: active
+    email: filka@your-net-works.com
+    crypted_password: blah
+    salt: blah
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 22.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+joy_division:
+    type: Project
+    id: 8
+    display_name: Joy Division
+    login: joydivision
+    state: active
+    email: jd@gmail.com
+    crypted_password: ''
+    salt: ''
+    upload_quota_mb: 1024
+
+kroogi-music:
+    type: CollectionProject
+    id: 9
+    display_name: Kroogi-Music
+    login: kroogi-music
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+notcollectionyet:
+    type: Project
+    id: 10
+    display_name: Not a collection (yet)
+    login: notcollectionyet
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+ian_curtis:
+    type: AdvancedUser
+    id: 11
+    display_name: Ian Curtis
+    login: ian-curtis
+    state: active
+    email: ian@your-net-works.com
+    crypted_password: ''
+    salt: ''
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 67.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+post-punk:
+    id: 12
+    type: CollectionProject
+    display_name: Post Punk
+    login: post-punk
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+empty_collection:
+    id: 13
+    type: CollectionProject
+    display_name: empty_collection
+    login: empty_collection
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+magazine:
+    type: Project
+    id: 14
+    display_name: Magazine
+    login: magazine
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+dub:
+    id: 15
+    type: CollectionProject
+    display_name: Dub
+    login: dub
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+ambient-dub:
+    id: 16
+    type: CollectionProject
+    display_name: Ambient Dub
+    login: ambient-dub
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+fb_stephane:
+    id: 17
+    type: Facebook::User
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_stephane
+    upload_quota_mb: 1024
+
+fb_removed:
+    id: 18
+    type: Facebook::User
+    login: fb_removed
+    email: 'x@y.z'
+    crypted_password: ''
+    state: deleted
+    upload_quota_mb: 1024
+
+fb_artem:
+    id: 19
+    type: Facebook::User
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_artem
+    upload_quota_mb: 1024
+
+fb_anya:
+    id: 20
+    type: Facebook::User
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_anya
+    upload_quota_mb: 1024
+
+matisyahu:
+    type: AdvancedUser
+    id: 21
+    display_name: Matisyahu
+    login: matisyahu
+    state: active
+    email: matisyahu@your-net-works.com
+    crypted_password: ''
+    salt: ''
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 45.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+fb_stephane_friend1:
+    id: 22
+    type: Facebook::User
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_stephane_friend1
+    upload_quota_mb: 1024
+
+fb_stephane_friend2:
+    id: 23
+    type: Facebook::User
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_stephane_friend2
+    upload_quota_mb: 1024
+
+matisyahu1: #the account created when Matisyahu forgot his login and created another one. We allowed dupe emails back then.
+    type: AdvancedUser
+    id: 24
+    display_name: <%= "Matisyahu \"Grave Digga\" Kohen#{' and blah-blah-blah' * 3}" %>
+    login: matisyahu1
+    state: active
+    email: matisyahu@your-net-works.com
+    salt: 28f86a867f96245eec829b985967ad53353b791a
+    crypted_password: <%= User.encrypt('coocoo', '28f86a867f96245eec829b985967ad53353b791a') %>
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 45.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+fb_public_page1:
+    id: 25
+    type: Facebook::Page
+    email: 'x@y.z'
+    crypted_password: ''
+    login: fb_public_page1
+    upload_quota_mb: 1024
+
+tatu:
+    type: Project
+    id: 26
+    display_name: Tatu
+    login: tatu
+    state: active
+    email: tatu@gmail.com
+    crypted_password: ''
+    salt: ''
+    upload_quota_mb: 1024
+
+too_young_guy:
+    type: BasicUser
+    id: 27
+    display_name: too young
+    login: too-young
+    state: active
+    email: too-young@your-net-works.com
+    crypted_password: ''
+    salt: ''
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 10.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+basic_user1:
+    id: 28
+    salt: 28f86a867f96245eec829b985967ad53353b791a
+    activated_at: 2010-05-17 00:07:24
+    updated_at: 2010-06-12 00:26:48
+    updated_by_id: 28
+    crypted_password: <%= User.encrypt('password', '28f86a867f96245eec829b985967ad53353b791a') %>
+    type: BasicUser
+    activation_code:
+    remember_token_expires_at:
+    created_by_id: 28
+    remember_token:
+    on_behalf_id: "0"
+    display_name: Basic User
+    login: basic_user1
+    state: active
+    created_at: 2010-06-11 00:26:48
+    email: basic_user1@your-net-works.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+bad_login:
+    id: 29
+    salt: a618d8bc9326a9a6963aa99c316ed641e5b166db
+    activated_at: 2007-05-17 00:07:24
+    updated_at: 2008-06-13 21:56:08
+    updated_by_id: 5
+    crypted_password: 4dce2437c44a85346243305f7c797273ac7b0d32
+    type: AdvancedUser
+    activation_code:
+    remember_token_expires_at:
+    created_by_id: 5
+    remember_token:
+    on_behalf_id: 0
+    display_name: Kroogi
+    login: bad_login
+    state: active
+    created_at: 2007-05-17 00:07:24
+    email: bad_login@your-net-works.com
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 25.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+bill_laswell:
+    type: AdvancedUser
+    id: 30
+    display_name: Ian Curtis
+    login: bill-laswell
+    state: active
+    email: me@bill_laswell.com
+    crypted_password: ''
+    salt: ''
+    sid: <%= User::SID_STUB %>
+    birthdate: <%= 57.year.ago.to_date.to_s(:db) %>
+    upload_quota_mb: 1024
+
+ambient:
+    id: 31
+    type: CollectionProject
+    display_name: Ambient
+    login: ambient
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+birthday_party:
+    type: Project
+    id: 32
+    display_name: Birthday Party
+    login: birthday-party
+    state: active
+    email: bparty@gmail.com
+    crypted_password: ''
+    salt: ''
+    upload_quota_mb: 1024
+
+rock:
+    id: 33
+    type: CollectionProject
+    display_name: rock
+    login: rock
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'x@y.z'
+    upload_quota_mb: 1024
+
+sigur_ros:
+    id: 34
+    type: Project
+    display_name: Sigur Ros
+    login: sigur-ros
+    state: active
+    email: sros@gmail.com
+    crypted_password: ''
+    salt: ''
+    upload_quota_mb: 1024
+
+
+collection_with_inbox:
+    id: 35
+    type: CollectionProject
+    display_name: collection_with_inbox
+    login: collection_with_inbox
+    state: active
+    crypted_password: ''
+    salt: ''
+    email: 'collection_with_inbox@y.z'
+    upload_quota_mb: 1024
+

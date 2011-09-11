@@ -1,0 +1,19 @@
+# Checks: most basic functionality - verifies successfull logging in and logging out
+
+# Prerequisites
+setup :fixtures => :all
+
+# Test body
+# Opening site
+include_partial 'logout'
+open '/explore'
+
+# Verify logged-out explore page elements
+include_partial 'assert_explore_page_ok'
+include_partial 'assert_logged_out'
+
+# Verify login works correctly
+include_partial 'login', :user => 'joe'
+
+# Verify logout works correctly
+include_partial 'logout'

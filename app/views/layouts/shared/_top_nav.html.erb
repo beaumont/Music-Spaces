@@ -1,0 +1,87 @@
+<div id="logo">
+  <a href="<%= explore_url %>">
+    <img src="/images/logo_top_nav.gif" alt="Kroogi" class="tp"/>
+  </a>
+</div>
+<div id="top_nav_user">
+  
+  <% if logged_in? %>
+    <div class="account_dropdown">
+      <%= link_to "<span>#{'Account ((top))'.t}</span>", '#', {:class => 'button_gr dropdown', :id => "account_button"} %>
+      <div id="account_dropdown" class="blue_block" style="display:none;">
+        <div class="user_link">
+          <%= top_nav_user_link %>
+        </div>
+        <div class="en_ru signin">
+          <%= link_to(image_tag('spacer.gif'), same_page_in_locale('en'), :class => "eng#{'_selected' if I18n.language_code[/en/]}") %>
+          <%= link_to(image_tag('spacer.gif'), same_page_in_locale('ru'), :class => "rus#{'_selected' if I18n.language_code[/ru/]}") %>
+        </div>
+        <div class="grey_line"></div>
+        <% unless current_user.basic_user? %>
+          <div class="dropdown_links">
+            <%= maybe_selected_top_nav_link('Money'.t, {:host => user_host(current_actor.login), :controller => '/money', :action => 'index', :id => current_actor}) %>
+          </div>
+        <% end %>
+        <div class="dropdown_links">
+          <% if current_user.projects.blank? %>
+            <span><%= maybe_selected_top_nav_link('Create Project'.t, {:controller => '/project', :action => 'create'}) %></span>
+          <% else %>
+            <%= maybe_selected_top_nav_link('My Projects'.t, {:controller => '/project', :host => user_host(current_actor.login), :action => 'overview'}) %>
+          <% end %>
+        </div>
+        <div class="dropdown_links">
+          <%= maybe_selected_top_nav_link('Settings'.t, {:controller => '/preference', :action => 'show', :id => current_actor}) %>
+        </div>
+        <div class="dropdown_links">
+          <%= link_to('Sign out'.t, logout_path, :id => 'logout_link') %>
+        </div>
+      </div>
+    </div>
+    <div class="account_links">
+      <%= user_link(current_actor, :title => image_tag('home_icon.gif')) %>
+      <%= top_nav_select_home_box %>
+      <%= maybe_selected_top_nav_link(image_tag('feed_icon.gif'), {:controller => '/activity', :action => "new", :url => friend_feed_url(current_actor)}) %>
+      <%= top_nav_messages_link %>
+    </div>
+    
+  <% else %>
+    <div class="en_ru signout">
+      <%= link_to(image_tag('spacer.gif'), same_page_in_locale('en'), :class => "eng#{'_selected' if I18n.language_code[/en/]}") %>
+      <%= link_to(image_tag('spacer.gif'), same_page_in_locale('ru'), :class => "rus#{'_selected' if I18n.language_code[/ru/]}") %>
+    </div>
+    <%= link_to "<span>#{'Sign in'.t}</span>", '#', {:class => 'button', :id => "signin_button"} %>
+    <div id="signin_dropdown" class="blue_block" style="display:none;">
+      <% input_value = 'Kroogi Name...'.t %>
+      <% form_tag({:host => user_domain, :only_path => false, :controller=> 'home', :action => 'login'}, {:id => "signin_form"}) do -%>
+        <%= text_field("user", "login", "id" => "login", :size => 20, :value => input_value, :class => "topbar", :title => 'Enter your Kroogi Name here'.t,
+                      :onFocus => "if(this.value == '#{input_value}') this.value='';", :onBlur => "if(this.value == '') this.value='#{input_value}';") %>
+        <%= password_field_tag('password', nil, :size => 20, :class => "topbar", :id => 'top_password', :title => 'Enter your password here'.t) %>
+        <%= hidden_field_tag("return_to", '{home}') if action_name == 'explore' %>
+        <div class="remember_me">
+          <%= check_box_tag('remember_me', 1, nil, :style => "margin:0;") %>
+          <label for="remember_me"><%= "Remember me".t %></label>
+        </div>
+        <button class="button" type="submit" name="commit">
+          <span><%= 'Go((sign_in))'.t %></span>
+        </button>
+        
+
+        <% if current_fb_linked_user? %>
+          <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+                          :locals => {
+                            :form_id => 'signin_form',
+                            :mock_fb_button => true } %>
+        <% end %>
+        <div class="grey_line"></div>
+        <%= link_to "Forgot your password?".t, :controller => 'home', :action => 'forgot_password', :locale => I18n.language_code %>
+         <div class="grey_line"></div>
+        <div><%= "Don't have Kroogi account?".t %>  
+        <a href="/signup"><%= "Sign Up!((at top bar))".t %>
+        </a></div>
+      <% end -%>
+    </div>
+    
+  <% end %>
+</div>
+<%= render :partial => '/layouts/shared/flashbox' %>
+<div class="clear"></div>

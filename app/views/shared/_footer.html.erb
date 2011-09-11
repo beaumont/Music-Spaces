@@ -1,0 +1,14 @@
+<div id="footer_content">
+  <div class="footer_nav_right">
+    <a href="/explore?locale=<%= I18n.locale %>">
+      <img src="/images/logo_btm.gif" />
+    </a>&copy; <%= Date.current.year %>
+  </div>
+  <div class="footer_nav_left">
+    <%= user_link User.kroogi, :icon => false, :use_display_name => true %> |
+    <%= link_to('About((footer))'.t, :host => user_domain, :controller => '/home', :action => 'about')%> |
+    <%= link_to('Contact Us'.t, :host => user_domain, :controller => '/home', :action => 'contact')%> |
+    <%= link_to('Policy'.t, :host => user_domain, :controller => '/home', :action => 'policy')%> |
+    <%= link_to('Help'.t, :host => user_domain, :controller => '/home', :action => 'help')%>
+  </div>
+</div>

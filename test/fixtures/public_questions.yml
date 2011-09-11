@@ -1,0 +1,24 @@
+question_number_one:
+ id: 1
+ user_id: 2
+ state: unpublished
+ text: why do you like the most in my latest tune ?
+ text_ru: Почему вам нравится больше всего в моей последней мелодии?
+ created_at: 2010-05-12 18:07:24
+
+question_number_two:
+ id: 2
+ user_id: 2
+ state: published
+ text: Should I shave my head ?
+ text_ru: Нужно ли брить голову ?
+ created_at: 2010-05-13 09:02:24
+
+archived_question:
+ id: 3
+ user_id: 2
+ state: archived
+ text: Should I shave my head ?
+ text_ru: Нужно ли брить голову ?
+ created_at: 2010-05-13 09:02:24
+  

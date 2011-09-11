@@ -1,0 +1,8 @@
+--- 
+cwd: /mnt/krugi/kroogi/production/current
+port: "8010"
+environment: production
+#address: 127.0.0.1
+pid_file: /mnt/krugi/logs/mongrel/mongrel.pid
+log_file: /mnt/krugi/logs/mongrel/mongrel_production.log
+servers: 7

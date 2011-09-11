@@ -1,0 +1,141 @@
+<% @title = 'Invite'.t + ' :: ' + 'Invite to your Circles'.t %>
+<% @content_kind_displayname = 'Invite to your Circles'.t %>
+
+<% right_column_block(:header_title => 'What happens after you send Invitation?'.t) do %>
+  <div class="default">
+    <%= 'After you send an invitation, your recipients will see it in their Messages. They will either agree to accept, or will reject an invitation.'.t -%>
+    <%= 'Upon acceptance, they will join your circle and will have access to everything that is available to the circle members.'.t -%>
+  </div>
+  <div class="default"> 
+    <%= "If you would like to invite people to join the Kroogi Network, but don't want to invite them into your circles <a {{attribs}}>click here</a>" /
+            %Q{href="#{url_for(:controller => 'invite', :action => 'new', :id => @user)}"} -%>.
+  </div>
+<% end %>
+
+<% main_block(:header_title => 'Invite to your Circles'.t, :white_body => true) do %>
+  <% form_for :invite,  :url => {:controller=>'invite', :action => 'find' }, :html => {:name => "findForm", :id => 'invite_frm'} do |f| -%>
+    <%= hidden_field_tag :id, @user.id %>
+    <%= hidden_field_tag :restrict, h(params[:restrict]) %>
+    <%= hidden_field_tag :invitee, '' %>
+    <%= hidden_field_tag :invitee_id, h(params[:invitee_id]) %>
+    <%= hidden_field_tag :invite_id, h(params[:invite_id]) %>
+    <%= hidden_field_tag :privacylevel, 0 %>
+    <%= hidden_field_tag :store_invitation_text, '' %>
+    <div class="content_box">
+      <%= error_messages_for :invite %>
+      <div id="level_selector">
+        <label><%= 'Invite to'.t -%>:</label>
+        <select name="invite[circle_id]" id="available_types" onchange="updateInviteOptions('level');">
+          <%# To reuse @available_types again in this template you'll need to Array#dup it here. This is emptying the array. %>
+          <% @available_types.each do |text,val| %>
+            <option <%= %{disabled="true"} if (@invitee && (@invitee.invited_to?(@user.circle(val)) || @invitee.in_circle?(@user.circle(val)))) %> value="<%= val %>" <%= (val == @invite.circle_id) ? 'selected="selected"' : nil -%>><%= text %></option>
+          <% end %>
+        </select>
+        <span id="updating_options_invite" class="special_notice" style="margin-left: 15px; display:none;"><%= 'Updating invitation options -- one moment...'.t %></span>
+        <span id="updating_options_search" class="special_notice" style="margin-left: 15px; display:none;"><%= 'Updating search results -- one moment...'.t %></span>
+      </div>
+      <div id="selection_extras">
+        <% if params[:invitee_id].blank? -%>
+          <div class="default">
+            <%= text_field_tag("users", params[:users], :style => 'width: 400px', :class => 'feedback_input') -%>
+            <button class="button" id="do_search" onclick="updateInviteOptions('search');">
+              <span><%= 'Search'.t -%></span>
+            </button>
+            <div class="default"><%= 'Enter Kroogi names, display names, or email addresses, separated by commas. Note that you cannot invite a Collection'.t %></div>
+          </div>
+        <% end %>
+      </div>
+    </div> 
+  <% end %>
+
+  <div id="details_section">
+    <% unless params[:users].blank? -%>
+      <% unless @matched_users.blank? %>
+        <% form_tag({:controller => 'invite', :action => 'send_invites', :id => @user}, {:onsubmit => 'return alertHosts();'}) do %>
+          <%= hidden_field_tag :circle_id, @invite.circle_id %>
+          <%= hidden_field_tag :free, @invite.free %>
+          <%= hidden_field_tag :privacylevel, @invite.privacylevel %>
+          <%= hidden_field_tag :invite_id, params[:invite_id] %>
+          <div id="matched_users" class="default">
+            <% @matched_users.each do |u| %>
+              <span style="white-space:nowrap;">
+                <%= check_box_tag 'to_invite[]', u.is_a?(User) ? "uid:#{u.id}" : u, @matched_users.size == 1 %>
+                <%= u.is_a?(User) ? user_link(u, :icon => true, :use_both => true) : u -%><%= ',' unless u == @matched_users.last %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="main_body_subhead"><%= 'Invitation Text'.t -%></div>
+          <%= text_area_tag("invitation_text", params[:invitation_text] || params[:store_invitation_text], :rows => 4, :style => 'width:99%;', :class => 'feedback_input') -%>
+          <div class="right" style="padding-top:5px;">
+            <button class="button" id="do_invite" type="submit">
+              <span><%= 'Invite'.t %></span>
+            </button>
+          </div>
+        <% end %>	
+      <% end %>
+
+      <% unless @too_close.blank? %>
+        <div style="padding: 15px;">
+          <strong><%= "Already in your %s Circle or closer (will not be invited)" / [link_to(@invite.circle_name, user_kroogs_path(@user, :type => @invite.circle_id))] -%>:</strong>
+          <div style="margin-left: 25px; margin-top: 5px;"><%= @too_close.collect{|x| user_link(x, :icon => true, :use_both => true)}.to_sentence %></div>
+        </div>
+      <% end %>
+      <% unless @already_invited.blank? %>
+        <div style="padding: 15px;">
+          <strong><%= "Already invited to your %s Circle or closer (will not be reinvited)" / [link_to(@invite.circle_name, user_kroogs_path(@user, :type => @invite.circle_id))] -%>:</strong>
+          <div style="margin-left: 25px; margin-top: 5px;"><%= @already_invited.collect{|x| x.is_a?(User) ? user_link(x, :icon => true, :use_both => true) : x}.to_sentence %></div>
+        </div>
+      <% end %>
+      <% unless @are_projects.blank? %>
+        <div style="padding: 15px;">
+          <strong><%= "Matched projects (projects cannot be members of other projects, so will not be invited)".t -%>:</strong>
+          <div style="margin-left: 25px; margin-top: 5px;"><%= @are_projects.collect{|x| user_link(x, :icon => true, :use_both => true)}.to_sentence %></div>
+        </div>
+      <% end %>
+      <% unless @need_following.blank? %>
+        <div style="padding: 15px;">
+          <strong><%= "You can only invite users who follow you already".t -%>:</strong>
+          <div style="margin-left: 25px; margin-top: 5px;"><%= @need_following.collect{|x| user_link(x, :icon => true, :use_both => true)}.to_sentence %></div>
+        </div>
+      <% end %>
+      <% unless @not_found.blank? %>
+        <div style="padding: 0px 15px;">
+          <strong><%= "Not found".t -%>:</strong>
+          <div style="margin-left: 25px;"><%= @not_found.to_sentence -%></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="default">
+    <b><%= '((NB))Note'.t %>:&nbsp;</b><%= 'If you can not find people, you can invite them by entering their email address. Upon joining Kroogi, they will be able to accept your invitation.'.t -%>
+  </div>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" charset="utf-8">
+    function updateInviteOptions(section) {
+      if ($('invitation_text')) {
+        $('store_invitation_text').value = $('invitation_text').value;
+      }
+      // Hide these sections, so user doesn't do something else while updating
+      if ($('selection_extras')) { $('selection_extras').hide(); };
+      if ($('details_section')) { $('details_section').hide(); };
+      
+      if (section == 'level') {
+        $('updating_options_invite').show();
+      } else if (section == 'search') {
+        $('updating_options_search').show();
+      }
+      
+      $('invite_frm').submit();
+    }
+
+    function alertHosts() {
+      if ($('available_types').value == '<%= Invite::TYPES[:founder_circle][:id] -%>') {
+        return confirm('<%= "The hosts circle is not like other circles! Inviting users to this circle means they will have full control to manage the project. Are you sure this is what you want to do?".t -%>');
+      }
+      return true;
+    }
+  </script>
+<% end %>

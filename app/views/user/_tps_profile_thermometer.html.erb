@@ -1,0 +1,42 @@
+<% return unless hat && hat.is_view_permitted? %>
+<% disable_more_button ||= false %>
+<% main_block(:content_head => hat.title) do %>
+ 
+    <div class="white_block">
+<%# Image %>
+      <div class="cover_art"><%= link_to image_tag(hat.cover_art.cover_art_url), content_url(hat) if hat.cover_art %></div>
+
+<%# Embed Link %>
+      <% unless hat.stopped? %>
+        <div class="default">
+          <%= render :partial => 'shared/embed_thermometer', :locals => {:hat => hat, :disable_more_button => disable_more_button} %>
+          <% embed_this = true %>
+        </div>
+      <% end %>
+
+<%# Comments Link %>
+      <% if hat.comment_count > 0 %>
+        <div class="default">       
+        <%= link_to(image_tag('comments.png', :class => 'comment_icon_share') +
+            '{{count}} Comments' / hat.comment_count, content_url(hat, :anchor=>'comments')) %>
+            </div>
+      <% end %>
+    </div>
+
+    <div class="white_block">
+    <%# Thermometer %>
+      <%= render :partial => 'shared/tps_thermometer', :locals => {:hat => hat} %>
+
+    <%# Text %>
+      <div class="default"><%= hat.short_description %></div>
+
+    <%# Button%>
+      <div style="float:right">
+        <%= link_to(
+          "<span>#{'Learn More'.t}</span>",
+          content_url(hat),
+          :class => "button",
+          :disabled => (disable_more_button ? 'disabled' : nil)) %>
+      </div>
+    </div>
+  <% end %>

@@ -1,0 +1,24 @@
+<% cmpa = current_monetary_processor_account
+%>
+<p><%= link_to image_tag('edit.gif') + ' PayPal', :controller => 'account_settings', :action => 'paypal' %></p>
+<% if cmpa.pending_admin_action? %>
+  <div style="margin-left: 30px;" class="special_notice">
+    <%= 'Your payment has been received - now waiting for an admin to verify your account'.t %>
+  </div>
+<% end %>
+<p style="color:#777;margin-left:30px">
+<% if cmpa.pending_user_action? -%>
+  <%= link_to 'Please Verify Account'.t, '/monetary_processor_accounts/paypal/verify' %>
+<% elsif cmpa.processing? -%>
+  <%= link_to 'Processing Request'.t, '/account_settings/paypal' %>
+<% elsif cmpa.verified? -%>
+  <%= link_to 'Verified', '/account_settings/paypal' %>
+<% elsif cmpa.rejected? -%>
+  <% if cmpa.denial_reason.blank? -%>
+    <%= link_to 'Rejected'.t , '/account_settings/paypal' %>
+  <% else -%>
+    <%= link_to 'Rejected: '.t + cmpa.denial_reason.t , '/account_settings/paypal' %>
+  <% end %>
+<% end %>
+</p>
+

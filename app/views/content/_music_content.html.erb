@@ -1,0 +1,29 @@
+<%= render :partial => 'tracks_player', :locals => {:data_options => {:track_id => @entry.id},
+                                                    :ui_params => {:info_icon => false},
+                                                    :player_id => "track_player_#{@entry.id}",
+                                                    } %>
+
+<div class="attributes">
+  <% if (@entry.artist != '') %>
+    <label><%= 'Artist'.t %>:</label> <%= h(@entry.artist) -%><br />
+  <% end %>
+  <% if (@entry.album != '') %>
+      <label><%= 'Album'.t %>:</label> <%= h(@entry.album) -%><br />
+  <% end %>
+  <% if (@entry.genre != '') %>
+      <label><%= 'Genre'.t %>:</label> <%= h(@entry.genre) -%><br />
+  <% end %>
+  <% if (@entry.year != '') %>
+      <label><%= 'Year'.t %>:</label> <%= h(@entry.year) -%><br />
+  <% end %>
+  <% if (@entry.bitrate) %>
+      <label><%= 'Bitrate'.t %>:</label> <%= @entry.bitrate -%> <%= 'Kbps'.t -%><br />
+  <% end %>
+  <% if (@entry.chanels) %>
+      <label><%= 'Channels'.t %>:</label> <%= @entry.chanels -%><br />
+  <% end %>
+  <% if (@entry.samplerate) %>
+      <label><%= 'Samplerate'.t %>:</label> <%= @entry.samplerate -%> <%= 'Hz'.t %><br />
+  <% end %>
+</div>
+

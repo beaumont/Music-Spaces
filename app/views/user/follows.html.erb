@@ -1,0 +1,14 @@
+<% @title = @user.login + ' :: ' + 'Followed People and Projects'.t %>
+
+<div><%= image_tag('960_o_top.gif') %></div>
+<div class="white_block_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= 'Followed People and Projects'.t -%> </div>
+  </div>
+  <div class="white_body">
+    <% members = @user.followed_by_count(Relationshiptype.follower_types) %>
+    <%= render :partial => 'follows_body', :locals => {:members => members, :user => @user} %>
+  </div>
+</div>
+<div class="shadow"><%= image_tag('960_w_btm.gif') %></div>
+

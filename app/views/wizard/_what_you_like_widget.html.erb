@@ -1,0 +1,80 @@
+<div id="what_you_like_widget">
+  <div class="widget_text">
+    <%= 'Kroogi is a content community.<br/>We want to bring the best possible content, that interests YOU.<br/> Please tell us what you like...'.t %>
+  </div>
+  <div class="accordion" id="what_you_like_widget_accordion">
+    <% root_directories.each do |login, name, nomatter|%>
+      <h3><a href="javascript:void(0);"><%= name %> </a></h3>
+      <% root = CollectionProject.find_by_login(login) %>
+      <div id="<%= "children_of_#{root.id}" if root %>" class="root_directory_contaner">
+        <% if root %>
+          <% subdirs = root.inclusions.direct.with_projects.order_by_name.map(&:child_project) %>
+
+          <% unless subdirs.empty? || APP_CONFIG.hide_select_all_for_what_you_like_widget %>
+            <% form_remote_tag :url => {:controller => 'wizard', :action => 'join_all_children'},
+                           :html => {:class => 'select_all_form'} do %>
+              <%= hidden_field_tag :dir_id, root.id %>
+              <%= check_box_tag "follow", "true", root.all_direct_children_liked_by?(user), :class => 'select_all' %>
+              <label for="dirs" style="font-style:italic;"><%= 'Select All'.t %></label>
+              <span class="progress" style="display:none; vertical-align: middle;"><img src="/images/ajax-loader.gif" /></span>
+            <% end %>
+          <% end %>
+              
+          <div class="wizard_checkbox_list">
+            <table class="list" width="100%">
+              <% subdirs.each do |subdir| %>
+                <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+                  <td>
+                    <% form_remote_tag :url => {:controller => 'wizard', :action => 'join_project'},
+                               :html => {:id => "follow_project_#{subdir.id}_form"} do %>
+                      <%= hidden_field_tag :project_id, subdir.id %>
+                      <%= check_box_tag "follow", "true", user.likes?(subdir), :class => 'child_checkbox' %>
+                      <label for="dirs"><%= subdir.display_name %></label>
+                      <span class="progress" style="display:none; vertical-align: middle;"><img src="/images/ajax-loader.gif" /></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div> <%# <div class="wizard_checkbox_list"> %>
+        <% end %> <%# <% if root %>
+      </div> <%# <div id="<%= "children_of_#{root.id}" if root %>
+    <% end %> <%# root_directories.each do %>
+  </div> <%# <div class="accordion"> %>
+
+  <%= render :partial => "/wizard/buttons",
+        :locals => {
+          :back_function => "jQuery.ajax({url:'/wizard/add_friends', dataType: 'script'});jQuery('#what_you_like_overlay').dialog('destroy');#{dialog_js("add_friends_overlay", {:clear => true})}",
+          :next_function => "jQuery('#what_you_like_overlay').dialog('destroy');",
+          :next_label => "Done".t
+        } %>
+
+</div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('#what_you_like_widget input.select_all').unbind();
+    
+    jQuery('#what_you_like_widget input.select_all').click(function() {
+      jQuery(this).attr('form').onsubmit();
+      jQuery(this).parent().children('.progress').show();
+      jQuery(this).parents('.root_directory_contaner').find('.wizard_checkbox_list .child_checkbox').attr('checked',
+              jQuery(this).is(':checked'));
+    })
+    
+    jQuery('#what_you_like_widget input.child_checkbox').unbind();
+
+    jQuery('#what_you_like_widget input.child_checkbox').click(function() {
+      jQuery(this).attr('form').onsubmit();
+      jQuery(this).parent().children('.progress').show();
+
+      var param = false
+      if (jQuery(this).parents('.wizard_checkbox_list').find("input[type=checkbox]:checked").length ==
+        jQuery(this).parents('.wizard_checkbox_list').find("input[type=checkbox]").length) param = true
+
+      jQuery(this).parents('.root_directory_contaner').find('.select_all_form .select_all').attr('checked', param)
+    })
+
+    jQuery( "#what_you_like_widget_accordion" ).accordion({fillSpace: false, autoHeight: false});
+  })
+</script>

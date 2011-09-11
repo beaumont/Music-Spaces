@@ -1,0 +1,83 @@
+<div class="default" style="margin-left:20px;">
+  <%= ('Start: {{date}}' / ("<strong>" + entry.start_date.to_s(:date_only) + "</strong>") + "&nbsp;&nbsp;") if entry.start_date %><br />
+  <%= ('End: {{date}}' / ("<strong>" + entry.end_date.to_s(:date_only) + "</strong>") + "&nbsp;&nbsp;") if entry.end_date %><br />
+  <% if entry.accepts_submissions? %>
+    <%= 'Last Submission: {{date}}' / ("<strong>" + entry.last_item_date.to_s(:date_with_time) + "</strong>") if entry.number_of_tracks > 0 %>
+  <% else %>
+    <b>
+      <% if entry.start_date && Date.today < entry.start_date %>
+        <%= ('((contest is))Not started'.t.chars.upcase) %>
+      <% elsif entry.end_date && Date.today > entry.end_date %>
+        <%= ('((contest is))Finished'.t.chars.upcase) %>
+      <% end %>
+    </b>
+  <% end %>
+</div>
+<% unless entry.description.blank? %>
+  <div class="default">
+    <%= formatted_description entry %>
+  </div>
+<% end %>
+
+<% unless entry.bundles.original_contest_tracks.empty? %>
+  <div class="main_body_subhead" style="padding-bottom:0px;">
+    <%= entry.bundles.original_contest_tracks.count > 1 ? 'Original Tracks'.t : 'Original Track'.t %>
+  </div>
+  <div class="user_block">
+    <%= avatar_md(entry.user) %>
+    <div class="block_body">
+      <%= render :partial => '/content/tracks_player', :locals => {:data_options => {:tracks => entry.bundles.original_contest_tracks, :contest_mode => true},
+                                                                     :ui_params => {:info_icon => false},
+                                                                     :player_id => "originals_player",
+                                                                     } %>
+    </div>
+  </div>
+<% end %>
+<% unless  entry.album_contents.blank? %>
+  <div class="main_title_r" style="width:300px;">
+    <%= '{{sorting_options}} on top' / (maybe_contest_sorting_link(MusicContest::LATEST_TRACKS_ORDER_NAME, entry, 'latest ((on top))'.t) +
+              '<span class="separator"></span>' + maybe_contest_sorting_link(MusicContest::POPULAR_TRACKS_ORDER_NAME, entry, 'most popular ((on top))'.t)) %>
+  </div>
+  <div class="main_title"><%= '((contest)) Submissions'.t  -%></div>
+<% end %>
+<div class="music_contest">
+  <%= render(:partial => 'contest_player_header', :locals => {:contest => entry}) %>
+  <% @submission_tracks.each_with_index do |content, i| %>
+    <div class="user_block submission">
+	    <div class="block_date"><%= 'Submitted'.t + ': ' + content.created_at.to_s(:date_with_time) %></div>
+	    <div class="block_username"><%= user_link(content.created_by, {:icon => true, :use_display_name => true}) %></div>
+	    <%= avatar_md(content.created_by) %>
+	    <div class="block_body">
+		    <% is_owner = permitted?(content.user, :content_edit) && editable?(content) %>
+		    <div class="block_one contents <%= "readonly" unless is_owner %>">
+          <%= render(:partial => 'content/gallery_item', :locals => {:content => content, :size => :small}) %>
+        </div>
+        <div class="right">
+          <div class="block_action">
+            <span style="padding-right:2px">
+              <%= image_tag('comments.png') %>
+            </span>
+            <%= link_to('{{count}} Comments' / content.comment_count, content_url(content, :anchor=>'comments')) %>
+            <span class="separator">&nbsp;</span>
+          </div>
+	        <%= render :partial => 'voting/voting', :locals => {:entry => content} %>
+	        <% if is_owner %>
+	          
+			      <% label = nil %>
+	          <%= promote_contest_item_link(content) do |label, url_options, html_options|
+	               ('<span class="separator">&nbsp;</span>' + link_to(label, url_options, html_options)) if label end %>	
+	          <%= contest_item_info(1)[1] if label  %>
+	          
+		      <% else %>
+			      &nbsp;
+		      <% end %>
+        </div>
+	    </div>
+      <% unless @submission_tracks.last == content %>
+        <div class="grey_line2"></div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= render :partial => '/shared/pager', :locals => {:results => @submission_tracks, :max_page_size => @max_page_size} %>
+  <div class="clear"></div>
+</div>

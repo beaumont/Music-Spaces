@@ -1,0 +1,173 @@
+<%
+donor_id = (defined?(@donor) and !@donor.nil?) ? LegacyIdHash.id_to_hash(@donor.id) : ""
+if @content
+  content_id = LegacyIdHash.id_to_hash(@content.id)
+  content_type = @content.class.name
+end 
+recipient_id = LegacyIdHash.id_to_hash(@recipient.account_setting.id)
+recipient_name = (I18n.language_code[/ru/].blank? ? @recipient.display_name : @recipient.display_name_ru) ||
+                 @recipient.display_name ||
+                 @recipient.display_name_ru
+return_url = @return_url
+processor_titles = {}.with_indifferent_access
+karma_point_id = @karma_point_id
+params[:dialog_id_suffix] ||= 'default'
+#IE ignores form's accept-charset when submitting it, mofo. So only this or encode the whole page in win1251 (but not
+#  really sure will IE honor page's encoding then :).
+[:webmoney_rur, :webmoney_eur, :webmoney_usd].each {|p| processor_titles[p] = en_payment_description(@recipient, @content)} if ie_request?
+%>
+<div style="margin: 10px 5px;">
+  
+  <div style="<%= @suggest_following_project ? '' : 'display:none' %>;padding-bottom:10px;">
+    <% form_remote_for :start_following,
+                      :url => { :controller => '/invite', :action => 'start_following'},
+                      :type => :synchronous,
+                      :html => {:class => "start_following", :id => "start_following_#{params[:dialog_id_suffix]}"} do |f| -%>
+      <input class="ask_for_login_or_signon_before_downloading" value = "<%= ask_for_login_or_signon_before_downloading? %>" type="hidden" />
+      <%= f.hidden_field(:project_id, :value => @recipient.id, :class => 'project_id') %>
+      <%= hidden_field_tag(:dialog_id_suffix, params[:dialog_id_suffix]) %>
+      <% if @content %>
+        <%= hidden_field_tag(:content_id, @content.id, :class => 'content_id') %>
+        <%= hidden_field_tag(:content_type, @content.class.name, :class => 'content_type') %>
+      <% end %>
+      <%= f.hidden_field 'contributed_amount' %>
+      <%= hidden_field_tag(:download, @download) %>
+      <div <%= 'style="display:none;"' unless logged_in? %>>
+        <%= f.check_box "flag", :class => 'flag', :checked => @suggest_following_project, :onclick => "jQuery('#start_following_#{params[:dialog_id_suffix]} .follow_details_for_guest').toggle();" %>
+        <label for="start_following_flag">
+          <strong><%= 'Start following {{project_name}}' / truncate_with_hint(@recipient.display_name, :length => 32) -%></strong>
+        </label>
+      </div>
+      <div class="follow_details_for_guest">
+        <%= render :partial => '/donate/login_or_email_maybe',
+          :locals => {:content => @content, :recipient => @recipient, :f => f} %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @content && !@is_goodie %>
+    <% if @download %>
+      <% text = "Please reward {{project_name}} before downloading '{{content_title}}'." /
+              [truncate_with_hint(@recipient.display_name, :length => 32), truncate_with_hint(@content.title, :length => 32)] %>
+      <%= @content.min_contribution_amount ? text : content_tag(:b, text) %>
+    <% else %>
+      <%= "Please reward {{project_name}} for '{{content_title}}'." /
+              [truncate_with_hint(@recipient.display_name, :length => 32), truncate_with_hint(@content.title, :length => 32)] %>
+    <% end %>
+  <% else %>
+    <%= "Please reward {{project_name}}." / truncate_with_hint(@recipient.display_name, :length => 32) %>
+  <% end %>
+  <%= if @content && @content.min_contribution_amount
+    unless @is_goodie
+      "The minimum necessary contribution for this download is ${{amount}}" / @content.min_contribution_amount
+    else
+      "The minimum necessary payment for this goodie is ${{amount}}" / @content.min_contribution_amount
+    end
+  elsif @download
+    "<b>#{"Enter any amount, even if it is 0.".t}</b>"
+  end %>
+</div>
+<div id="donation_dialog_error_messages_<%= params[:dialog_id_suffix] %>" class="red"></div>
+<div id="contribution_accordion_<%= params[:dialog_id_suffix] %>" class="contribution_accordion">
+  <%  common_title = payment_description(@recipient, @content)
+      @monetary_processors.each do |p| %>
+        <% title = processor_titles[p.short_name] || common_title %>
+        <%=  render :partial => "/donate/#{ p[:short_name]}/form", :locals => {
+                     :p => p,
+                     :content => @content,
+                     :available_processor => true,
+                     :title => title,
+                     :karma_point_id => karma_point_id,
+                     :donor_id => donor_id,
+                     :content_id => content_id,
+                     :recipient_name => recipient_name,
+                     :recipient_id => recipient_id,
+                     :return_url => return_url,
+                     :cancel_url => @cancel_url,
+                     :download => @download,
+        } %>
+      <% end %>
+</div>
+<!--<div id="show_all_processors">
+  <a href="#" onclick="jQuery('#contribution_accordion h3').show();jQuery('#show_all_processors').hide();return false;">Show All Options</a>
+</div>
+-->
+<script type="text/javascript">
+  jQuery("#contribution_accordion_<%= params[:dialog_id_suffix] %>").accordion({clearStyle: true, autoHeight: false});
+
+  function preventCR(evt) {
+    var evt  = (evt) ? evt : ((event) ? event : null);
+    var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+    if ((evt.keyCode == 13) && (node.type=="text")) {return false;}
+    }
+  document.onkeypress = preventCR;
+  function run_choice(p, prepare_function) {
+    var dont_start_following = false;
+    var call_prepare_function = false;
+    if (typeof prepare_function != "undefined") {
+      dont_start_following = true;
+      call_prepare_function = true;
+    } 
+    var container_id = '#contribution_accordion_<%= params[:dialog_id_suffix] %>';
+    var val = jQuery(container_id + ' #' + p + '_contribution_amount_field').val();
+    var contribution_amount = Number(val);
+    var errors_block_selector = '#donation_dialog_error_messages_<%= params[:dialog_id_suffix] %>'
+    // Check that the contribution amount is valid
+    if ( (val == "" ) || (isNaN(contribution_amount)) ) {
+      jQuery(errors_block_selector).html("<%= "Please enter a valid number.".t %>");
+    } else if (contribution_amount < 0) {
+      jQuery(errors_block_selector).html("<%= "Isn't a negative number stealing?".t %>");
+    } else {
+      <% if @content && @content.min_contribution_amount %>
+        if (!eval('check_min_conribution_<%= params[:dialog_id_suffix] %>_' + p + '(' + contribution_amount + ')')) {
+          return false;
+        }
+      <% end %>
+      jQuery(container_id + ' .donation_button .wait_up_homie').show();
+      start_following_form_id = '#start_following_<%= params[:dialog_id_suffix] %>';
+      jQuery(start_following_form_id + ' #start_following_contributed_amount').val(contribution_amount);
+      jQuery(errors_block_selector).html('');
+      if (contribution_amount == 0) {
+        <% if @content %>
+          if (('<%= @download %>' == 'true') && (jQuery(start_following_form_id + ' .ask_for_login_or_signon_before_downloading').val() == "true")) {
+            <% if @download %>
+              widget_id = '#ask_for_login_or_signon_<%= params[:dialog_id_suffix] %>';
+              jQuery(widget_id + ' input.start_following').attr('checked', jQuery(container_id + ' #start_following_flag').is(':checked'));
+              if (jQuery(start_following_form_id + ' #start_following_flag').is(':checked')) {
+                jQuery(widget_id + ' input.project_to_follow').val(jQuery(start_following_form_id + ' #start_following_project_id').val());
+                jQuery(widget_id + ' input.email').val(jQuery(start_following_form_id + ' #start_following_follower_email').val());
+                jQuery(widget_id + ' input.on_event').val('download');
+              }
+              jQuery("#donation_dialog_<%= params[:dialog_id_suffix] %>").dialog('destroy');
+              jQuery("#donation_dialog_<%= params[:dialog_id_suffix] %>").html('');
+              jQuery(widget_id).dialog(ask_for_login_or_signon_dialog_opts_<%= params[:dialog_id_suffix] %>);
+              jQuery(widget_id + ' .accordion').accordion({clearStyle: true, autoHeight: false, collapsible: true, active: false});
+              jQuery("#download_links_for_<%= params[:dialog_id_suffix] %>").load('/donate/download_links?id=<%= @content.id %>&dialog_id_suffix=<%= params[:dialog_id_suffix] %>');
+            <% end %>
+          } else {
+            //submit it anyway here - there we'll set a flag showing a Question
+            jQuery(start_following_form_id + ' #start_following_project_id').attr('form').onsubmit(); //reliable way to run form's onsubmit
+            document.location = '<%= content_url(@content) %>';
+          }
+        <% else %>
+          jQuery("#donation_dialog_<%= params[:dialog_id_suffix] %>").dialog('destroy');
+          jQuery("#donation_dialog_<%= params[:dialog_id_suffix] %>").html('');
+        <% end %>
+      } else {
+        if (!dont_start_following) {
+          jQuery(start_following_form_id + ' #start_following_project_id').attr('form').onsubmit(); //reliable way to run form's onsubmit
+        }
+        if (call_prepare_function) {
+          eval(prepare_function);
+        }
+        if (!jQuery(errors_block_selector).is(':empty')) {
+          jQuery(container_id + ' .donation_button .wait_up_homie').hide();
+          return false;
+        }
+        jQuery(container_id + ' #' + p + '_donation_form').submit();
+      }
+    }
+    return false;
+  }
+</script>
+

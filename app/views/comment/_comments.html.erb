@@ -1,0 +1,45 @@
+<% return unless commentable.commentable? %>
+<% empty_text ||= nil %>
+<% all_comments ||= nil %>
+<% comments = all_comments || commentable.all_comments(false, { :page => 1, :per_page => Comment::LIMIT_FOR_SHOW }).reverse %>
+<% submit_url_options ||= nil %>
+
+<% main_block(:content_head => 'Comments'.t ) do %>
+  <% if empty_text %>
+    <div class="section_empty"><%= empty_text %></div>
+  <% else %>
+    <% comments.each do |comment| %>
+      <%= render(:partial => 'comment/entry', :locals => { :comment => comment }) %>
+    <% end %>
+  <% end %>
+
+  <%#= render(:partial => "comment/list", :locals => {:commentable => commentable}) %>
+  <% if logged_in? %>
+    <%= render(:partial => "comment/form", :locals => {:commentable => commentable, :submit_url_options => submit_url_options}) %>
+  <% else %>
+    <div class="login_to_comment">
+      <%= render :partial => '/shared/login_to_comment', :locals => {
+                             :user => commentable.user,
+                             :ids => ['login_to_comment_link', 'signup_to_comment_link'],
+                             :captions => ['You must have a Kroogi account to leave a comment.'.t,
+                                           "Log In to leave a comment".t,
+                                           'Log In to leave a comment'.t,
+                                           'Create Kroogi Account to leave a comment'.t,
+                                           'You will not be able to leave a comment until you activate your account.'.t,
+                                           'Use your Facebook Account to leave a comment'.t,
+                             ],
+                             :dialog_id_suffix => 'comment',
+      } %>
+    </div>
+  <% end %>
+<% end %>
+<div class="content_btm">
+  <div class="right">
+    <% if !all_comments && commentable.comment_count > Comment::LIMIT_FOR_SHOW %>
+      <%= ajax_loader("view_all_#{dom_id(commentable)}") %>
+      <%= link_to_remote("#{'View All'.t} #{calc_comment_count(commentable)}",
+            :url => {:controller=> 'comment', :action => 'view_more', :id => commentable.id, :commentable_type => commentable.class},
+            :before => "jQuery('#view_all_#{dom_id(commentable)}').show();", :complete => "jQuery('##{dom_id(comments.first)}').scrollTo(1000);") %>
+    <% end %>
+  </div>
+</div>

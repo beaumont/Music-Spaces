@@ -1,0 +1,53 @@
+<% if logged_in? && !current_user.is_self_or_owner?(entry.user) %>
+
+<div class="default" style="margin-top:10px;">
+  <script type="text/javascript" charset="utf-8">
+      function doReportToggle() {
+        $('do-report-link').toggle();
+        $('report-content').toggle();
+      }
+    </script>
+  <div id="report-wrapper"> <a href="javascript:doReportToggle();" id="do-report-link" style="padding-left:10px;"><%= 'Report abuse'.t %></a>
+    <div id="report-content" style="display:none; margin-bottom:20px; padding-bottom:20px">
+      <div class="blue_head"><%= 'Reason for report'.t %></div>
+      <div id="report-errors"></div>
+      <% remote_form_for :report, :url => {:controller => 'moderate', :action => 'report', :type => 'Content', :id => entry} do |f| %>
+      <div style="width: 100%; overflow: hidden;">
+        <select id="report_reason" name="report[reason][]" style="width: 100%;">
+          <%= options_for_select Moderation::Event.categories(:report) %>
+        </select>
+      </div>
+      <%= f.text_area :message, :style => 'width: 168px; height: 60px; padding: 5px;' %>
+        <button type="submit" class="button float_right"><span><%= 'Report'.t %></span></button>
+        <button type="button" class="button_gr cancel" onclick="doReportToggle();"><span><%= image_tag 'remove.png' %></span></button>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% if permitted?(current_actor, :moderate) && !current_user.is_self_or_owner?(entry.user) %>
+<div class="default">
+  <script type="text/javascript" charset="utf-8">
+      function doBlockToggle() {
+        $('do-block-link').toggle();
+        $('block-content').toggle();
+      }
+  </script>
+  <div id="block-wrapper"> <a href="javascript:doBlockToggle();" id="do-block-link" style="padding-left:10px;"><%= 'Block this'.t %></a>
+    <div id="block-content" style="display:none; margin-bottom:20px; padding-bottom:20px">
+      <div class="blue_head"><%= 'Reason for blocking'.t %></div>
+      <div id="block-errors"></div>
+      <% remote_form_for :block, :url => {:controller => 'moderate', :action => 'block', :type => 'Content', :id => entry} do |f| %>
+        <p style="width: 100%; overflow: hidden;">
+          <select id="block_reason" name="block[reason][]" style="width: 100%;">
+            <%= options_for_select Moderation::Event.categories(:block) %>
+          </select>
+        </p>
+        <%= f.text_area :message, :style => 'width: 168px; height: 60px; padding: 5px;' %>
+          <button type="submit" class="button float_right"><span><%= 'Block'.t %></span></button>
+          <button type="button" class="button_gr cancel" onclick="doBlockToggle();"><span><%= image_tag 'remove.png' %></span></button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

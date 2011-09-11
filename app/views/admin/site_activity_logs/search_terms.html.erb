@@ -1,0 +1,13 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Activity Log'.t + 'Search Terms'.t %>
+
+<div class="admin">
+  <% @search_terms.each_with_index do |term, index| %>
+    <div>
+      <% width = (term[:total] / @total.to_f) %>
+      <%= index.next %>. <b><%= term[:domain] %>:</b> `<%= term[:query] %>` <%= term[:total] %>
+      <i>(<%= number_to_percentage width * 100, :precision => 2 %>)</i><br />
+
+      <div style="width:<%= (width * 900).to_i %>px;background-color:#<%= browser_color(term[:query]) %>;">&nbsp;</div>
+    </div>
+  <% end %>
+</div>

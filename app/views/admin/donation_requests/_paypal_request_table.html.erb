@@ -1,0 +1,75 @@
+<div style="font-size: 10px;">
+  <strong><%= 'Key'.t %></strong><br/>
+  <div style="margin-left: 25px;">
+    <span style="color: green;"><%= 'Verified'.t %></span> - 
+      <%= 'Account verified by admin, either directly or after exchanging $0.02 back and forth'.t %><br/>
+    <span style="color: orange;"><%= 'Pending Admin action'.t %></span> - 
+      <strong><%= 'ADMIN ATTENTION REQUIRED!'.t -%></strong>
+      <%= 'Kroogi has successfully received money from user and needs to send money back, marking their account verified if successful'.t %><br/>
+    <span style="color: black;"><%= 'Pending User action'.t %></span> -
+      <%= 'User has added a PayPal email to their account, but Kroogi has NOT received any payment from them.'.t %><br/>
+    <span style="color: red;"><%= 'Rejected'.t %></span> - 
+      <%= 'Account has been actively rejected by an admin'.t %><br/>
+  </div>
+</div>
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'User/Project Login'.t %></th>
+    <th><%= 'User/Project Display Name'.t %></th>
+    <th><%= 'Status Last Changed'.t %></th>
+    <th><%= 'Current Status'.t %></th>
+    <th><%= 'PayPal Email'.t %></th>
+    <% if params[:type] == 'paypal_verified' %><th><%= 'Verified By'.t %></th><% end %>
+    <th><%= 'PayPal Actions'.t %></th>
+  </tr>  
+  <% @donation_requests.select{|acc| acc.user && acc.user.active?}.each do |account| %>
+    <tr class="<%= cycle("dark", "light") %>" id="paypal_row_<%= account.id -%>">
+      <td><%= account.id %></td>
+      <td><%= user_link(account.user, :icon => true) %></td>
+      <td><%=h account.user.display_name %></td>
+      <td><%= account.updated_at ? account.updated_at.to_s(:date_with_time) : 'Never'.t %></td>
+      <% 
+        status_color = if account.verified? then 'green'
+        elsif account.processing? then 'orange'
+        elsif account.rejected? then 'red'
+        else nil
+        end
+      %>
+      <td style="<%= "font-weight: bold; color: #{status_color};" if status_color -%>" id="paypal_status_<%= account.id -%>">
+        <%= account.state %>
+        <% if account.rejected? -%>
+          <br />(<%= account.reason %>)
+        <% end -%>
+        
+      </td>
+      <% if params[:type] == 'paypal_verified' %>
+        <td>
+          <%= 'Unknown'.tdown %>
+          
+        </td>
+      <% end %>
+      <td><%= account.account_identifier %></td>
+      <td>
+      <% if account.account_identifier %>
+        <div id="paypal_controls_<%= account.id -%>">
+          <% unless account.verified? %>
+            <div>
+              <%= link_to_remote 'Verify PayPal Account'.t, :url => {:controller => 'admin/donation_requests', :action => 'verify_paypal', :id => account}, :update => "paypal_status", :success => %Q{$("paypal_controls_#{account.id}").hide();$("paypal_status_#{account.id}").innerHTML="#{'Verified'.t}";$("paypal_status_#{account.id}").style.color='green';$("paypal_row_#{account.id}").highlight();}, :method => :put %>
+            </div>
+          <% end %>&nbsp;
+          <% unless account.rejected? %>
+            <div>
+              <%= link_to_remote 'Reject PayPal Account'.t, :url => {:controller => 'admin/donation_requests', :action => 'reject_paypal', :id => account}, :update => "paypal_status", :success => %Q{$("paypal_controls_#{account.id}").hide();$("paypal_status_#{account.id}").innerHTML="#{'Denied'.t}";$("paypal_status_#{account.id}").style.color='red';$("paypal_row_#{account.id}").highlight();}, :method => :put %>
+            </div>
+          <% end %>
+          
+        </div>
+      <% else %>
+        <%= 'No PayPal email entered in system'.t %>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

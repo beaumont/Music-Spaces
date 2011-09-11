@@ -1,0 +1,23 @@
+# Checks: Don't know, test is undone and is an issue to delete
+
+#Prerequisites
+setup :fixtures => :all
+@joe = User.find_by_login('joe')
+@chief = User.find_by_login('chief')
+@chief_kroogi = '/user/index/chief'
+
+# Log in
+include_partial 'logout'
+open '/'
+include_partial 'login', :user => @joe
+
+# Get managing
+open '/user/kroogi/joe'
+click_and_wait 'link=Circles Management'
+
+# Not done yet
+# EXISTS a text_not_visible?
+# assert_text_not_present '1. Family Circle'
+# click 'link=1. Family'
+# assert_text_present '1. Family Circle'
+# TODO: INSERT actual tests here

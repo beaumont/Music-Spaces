@@ -1,0 +1,34 @@
+<!-- <div style="font-size: 10px;">
+  <strong><%= 'Key'.t %></strong><br/>
+  <div style="margin-left: 25px;">
+    <span style="color: green;"><%= 'Verified'.t %></span> - 
+      <%= 'Account verified'.t %><br/>
+    <span style="color: black;"><%= 'Pending User action'.t %></span> -
+      <%= 'User has added a WebMoney to their account, but has not attached any purses.'.t %><br/>
+    <span style="color: red;"><%= 'Rejected'.t %></span> - 
+      <%= 'Account has been actively rejected by an admin'.t %><br/>
+  </div>
+</div> -->
+<table class="admin">
+  <tr>
+    <th>Id</th>
+    <th><%= 'User/Project Login'.t %></th>
+    <th><%= 'User/Project Display Name'.t %></th>
+    <th><%= 'Date Added'.t %></th>
+    <th><%= 'Attached Purse'.t %></th>
+    <th><%= 'Required Passport'.t %></th>
+    <th><%= 'Actual Passport'.t %></th>
+  </tr>  
+  <% @accounts.each do |a| -%>
+    <tr class="<%= cycle("dark", "light") %>" id="account_row_<%= a.id -%>">
+      <td><%= a.id %></td>
+      <td><%= user_link(a.user, :icon => true) %></td>
+      <td><%= a.user.display_name %></td>
+      <td><%= a.webmoney_attached_at || a.updated_at %></td>
+      <td><%= a.webmoney_account.account_type %></td>
+      <td><%= a.webmoney_account.minimum_level_required.t %> <%= link_to 'edit', "/admin/users/edit/#{a.user_id}#required_wm_passport" %></td>
+      <td><%= a.webmoney_account.display_level.t %></td>
+    </tr>
+  <% end -%>
+</table>
+

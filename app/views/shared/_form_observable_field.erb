@@ -1,0 +1,102 @@
+<%
+dialog_id_suffix  ||= 1
+model             ||= 'user'
+field             ||= 'login'
+field_to_observe  ||= "#{model}_#{field}"
+value             ||= nil
+url               ||= "/home/check_field_availability"
+spinner_asset     ||= '<img src="/images/ajax-loader.gif" />'
+spinner_class     ||= 'observable_field spinner'
+ok_label          ||= 'OK'.tdown
+not_ok_label      ||= 'sorry, already taken'.t
+too_short_label   ||= 'too short'.t
+too_long_label    ||= 'too long'.t
+non_numeric_label ||= 'must contain at least one non-numeric character'.t
+full_error_label  ||= 'it should only contain A-Z, a-z, 0-9 and - (NOTE: no spaces allowed!). It cannot start or end with -, and must contain at least one non-numeric character.'.t
+
+if defined?(validate); validate_method = "validate_#{model}_#{dialog_id_suffix}()"; end
+
+observe_on        ||= 'focus'
+min_field_length  ||= 1
+max_field_length  ||= 30
+sub_text          ||= nil
+labels = {
+          :ok => {:label => ok_label},
+          :not_ok => {:label => not_ok_label} ,
+          :too_short => {:label => too_short_label},
+          :too_long => {:label => too_long_label},
+          :non_num => {:label => non_numeric_label},
+          :full => {:label => full_error_label}
+          }
+%>
+
+<%= f.text_field field.to_sym, :value => value, :id => field_to_observe %>
+<%= observe_field field_to_observe,
+              :on => observe_on,
+              :function => defined?(external_validate) ? external_validate : "maybe_check_#{dialog_id_suffix}(element, value); #{validate_method if validate_method};" %>
+
+<span class="observable_field">
+  <span id="spinner_<%=dialog_id_suffix%>"         class="<%=spinner_class%>"><%= spinner_asset %></span>
+  <span id="ok_label_<%=dialog_id_suffix%>"        style="display:none"><%= labels[:ok][:label] %></span>
+  <span id="not_ok_label_<%=dialog_id_suffix%>"    style="display:none"><%= labels[:not_ok][:label] %></span>
+  <span id="too_short_label_<%=dialog_id_suffix%>" style="display:none"><%= labels[:too_short][:label] %></span>
+  <span id="too_long_label_<%=dialog_id_suffix%>"  style="display:none"><%= labels[:too_long][:label] %></span>
+</span>
+<%= sub_text if sub_text %>
+<div class="default" id="more_error_<%=dialog_id_suffix%>" style="display: none;"></div>
+
+<script type="text/javascript">
+  function maybe_check_<%= dialog_id_suffix %>(element, value) {
+    reset_labels();
+    if(<%= validate_method || true %>) {
+      jQuery('#spinner_<%= dialog_id_suffix %>').show();
+      jQuery.get('<%= url %>', { model : '<%= model %>', field : '<%= field %>', value : value} , function(data) {
+        jQuery('#spinner_<%= dialog_id_suffix %>').hide();
+        if(data == 'true') {
+          jQuery('#ok_label_<%= dialog_id_suffix %>').show();
+        } else if (data == 'false'){
+          jQuery('#not_ok_label_<%= dialog_id_suffix %>').show();
+        } else if (data == 'error') { }
+      });
+      return true;
+    }
+  }
+  function lenght_ok(value) { if (value.length > <%= min_field_length %> && value.length < <%= max_field_length %>) return true;}
+  function reset_labels() { jQuery('.observable_field span:gt(0)').hide(); jQuery('#more_error_<%= dialog_id_suffix %>').hide();}
+
+  <% unless validate_method.blank? %>
+  function <%= validate_method %> {
+    regexp = /^[A-Za-z0-9]{1}[A-Za-z0-9-]*[A-Za-z0-9]{1}$/i;
+    value  = jQuery('#<%= field_to_observe %>').val()
+    if (!lenght_ok(value)) {
+      if (value.length <= <%= min_field_length %>) {
+        jQuery('#too_short_label_<%= dialog_id_suffix %>').show();
+        return false;
+      }
+      else if (value.length > <%= max_field_length %>){
+        jQuery('#too_long_label_<%= dialog_id_suffix %>').show();
+        return false;
+      }
+    } else {
+      if (value.match(/^\d+$/)) {
+        jQuery('#more_error_<%= dialog_id_suffix %>').text('<%= labels[:non_num][:label] %>').css("color", "red").show();
+        return false;
+      }
+      if (!regexp.test(value)) {
+        jQuery('#more_error_<%= dialog_id_suffix %>').text('<%= labels[:full][:label] %>').css("color", "red").show();
+        return false;
+      }
+      else {
+        return true;
+      }
+
+    }
+  }
+  <% end %>
+</script>
+
+<style type="text/css">
+  .observable_field .spinner {
+    display:none;vertical-align: middle;padding-left:3px;padding-top:5px;
+  }
+</style>

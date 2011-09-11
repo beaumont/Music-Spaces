@@ -1,0 +1,52 @@
+<tr class="<%= cycle("dark", "light") %>">
+  <td>
+    <label for="tr_<%= tr.id %>">
+      <small><%= @series %></small>
+    </label>
+  </td>
+  <td>
+    <label for="tr_<%= tr.id %>">
+      <small><%= h tr.updated_at.to_s(:date_with_time) %></small>
+    </label>
+  </td>
+  <td>
+    <div class="origin"><label for="tr_<%= tr.id %>">
+      <small><%= h tr.tr_origin %></small>
+    </label></div>
+  </td>
+  <td>
+    <label for="tr_<%= tr.id %>" id="tr_key_<%= tr.id %>"><%= sanitize(tr.tr_key) %></label>
+    <%= in_place_editor "tr_key_#{tr.id}",
+                        :url => {:action => :set_translation_key, :old => tr.tr_key},
+                        :load_text_url => url_for({:action => :translation_key, :id => tr.id}) %>
+    <div style="margin-top: 5px; font-size: .7em; color: #555;">
+      <%= 'Added'.t -%> <%= tr.created_at.to_s(:date_with_time) %>
+    </div>
+  </td>
+  <%
+     all_plurals_with_key = tr.plurals.to_i == 1 ? [tr] : ViewTranslation.find(:all, :conditions => ['language_id=? and tr_key=?', Locale.language.id, tr.tr_key], :order => 'pluralization_index')
+     count = all_plurals_with_key.size
+     all_plurals_with_key.each do |trans| %>
+    <td>
+      <div style="width: 150px;">
+        <strong><%= ['one', 'few', 'many'][trans.pluralization_index.to_i - 1] %></strong>:
+          <span id="tr_<%= trans.id %>">
+            <%= render :partial => '/shared/in_place_value', :object => trans.text %>
+          </span>
+        <%= in_place_editor "tr_#{trans.id}",
+                            :url => {:action => :set_translation_text, :id => trans.id},
+                            :load_text_url => url_for({:action => :translation_text, :id => trans.id}) %>
+      </div>
+      <div style="margin-top: 5px; font-size: .7em; color: #555;">
+        <%= 'Added'.t -%> <%= trans.updated_at.to_s(:date_with_time) %>
+      </div>
+    </td>
+  <% end %>
+  <% if count < maxcols %>
+    <td colspan="<%= maxcols - count -%>" style="width: 0px; padding: 0px; margin: 0px; border-left: 0px;">&nbsp;</td>
+  <% end %>
+  <td>
+    <small> <%= tr.to_dump? ? 'Yes'.tdown : '' %> </small>
+  </td>
+</tr>
+

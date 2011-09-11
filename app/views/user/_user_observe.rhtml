@@ -1,0 +1,11 @@
+<% if current_actor.guest? %>
+  <span id="watch_user">
+    <%= login_link('<span style="white-space:nowrap;">'+'Join Circles'.t+'</span>', {}, {:class => 'button'}) %>
+  </span>
+<% elsif permitted?(user, :can_get_closer) || permitted?(user, :can_follow) -%>
+  <span id="watch_user">
+    <%= link_to "<span style=\"white-space:nowrap;\">#{'Join Circles'.t}</span>", 
+        {:controller => "kroogi", :action => "join_circles", :id => user.id}, :class => "button" %>
+  </span>
+<% end -%>
+

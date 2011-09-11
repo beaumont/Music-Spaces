@@ -1,0 +1,10 @@
+<% main_block(:header_title => 'Thank you'.t) do %>
+  <% form_border do %>
+    <div class="default"><b><%= 'Thank you for your support!'.t %></b></div>
+    <div class="default">
+      <%= 'Once your payment is confirmed, you will receive a shipping information request.'.t %>&nbsp;
+      <%= 'Please check the Goodies Notification section of your <a {{attribs}} >Kroogi Message Center</a>.' /
+        ('href="' + url_for(:controller => '/activity', :host => user_host(current_actor.login), :action => 'list') + '"') %>
+    </div>
+  <% end %>
+<% end %>

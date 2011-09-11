@@ -1,0 +1,91 @@
+<% account_setting =  user.account_setting
+return_url = is_for_wizard ? url_for(:controller => '/wizard', :action => "add_content", :id => user.profile.id, :only_path => false) : money_url(user)
+wm_link = WebMoney::Ext::Client.activation_link(WebMoneyAccount.account_identifier(account_setting), return_url)
+%>
+
+<h3><a href="#<%= href %>"><%= 'WebMoney USD Purse'.t %></a></h3>
+<div>
+  <p>
+    <%= 'Connect USD Purse (z-purse) of your existing Webmoney account.'.t %>
+    <% if user.kroogi_account? %>
+      <h3>
+        <%= 'Note that this account will be used for all the WM withdrawals on the site'.t %>
+      </h3>
+    <% end %>
+  </p>
+  <p>
+    <% if account_setting.webmoney_passport_minimum != 0 %>
+      <%# trannie hints
+      'Note that you can only use accounts with {{start_strong}}Anonymous Passport{{end_strong}} or higher.'.t
+      'Note that you can only use accounts with {{start_strong}}Initial Passport{{end_strong}} or higher.'.t
+      'Note that you can only use accounts with {{start_strong}}Personal Passport{{end_strong}} or higher.'.t
+      'Note that you can only use accounts with {{start_strong}}Merchant Passport{{end_strong}} or higher.'.t
+      %>
+      <%= "Note that you can only use accounts with {{start_strong}}#{account_setting.webmoney_account.minimum_level_required}{{end_strong}} or higher.".t %>
+    <% else %>
+      <%= "Note that you can use account with any Passport level.".t %>
+    <% end %>
+    <%# don't show it if limit is 0 which is forced unlimitness %>
+    <% if !account_setting.withdrawal_limit || account_setting.withdrawal_limit > 0 %>
+      <%= "To withdraw more than ${{limit}} you'll need to attach Personal Passport or higher." / (account_setting.withdrawal_limit || WebMoneyAccount::DEFAULT_WITHDRAWAL_LIMIT_FOR_DEFAULT_LEVEL) %>
+    <% end %>
+    <%= 'To learn more about Webmoney Passport levels, <a href="{{url}}">click here</a>.' / 'wm_certify_link'.t %>
+  </p>
+  <p>
+    <strong><%= 'Step 1: Set Purse Permissions'.t %></strong>
+  </p>
+  <p>
+    <%= 'First you need to tell WebMoney that <b>you want to use your Z-purse with Kroogi</b>.'.t %>
+  </p>
+  <p>
+    <%= 'Click on the button below to set purse permissions. You will be <b>directed to WebMoney screen</b> where you will select purse and set its permissions. You must enable all available permissions. Once done you will be directed back to Kroogi.'.t %>
+  </p>
+  <p>
+    <a class="button" href="<%= wm_link %>">
+      <span class="keep_together">
+        <%= 'Set Purse Permissions'.t -%>
+      </span>
+    </a>
+  </p>
+  <div class="clear"></div><br/>
+  <p>
+    <strong><%= 'Step 2: Receive Activation Code And Attach Purse'.t %></strong>
+  </p>
+  <p>
+    <%= "Now check your {{start_strong}}WebMoney Inbox for a message with activation code{{end_strong}}.".t %>
+    <%= "Insert activation code below to attach your purse.".t %>
+  </p>
+  <p>
+    <%= 'If you have your activation code ready, just paste it here.'.t %>
+  </p>
+
+  <% form_for :webmoney_params, :url => '#' do |f| %>
+    <div>
+      <%= f.label(:activation_code, 'Activation Code'.t) %>
+      <%= f.text_field(:activation_code) %>
+    </div>
+    <div id="webmoney_usd_form_errors" class="error" style="color:#f00"> </div>
+    <div style="padding-top:0.5em;">
+      <a class="button" href="#" onclick="try_webmoney_usd_attach(); return false;">
+        <span><%= 'Attach Purse'.t -%></span>
+      </a>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  function try_webmoney_usd_attach() {
+    activation_code = jQuery("#webmoney_params_activation_code").val();
+    if (activation_code == "") {
+      jQuery('#webmoney_usd_form_errors').html("<%= "Please enter a valid Activation Code.".t %>");
+    } else {
+      //submit the info
+      jQuery.getJSON("<%= url_for({:controller =>"/monetary_processor_accounts/webmoney", :action => "create_account"})%>",
+      { user_id : "<%= user.id %>", activation_code: activation_code },
+      function(data){
+        if (data["errors"] == null) (window.location = "<%=  url_for(:controller => '/money', :action => 'index', :id => user.id)%>")
+        else jQuery('#webmoney_usd_form_errors').html(data["errors"]);
+      });
+    }
+  }
+</script>
+

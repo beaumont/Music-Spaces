@@ -1,0 +1,64 @@
+/*
+    Variables being used in tests
+    This file contains variables that relate to UI: error messages
+*/
+
+// Login page
+$loginPageErrorMessage = "We could not log you in. Are you sure you specified correct Kroogi Name and Password?";
+
+// 'Forgot password' page
+$forgotPageErrorMessage = "Email doesn't match our records. Are you sure you entered it correctly?";
+
+// Registration page
+$registerPageMainError = "Error creating your new account";
+$registerPageEmptyEmailError = "Email can't be blank";
+$registerPageEmailTooShortError = "Email is too short (minimum is 3 characters)"; // This error is senseless btw
+$registerPageInvalidEmailError = "Email is invalid";
+$registerPageExistingEmailError = "This email is already taken";
+$registerPageEmptyNameError = "Kroogi name must be provided";
+$registerPageUsedNameError = "Kroogi name has already been taken";
+$registerPageNameSizeError = "Kroogi name must be between 2 and 30 characters";
+$registerPageNameInvalidError = "Kroogi name has invalid characters - it should only contain A-Z, a-z, 0-9 and - (NOTE: no spaces allowed!). It cannot start or end with -, and must contain at least one non-numeric character.";
+$registerPageNameNumericError = "Kroogi name is invalid - must contain at least one non-numeric character";
+$registerPageNoPasswordError = "Password can't be blank";
+$registerPageNoConfirmationError = "Password confirmation can't be blank"
+$registerPageShortPasswordError = "Password is too short (minimum is 4 characters)";
+$registerPageLongPasswordError = "Password is too long (maximum is 40 characters)";
+$registerPagePasswordMatchingError ="Password doesn't match confirmation";
+$registerPageNoProjectNameAlert = "Please enter a project name.";
+$registerPageNoBirthdayAlert = "Please enter your birthday.";
+$registerPageTooYoungAlert = "Please note that this Site is not aimed at users under thirteen (13) years of age. Users thirteen (13) years or younger are required to have a parent or guardian review and complete any registration process, which may include age verification steps in addition to the standard process.";
+$registerPageNoBirthdayError = "Please enter your birthday";
+$registerPageTosAlert = "You must read and accept Terms of Service to create an account.";
+
+// Registration page - AJAX error messages
+$registerPageAjaxUsedNameError = "sorry, already taken";
+$registerPageAjaxNameTooShortError = "too short";
+$registerPageAjaxNameTooLongError = "too long";
+$registerPageAjaxNameInvalidError = "it should only contain A-Z, a-z, 0-9 and - (NOTE: no spaces allowed!). It cannot start or end with -, and must contain at least one non-numeric character."
+$registerPageAjaxNameNumericError = "must contain at least one non-numeric character";
+
+// 'Edit details' page
+$editDetailsNoBirthdayError = "Please enter your birthday";
+$editDetailsTooYoungError = "Birthdate Please note that this Site is not aimed at users under thirteen (13) years of age. Users thirteen (13) years or younger are required to have a parent or guardian review and complete any registration process, which may include age verification steps in addition to the standard process.";
+
+// 'Account settings' page
+$accountSettingsPasswordNeededError = "In order to save this form, you will need to enter your Kroogi password.";
+$accountSettingsEmptyEmailErrorsCombined = "Email can't be blank Email is too short (minimum is 3 characters) Email is invalid";
+$accountSettingsEmailInvalidError = "Email is invalid";
+$accountSettingsTooShortEmailErrorsCombined = "Email is too short (minimum is 3 characters) Email is invalid";
+$accountSettingsExistingEmailError = "This email is already taken";
+$accountSettingsOldPasswordWrongError = "Old password is incorrect."
+$accountSettindsBlankConfirmationErrorsCombined = "Password confirmation can't be blank Password doesn't match confirmation";
+$accountSettingsPasswordTooShortError = "Password is too short (minimum is 4 characters)";
+$accountSettingsPasswordTooLongError = "Password is too long (maximum is 40 characters)";
+$accountSettingsPasswordNotMatchError = "Password doesn't match confirmation";
+
+// 'Account settings' page - 'Delete account' page
+$deleteAccountPasswordIncorrect = "The password you entered is incorrect!";
+
+// 'Project settings' page - 'Hide password' page
+$hideProjectPasswordIncorrect = "Unable to hide account - the password you entered is incorrect!";
+
+// 'Project settings' page - 'Delete password' page
+$deleteProjectPasswordIncorrect = "The password you entered is incorrect!";

@@ -1,0 +1,54 @@
+# == Schema Information
+# Schema version: 20090211222143
+#
+# Table name: currency_types
+#
+#  id                                    :integer(11)     not null, primary key
+#  accountable_id                        :integer(11)
+#  accountable_type                      :string(255)     default("AccountSetting")
+#  roubles                               :decimal(10, 2)
+#  euros                                 :decimal(10, 2)
+#  dollars                               :decimal(10, 2)
+#  created_at                            :datetime
+#  updated_at                            :datetime
+#  sponsorship_prices                    :boolean(1)
+#  show_donation_button                  :boolean(1)
+#  donation_button_label                 :string(255)
+#  message_to_donors                     :text
+#  message_to_donors_ru                  :text
+#  donation_button_label_ru              :string(255)
+#  message_to_donors_fr                  :text
+#  donation_button_label_fr              :string(255)
+#  amount_required_for_circle_invite_usd :decimal(10, 2)
+#  circle_to_invite_to                   :integer(11)
+#  amount_required_for_circle_invite_rur :decimal(10, 2)
+#  amount_required_for_circle_invite_eur :decimal(10, 2)
+#
+
+joydivisions_up_folder:
+  id: 1
+  accountable_id: 2
+  #it doesn't work if set to subclass
+  accountable_type: Content
+  dollars: 5
+  show_donation_button: true
+  donation_button_label: Donate
+  message_to_donors: Thank you for your donation
+  amount_required_for_circle_invite_usd: 10
+  amount_required_for_circle_invite_rur: 10
+  amount_required_for_circle_invite_eur: 10
+  circle_to_invite_to: 4
+ 
+joydivisions_closer_album:
+  id: 2
+  accountable_id: 14
+  accountable_type: Content
+  dollars: 5
+  show_donation_button: true
+  donation_button_label: Donate
+  message_to_donors: Thank you for your contribution
+  amount_required_for_circle_invite_usd: 2
+  amount_required_for_circle_invite_rur: 2
+  amount_required_for_circle_invite_eur: 2
+  circle_to_invite_to: 4
+ 

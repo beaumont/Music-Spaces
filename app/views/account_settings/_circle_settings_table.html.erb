@@ -1,0 +1,49 @@
+<% advanced ||= false %>
+
+<table cellpadding="3" id="circle_settings_table" class="money_table">
+  <thead>
+    <tr>
+      <% if advanced %><th><%= "Circle".t %></th><% end %>
+      <th width="160"><%= "Circle Name".t %></th>
+      <th><%= "Access".t %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%  user.all_circles.each do |kroog|
+      circle_id = kroog.relationshiptype_id
+    %>
+      <tr>
+        <% if advanced %>
+          <td>
+            <strong class="circle_name"><%= link_to_function "#{circle_id}.&nbsp;#{user.generic_circle_name(circle_id)}", "showCircle('#{circle_id}')" %></strong>
+          </td>
+        <% end %>
+
+        <td colspan="<%= (!advanced || user.has_circle?(circle_id)) ? '1' : '3' -%>">
+          <% if advanced %>
+            <% if user.has_circle?(circle_id) %>
+              <strong><%= user.circle_name(circle_id) %></strong>
+            <% else %>
+              <span class="gray_alert"><%= 'This circle is TURNED OFF'.t %></span>
+            <% end %>
+          <% else %>
+            <strong class="circle_name">
+              <%= link_to user.circle_name(circle_id), {:controller => '/kroogi', :action => 'show', :id => user, :type => circle_id} %>
+            </strong>
+          <% end %>
+        </td>
+
+        <% unless advanced && !user.has_circle?(circle_id) %>
+          <td colspan="<%= user.has_circle?(circle_id) ? '1' : '2' -%>">
+            <% if !advanced && !user.has_circle?(circle_id) %>
+              <span class="gray_alert"><%= 'This circle is TURNED OFF'.t %></span>
+            <% else %>
+              <%= kroog.open? ? "Anyone can join".t : kroog.can_request_invite? ? "Invitation, can be requested".t : "Invitation only".t %>
+            <% end %>
+          </td>
+        <% end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

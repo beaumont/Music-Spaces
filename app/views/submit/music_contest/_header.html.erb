@@ -1,0 +1,46 @@
+        <tr>
+          <td colspan="2">
+          <%# don't remove - this is translation hint: 'Second Title'.t %>
+          <%= render :partial => "shared/translatable_fields", :locals => {
+                       :f => f,
+                       :content => @content,
+                       :fields => [["Title", :title], ["Second Title", :second_title, {:string => true}], ["Description", :description, {:rows => 3}]] } %>
+            <%= hidden_field_tag 'redirect_to', (@content.new? ? nil : url_for(contest_edit_part_path(@content, 'change_image'))) %>
+          </td>
+        </tr>
+        <tr>
+          <%= render :partial => "tags", :locals => { :f => f } %>
+        </tr>
+        <tr>
+          <td class="left"><%= 'Start Date'.t %></td>
+          <td class="date"><%= calendar_date_select_tag "content[#{@content.id}][start_date]", @content.start_date, :time => false %></td>
+        </tr>
+        <tr>
+          <td class="left"><%= 'End Date'.t %></td>
+          <td class="date"><%= calendar_date_select_tag "content[#{@content.id}][end_date]", @content.end_date, :time => false %></td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <div>
+              <strong><%= 'Accepting submissions?'.t %></strong>
+            </div>
+            <span class="option">
+              <%= f.radio_button "accepts_submissions", true, :class => 'auto_width' %>
+              <label>
+                <%= "Yes".t %>
+              </label>
+            </span>
+            <span class="option">
+              <%= f.radio_button "accepts_submissions", false, :class => 'auto_width' %>
+              <label>
+                <%= "No (Finish contest)".t %>
+              </label>
+            </span>
+          </td>
+        </tr>
+
+        <tr id="permissions">
+          <%= render :partial => "permissions", :locals => { :f => f, :content => @content, :unbold_label => true} %>
+        </tr>

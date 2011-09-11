@@ -1,0 +1,24 @@
+<% unless public_history.empty? && !current_actor.is_self_or_owner?(@user) %>
+  <% right_column_block(:header_title => 'Recent Activity'.t) do %>
+    <% if public_history.blank? %>
+        <div class="section_empty"><%= 'No recent activity'.t -%></div>
+    <% else %>
+      <div class="activity">
+        <% public_history[0..(limit.to_i - 1)].each_with_index do |activity, index| %>
+          <div class="default" id="activity_<%= activity.id -%>">
+            <%= activity.created_at.localize("%D") %> - 
+            <%= render :partial => '/activity/activity', :locals => {:activity => activity, :one_liner => true} %>
+          </div>
+          <% unless index == [limit.to_i - 1, public_history.size - 1].min %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="right">
+        <%= link_to image_tag('feed-icon-14.png', :alt => 'RSS Feed'.t) + ' ' + 'RSS'.t, user_feed_path(@user) %>
+        <% if !public_history.empty? && (current_actor.is_self_or_owner?(@user) || current_actor.admin? || current_actor.moderator?) %>
+          | <%= link_to "#{'All Activity'.t} &gt;&gt;", user_all_activity_path(@user) %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

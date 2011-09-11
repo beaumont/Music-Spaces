@@ -1,0 +1,140 @@
+-
+  :name: "Questions Kit #1"
+  :id: f68f46d917
+  :enabled: true
+  :questions:
+    -
+      :ru: "Музыка-добро или зло?"
+      :en: "Can music change the world?"
+    -
+      :ru: "Сколько вы тратите денег в месяц на приобретение музыкального контента?"
+      :en: "How much do you spend per month on music?"
+    -
+      :ru: "Вы бы перестали слушать нашу музыку если...."
+      :en: "What would make you stop listening to our music?"
+    -
+      :ru: "Есть ли у музыкантов личная жизнь?"
+      :en: "How can musicians maintain privacy, while being in the public eye?"
+    -
+      :ru: "Какие эмоции вызывает у вас наша музыка?"
+      :en: "What emotions does our music bring up in you?"
+-
+  :name: "Questions Kit #2"
+  :id: 34cb14a56a
+  :enabled: true
+  :questions:
+    -
+      :ru: "Какой напиток для вас предпочтительней на наших концертах?"
+      :en: "What do you drink at our concerts?"
+    -
+      :ru: "Большие залы или маленькие клубы?"
+      :en: "Do you prefer small clubs or large performance venues?"
+    -
+      :ru: "Музыка и политика едины?"
+      :en: "Are music and politics related?"
+    -
+      :ru: "Снятся ли музыкантам их поклонники?"
+      :en: "Do musicians dream about their fans?"
+    -
+      :ru: "Какие наши песни можно спеть на последнем звонке?"
+      :en: "What do you usually do when you listen to our music"
+-
+  :name: "Questions Kit #3"
+  :id: ba9e34b015
+  :enabled: true
+  :questions:
+    -
+      :ru: "Конец света через 15 минут. Вы только что об этом узнали. Единственное что можно успеть - послушать музыку. Что ставим?"
+      :en: "You just found out that the world is about to end. You've got 15 minutes. What would the soundtrack for these last moments be?"
+    -
+      :ru: "Какую, на ваш взляд, стадию проходит наше творчество? Варианты ответа: рождение, становление, кризис, расцвет, угасание."
+      :en: "In your opinion, what stage in our career are we currently at?"
+    -
+      :ru: "Какой вопрос вы бы задал нам, особенно не надеясь, что мы на него ответим?"
+      :en: "If you could ask us any question (a question you didn't think we'd want to answer), what would it be?"
+    -
+      :ru: "Какого инструмента не хватает в нашем звучании?"
+      :en: "What other musical instrument can we implement in our performances to add to our sound?"
+    -
+      :ru: "Вам легче заплатить за музыку в сети или в переходе метро?"
+      :en: "Do you prefer to buy your music online or in traditional music stores?"
+-
+  :name: "Questions Kit #4"
+  :id: 36f83eb53f
+  :enabled: true
+  :questions:
+    -
+      :ru: "Есть ли у нас потенциал к написанию бессмертного шедевра/ 100% хита?"
+      :en: "In your opinion, which of our songs is our greatest hit?"
+    -
+      :ru: "Нужно ли музыканту еще что-то, кроме гениальной музыки, чтобы войти в историю? Если да, то что?"
+      :en: "Does it take more than just talent to make it in the music industry. If yes, then what else does a musician need?"
+    -
+      :ru: "За эту строчку, песню, альбом вы бы не задумываясь дали нам Grammy"
+      :en: "If you could give us a Grammy, which line, song or album would it be for?"
+    -
+      :ru: "О чем сейчас не модно писать песни?"
+      :en: "What major topics should musicians address more?"
+    -
+      :ru: "Чем может заниматься музыкант на пенсии?"
+      :en: "What can musicians do when they retire?"
+-
+  :name: "Questions Kit #5"
+  :id: 53c33cb94f
+  :enabled: true
+  :questions:
+    -
+      :ru: "Гастроли. Где мы ещё не были и где нас очень ждут?"
+      :en: "Where should we go on our next tour?"
+    -
+      :ru: "Про что мы ещё не пели, но вам хотелось бы услышать?"
+      :en: "Which topics haven't been covered in our songs that you would like for us to cover? "
+    -
+      :ru: "Нужно ли выкладывать альбом в lossless качестве на Kroogi?"
+      :en: "Should we make our music available on Kroogi in lossless format?"
+    -
+      :ru: "Если бы вы стали участником нашей команды, вы бы..?"
+      :en: "What would you do if you joined our band?"
+    -
+      :ru: "Вы ходите на наши концерты? Если да - то почему? Если нет - почему?"
+      :en: "Do you go to our concerts? Why?"
+-
+  :name: "Questions Kit #6"
+  :id: 7246702ea5
+  :enabled: true
+  :questions:
+    -
+      :ru: "Какую самую большую, на ваш взгляд, глупость допустила группа?"
+      :en: "In your opinion, what's been our biggest mistake so far?"
+    -
+      :ru: "На текущем этапе нашей команде не хватает.."
+      :en: "What, if anything, are we lacking at this point?"
+    -
+      :ru: "Музыку каких групп вы еще слушаете?"
+      :en: "What other artists/bands do you listen to?"
+    -
+      :ru: "С какой группой вы бы видели нас в одной обойме на концерте? Кто на суппорте?"
+      :en: "What artist or band would you like to see us collaborate with?"
+    -
+      :ru: "На каком этапе наша группа была максимально близка вашему мироощущению?"
+      :en: "Which of our songs do you relate to the most?"
+-
+  :name: "Questions Kit #7"
+  :id: 6c186e6fba
+  :enabled: false
+  :questions:
+    -
+      :ru: "Русский рок-будущего нет?"
+      :en: ""
+    -
+      :ru: "Нужно ли заниматься музыкой, если получается заниматься бизнесом?"
+      :en: ""
+    -
+      :ru: "Что такое смелость в музыке?"
+      :en: ""
+    -
+      :ru: "За что вы любите нашу музыку?"
+      :en: "What is it about our music that appeals to you?"
+    -
+      :ru: ""
+      :en: ""

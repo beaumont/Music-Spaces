@@ -1,0 +1,7 @@
+--- 
+cwd: /mnt/krugi/kroogi/staging/current
+port: "8010"
+environment: staging
+pid_file: /mnt/krugi/logs/mongrel/mongrel.pid
+log_file: /mnt/krugi/logs/mongrel/mongrel_development.log
+servers: 7

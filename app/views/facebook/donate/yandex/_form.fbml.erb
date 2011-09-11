@@ -1,0 +1,54 @@
+<script type="text/javascript">
+  function prepare_yx_<%=box%>(div) {
+      result_check = verify_amount_yandex_<%=box%>();
+      if (result_check == true) {
+      var url = "<%= facebook_absolute_url("/facebook/donate/prepare_yandex_transaction") %>";
+      var sum = document.getElementById('<%="yandex_contribution_amount_field_#{box}"%>').getValue();
+      var ajax = new Ajax();
+
+      ajax.responseType = Ajax.FBML;
+      ajax.requireLogin = true;
+      ajax.ondone = function(data) {
+          document.getElementById(div).setInnerFBML(data);
+          document.getElementById('<%= p[:short_name] %>_donation_form_<%=box%>').submit();
+      }
+      var params={"transaction":{
+                                 "Sum":sum,
+                                 "donor_login":"<%= donor_login %>",
+                                 "content_id":'<%= @entry.id ? @entry.id : nil %>',
+                                 "recipient_id":'<%= @entry.user.id %>',
+                                 "karma_point_id":'<%= @karma_point_id %>',
+                                 "itemName":"<%= h(title) %>",
+                                 "return_url":'<%= return_url %>'
+                                }
+                 };
+       ajax.post(url,params);
+       }
+   }
+</script>
+<hr style="border:none;color:#000; background-color:#888; height:1px;width:279px;" />
+<div class="contribution_option_body">
+   
+  <form id="yandex_donation_form_<%=box%>" action="<%= yandex_config(:recipient_id => @entry.user.id)[:url] %>" accept-charset="windows-1251" method="post" style="float:left;">
+      <div id="custom_fields">
+      </div>
+      <span style="margin-top:10px;">$</span>
+      <span id="<%= p[:short_name] %>_contribution_amount">
+        <%= text_field_tag "amount",
+                           suggested_contribution_amount(@entry, p),
+                           :id => "yandex_contribution_amount_field_#{box}",
+                           :size=>"5",
+                           :style => "font-size:11px;" %>
+      </span>
+      <span class="donation_button" style="padding-left:8px">
+        <%= link_to("<span class='fb_submit_btn'>" + "Yandex.Money" + "</span>",
+                    "#",
+                    {:onclick=>"prepare_yx_#{box}('custom_fields');"} ) %>
+      </span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="no_amount_warning_yandex_<%=box%>"><%= 'Please enter a valid number.'.t %></span></span>
+      <span class="donation_message"><span style="display:none;" class="no_amount_warning" id="min_contrib_warning_yandex_<%=box%>"><%= "Minimum contribution required here is #{@entry.min_contribution_amount} USD".t %></span></span>
+    </form>
+</div>
+<br class="clear" />
+<%= validate_donation_form_script('yandex', 'yandex_contribution_amount_field', 'no_amount_warning_yandex', @entry, box) %>
+<hr style="border:none;color:#000; background-color:#888; height:1px;width:279px;" />

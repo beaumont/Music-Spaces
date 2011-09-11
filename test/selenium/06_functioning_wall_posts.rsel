@@ -1,0 +1,40 @@
+# Checks: Ensure can post to wall, delete comment (author and profile owner + thread), private comment (and can't reply with public), etc.
+
+#Prerequisites
+setup :fixtures => :all
+joe = User.find_by_login('joe')
+chief = User.find_by_login('chief')
+chief_kroogi = '/user/index/chief'
+
+# Post text stuff
+  no_posts = "No wall posts yet"
+  pub1     = 'Selenium PUBLIC Test Post 1'
+  priv1    = 'Selenium PRIVATE Test Post 1'
+  priv2    = 'Selenium PRIVATE Test Post 2'
+  
+# This should probably be changed to be more robust...
+  post_comment_xpath = '//html/body/div/div/div[4]/div/div[2]/table/tbody/tr[3]/td/span/form/table/tbody/tr[2]/td/div/div/button'
+
+# Test body
+# Opening explore page and login
+include_partial 'logout'
+open '/explore'
+include_partial 'login', :user => joe
+
+# Going to Chief's page
+open chief_kroogi
+assert_text_present "The big cahuna"
+assert_text_present no_posts
+assert_text_not_present pub1
+
+# Starting posting
+type 'comment_fld', pub1
+click_and_wait "css=#post_comment_profile_#{chief.profile.id}"
+assert_text_not_present no_posts
+assert_text_present pub1
+
+# Removing post
+click_and_wait "link=Delete Thread"
+assert_confirmation "Are you sure you want to delete this comment?"
+assert_text_present no_posts
+assert_text_not_present pub1

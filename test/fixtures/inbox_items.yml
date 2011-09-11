@@ -1,0 +1,22 @@
+# == Schema Information
+# Schema version: 20090211222143
+#
+# Table name: inbox_items
+#
+#  id                     :integer(11)     not null, primary key
+#  inbox_id               :integer(11)
+#  content_id             :integer(11)
+#  position               :integer(11)     default(0)
+#  created_by_id          :integer(11)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  allow_take_to_showcase :boolean(1)      default(TRUE)
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value

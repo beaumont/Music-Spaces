@@ -1,0 +1,11 @@
+# Checks: default circle names presence
+
+if type == :user
+  assert_text_present '1. Family  Family  Invitation only'
+  assert_text_present '2. Friends  Friends  Invitation, can be requested'
+  assert_text_present '3. Supporters  This circle is TURNED OFF'
+  assert_text_present '4. Fans  This circle is TURNED OFF'
+  assert_text_present '5. Interested  Interested  Anyone can join'
+elsif type == :project
+  # TODO: FILL IN PROJECT DEFAULTS HERE
+end

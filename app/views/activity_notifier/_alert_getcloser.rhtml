@@ -1,0 +1,20 @@
+
+<p>
+  <strong>
+    <%= @content.user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to @from_user.login, "#{@url}/user/#{@from_user.login}" %> (<%= @from_user.display_name %>) 
+    <%= "has requested to join".t %>
+	  <% if @activity.content.wants_to_join.project? %> 
+		  <%= "the %s circle of your project %s." / [@activity.content.wants_to_join.circle_name(@activity.content.circle_id), (link_to h(@activity.content.wants_to_join.login),"#{@url}/user/#{@activity.content.wants_to_join.login}")] -%>
+	  <% else -%>
+		  <%= "your %s circle." / @activity.content.wants_to_join.circle_name(@activity.content.circle_id) -%>
+	  <% end -%>
+  </strong>
+</p>
+
+<p>
+  <%= link_to 'Invite %s to the %s circle' / [@from_user.login,@activity.content.wants_to_join.circle_name(@activity.content.circle_id)], "#{@url}/invite/find/#{@activity.content.wants_to_join_id}?invitee_id=#{@activity.content.user_id}&circle_id=#{@activity.content.circle_id}" %><br />
+  <%= link_to "Open %s's Kroogi Page" / @from_user.login, "#{@url}/user/#{@from_user.login}" %><br />
+  <%= link_to 'View "%s" Circle' / [@activity.content.wants_to_join.circle_name(@activity.content.circle_id)], "#{@url}/kroogi/show/#{@content.user_id}?type=#{@activity.content.circle_id}" %>
+</p>
+

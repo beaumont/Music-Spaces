@@ -1,0 +1,22 @@
+<% if logged_in? && contacts_data = current_actor.get_and_delete_flash(:invite_widget_search_results) %>
+  <% form_data = contacts_data.delete(:form_data) %>
+  <% if contacts_data[:errors] %>
+    <div id="add_friends_overlay">
+      <%= render :partial => '/invite/add_friends_wizard', :locals => {:form_data => form_data, :start_following_step => contacts_data[:start_following_step]} %>
+    </div>
+    <%= render :partial => '/invite/bas_errmsg', :object => contacts_data[:errors] %>
+  <% else %>
+    <% unless contacts_data[:suggest_following].size <= contacts_data[:already_followed].size || !contacts_data[:start_following_step] %>
+      <%# save it for next step %>
+      <% current_actor.set_flash(:external_email_contacts_found, contacts_data) %>
+      <div id="select_followed_overlay">
+        <%= render :partial => '/invite/select_kroogi_users_to_follow', :locals => contacts_data %>
+      </div>
+    <% else %>
+      <%# everybody are already followed - skip 'start following' step %>
+      <div id="externals_to_invite_overlay">
+        <%= render :partial => '/invite/select_emails_to_invite', :locals => contacts_data.merge(:preselect => contacts_data[:already_followed]) %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

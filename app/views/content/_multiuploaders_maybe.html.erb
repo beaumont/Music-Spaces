@@ -1,0 +1,115 @@
+<% if entry.multiple_uploader_needed? %>
+<% links = uploader_all_post_options(current_actor, entry) %>
+
+  <% content_for :js do %>
+    <%= include_swf_loader %>
+    <script type="text/javascript">
+
+      var multiuploader_widget_opts = {
+        resizable: false,
+        modal: true,
+        //height: 'auto',
+        position: 'middle',
+        close: function() {
+          clearOverlay();
+          jQuery("#multiuploader_widget").dialog('destroy');
+        }
+      };
+
+      function showMultipleFilesUploader(kind, config, width, height, max_file_size) {
+        var flashvars = {};
+        flashvars.config = config;
+        flashvars.submit_action = '/submit/upload_with_tool';
+        flashvars.quota = "<%= entry.user.upload_quota %>";
+        flashvars.quota_used = "<%= entry.user.upload_quota_used %>";
+        flashvars.album_id = "<%= entry.id %>";
+        flashvars.user_id = "<%= current_user.id %>";
+        flashvars.user_id_sign = "<%= sign_with_session_secret(current_user.id) %>";
+        flashvars.max_file_size = max_file_size;
+        flashvars.on_close = 'closeOverlay';
+        flashvars.after_all_uploaded = 'update_contents';
+        var params = {};
+        params.scale = "noscale";
+        //params.wmode = "transparent";
+        params.allowfullscreen = "true";
+        var attributes = {};
+        attributes.align = "top";
+        swfobject.embedSWF("/uploader/" + kind + "_upload.swf", "uploader_container", "100%", "100%", "10.0.0", true, flashvars, params, attributes);
+
+        multiuploader_widget_opts.width = width;
+        multiuploader_widget_opts.minWidth = width;
+        multiuploader_widget_opts.height = height;
+        multiuploader_widget_opts.minHeight = height;
+        jQuery("#multiuploader_widget").dialog(multiuploader_widget_opts);
+      }
+
+      function changeWidgetDimensions(_height) {
+        jQuery("#multiuploader_widget").parent(".ui-dialog:first").animate({height:_height}, { duration: 600, easing: 'easeOutSine',
+          complete: function() {
+            //alert(_height);
+            jQuery("#multiuploader_widget").data("minHeight.dialog", _height);
+            jQuery("#multiuploader_widget").data("height.dialog", _height);
+          }});
+      }
+
+      function showMultipleImagesUploader() {
+        jQuery('#multiuploader_widget').attr('title', '<%= 'Upload Multiple Images'.t %>');
+        addAlternativeContentLink('<%= links[:image] %>');
+        showMultipleFilesUploader("images",
+                "<%= url_for(user_path_options(entry.user).merge(:controller => 'uploader', :action => 'config', :id => 'images')) %>",
+                500, 701, "<%= Image::MAX_SIZE %>");
+      }
+
+      function showMultipleTracksUploader() {
+        jQuery('#multiuploader_widget').attr('title', '<%= 'Upload Multiple Tracks'.t %>');
+        addAlternativeContentLink('<%= links[:track] %>');
+        showMultipleFilesUploader("tracks",
+                "<%= url_for(user_path_options(entry.user).merge(:controller => 'uploader', :action => 'config', :id => 'tracks')) %>",
+                412, 600, "<%= Track::MAX_SIZE %>");
+      }
+
+      function closeOverlay() {
+        jQuery("#multiuploader_widget").dialog('close');
+      }
+
+      function clearOverlay() {
+        var ovCnt = document.getElementById("multiuploader_widget");
+        var ov = document.getElementById("uploader_container");
+
+        ovCnt.removeChild(ov);
+
+        ov = document.createElement("div");
+        ov.setAttribute("id", "uploader_container");
+
+        ovCnt.appendChild(ov);
+        ovCnt.style.visibility = "hidden";
+        addAlternativeContent();
+      }
+
+      function addAlternativeContent() {
+        jQuery('#alternative_content_source').clone().show().appendTo('#uploader_container');
+      }
+
+      function addAlternativeContentLink(link) {
+        jQuery('.basic_uploader_link').html(link);
+      }
+
+    </script>
+  <% end %>
+
+  <div style="display: none;" id="multiuploader_widget">
+    <div id="uploader_container">
+    </div>
+  </div>
+
+  <div style="display: none;" id="alternative_content_source">
+    <%= "Error: Flash not found or not working properly on your device. Please try again or use our {{basic_uploader_link}} to add content." / ["<span class='basic_uploader_link'></span>"] %>
+  </div>
+
+  <script type="text/javascript">
+    addAlternativeContent();
+  </script>
+
+  <%= open_multiple_uploader_onload(entry, params) %>
+
+<% end %>

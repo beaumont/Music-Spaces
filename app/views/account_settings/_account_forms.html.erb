@@ -1,0 +1,25 @@
+  <table cellspacing="0" cellpadding="5" class="project_wizard" style="width: 100%;">
+    <tr>
+      <th><label for="wmz"><%= 'WMZ ID (USD)'.t %></label></th>
+      <td><%= f.text_field :webmoney_wmz, :id => "wmz", :style => "width:200px;", :class => "feedback_input" %></td>
+    </tr>
+    <tr>
+      <th><label for="wme"><%= 'WME ID (EUR)'.t %></label></th>
+      <td><%= f.text_field :webmoney_wme, :id => "wme", :style => "width:200px;", :class => "feedback_input" %></td>
+    </tr>
+    <tr>
+      <th><label for="wmr"><%= 'WMR ID (RUR)'.t %></label></th>
+      <td><%= f.text_field :webmoney_wmr, :id => "wmr", :style => "width:200px;", :class => "feedback_input" %></td>
+    </tr>
+    <% if defined?(context) && context == :wizard %>
+      <%= render(:partial => 'account_settings/wizard_form_footer') %>
+    <% else %>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <button class="button" name="commit" type="submit"><span><%= 'Save'.t -%></span></button>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+

@@ -1,0 +1,15 @@
+
+<% question_type = question_type || false %>
+
+  <b><%= question.name.t %><%= ' as '.t + question_type if question_type -%></b>
+  <br />
+  <% if question.is_tagged? %>
+    <%= profile_tags question.profile.user, question.profile.contextual_tag_list(question.key) %>
+  <% else %>
+    <% if defined?(char_limit) && !char_limit.nil? %>
+      <%= auto_link kf_simple(question.answer, {:characters => char_limit}) %>
+    <% else %>
+      <%= auto_link kf_simple(question.answer) %>
+    <% end %>
+  <% end %>
+

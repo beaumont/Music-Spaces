@@ -1,0 +1,57 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'Bulk Messaging'.t %>
+
+<div class="admin">
+
+<h2><%= 'Send a message to ALL active Kroogi Users'.t %></h2>
+
+  <div style="border: 1px solid #333; padding: 10px; background: #E9E9E9; width: 500px; margin: 30px auto;">
+
+    <p style="line-height: 120%; text-align: center;">
+      <%= 'This form will send a message to all users in their preferred email-receiving language'.t -%>.
+      <%= 'All fields are mandatory'.t -%>!<br/><br/>
+      <em><%= 'With great power comes great responsibility...'.t %></em>
+    </p>
+  
+    <%= form_tag %>
+      <table border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <th class="left"><%= 'From'.t %></th>
+          <td><p><pre>"Kroogi (No Reply)" &lt;noreply@kroogi.com&gt;</pre></p></td>
+        </tr>
+
+        <tr>
+          <th class="left"><%= 'To'.t %></th>
+          <td><p><%= 'ALL active Kroogi users' %></p></td>
+        </tr>
+
+        
+        <% @all_langs.each do |lang| %>
+          <tr>
+            <th class="left"><%= 'Subject'.t %> (<%= lang %>)</th>
+            <td><%= text_field_tag "#{lang}[subject]", params[lang] ? params[lang][:subject] : '', :class => 'feedback_input', :style => 'width: 300px;' %></td>
+          </tr>
+        <% end %>
+        
+        <% @all_langs.each do |lang| %>
+          <tr>
+            <th class="left"><%= 'Body'.t %> (<%= lang %>)</th>
+            <td>
+              <%= text_area_tag "#{lang}[body]", params[lang] ? params[lang][:body] : '', :class => 'feedback_input', :style => 'width: 300px;' %>
+            </td>
+          </tr>
+        <% end %>
+        
+        <tr>
+          <th class="left">&nbsp;</th>
+          <td>
+            <button name="submit" class="button" type="submit" onclick="return confirm('Are you sure?');">
+              <span><%= 'Send Mass Email'.t %></span>
+            </button>
+          </td>
+        </tr>        
+      </table>
+    </form>
+  
+  </div>
+
+</div>

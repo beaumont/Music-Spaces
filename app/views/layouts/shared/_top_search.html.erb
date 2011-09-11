@@ -1,0 +1,12 @@
+<% input_value = 'Search ...'.t %>
+
+<% form_tag(search_path, :id => "top_nav_search") do -%>
+  <div>
+    <%= text_field_tag("q", "", :value => @query || input_value, :size => 20,
+                         :id => "search", :autocomplete => "off",
+                         :onFocus => "if(this.value == '#{input_value}') this.value='';",
+                         :onBlur => "if(this.value == '') this.value='#{input_value}';") %>
+
+    <label for="search"><input title="Search" alt="Search" onClick="if(document.getElementById('q').value==''){return false}" src="/images/search_r.png" type="image" /></label>
+  </div>
+<% end %>

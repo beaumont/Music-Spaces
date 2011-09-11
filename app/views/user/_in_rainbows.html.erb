@@ -1,0 +1,45 @@
+<% main_block(:content_head => 'Releases'.t) do %>
+ 
+    <% @in_rainbows.each do |folder| -%>
+      <div class="half_column">
+        <% if folder.cover_art %>
+          <a href="<%= content_url(folder) %>" class="cover_art">
+            <%= image_tag(folder.cover_art.thumb(:thumb).public_filename,
+                          :border => 0,
+                          :alt => h(folder.cover_art.thumb(:thumb).filename)) %>
+          </a>
+        <% end %>
+        <div class="music_album_info">
+          <div class="main_body_subhead"><%= link_to(h(folder.title), content_url(folder)) %></div>
+          <div class="default">
+            <%= folder.artist %> <%= "(#{folder.year})" unless folder.year.blank? %>
+            <br/>
+            <% unless folder.number_of_tracks.blank? %>
+              <%= '%d Tracks' / [h(folder.number_of_tracks).to_i] unless folder.number_of_tracks.to_i.zero? %>
+            <% end %>
+          </div>
+          <% if folder.downloadable? %>
+            <div style="margin-bottom:30px;">
+              <a href="<%= content_url(folder, {:download => true}) %>" class="button">
+                <span><%= h(folder.donation_button_label) %>&nbsp;</span>
+              </a>
+            </div>
+          <% end %>
+          <% if folder.has_goodies? %>
+            <div style="margin-bottom:60px;">
+              <a href="<%= project_goodies_url(project) %>" class="button">
+                <span><%= '((store))Goodies'.t %>&nbsp;</span>
+              </a>
+            </div>
+          <% end %>
+          <% if folder.comment_count > 0 %>
+            <div class="default">
+              <span style="padding-right:2px;vertical-align:middle;"><%= image_tag('comments.png') %></span>
+              <span style="vertical-align:top"><%= link_to('{{count}} Comments' / folder.comment_count, content_url(folder, :anchor=>'comments')) %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end -%>
+<% end %>
+

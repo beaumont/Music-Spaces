@@ -1,0 +1,37 @@
+<%# show_donation_button can be set on all content, but the button won't be shown with a valid monetary_processor_account -%>
+<div class="form_line">
+  <div class="form_center">
+    <label>
+      <%= f.check_box :show_donation_button , :class => "auto_width" %> 
+      <b><%= 'Request contributions for this item'.t -%></b>
+    </label>
+    <% unless content.user.account_setting.has_an_approved_account_set? %>
+         <div style="color:#F00; font-weight:bold;"><%= 'Note: No contributions will be accepted until you <a href="{{url}}">attach a payment system</a>' / url_for(:controller => 'money', :action => 'index', :id => @user.id) %></div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :bottom_javascript do %>
+  <script type="text/javascript" charset="utf-8">
+    (function(){
+      var donation_checkbox = $('content_show_donation_button') || $('content_<%= @content.id %>_show_donation_button');
+      function toggle_donation_group () {
+        if (donation_checkbox) {
+          var check = donation_checkbox.checked;
+        	$$("tr.donation_field_<%= @content.id %>").each(function(el) {
+        	  if (check) { el.show(); }
+        		else { el.hide(); }
+        	});
+        	$$("tr.donation_field").each(function(el) {
+        	  if (check) { el.show(); }
+        		else { el.hide(); }
+        	});
+        };
+      };
+
+      toggle_donation_group();
+      donation_checkbox.observe("click",toggle_donation_group);
+    })()
+  </script>
+<% end -%>
+

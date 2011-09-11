@@ -1,0 +1,13 @@
+<div class="content_head">
+  <%= content_link(content) %>
+  <div class="block_date"><%= content.created_at.to_s(:date_with_time) %></div>
+</div>
+<div class="user_block">
+  <div class="block_username">
+    <%= user_link(content.user, :icon => true) %>
+  </div>
+  <%= avatar_lg(content.user) %>
+<div class="block_body <%= content.class.name.underscore %>">
+  <%= render(:partial => 'shared/public_history_entry', :locals => {:content => content}) %>
+</div>
+</div> 

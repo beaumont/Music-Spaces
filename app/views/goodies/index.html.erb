@@ -1,0 +1,34 @@
+<% unless @picked_tickets.empty? %>
+  <% right_column_block(:header_title => 'Goodies You Picked'.t) do %>
+    <table class="list">
+      <% @picked_tickets.each do |ticket| %>
+        <tr>
+          <td class="goodies_item">
+            <%= ticket.title %>
+            <br/>
+            <% if ticket.succeeded? %>
+              <% if ticket.goodie.downloadable? %>
+                <%= bundle_links(ticket.goodie.downloadable_album.bundles) if ticket.goodie.downloadable_album.respond_to?(:bundles) %>
+              <% end %>
+            <% else %>
+              <span class="goodies_avl"><%= 'payment pending'.t %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
+
+<% content_for :right_column do %>
+  <div class="toolbar">
+    <% if current_user.is_self_or_owner?(@project) %>
+      <div class="default"><%= link_to_goodies_payments_page(@project) %></div>
+      <div class="default"><%= link_to_goodies_participants_page(@project) %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => @title, :white_body => true) do %>
+  <%= render :partial => "/goodies/goodies_list", :locals => {:goodies => @goodies} %>
+<% end %>

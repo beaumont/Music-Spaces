@@ -1,0 +1,41 @@
+<%# ---------------------------------------------------------------------------
+# File:       tab.fbml.erb
+# Summary:    Layout template for Facebook Tab profile section
+# ------------------------------------------------------------------------ %>
+
+<!-- Need to pull in stylesheets explicitly  -->
+<fb:user-agent includes="ie">
+  <style type="text/css" media="screen">
+    <%= render(:file => "#{RAILS_ROOT}/public/stylesheets/facebook/facebook-ie.css") %>
+  </style>
+</fb:user-agent>
+<fb:user-agent excludes="ie">
+  <style type="text/css" media="screen">
+    <%= render(:file => "#{RAILS_ROOT}/public/stylesheets/facebook/facebook.css") %>
+  </style>
+</fb:user-agent>
+<div class="mainContent">
+  <div class="headerTitle" style="background-image:url(<%=image_path('/images/bg_title.png')%>)">
+    <div class="kroogiLogo"><%= link_to(image_tag('kroogi_downloads.jpg'), {:controller => 'facebook/home'}) %> </div>
+      <% if @user.is_linked_to_artist? %>
+      <div class="tab_headerLinks">
+        <form id="promote_form"></form>
+        <a clickrewriteurl='<%=facebook_absolute_url("/facebook/tab?promote=true")%>'
+           clickrewriteform='promote_form'
+           clickrewriteid='promote_id'
+           clicktoshow='promote_spinner'
+           style="padding-right:25px;">
+         <%= viewer_first_name(@user, :possessive => false, :capitalize => true, :use_you => false) %> Presents
+        </a>
+        <%= link_to "#{viewer_first_name(@user, :possessive => false, :capitalize => true, :use_you => false)}'s Albums", {:controller => 'facebook/tab', :action=> 'index'} %>
+       </div>
+       <%end%>
+  </div>
+  <!-- Pull in Stylesheet and Javascript info from content_for in controllers/views -->
+  <%= yield :stylesheet %>
+  <%= yield :javascript %>
+  <div class="content" id="promote_id">
+    <span id="promote_spinner" class="searchSpinner" style="display:none;" > Loading... </span>
+    <%= yield %>
+  </div>
+</div>

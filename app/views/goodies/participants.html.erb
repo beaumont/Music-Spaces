@@ -1,0 +1,149 @@
+<% content_for :right_column do %>
+  <div class="toolbar">
+    <% if current_user.is_self_or_owner?(@project) %>
+      <div class="default"><%= link_to_goodies_payments_page(@project) %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => '{{project_name}} Goodie Receivers' / h(@project.display_name), :white_body => true) do %>
+  <% unless @unreplied_participants.empty? %>
+    <div class="main_body_subhead"><%= 'Goodie Receivers who have NOT submitted their information'.t %></div>
+
+    <% form_tag({:controller => 'goodies', :action => 'request_participant_info'}, :id => "request_info_form") do %>
+      <table class="list">
+        <tr>
+          <th>&nbsp;</th>
+          <th><%= 'Related To'.t %></th>
+          <th><%= 'Receiver'.t %></th>
+          <th><%= 'Goodies'.t %></th>
+        </tr>
+        <% @unreplied_participants.each do |participant| %>
+          <tr>
+            <td class="tps_checkbox">
+              <%= check_box_tag 'request_info_from[]', participant.id, false, :class => 'active_checkbox' %>
+            </td>
+            <td class="default"><%= content_link(participant.content) %></td>
+            <td class="default"><%= user_link(participant.user, :icon => true, :limit => 10) %></td>
+            <td class="last goodies_item">
+              <%= participant.tickets.with_goodies.non_virtual.ordered_by_goodie_title.map {|t| t.title}.join(' + ')%>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="no_border">
+          <td class="tps_checkbox">
+            <%= check_box_tag 'nomatter', '', false, :onclick => "jQuery('#request_info_form .active_checkbox').attr('checked', jQuery(this).is(':checked'));" %>
+          </td>
+          <td class="default" style="font-style:italic;"><%= 'Select All'.t %></td>
+          <td class="default last">
+            <span style="float:right; margin-left:10px;">
+              <button class="button_lg" name="commit" type="submit" title="<%= 'Send information submission reminder'.t %>">
+                <span><%= 'Request Info Again'.t %></span>
+              </button>
+            </span>
+            <%= 'Remind participants to submit their information.'.t %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+
+    <br><div class="orng_line"></div><br>
+  <% end %>
+
+  <% unless @replied_participants.blank? %>
+    <div class="main_body_subhead"><%= 'Participants who have submitted their information'.t %></div>
+    <table class="list">
+      <tr>
+        <th><%= 'Related To'.t %></th>
+        <th><%= 'Receiver'.t %></th>
+        <th><%= 'First Name'.t %></th>
+        <th><%= 'Last Name'.t %></th>
+        <th><%= 'Goodies'.t %></th>
+        <th><%= 'Document'.t %></th>
+        <th><%= 'Document Number'.t %></th>
+        <th><%= 'Address'.t %></th>
+      </tr>
+      <% @replied_participants.each do |participant| %>
+        <tr class="no_border offwhite <%= participant.approved? ? '' : 'unread' %>">
+          <td class="default"><%= content_link(participant.content) %></td>
+          <td class="default"><%= user_link(participant.user, :icon => true, :length => @truncate_to) %></td>
+          <td class="default">
+            <span id="<%= "first_name#{participant.id}" %>">
+              <%= render :partial => '/shared/in_place_value', :object => participant.first_name %>
+            </span>
+            <%= in_place_editor "first_name#{participant.id}",
+                                :url => {:action => :update_participant_attrib, :id => participant.id, :attrib => 'first_name'},
+                                :load_text_url => url_for({
+                                        :action => :participant_attrib, :id => participant.id,
+                                        :attrib => 'first_name' }) unless participant.approved? %>
+
+          </td>
+          <td class="default">
+            <span id="<%= "last_name#{participant.id}" %>">
+              <%= render :partial => '/shared/in_place_value', :object => participant.last_name %>
+            </span>
+            <%= in_place_editor "last_name#{participant.id}",
+                                :url => {:action => :update_participant_attrib, :id => participant.id, :attrib => 'last_name'},
+                                :load_text_url => url_for({
+                                        :action => :participant_attrib, :id => participant.id,
+                                        :attrib => 'last_name' }) unless participant.approved? %>
+
+          </td>
+          <td class="goodies_item">
+            <%= participant.tickets.with_goodies.non_virtual.ordered_by_goodie_title.map {|t| t.title}.join(' + ')%>
+          </td>
+          <td class="default">
+            <span id="<%= "document_kind#{participant.id}" %>">
+              <%= render :partial => '/shared/in_place_value', :object => tps_participant_info_document_field(participant, :document_kind) %>
+            </span>
+            <%= in_place_editor "document_kind#{participant.id}",
+                                :url => {:action => :update_participant_attrib, :id => participant.id, :attrib => 'document_kind'},
+                                :load_text_url => url_for({
+                                        :action => :participant_attrib, :id => participant.id,
+                                        :attrib => 'document_kind' }) unless participant.approved? %>
+          </td>
+          <td class="default">
+            <span id="<%= "document_identifier#{participant.id}" %>">
+              <%= render :partial => '/shared/in_place_value', :object => tps_participant_info_document_field(participant, :document_identifier) %>
+            </span>
+            <%= in_place_editor "document_identifier#{participant.id}",
+                                :url => {:action => :update_participant_attrib, :id => participant.id, :attrib => 'document_identifier'},
+                                :load_text_url => url_for({
+                                        :action => :participant_attrib, :id => participant.id,
+                                        :attrib => 'document_identifier' }) unless participant.approved? %>
+          </td>
+          <td class="default goodies_adrs">
+            <span id="<%= "address#{participant.id}" %>">
+              <%= render :partial => '/shared/in_place_value', :object => tps_participant_info_address_field(participant, :address) %>
+            </span>
+            <%= in_place_editor "address#{participant.id}",
+                                :url => {:action => :update_participant_attrib, :id => participant.id, :attrib => 'address'},
+                                :load_text_url => url_for({
+                                        :action => :participant_attrib, :id => participant.id,
+                                        :attrib => 'address' }) unless participant.approved? %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td colspan="6" class="last">
+            <div class="default right">
+              <% unless participant.approved? %>
+                <%= link_to('Mark as Complete'.t, :action => 'approve_participant', :id => participant.id) %>
+              <% else %>
+                <%= link_to('Mark as Incomplete'.t, :action => 'deapprove_participant', :id => participant.id) %>
+              <% end %>
+              <span class="separator">&nbsp;</span>
+              <%= comment_action_links(participant) %>
+            </div>
+            <div id="comments_<%= dom_id(participant) %>" style="display:none;">
+              <%= render :partial => 'comment/comments', :locals => {:commentable => participant,
+                         :submit_url_options => {:controller=> 'comment', :action => 'tps_participant_was_questioned', 
+                                                 :id => participant.id, :commentable_type => participant.class }
+              } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

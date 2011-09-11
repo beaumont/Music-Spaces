@@ -1,0 +1,397 @@
+# == Schema Information
+# Schema version: 20090115130316
+#
+# Table name: contents
+#
+#  id                  :integer(11)     not null, primary key
+#  user_id             :integer(11)     not null
+#  title               :string(255)
+#  description         :text
+#  type                :string(255)
+#  content_type        :string(255)
+#  filename            :string(255)
+#  filepath            :string(255)
+#  size                :integer(11)
+#  parent_id           :integer(11)
+#  thumbnail           :string(255)
+#  width               :integer(11)
+#  height              :integer(11)
+#  created_at          :datetime        not null
+#  updated_at          :datetime        not null
+#  is_in_gallery       :boolean(1)
+#  db_file_id          :integer(11)
+#  foruser_id          :integer(11)
+#  cat_id              :integer(11)     default(0), not null
+#  is_in_startpage     :boolean(1)
+#  is_in_myplaylist    :boolean(1)
+#  created_by_id       :integer(11)     default(0), not null
+#  updated_by_id       :integer(11)     default(0), not null
+#  author_id           :integer(11)     default(0), not null
+#  artist              :string(80)
+#  album               :string(80)
+#  year                :integer(4)
+#  genre               :string(60)
+#  bitrate             :integer(4)
+#  chanels             :string(10)
+#  samplerate          :integer(4)
+#  length              :integer(6)
+#  post_db_store_id    :integer(11)
+#  language_code       :string(8)
+#  owner               :string(255)
+#  number_of_tracks    :integer(11)
+#  title_ru            :string(255)
+#  description_ru      :text
+#  title_fr            :string(255)
+#  description_fr      :text
+#  post_db_store_ru_id :integer(11)
+#  post_db_store_fr_id :integer(11)
+#  state               :string(255)     default("active")
+#  state_changed_at    :datetime
+#  artist_ru           :string(255)
+#  album_ru            :string(255)
+#  artist_fr           :string(255)
+#  album_fr            :string(255)
+#  downloadable        :boolean(1)
+#
+
+joes_public_blog_entry:
+  id: 1
+  type: Blog
+  user_id: 3
+  created_at: <%= 3.years.ago.to_s(:db) %>
+  updated_at: <%= 3.years.ago.to_s(:db) %>
+  title: some
+  cat_id: 1
+  
+joydivisions_up_folder:
+  id: 2
+  type: FolderWithDownloadables
+  user_id: 8
+  title: Unknown Pleasures
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %> 
+
+joydivisions_featured_album:
+  id: 3
+  type: Album
+  user_id: 8
+  cat_id: <%= Content::CATEGORIES[:featured_album][:id] %>
+
+joydivision_as_kroogimusic_content:
+  id: 4
+  type: ProjectAsContent
+  body_project_id: 8
+  user_id: 9
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+postpunk_as_rock_content:
+  id: 5
+  type: ProjectAsContent
+  body_project_id: 12
+  user_id: 33
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+kroogimusic_showcase:
+  id: 6
+  type: Album
+  user_id: 9
+  cat_id: <%= Content::CATEGORIES[:featured_album][:id] %>
+
+postpunk_showcase:
+  id: 7
+  type: Album
+  user_id: 12
+  cat_id: <%= Content::CATEGORIES[:featured_album][:id] %>
+
+joydivision_as_postpunk_content:
+  id: 8
+  type: ProjectAsContent
+  body_project_id: 8
+  user_id: 12
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+dub_as_kroogimusic_content:
+  id: 9
+  type: ProjectAsContent
+  body_project_id: 15
+  user_id: 9
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+ambientdub_as_dub_content:
+  id: 10
+  type: ProjectAsContent
+  body_project_id: 16
+  user_id: 15
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+chiefs_sacred_album:
+  id: 11
+  type: FolderWithDownloadables
+  user_id: 2
+  title: Sacred Songs of Indians
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  year: 2007
+  is_in_gallery: true
+
+squarepusher_weird_album:
+  id: 12
+  type: MusicAlbum
+  artist: squarepusher
+  user_id: 2
+  title: Feed me weird things
+  is_in_gallery: true
+
+comb_the_desert_album:
+  id: 13
+  type: Album
+  user_id: 2
+  title: "we ain't find shit" 
+  is_in_gallery: true
+
+joydivisions_closer_album:
+  id: 14
+  type: MusicAlbum
+  user_id: 8
+  title: Closer
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %>
+
+jd_closer_isolation_track:
+  id: 15
+  type: Track
+  user_id: 8
+  title: Isolation
+  filename: isolation.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %> 
+  downloadable: 1
+
+jd_closer_decades_track:
+  id: 16
+  type: Track
+  user_id: 8
+  title: Decades
+  filename: decades.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+
+jd_up_disorder_track:
+  id: 17
+  type: Track
+  user_id: 8
+  title: Disorder
+  filename: disorder.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+
+jd_up_insight_track:
+  id: 18
+  type: Track
+  user_id: 8
+  title: Insight
+  filename: insight.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+
+jd_closer_album_cover:
+  id: 19
+  type: CoverArt
+  user_id: 8
+  filename: cover.jpg
+  relationshiptype_id: -1
+  downloadable_album_id: 14
+
+jd_closer_text:
+  id: 20
+  type: Textentry
+  user_id: 8
+  title: texts
+  cat_id: <%= Content::CATEGORIES[:writing][:id] %> 
+
+joydivisions_substance_album:
+  id: 21
+  type: MusicAlbum
+  user_id: 8
+  title: Substance
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %> 
+
+ian_curtis_family_pictures_album:
+  id: 22
+  type: Album
+  user_id: 8
+  title: Family Pictures
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %>
+
+ian_curtis_videos_album:
+  id: 23
+  type: FolderWithDownloadables
+  user_id: 8
+  title: Videos
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %>
+
+music_album_for_facebook:
+  id: 24
+  type: MusicAlbum
+  artist: jeffmills
+  user_id: 2
+  title: Expanded
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  is_in_gallery: true
+
+matisyahu_youth_album:
+  id: 25
+  type: MusicAlbum
+  user_id: 21
+  title: Youth
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  is_in_gallery: true
+
+matisyahu_youth_album_zip:
+  id: 26
+  type: Bundle
+  downloadable_album_id: 25
+  user_id: 21
+  filename: matisyahu_youth_album.zip 
+
+exit_planet_dust:
+  id: 27
+  type: MusicAlbum
+  user_id: 2
+  title: Exit Planet Dust
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  is_in_gallery: true
+
+exit_planet_dust_zip:
+  id: 28
+  type: Bundle
+  user_id: 2
+  downloadable_album_id: 27
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  filename: content.zip
+
+matisyahu_young_man_track:
+  id: 29
+  type: Track
+  user_id: 21
+  title: Young man
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  filename: matisyahu_young_man.mp3
+
+the_extremist:
+  id: 30
+  type: MusicAlbum
+  artist: jeffmills
+  user_id: 2
+  title: the extremist
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  is_in_gallery: true
+
+chiefs_announcement:
+  id: 31
+  type: Board
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+  user_id: 2
+
+jd_insight_showcase_track:
+  id: 32
+  type: Track
+  user_id: 8
+  title: Insight
+  filename: insight.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+  is_in_gallery: true
+
+jd_decades_showcase_track:
+  id: 33
+  type: Track
+  user_id: 8
+  title: Decades
+  filename: decades.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+  is_in_gallery: true
+
+joydivisions_empty_draft:
+  id: 34
+  type: MusicAlbum
+  user_id: 8
+  title: Unnamed
+  is_in_gallery: true
+  cat_id: <%= Content::CATEGORIES[:album][:id] %>
+
+jd_newly_added_transmission_track:
+  id: 35
+  type: Track
+  user_id: 8
+  title: Transmission
+  filename: transmission.mp3
+  cat_id: <%= Content::CATEGORIES[:track][:id] %>
+
+jd_announcement:
+  id: 36
+  type: Board
+  user_id: 8
+  cat_id: <%= Content::CATEGORIES[:announcement][:id] %>
+  post_db_store_id: 2
+  relationshiptype_id: <%= Relationshiptype.everyone %>
+
+bill_laswell_as_ambientdub_content:
+  id: 37
+  type: ProjectAsContent
+  body_project_id: 30
+  user_id: 16
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+ambient_as_kroogimusic_content:
+  id: 38
+  type: ProjectAsContent
+  body_project_id: 31
+  user_id: 9
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+ambientdub_as_ambient_content:
+  id: 39
+  type: ProjectAsContent
+  body_project_id: 16
+  user_id: 31
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+birthday_party_as_postpunk_content:
+  id: 40
+  type: ProjectAsContent
+  body_project_id: 32
+  user_id: 12
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+rock_as_kroogimusic_content:
+  id: 41
+  type: ProjectAsContent
+  body_project_id: 33
+  user_id: 9
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+sigur_ros_as_post_punk_content:
+  id: 42
+  type: ProjectAsContent
+  body_project_id: 34
+  user_id: 12
+  cat_id: <%= Content::CATEGORIES[:project][:id] %>
+
+chiefs_sacred_album_zip:
+  id: 43
+  type: Bundle
+  downloadable_album_id: 11
+  user_id: 2
+  filename: chiefs_sacred_album.zip
+
+inbox_for_collection_with_inbox:
+  id: 44
+  type: Inbox
+  user_id: 35
+  title: Inbox
+  cat_id: <%= Content::CATEGORIES[:inbox][:id] %>
+
+joes_inbox:
+  id: 45
+  type: Inbox
+  user_id: 3
+  title: Inbox
+  cat_id: <%= Content::CATEGORIES[:inbox][:id] %>

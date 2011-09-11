@@ -1,0 +1,11 @@
+<%
+  header_label ||= 'Upload to This Folder'.t
+  entry ||= @entry
+  @post_options ||= [ :music_album, :track, :video, :image, :writing, :folder,]
+%>
+
+<div id="content_post_options"></div>
+<div class="blue_head"><%= header_label %></div>
+<div class="blue_block light">
+  <%= content_post_options(entry, @post_options) %>
+</div>

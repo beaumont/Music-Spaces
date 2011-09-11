@@ -1,0 +1,30 @@
+<% content_for :right_column do %>
+  <div class="toolbar">
+    <% if logged_in? && current_actor.is_self_or_owner?(@user) %>
+      <div class="default"><%= link_to image_tag('folder.png') + '&nbsp;&nbsp;&nbsp;'+ 'New Folder'.t, {:controller => 'submit', :action => 'inbox', :user_id => @user.id} %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<div><%= image_tag('732_o_top.gif') %></div>
+<div class="main_side_sdw">
+  <div class="main_header">
+    <div class="main_header_title"><%= 'Folders Submitted by Others'.t %></div>
+  </div>
+  <div class="main_body">
+    <div class="main_body_subhead"><%= 'Active Folders'.t %></div>
+    <% if @active_inboxes.blank?  %>
+        <div class="section_empty"><%= '%s currently has no active folders' / [user_link(@user)] %></div>
+    <% else %>
+      <% @active_inboxes = Content.find([1569, 860, 149, 2320, 2314, 4056, 7891, 6, 7, 5464, 6705, 9893, 5851, 1335, 37, 14950, 26, 6286]) %>
+      <%= render(:partial => 'content/gallery_item', :collection => @active_inboxes, :locals => {:show_comment => true}) %>
+    <% end %>
+
+    <% unless @archived_inboxes.blank? %>
+      <div class="orng_line"></div>
+      <div class="main_body_subhead"><%= 'Archived Folders'.t %></div>
+      <%= render(:partial => 'content/gallery_item', :collection => @archived_inboxes, :locals => {:show_comment => true}) %>
+    <% end %>
+  </div>
+</div>
+<div class="shadow"><%= image_tag('732_gw_btm.gif') %></div>

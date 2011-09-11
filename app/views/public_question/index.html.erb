@@ -1,0 +1,10 @@
+<% no_q_caption = if @user != current_actor
+  "{{project}} doesn't have any Questions now" / h(truncate(@user.display_name, :length => 30))
+else
+  "You don't have any Questions now".t
+end %>
+<% render(:layout => 'list', :locals => {:no_q_caption => no_q_caption, :title => 'Forum'.t}) do %>
+  <div class="float_right"><%= render :partial => '/voting/voting', :locals => {:entry => @question} %></div>
+  <%= render :partial => "answers", :locals => {:question => @question} %>
+<% end %>
+

@@ -1,0 +1,18 @@
+<p><%= 'Hello'.t -%>,</p>
+
+<p><%= 'We appreciate your contribution to %s, and would like to invite you to join our network' / [@donated_to.display_name] -%>.</p>
+
+<br/><br/>
+
+<p>
+  <%= link_to 'Join Kroogi'.t, @url_signup -%><br/>
+  <%= link_to "Open %s's Kroogi Page" / [@donated_to.display_name], "#{@url}/user/#{@donated_to.id}" %><br/>
+  <%= link_to 'Explore Kroogi'.t, "#{@url}/explore" %>
+</p>
+
+<p><%= render :partial => 'footer_text' %></p>
+
+<p>
+  <%= 'Sincerely'.t -%>,<br/>
+  <%= 'The Kroogi Team'.t %>
+</p>

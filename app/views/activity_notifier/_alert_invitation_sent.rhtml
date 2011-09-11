@@ -1,0 +1,45 @@
+
+<p>
+  <strong>
+    <%= @from_user.project? ? ("Kroogi project".t + " ") : "" -%>
+    <%= link_to(@from_user.login, "#{@url}/user/#{@from_user.login}") %> (<%= @from_user.display_name %>)
+    
+    <% if @content.recently_reinvited? %>
+      <%= @content.user.project? ? ('has reinvited your project {{project}}' / [link_to(@content.user.login, "#{@url}/user/#{@content.user.login}")]) : ('has reinvited you'.t) -%>
+    <% else %>
+      <%= @content.user.project? ? ('has invited your project {{project}}' / [link_to(@content.user.login, "#{@url}/user/#{@content.user.login}")]) : ('has invited you'.t) -%>
+    <% end %>
+    
+    <%# was getting error about nil.name (27 nov 2008) on a different line. if now switches to nil.teaser, we'll know somehow @content.circle is nil %>
+    <% if @content.circle %>
+      <%= 'to join his {{circle}} circle' / [link_to(@content.circle.name, "#{@url}/kroogi/show/#{@content.circle.user.id}?type=#{@content.circle.relationshiptype_id}")] -%><%= (' (' + "original invite was sent %s"/[@content.created_at.localize('%x')] + ')') if @content.recently_reinvited? -%>:
+    <% else %>
+      <%= 'to join his circles'.t -%>.
+      <%= AdminNotifier.async_deliver_admin_alert("Error in alert_invitation_sent from #{@from_user.login} to #{@recipient.login} -- @content.circle is nil for #{@content.inspect}") %>
+    <% end %>
+  </strong>
+</p>
+
+<% unless @content.invitation.blank? %>
+  <p><blockquote><em><%= kf_simple @content.invitation %></em></blockquote></p>
+<% end %>
+
+<% unless @content.circle.teaser.nil? %>
+  <p><blockquote><%= kf_simple @content.circle.teaser %></blockquote></p>
+<% end %>
+
+<p>
+  <strong>
+    <% if @content.circle.open? %>
+      <%= 'This circle is available for everyone to join'.t -%>.
+    <% else %>
+      <%= 'This circle is by invitation only'.t -%>
+    <% end %>
+  </strong>
+</p>
+
+<p>
+	<%= link_to('Open invitation to join or reject'.t, "#{@url}/activity/invitations") -%><br/>
+	<%= link_to("Open %s's Kroogi Page" / [@from_user.display_name], "#{@url}/user/#{@from_user.login}") -%><br/>
+</p>
+

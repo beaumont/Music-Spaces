@@ -1,0 +1,15 @@
+<% right_column_block(:header_title => 'Table of Contents'.t) do %>
+  <ul class="default">
+    <li><a href="#welcome"><%= 'Welcome to Kroogi!'.t %></a></li>
+    <li><a href="#definitions"><%= 'Definitions and Descriptions'.t %></a></li>
+    <li><a href="#creator"><%= 'Creator Terms of Service'.t %></a></li>
+    <li><a href="#developers"><%= 'Rules for Developers and/or Operators of Applications and/or Websites'.t %></a></li>	
+    <li><a href="#user"><%= 'User Terms of Service'.t %></a></li>
+    <li><a href="#privacy"><%= 'Privacy Policy'.t %></a></li>
+    <li><a href="#refund"><%= 'Payments and Refund Policy '.t %></a></li>
+  </ul>
+<% end %>
+
+<% main_block(:header_title => 'Kroogi Terms of Service'.t, :white_body => true) do %>
+  <%= render :partial => "policy_#{I18n.locale}"%>
+<% end %>

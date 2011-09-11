@@ -1,0 +1,32 @@
+<%= "Your Q&A Forum has been enabled. Click {{link}} for more details." / [
+    link_to('here'.t, user_url_for(user, :controller => '/public_question', :action => "unpublished"), :class => "accept_link forum_enabled_link") ] %>
+
+<div id="forum_enabled_notifier" title="<%= 'Your Q&A Forum has been enabled'.t %>">
+  <p><%= 'The following question has already been published: "Here, you can ask us any question or start your own discussion." This question can be disabled.'.t %></p>
+  <p><%= 'We have prepared 5 questions for your Q&A Forum. Click "Proceed" to review the list and enable, disable, delete or modify any of the questions.'.t %></p>
+  
+  <% form_tag(user_url_for(user, :controller => '/public_question', :action => "unpublished")) do %>
+    <div class="widget_button_right" id="album_choose_button">
+      <%= render :partial => '/submit/buttons',
+        :locals => {
+          :disable_cancel => true,
+          :ok_label => 'PROCEED'.t,
+          :use_button_submit => true
+        } %>
+    </div>
+  <% end %>
+</div>
+
+<%= javascript_tag("
+    jQuery(document).ready(function() {
+      jQuery('#forum_enabled_notifier').dialog({
+        autoOpen: false,
+        modal: true
+      })
+
+      jQuery('.forum_enabled_link').click(function() {
+        jQuery('#forum_enabled_notifier').dialog('open');
+        return false
+      })
+    })
+  ") %>

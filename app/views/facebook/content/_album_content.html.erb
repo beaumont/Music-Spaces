@@ -1,0 +1,18 @@
+<% if entry.tracks.empty? %>
+    <div class="section_empty"><%= 'This folder is empty'.t %></div>
+<% else %>
+  <div id="player">
+    <fb:swf swfsrc="<%= facebook_absolute_url('flash/Kroogi_MP3_Player.swf') %>"
+         bgcolor="#869ca7"
+         flashvars="playlist_xml=<%= playlist_xml_params(calc_playlist_vars_by_options(:album_id => entry.id)) %>&player_mode=facebook"
+         width="500"
+         height="<%= player_height(entry.tracks) %>"
+         name="Kroogi_MP3_Player"
+         align="middle"
+         play="true"
+         loop="false"
+         quality="high"
+         />
+  </div>
+<% end %>
+

@@ -1,0 +1,129 @@
+--- 
+- 
+  created_at: 2011-02-05 11:50:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "НЕТ СВОБОДНОГО МЕСТА ДЛЯ ЗАГРУЗКИ ФАЙЛОВ, НЕОБХОДИМО УДАЛИТЬ НЕКОТОРЫЕ ИЗ ТРЕКОВ"
+  tr_key: "THERE IS NO FREE SPACE FOR UPLOAD, DELETE SOME TRACKS FROM THE LIST"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-02-06 00:13:31 +00:00
+- 
+  created_at: 2011-02-05 11:50:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто наблюдает за мной."
+  tr_key: "People who follow me."
+  tr_origin: ~
+  updated_at: 2011-02-08 11:34:45 +00:00
+- 
+  created_at: 2011-02-05 11:50:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вам не хочется ждать, пожалуйста {{login}} или {{register}}, чтобы получить мгновенный доступ к поисковой системе Кругов."
+  tr_key: "If you don't want to wait please {{login}} or {{register}} to have instant access to Kroogi search engine."
+  tr_origin: /app/views/shared/many_rpm.html.erb
+  updated_at: 2011-02-08 12:24:27 +00:00
+- 
+  created_at: 2011-02-05 11:50:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Автоматически добавлять участников в ваш круг <b>Зрители</b>"
+  tr_key: "You want to add participants automaticaly to your <b>Interested circle</b>"
+  tr_origin: /app/views/tps_setup/_overview.html.erb
+  updated_at: 2011-02-08 12:24:43 +00:00
+- 
+  created_at: 2011-02-06 19:31:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Внимание! {{login_link}} или {{register_link}}, чтобы скачать '{{album}}' повторно, в случае, если ваша первая загрузка прервётся."
+  tr_key: "Important! {{login_link}} or {{register_link}}. This will let you download '{{album}}' again. You will need it if the initial download breaks."
+  tr_origin: /app/views/donate/_login_or_email_maybe.html.erb
+  updated_at: 2011-02-08 16:20:31 +00:00
+- 
+  created_at: 2011-02-06 19:31:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы Зритель:"
+  tr_key: "If You are a Fan:"
+  tr_origin: /app/views/home/signup.html.erb
+  updated_at: 2011-02-08 16:22:21 +00:00
+- 
+  created_at: 2011-02-06 19:31:53 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Регистрация
+  tr_key: Register
+  tr_origin: /app/views/shared/many_rpm.html.erb
+  updated_at: 2011-02-08 16:20:50 +00:00
+- 
+  created_at: 2011-02-06 19:32:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Ваша загрузка начнётся автоматически, если этого не происходит, воспользуйтесь кнопкой \"Скачать\"."
+  tr_key: "Your download will start momentarily, in case this does not happen please click the Download button below."
+  tr_origin: /app/views/shared/_download_links.html.erb
+  updated_at: 2011-02-08 16:24:51 +00:00
+- 
+  created_at: 2011-02-07 20:13:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещён в круг Друзья {{followed}}"
+  tr_key: "{{follower}} moved to the Friends circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-08 16:30:11 +00:00
+- 
+  created_at: 2011-02-07 20:13:05 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "{{follower}} перемещён в круг Зрители {{followed}}"
+  tr_key: "{{follower}} moved to the Audience circle of {{followed}}"
+  tr_origin: /app/models/relationship.rb
+  updated_at: 2011-02-08 16:32:02 +00:00
+- 
+  created_at: 2011-02-07 20:13:18 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в <b>Зрители</b>"
+  tr_key: "Move to Interested"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 16:32:50 +00:00
+- 
+  created_at: 2011-01-31 17:14:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Зрители получают уведомления на своих домашних страницах всякий раз, когда здесь появляется новая запись или файл."
+  tr_key: "Members receive updates on their home page when we post anything new."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 12:20:42 +00:00
+- 
+  created_at: 2011-02-07 18:58:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Переместить в <b>Друзья</b>"
+  tr_key: "Move to Friends"
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 13:07:54 +00:00
+- 
+  created_at: 2011-02-07 18:59:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Чтобы сделать эту папку доступной для скачивания, добавить описание или изменить её настройки, после загрузки файлов перейдите в папку и нажмите \"Редактировать\"."
+  tr_key: "Once the files are uploaded, go to the folder and click \"Edit\" to make this folder downloadable, add description and adjust other settings."
+  tr_origin: /app/views/layouts/shared/_select_album_for_multiuploads.html.erb
+  updated_at: 2011-02-08 13:07:32 +00:00
+- 
+  created_at: 2011-02-07 18:59:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Находясь в этом круге, вы будете в курсе поседних обновлений {{user}}."
+  tr_key: "Once you join this circle, you will start receiving updates from {{user}}."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 12:19:30 +00:00
+- 
+  created_at: 2011-02-07 19:00:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Участники этого круга следят за обновлениями {{user}}, и кроме материалов круга <b>Друзья</b> им также доступны материалы круга <b>Семья</b>. Этот круг только для приглашённых.  "
+  tr_key: "Members of this circle receive updates from {{user}}, have access to all content marked \"Friends\" and have exclusive access to content marked \"Family\". Invitation to this circle cannot be requested."
+  tr_origin: /app/helpers/kroogi_helper.rb
+  updated_at: 2011-02-08 16:17:29 +00:00

@@ -1,0 +1,55 @@
+defaults: &defaults
+ address: cc
+ port: 3311
+ bin_path: '/mnt/krugi/sphinx/bin'
+ morphology: stem_ru
+
+#this is for local instances, and no settings are needed at all (provided that exe is in path)  
+#development:
+
+staging: &staging
+ <<: *defaults
+ port: 3312
+ searchd_file_path: "/mnt/krugi/sphinx/var/data/staging"
+ config_file: "/mnt/krugi/sphinx/var/config/staging.sphinx.conf"
+ searchd_log_file: "/mnt/krugi/sphinx/var/log/searchd.staging.log"
+ query_log_file: "/mnt/krugi/sphinx/var/log/searchd.query.staging.log"
+ pid_file: "/mnt/krugi/sphinx/var/log/searchd.staging.pid"
+
+rc:
+ <<: *staging
+ port: 3313
+ searchd_file_path: "/mnt/krugi/sphinx/var/data/rc"
+ config_file: "/mnt/krugi/sphinx/var/config/rc.sphinx.conf"
+ searchd_log_file: "/mnt/krugi/sphinx/var/log/searchd.rc.log"
+ query_log_file: "/mnt/krugi/sphinx/var/log/searchd.query.rc.log"
+ pid_file: "/mnt/krugi/sphinx/var/log/searchd.rc.pid"
+
+selenium:
+  <<: *staging
+  port: 3314
+  bin_path: '/mnt/krugi/sphinx/bin'
+  searchd_file_path: "/mnt/krugi/sphinx/var/data/selenium"
+  config_file: "/mnt/krugi/sphinx/var/config/selenium.sphinx.conf"
+  searchd_log_file: "/mnt/krugi/sphinx/var/log/searchd.selenium.log"
+  query_log_file: "/mnt/krugi/sphinx/var/log/searchd.query.selenium.log"
+  pid_file: "/mnt/krugi/sphinx/var/log/searchd.selenium.pid"
+
+production:
+  <<: *staging
+  port: 3315
+  searchd_file_path: "/mnt/krugi/sphinx/var/data/production"
+  config_file: "/mnt/krugi/sphinx/var/config/production.sphinx.conf"
+  searchd_log_file: "/mnt/krugi/sphinx/var/log/searchd.production.log"
+  query_log_file: "/mnt/krugi/sphinx/var/log/searchd.query.production.log"
+  pid_file: "/mnt/krugi/sphinx/var/log/searchd.production.pid"
+
+test:
+  <<: *staging
+  port: 3316
+  searchd_file_path: "/mnt/krugi/sphinx/var/data/test"
+  config_file: "/mnt/krugi/sphinx/var/config/test.sphinx.conf"
+  searchd_log_file: "/mnt/krugi/sphinx/var/log/searchd.test.log"
+  query_log_file: "/mnt/krugi/sphinx/var/log/searchd.query.test.log"
+  pid_file: "/mnt/krugi/sphinx/var/log/searchd.test.pid"
+

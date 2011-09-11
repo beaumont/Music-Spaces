@@ -1,0 +1,90 @@
+<% content_for :js do %>
+  <% CalendarDateSelect.format = :db %>
+  <%= calendar_date_select_includes :style => 'silver', :locale => I18n.locale %>
+<% end %>
+
+<% content_for :css do %>
+  <style title="text/css">
+    #birthdate {width:80px;}
+  </style>
+<% end %>
+
+<% wizard_right_column %>
+
+<% wizard_main_block('About Me'.t) do %>
+  <div class="main_body_subhead"> <%= skip_step_link(4, @user) %></div>
+  <%= error_messages_for :profile %>
+  <%= error_messages_for :user %>
+  <% form_for :profile, :url => { :controller => 'wizard', :action => 'basic_info', :id => @user.id }, :html => { } do |f| -%>
+    <%= hidden_field_tag 'next_step', next_wizard_step(@user, 4) %>
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+      <tr>
+        <td colspan="2">
+          <%= render :partial => "shared/translatable_fields2", :locals => {
+            :fields => [{:object => @profile.user, :title => lambda {"Display Name".t}, :field => :display_name,
+                :options => {:size => 30, :maxsize => 200}, :param_name => :user},
+              {:object => @profile     , :title => lambda {"Motto".t},        :field => :tagline,
+                :options => {:size => 30, :maxsize => 200}}
+            ]} %>
+        </td>
+      </tr>
+      <tr>
+        <%= profile_question_input(@profile.question_object(:country, true), false) %>
+      </tr>
+      <tr>
+        <%= profile_question_input(@profile.question_object(:city, true), false) %>
+      </tr>
+
+      <% fields_for @profile.user do |u| %>
+        <%= u.error_messages %>
+        <tr>
+          <td class="left"><%= 'Birthdate'.t %></td>
+          <td class="center">
+            <% legacy_birthdate = @profile.profile_questions.by_name('birthdate') %>
+            <% value = (legacy_birthdate && legacy_birthdate.answer && !@profile.user.has_new_birthdate?) ? legacy_birthdate.answer : @profile.user.birthdate %>
+            <%= calendar_date_select_tag "user[birthdate]", value, :time => false ,
+                                                      :year_range => 110.years.ago..13.years.ago,
+                                                      :id => 'birthdate' %>
+            <div>
+            <label>
+              <%= u.check_box(:birthdate_visiblity, :class => 'auto_width') %>
+              <%= 'Show on Profile page'.t %>
+            </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="left"><%= 'Gender'.t %></td>
+          <td>
+            <%= u.radio_button 'gender', 'M', :class => 'auto_width' %>
+            <%= 'Male'.t %>
+            <%= u.radio_button 'gender', 'F', :class => 'auto_width' %>
+            <%= 'Female'.t %>
+          </td>
+        </tr>
+        <tr>
+          <td class="left"><%= 'Language'.t %></td>
+          <td>
+            <%= u.radio_button 'language', 'en', :class => 'auto_width' %>
+            <%= 'English'.t %>
+            <%= u.radio_button 'language', 'ru', :class => 'auto_width' %>
+            <%= 'Russian'.t %>
+          </td>
+        </tr>
+      <% end %>
+      <% question = @profile.is_person? ? @profile.question_object(:bio, true) : @profile.question_object(:about_project, true) %>
+      <tr>
+        <%= profile_question_input(question, false, (question.name == "Birthdate") ? (@profile.is_person? ?  'Birthdate'.t  : 'Date of formation'.t)  : nil) %>
+      </tr>
+
+      <tr>
+        <td class="">&nbsp;</td>
+        <td class="">
+          <button class="button wizard" type="submit" name="commit">
+            <span><%= 'Save'.t -%></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+<% end %>

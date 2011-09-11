@@ -1,0 +1,72 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'WebMoney Log'.t %>
+
+<div class="money" id="money">
+  
+  <h2><%= 'WebMoney Log'.t %></h2>
+
+  <% form_tag(url_for({:action => :webmoney}), :method => :get, :class => 'query_params') do |f| %>
+    <table>
+      <col class="label"/><col class="value"/>
+      <col class="label"/><col class="value"/>
+      <tr>
+        <td class="label"><%= label_tag :start_date %></td>
+        <td><%= calendar_date_select_tag "start_date", @start_date.to_date, :time => false %></td>
+        <td class="label"><%= label_tag :end_date %></td>
+        <td><%= calendar_date_select_tag "end_date", @end_date.to_date, :time => false %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= label_tag :login %></td>
+        <td><%= text_field_tag "login", @login, :class => 'user_select' %></td>
+        <td class="label">&nbsp;</td>
+        <td><%= submit_tag 'Submit'.t, :class => 'button' %></td>
+      </tr>
+    </table>  
+  <% end %>
+  <br />
+
+  <% if @transactions.blank? -%>
+    <p>No transaction record available.</p>
+  <% else -%>
+    <table>
+      <tr style="line-height:14px">
+        <th class="date"><%= '%s / %s' % ['Date'.t, 'Time'.t] %>
+        <th class="user"><%= 'From'.t %></th>
+        <th class="user"><%= 'To'.t %></th>
+        <th><%= 'Description'.t %></th>
+        <th><%= 'Purse Type'.t %></th>
+        <th><%= 'Amount'.t %></th>
+        <th><%= 'Processor Fee'.t %></th>
+      </tr>
+    <% @transactions.each do |t| %>
+      <tr class="<%= cycle("light", "dark") %>">
+        <td><%= t.date %></td>
+        <td>
+          <%=
+            begin
+              display = (WebMoneyAccount.find_by_account_identifier(t.sourceUSID).account_setting.user.login)
+              link_to(display, :controller => 'admin/money', :action => 'webmoney', :login => display)
+            rescue
+              '(other environment)'
+            end -%>
+        </td>
+        <td>
+          <%=
+            begin
+              display = (WebMoneyAccount.find_by_account_identifier(t.sourceUSID).account_setting.user.login)
+              link_to(display, :controller => 'admin/money', :action => 'webmoney', :login => display) rescue '(other environment)'.t
+            rescue
+              '(other environment)'.t
+            end -%>
+        </td>
+        <td title="<%= h(t.description) %>"><%= h truncate(t.description, :length => 50) %></td>
+        <td><%= t.purse %></td>
+        <td><%= t.amount %></td>
+        <td><%= t.fee %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end -%>
+
+  <div class="clear_floats"></div>
+</div>
+

@@ -1,0 +1,4 @@
+@update_locales.each do |locale|
+  page.replace "bundles_#{locale}", :partial => "submit/music_contest/originals_files",
+               :locals => {:content => @album, :locale => locale}
+end

@@ -1,0 +1,75 @@
+<% @title = 'Admin Console'.t + ' :: ' + 'User Balance'.t %>
+
+<div class="money" id="money">
+
+<h2><%= "%s's account balance" % params[:user] %></h2>
+
+<h3><%= 'Totals'.t %></h3>
+<table class="totals" width="1%">
+  <tr class="label">
+    <th><%= 'Available Balance'.t %></th>
+    <th>$<%= @available_balance %></th>
+  </tr>
+  <tr>
+    <th><%= 'Pending Balance'.t %></th>
+    <th>$<%= @pending_balance %></th>
+  </tr>
+</table>
+
+<%= button_to 'Apply all pending transactions to balance'.t, {
+    :controller =>'admin/money',:action => 'force_apply_to_balance', :account_id => @account.id},
+    :confirm => 'This action will apply all pending donations regardless of their wait time or suspicion.'.t %>
+
+<div class="paging_status">
+  <%= @paging_header %>
+</div>
+
+<%= render :partial => '/shared/pager', :locals => {:results => @transactions,
+  :skip_padding => true} %>
+  <br />
+<table>
+  <tr style="line-height:14px">
+    <th class="date"><%= '%s / %s' % ['Date'.t, 'Time'.t] %>
+    <th chass="which"><%= 'Type' %></th>
+    <th class="user"><%= 'From'.t %></th>
+    <th><%= 'Purpose'.t %></th>
+    <th><%= 'Transaction'.t %></th>
+    <th><%= 'Processor'.t %></th>
+    <th><%= 'Net USD'.t %></th>
+    <th><%= 'Payable'.t %></th>
+    <th><%= 'Paid'.t %></th>
+	<th><%= 'Availability'.t %></th>
+  </tr>
+<% @transactions.each do |contrib| %>
+  <tr class="<%= cycle("light", "dark") %>" id=<%= "donation%s" % contrib.id %>>
+
+    <td><%= datetime(contrib.created_at) + ' ' +
+      link_to('[%s]' % 'that day'.t, {:action => :query,
+        'query[start_date]' => contrib.created_at.to_date,
+        'query[end_date]' => contrib.created_at.to_date},
+        :title => 'show all contributions of that day'.t,
+        :class => 'restrict_query') %></td>
+        
+    <td><%= class_display(contrib) %></td>
+        
+    <td><%= money_user_link(contrib.sender.user, :param => :sender_name,
+              :label => 'from that user'.t,
+              :title => 'show all contributions from that user'.t) rescue ''%></td>
+    <td><%= purpose(contrib) rescue 'Unknown'.t%></td>
+    <td style="font-size:0.8em"><%= h(contrib.token) %></td>
+    <td><%= h(contrib.processor_name || 'Not specified'.t) + ' ' +
+        link_to('[%s]' % 'that payment type'.t, {:action => :query,
+          'query[payment_type]' => contrib.processor_name || -1},
+          :title => 'show all contributions with that payment type'.t,
+          :class => 'restrict_query') rescue 'Not specified'.t %></td>
+    <td class="currency">$<%= (contrib.net_amount_usd) %></td>
+    <td class="currency">$<%= (contrib.payable_amount_usd) %></td>
+    <td class="paid"><%= contrib.paid? ? 'Yes' : 'No '%></td>
+	<td class="avail"><%= contrib.availability_reason || contrib.available_at? %></td>
+  </tr>
+<% end %>
+</table>
+<%= render :partial => '/shared/pager', :locals => {:results => @transactions,
+  :skip_padding => true} %>
+<div class="clear_floats"></div>
+

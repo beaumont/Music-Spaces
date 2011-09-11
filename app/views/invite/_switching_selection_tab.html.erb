@@ -1,0 +1,9 @@
+<script type="text/javascript">
+  jQuery('.overlay_waitindicator').hide();
+  <% if @flag == 'outdoor_mail_go' %>
+    jQuery('#accordion').accordion('activate', 1);
+  <% elsif @flag == 'family_go' %>
+    jQuery('#accordion').accordion('activate', 0);
+  <% end %>
+  jQuery('#flag').attr('value','<%= @flag %>');
+</script>

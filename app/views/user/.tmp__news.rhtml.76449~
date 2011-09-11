@@ -1,0 +1,47 @@
+<%
+rss_title ||= nil
+announcements_title ||= nil
+%>
+
+<% if !announcements.blank? || !Board.hidden_startpage_announcements_of(@user).empty? || (current_actor && current_actor.is_self_or_owner?(@user)) %>
+
+  <% content_for :head do %>
+    <link href="<%= user_announcements_feed_path(@announcements_user || @user, :locale => I18n.locale) %>" type="application/rss+xml" rel="alternate" title="<%= "Announcements by".t %> <%= h (@announcements_user || @user).display_name %>" />
+  <% end %>
+  <% if !defined?(@announcements_user) && announcements.nil? && !Board.hidden_startpage_announcements_of(@user).blank? %>
+  <% elsif announcements.nil? && defined?(@user) %>
+  <% else %>
+    <% last_index = 0 %>
+    <% announcements.each_with_index do | content, index | %>
+      <% break if limit && index >= limit %>
+      <% last_index = index %>
+      <div class="content_body">
+        <div class="content_head">&nbsp;</div>
+        <% unless content.is_view_permitted? %>
+          <p style="color:#787878;font-weight:bold;"><img src="/images/secure.gif" align="absmiddle">&nbsp;<%= 'Private post'.t %></p>
+        <% else %>
+         <%#= content.created_at.localize("%d %b %Y "+"at".t+" %I:%M%p UMT") %>
+         <div class="default_text"> 
+          <%= kf_simple(content.post, { :characters => 512, :inplace_link => true}) %> 
+          <%= render :partial => "/content/download_donate_widget", :locals => { :content => content, :recipient => content.user, :donor => current_user} %> 			
+        </div>
+        <div class="right">
+          <div class="block_action">
+            <%= comment_action_links(content) %>
+          </div>
+        </div>
+        <div id="comments_<%= dom_id(content) %>" style="display:none;">
+          <%= render :partial => 'comment/comments', :locals => {:commentable => content} %>
+        </div>
+       <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="right">
+    <div class="content_btm block_action">
+    <% unless announcements.nil? && Board.hidden_startpage_announcements_of(@announcements_user || @user).blank? %>
+      <%= link_to image_tag('feed-icon-14.png', :alt => 'RSS Feed'.t) + ' ' + (rss_title || 'RSS').t, user_announcements_feed_path(@announcements_user || @user, :locale => I18n.locale) %> | <%= link_to "#{'View All'.t} >", {:controller => 'user', :action => 'announcements', :id => (@announcements_user || @user) }, {:class => ''} %>
+    <% end %>
+  </div>
+  </div>
+<% end %>

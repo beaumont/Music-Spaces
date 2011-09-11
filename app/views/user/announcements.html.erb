@@ -1,0 +1,21 @@
+
+<%# @title = @user.login + ' :: ' + (@user.project? ? 'Announcements'.t : 'Notes'.t) %>
+<% @title = @user.login + ' :: ' + 'Announcements'.t %>
+<%# @content_kind_displayname = @user.project? ? 'All Announcements'.t : 'All Notes'.t %>
+<% @content_kind_displayname = 'All Announcements'.t %>
+
+<% if permitted?(@user, :content_add) %>
+    <div class="right">
+      <%= link_to 'Post Announcement'.t, {:controller => 'submit', :action => 'announcement', :user_id => @user}, 
+                                        :class => 'iconized i_announcement' %>
+    </div>
+<% end %>
+
+<% if @announcements.blank? %>
+  <div class="section_empty"><%= @user.project? ? 'Project has no announcements'.t : 'User has no notes'.t %></div>
+<% end %>
+
+<%= render :partial => "text_content_stream", :locals => { :stream => @announcements, :citation_length => 512 } %>
+
+
+

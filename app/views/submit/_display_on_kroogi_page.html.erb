@@ -1,0 +1,44 @@
+
+
+  <label id="startpage_label" style="white-space:nowrap;"><%= f.check_box("is_in_startpage", :style=>'width:auto;') %> <%= label %></label><br/>
+
+  
+    <script type="text/javascript" charset="utf-8">
+      <% unless @content.is_a?(Board) || @content.container_album %>
+      (function(){
+        var checkbox = $('content_is_in_startpage') || $('content_<%= @content.id %>_is_in_startpage');
+        var album_select = $('album_selector') || $('album_selector_<%= @content.id -%>');
+        function updateKroogi() {
+          if (album_select) {
+            if (<%= (@content && @content.is_in_startpage? && (!@content.new_record? || params[:for_album].blank?)) ? true : false -%> && album_select.value == '') {
+              checkbox.checked = 'checked'; 
+            } else {
+              checkbox.checked = '';
+            }
+          }
+        }
+        if ($('album_selector')) {
+          updateKroogi();
+          Event.observe('album_selector', 'change', updateKroogi);
+        };
+        Event.observe(window, 'load', updateKroogi);
+      })()
+      <% end %>
+
+    <% if @content.is_a?(Image) %>
+      function updateUserpic() {
+        if ($('content_permissions')){
+          if ($('content_permissions').value == '<%= Relationshiptype.everyone %>') {
+            $('userpic_checkbox').disabled = '';
+            $('userpic_label').removeClassName('disabled_txt');
+          } else {
+            $('userpic_checkbox').checked = '';
+            $('userpic_checkbox').disabled = 'disabled';
+            $('userpic_label').addClassName('disabled_txt');
+          }
+        }
+      }
+      updateUserpic();
+      if($('content_permissions')) Event.observe('content_permissions', 'change', updateUserpic);
+    <% end %>
+    </script>

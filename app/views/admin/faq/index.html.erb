@@ -1,0 +1,52 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Managing FAQs'.t %>
+
+<div class="admin">
+  
+  <h2><%= 'Frequently Asked Questions'.t %></h2>
+  
+  <table class="admin">
+    <tr>
+      <th>Id</th>
+      <th><%= 'Question'.t %></th>
+      <th><%= 'Question (Russian)'.t %></th>
+      <th><%= 'Answer'.t %></th>
+      <th><%= 'Answer (Russian)'.t %></th>
+      <th>&nbsp;</th>
+    </tr>
+    
+    <% @faqs.each do |@faq| %>
+      <% set_in_place_edit_defaults(@faq, [:question, :question_ru, :answer, :answer_ru]) %>
+      <tr class="<%= cycle("dark", "light") %>">
+        <td><%=h @faq.id %></td>
+        <td><%= in_place_editor_field :faq, 'question', {}, {:load_text_url => {:action => 'unformatted_question', :id => @faq, :lang => 'en'}} %></td>
+        <td><%= in_place_editor_field :faq, 'question_ru', {}, {:load_text_url => {:action => 'unformatted_question', :id => @faq, :lang => 'ru'}} %></td>
+        <td><%= in_place_editor_field :faq, 'answer', {}, {:load_text_url => {:action => 'unformatted_answer', :id => @faq, :lang => 'en'}, :rows => 8} %></td>
+        <td><%= in_place_editor_field :faq, 'answer_ru', {}, {:load_text_url => {:action => 'unformatted_answer', :id => @faq, :lang => 'ru'}, :rows => 8} %></td>
+        <td><%= link_to('Destroy'.t, { :action => 'destroy', :id => @faq }, :confirm => 'Are you sure you want to permanently delete this FAQ?'.t, :method => :post) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% @faq = nil %>
+
+<% form_for :faq, :url => {:action => :create } do |f| %>
+  <p>
+    <%= f.label :question, 'English Question'.t %><br/>
+    <%= f.text_field :question %>
+  </p>
+  <p>
+    <%= f.label :question_ru, 'Russian Version'.t %><br/>
+    <%= f.text_field :question_ru %>
+  </p>
+  <p>
+    <%= f.label :answer, 'English Answer'.t %><br/>
+    <%= f.text_area :answer %>
+  </p>  
+  <p>
+    <%= f.label :answer_ru, 'Russian Answer'.t %><br/>
+    <%= f.text_area :answer_ru %>
+  </p>  
+
+  <%= submit_tag "Create".t %>
+<% end %>
+

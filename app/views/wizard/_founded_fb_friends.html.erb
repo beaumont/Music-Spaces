@@ -1,0 +1,22 @@
+<div class="default">
+  <%= "Matching your Facebook account with Kroogi user directory is one of the fastest ways to find your friends on Kroogi.".t %>
+</div>
+<div class="wizard_checkbox_list">
+  <table class="list" width="100%">
+    <% friends.each do |user_hash| %>
+      <tr class="<%= cycle("offwhite", "offwhite_dark") %>">
+        <td>
+          <%= check_box_tag 'follow[]', user_hash[:kroogi_user].id, false, :class => 'active_checkbox' %>
+        </td>
+        <td class="name">
+          <%= h(user_hash[:fb_user].name) %>
+        </td>
+        <td class="user_name">
+          <%= user_link(user_hash[:kroogi_user], {:icon => true, :no_link => true}) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<br/>
+<%= render :partial => 'invite/select_all' %>

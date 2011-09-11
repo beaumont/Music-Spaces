@@ -1,0 +1,99 @@
+<%# translation ver 1 pass 2 -- AK %>
+<% @title = @user.login + ' :: ' + 'Edit Settings'.t %>
+<% @content_kind_displayname = 'Edit Settings'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, @user.project? ? 'Project Settings'.t : 'Account Settings'.t)) do %>
+
+  <% form_for :preference, :url => {:action => 'account_update'}, :html => {:class => "password_validate_form"} do |f| -%>
+    <% unless @user.project? %>
+      <% form_border(:subhead_title => "Change Your Email".t) do %>
+        <%= error_messages_for :preference %>
+        <%= error_messages_for :user %>
+        <label><%= @user.project? ? 'Project Email or Email List (private)'.t : 'Email (private)'.t -%></label>
+        <% fields_for :user, @user do |user_fields| %>
+          <%= user_fields.text_field 'email', :size => 30, :maxlength => 200 %> <%= show_password_field(@user) %>
+        <% end %>
+      <% end %>
+      <button class="button wizard" type="submit" name="commit"><span><%= 'Change Email'.t -%></span></button>
+      <br/><br/><br/><br/>
+
+      <% form_border(:subhead_title => "Change Your Password".t) do %>
+        <label><%= 'Old Password'.t -%></label>
+        <input type="password" name="user[old_password]" size="30" maxlength="60" value=""/>
+        <% if @user.facebook_connected?  %>
+           <div class="default">(<%= 'As a Facebook User, leave this blank the first time you change it'.t %>)</div>
+        <% end %>
+        <label><%= 'New Password'.t -%></label>
+        <input type="password" name="user[password]" size="30" maxlength="60" value="" autofill="false"/>
+        <label><%= 'New Password Verification'.t -%></label>
+        <input type="password" name="user[password_confirmation]" size="30" maxlength="60" value=""/>
+      <% end %>
+      <button class="button wizard" type="submit" name="commit"><span><%= 'Change Password'.t -%></span></button>
+      <br/><br/><br/><br/>
+    <% end %>
+
+    <% form_border(:subhead_title => 'Privacy Settings'.t) do %>
+      <label style="font-weight: normal;">
+        <%= f.check_box :anonymous_stats, {:class => 'auto_width'} %>
+        <%= "Don't show others when I view their content".t -%>
+      </label>
+      <label style="font-weight: normal;">
+        <%= f.check_box :show_last_active, {:class => 'auto_width'} %>&nbsp;<%= 'Show time of my last login'.t -%>
+      </label>
+      <label style="font-weight: normal; padding-bottom:5px;">
+        <%= f.check_box :email_searchable, {:class => 'auto_width'} %>&nbsp;<%= 'Make my email searchable'.t -%>
+      </label>
+      <div class="default">
+        <%= 'This WILL NOT make your email address public.'.t %>
+        <%= 'When your friends search for you on Kroogi, they will need to enter your exact email address in order to find you.'.t %>
+      </div>
+    <% end %>
+    <button class="button wizard" type="submit" name="commit"><span><%= 'Change Privacy Settings'.t -%></span></button>
+    <br/><br/><br/><br/>
+
+    <% if @user.project? %>
+      <% form_border(:subhead_title => 'Visibility Settings '.t) do %>
+        <% unless @user.private? %>
+          <div class="default">
+            <%= 'Click the "Hide'.t %> <%=h @user.project? ? @user.login : 'Your account'.tdown %><%= '" button to hide the project from new visitors.'.t %>
+            <%= 'The project will still be visible to users that have already joined or have been invited to its circles.'.t %>
+          </div>
+          <div class="default">
+            <%= "New followers will not be able to join the project's circles".t -%>,
+            <%= 'or view its content unless they are invited.'.t -%>
+          </div>
+        <% else %>
+          <div class="default">
+            <%= 'Click the "Open'.t %> <%=h @user.project? ? @user.login : 'Your account'.tdown %><%= '" button to open the project to all users.'.t %>
+          </div>
+          <div class="default">
+            <%= 'Currently it is visible only to users that have already joined or have been invited to its circles.'.t %>
+            <%= "New followers are not able to join the project's circles or view its content unless they receive an invitation.".t %>
+          </div>
+          <div class="default">
+            <%= 'Opening the project will make all its content public.'.t %>
+          </div>
+        <% end %>
+      <% end %>
+      <div style="float:right;">
+        <%= 
+          @user.private? ? link_to('<span>'+ ("Open %s" / @user.login) +' </span>', {:controller => '/user', :action => 'unhide', :id => @user}, {:class => 'button'}) :
+                           link_to('<span>'+ ("Hide %s" / @user.login) +' </span>', {:controller => '/user', :action => 'hide', :id => @user}, {:class => 'button'})
+        %>
+      </div>
+      <br/><br/><br/><br/>
+    <% end %>
+
+    <div class="default">
+      <b>
+        <% if @user.project? %>
+          <%= '<a {{attribs}}>Click here</a> to delete your project.' / %Q{href="#{url_for(:controller => 'user', :action => 'delete', :id => @user)}"} -%>
+        <% else %>
+          <%= '<a {{attribs}}>Click here</a> to delete your account.' / %Q{href="#{url_for(:controller => 'user', :action => 'delete', :id => @user)}"} -%>
+        <% end %>
+      </b>
+    </div>
+  <% end %>
+<% end %>

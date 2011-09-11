@@ -1,0 +1,60 @@
+/* @override http://localhost:8015/stylesheets/print_coupon.css */
+
+/* reset */
+
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,p,blockquote,th,td {
+	margin: 0;
+	padding: 0;
+}
+
+h1,h2,h3,h4,h5, h6 {
+	font-size: 100%;
+}
+
+body{
+	font: 10px "Lucida Grande", Lucida, Tahoma, Helvetica, sans-serif;
+}
+
+@media print{
+	body{
+		font-size: 10pt;
+		line-height: 18pt;
+	}
+}
+
+#content{
+	padding: 12px;
+}
+
+h1 {
+	font: 1.8em/1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #992800;
+}
+
+h2 {
+	font-size: 1.5em;
+	line-height: .833em;
+	margin: .833em 0px;
+}
+
+p, ul, ol{
+	font-size: 1.2em;
+	line-height: 1.8em;
+}
+
+ol{
+	list-style: inside;
+	margin-top: 1.5em;
+	list-style-type: decimal;
+}
+
+p.how_to_use {
+	width: 300px;
+	margin: 9px auto;
+	font-style: italic;
+}
+
+a{
+	text-decoration: none;
+	font-weight: bold;
+}

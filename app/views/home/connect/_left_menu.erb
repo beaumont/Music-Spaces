@@ -1,0 +1,22 @@
+<div class="main_left">
+  <div id="signup_email" class="main_left_tabs spaced_out <%=  @user ? 'selected' : '' %>"><%= link_to('Create an account using email, username, and password'.t, {:controller => 'home', :action => 'signup'},  :id => 'signup_link') %></div>
+  <div id="signup_fb"    class="main_left_tabs spaced_out">
+    <% if current_fb_connected_user && current_fb_linked_user %>
+      <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+        :locals => {
+        :onclick_handler => 'load_fb_data()',
+        :show_faces => 'false',
+        :button_text => 'Authentication'.t,
+        :title_text => '',
+        :no_padding => true} -%>
+    <% else %>
+      <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+        :locals => {
+        :onclick_handler => 'load_fb_data()',
+        :show_faces => 'false',
+        :button_text => 'Connect'.t} -%>
+    <% end %>
+  </div>
+</div>
+
+<%= render :partial => '/home/connect/js_calls' %>

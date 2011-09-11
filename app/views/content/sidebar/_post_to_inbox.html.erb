@@ -1,0 +1,7 @@
+<%  return if @entry.nil? || !@entry.is_a?(Inbox) || (@entry.archived?) %>
+
+<div id="content_post_options"></div>
+<div class="blue_head"><%= 'Submit ((to inbox))'.t %></div>
+<div class="blue_block light">
+  <%= inbox_post_opts(@entry, :link => true) %>
+</div>

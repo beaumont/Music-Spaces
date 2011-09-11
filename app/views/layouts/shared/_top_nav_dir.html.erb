@@ -1,0 +1,14 @@
+<div id="dir">
+  <div class="headers_left"></div><div class="headers_body">
+    <div class="headers_content">
+      <%= render :partial => '/layouts/shared/top_search' %>
+      <% root_directories.each do |login, title, icon| %>
+        <% if login.eql?(user_subdomain) %>
+          <span class="selected"><%= title %></span>
+        <% else %>
+          <%= user_link(login, :title => title) %>
+        <% end %>
+      <% end %>
+    </div>
+  </div><div class="headers_right"></div>
+</div>

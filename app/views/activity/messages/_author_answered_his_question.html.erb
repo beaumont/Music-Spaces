@@ -1,0 +1,13 @@
+<% answer = activity.content
+   question = answer.question 
+%>
+<%= if activity.from_user == question.user
+  "contributed to their Forum discussion: {{text}}" /
+      activity_url_for(one_liner, activity, kf_title("#{answer.title_long}"), :id => activity.id, :type => 'content')
+else
+  "contributed to {{project_name}} Forum discussion: {{text}}" / [
+      h(question.user.display_name),
+      activity_url_for(one_liner, activity, kf_title("#{answer.title_long}"), :id => activity.id, :type => 'content')
+  ]
+end -%>
+

@@ -1,0 +1,65 @@
+--- 
+- 
+  created_at: 2010-12-01 17:01:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Продолжить
+  tr_key: "Next ((MultiUploader))"
+  tr_origin: ~
+  updated_at: 2010-12-28 07:07:21 +00:00
+- 
+  created_at: 2010-12-06 18:09:22 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Загружаем...
+  tr_key: Loading...
+  tr_origin: ~
+  updated_at: 2010-12-28 07:07:21 +00:00
+- 
+  created_at: 2010-12-23 14:54:06 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Форум \"Вопросы/Ответы\" "
+  tr_key: "Enable Q&A Forum"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2010-12-28 21:52:31 +00:00
+- 
+  created_at: 2010-12-23 14:54:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Форум \"Вопросы/Ответы\""
+  tr_key: "Q&A Forum"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2010-12-28 21:52:43 +00:00
+- 
+  created_at: 2010-12-28 16:54:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Такой вопрос уже опубликован: \"Здесь Вы можете задать нам любой вопрос или задать сбственную тему для обсуждения.\" Вы можете отключить этот вопрос."
+  tr_key: "The following question has already been published: \"Here, you can ask us any question or start your own discussion.\" This question can be disabled."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2010-12-28 20:52:39 +00:00
+- 
+  created_at: 2010-12-28 16:54:55 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Форум \"Вопросы/Ответы\" теперь включён"
+  tr_key: "Your Q&A Forum has been enabled"
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2010-12-28 21:56:34 +00:00
+- 
+  created_at: 2010-12-28 16:54:57 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Теперь на Вашей странице работает Форум \"Вопросы/Ответы\". Узнайте подробности здесь:{{link}}. "
+  tr_key: "Your Q&A Forum has been enabled. Click {{link}} for more details."
+  tr_origin: /app/views/system_messages/_forum_enabled.html.erb
+  updated_at: 2010-12-28 22:05:57 +00:00
+- 
+  created_at: 2010-12-28 16:55:10 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Убрать из списка"
+  tr_key: "Delete from this list"
+  tr_origin: /app/views/admin/notifications/index.html.erb
+  updated_at: 2010-12-28 22:06:27 +00:00

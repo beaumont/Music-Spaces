@@ -1,0 +1,41 @@
+--- 
+- 
+  created_at: 2010-12-15 08:11:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Платёжная система"
+  tr_key: "Your Payment System"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-23 10:55:35 +00:00
+- 
+  created_at: 2010-12-20 07:19:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Перевести на {{payment_system_type}}"
+  tr_key: "Withdraw to my {{payment_system_type}}"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-23 10:57:00 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Изменить
+  tr_key: Change
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-23 11:00:53 +00:00
+- 
+  created_at: 2009-09-17 16:32:24 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Как это работает?"
+  tr_key: "How does it work?"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-23 10:56:13 +00:00
+- 
+  created_at: 2010-12-23 07:43:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "\"Деньги\" пользователя {{username}} "
+  tr_key: "Money Center of {{username}}"
+  tr_origin: /app/views/money/index.html.erb
+  updated_at: 2010-12-23 09:50:33 +00:00

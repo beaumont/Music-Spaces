@@ -1,0 +1,35 @@
+
+<% invite = pending_list_item %>
+<% founder = defined?(founder) && founder %>
+
+<div class="invite"<%= ((params[:highlight_invite] || '').split('|').any?{|x| x.to_i == invite.id}) ? 'bgcolor="#FDF1C6"' : '' -%>>
+    
+        <div style="float:left;">
+          <% if invite.user_id %>
+          <%= avatar_md(invite.user) %>
+          <% else %>
+          <%= avatar_md(nil,{:outer_class => 'founder_avatar'}) %>
+          <% end %>
+        </div>
+        <div class="follower">
+          <% if invite.user_id %>
+          <strong><%= user_link(invite.user) %></strong>
+          <% else %>
+          <strong><%= invite.user_email %></strong>
+          <% end %>
+          <br/>
+
+          <%= "#{invite.display_name}<br/>" && invite.display_name %>
+          <br/>
+          <%= ("Invited on %s" / invite.created_at.localize("%d %B %Y")) + '<br />' if invite.rejected_at.nil? && invite.reinvited_at.nil? %>
+          <%= ("Rejected on %s" / invite.rejected_at.localize("%d %B %Y")) + '<br />' if (invite.rejected_at && invite.reinvited_at.nil?) || (invite.reinvited_at && invite.rejected_at && (invite.reinvited_at < invite.rejected_at))%>
+          <%= ("Reinvited on %s" / invite.reinvited_at.localize("%d %B %Y")) + '<br />' if (invite.reinvited_at && invite.rejected_at.nil?) || (invite.reinvited_at && invite.rejected_at && (invite.reinvited_at >= invite.rejected_at))%>
+            <% unless invite.to_user.nil? %>
+            <div class="i_edit">
+              <%= link_to 'Change'.t, {:controller => '/invite', :action => 'show', :id => invite, :restrict => founder ? Relationshiptype.founders : nil} unless params[:type].to_i == 6 %>
+            </div>
+            <% end %>
+        </div>
+      
+</div>
+

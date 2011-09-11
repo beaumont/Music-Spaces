@@ -1,0 +1,48 @@
+<% @content_kind_displayname = (!@content || @content.new?) ? 'Add User or Project'.t :
+  "Edit Collection Link".t %>
+<% @title = @user.login + ' :: ' + @content_kind_displayname %>
+
+<% main_block(:header_title => 'Add User or Project'.t) do %>
+  <% form_for 'content[]', @content, :url => { :controller => 'submit',
+      :action => (@content.new_record? ? 'add_project' : 'update'),
+      :for_inbox => params[:for_inbox] },
+      :html => { :onsubmit => 'return nice_submit(this);'} do |f| -%>
+
+    <%= f.hidden_field("id") if is_edit? %>
+    <%= hidden_field_tag 'user_id', @user.id %>
+    <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info">
+      <tr>
+        <td colspan="3" class="white center"><%= error_messages_for :content %></td>
+      </tr>
+      <tr>
+        <td class="white left"><label for="body_project_name"><%= 'Kroogi Name'.t + reqmark %></label></td>
+          <td class="white center">
+            <% if !is_edit? %>
+              <%= f.text_field('body_project_name', :size => 15) %>
+            <% else %>
+              <%= h @content.body_project.login %>
+            <% end %>
+          </td>
+      </tr>
+      <tr>
+        <%= render :partial => "description", :locals => { :f => f, :content => @content, :rows => 5 } %>
+        <%#TODO: We realy neeed this tag? %>
+        </td>
+      </tr>
+    </table>
+    <%= render :partial => "buttons", :locals => { :center => true} %>
+  <% end %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" charset="utf-8">
+    function nice_submit(form){
+      form.select('.button').each(function(button){
+        button.innerHTML = "<span><%= 'Please Wait...'.t %></span>";
+        button.className = 'button_gr';
+      });
+      $$('.wait_up_homie').each(function(e){e.show();});
+      return true;
+    }
+  </script>
+<% end %>

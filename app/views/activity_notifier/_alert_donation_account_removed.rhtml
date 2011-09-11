@@ -1,0 +1,15 @@
+
+<p>
+  <strong>
+    <% if @content.user.is_a? Project %>
+      <%= "%s's host %s removed a payment system connection" / [(h @content.project.login), (h @from_user.login)] -%>.
+    <% else %>
+      <%= "%s removed a payment system connection" / [h @from_user.login] -%>.
+    <% end %>
+  </strong>
+</p>
+
+<p>
+  <%= link_to 'Open Money Page for details'.t, "#{@url}/account_setting/donation_basket/#{@activity.content.user_id}" %>
+</p>
+

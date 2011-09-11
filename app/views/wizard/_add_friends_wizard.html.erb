@@ -1,0 +1,132 @@
+<%
+  form_data ||= {}
+  bas_errmsg ||= ''
+%>
+<div id="bas_errmsg"></div>
+<div id="overlay_wizard">
+<%# The first step in getting addresses %>
+  <% url_options = {}
+     if APP_CONFIG.ssl_host
+       url_options.merge!(:protocol => 'https', :host => APP_CONFIG.ssl_host)
+     end
+  %>
+  <% form_tag url_options.merge(:controller => 'wizard', :action => 'get_users_to_follow'), :id => 'invite_widget_form' do %>
+    <%= hidden_field_tag "return_to" %>
+    <div id="the_wizard_form">
+      <div id="the_first_tab">
+        <div class="widget_area_text"><%= 'Matching your Email accounts with Kroogi user directory is one of the fastest ways to find your friends on Kroogi.'.t %>
+        <%= 'If you would like to reconnect with your friends please provide us with the following information:'.t %></div>
+        <div class="table widget_table">
+          <div style="font-weight:bold">Google</div>
+          <div class="row">
+            <label class="cell" for="google_username"><%= 'Username'.t %>:</label>
+            <div class="cell"><%= text_field_tag "google_username", form_data[:google_username], :class => "invite_wizard_input" %></div>
+          </div>
+          <div class="row">
+            <label class="cell" for="google_password"><%= 'Password'.t %>:</label>
+            <div class="cell"><%= password_field_tag "google_password", nil, :class => "invite_wizard_input" %></div>
+          </div>
+          <div style="font-weight:bold">Yahoo!</div>
+          <div class="row">
+            <label class="cell" for="yahoo_id"><%= 'Username'.t %>:</label>
+            <div class="cell"><%= text_field_tag "yahoo_id", form_data[:yahoo_id], :class => "invite_wizard_input" %></div>
+          </div>
+          <div class="row">
+            <label class="cell" for="yahoo_password"><%= 'Password'.t %>:</label>
+            <div class="cell"><%= password_field_tag "yahoo_password", nil, :class => "invite_wizard_input" %></div>
+          </div>
+          <div style="font-weight:bold">Hotmail</div>
+          <div class="row">
+            <label class="cell" for="hotmail_username"><%= 'Username'.t %>:</label>
+            <div class="cell"><%= text_field_tag "hotmail_username", form_data[:hotmail_username], :class => "invite_wizard_input" %></div>
+          </div>
+          <div class="row">
+            <label class="cell" for="hotmail_password"><%= 'Password'.t %>:</label>
+            <div class="cell"><%= password_field_tag "hotmail_password", nil, :class => "invite_wizard_input" %></div>
+          </div>
+        </div>
+        <div class="widget_area_text">
+          <%= 'We do not save or share with any third party your account information.'.t -%>
+          <%= link_to('Learn more.'.t, "javascript:void(0);", :id => 'learn_more') %>
+        </div>
+      </div>
+    </div>
+
+    <div id="add_friends_buttons">
+      <%
+        back_function = if show_fb_connect?
+          "window.location = '/wizard/add_fb_friends'"
+        else
+          "jQuery.ajax({url:'/wizard/tell_about_yourself', dataType: 'script'});jQuery('#add_friends_overlay').dialog('destroy');#{dialog_js("tell_about_yourself_overlay")}"
+        end
+      %>
+      <%= render :partial => "/wizard/buttons", :locals => {:back_function => back_function, :next_label => "Skip".t } %>
+    </div>
+
+  <%- end -%>
+</div>
+
+<div id="terms" title="<%= 'Kroogi Terms of Service'.t %>">
+  <%= render :partial => "/home/policy_#{I18n.locale}" %>
+</div>
+
+<script type="text/javascript">
+  var email_samples = [];
+
+  jQuery(document).ready(function() {
+    jQuery("#terms").dialog({
+        modal: true,
+        autoOpen: false,
+        resizable: false,
+        height: 'auto',
+        position: ['center', '100px'],
+        width: '90%',
+        close: function() {
+        jQuery(this).dialog('destroy');
+      },
+      buttons: {
+        Close: function() {
+          jQuery('html, body').animate({scrollTop:0},'slow');
+          jQuery(this).dialog("close");
+        }
+      }
+
+     });
+
+     jQuery('#learn_more').click(function() {
+       jQuery("#terms").dialog("open");
+     });
+
+    <%= ContactsImport::EMAIL_SAMPLES.inspect %>.each(function(arr) {
+      var email = arr[1]
+      email_samples.push(email);
+
+      jQuery('#' + arr[0]).focus(function() {
+        if (jQuery(this).val() == email) jQuery(this).val('').css({color:'#000'})
+      }).blur(function() {
+        if (jQuery(this).val() == "") jQuery(this).val(email).css({color:'#999'})
+        update_button_title();
+      }).blur();
+    });
+
+    jQuery('.invite_wizard_input').keyup(update_button_title);
+
+    jQuery('#return_to').val(document.location);
+  });
+
+  function update_button_title(){
+    next_button_title = is_something_entered_in_inputs() ? '<%= "Search".t %>' : '<%= "Skip".t %>'
+    jQuery('#add_friends_buttons #wizard_next_button_title').text(next_button_title);
+  }
+
+  function is_something_entered_in_inputs(){
+    var res = false;
+    jQuery('.invite_wizard_input').each(function(i, inp){ 
+      if(inp.value != '' && email_samples.indexOf(inp.value) == -1){
+        res = true;
+      }
+    });
+    return res;
+  }
+</script>
+<%= render :partial => '/invite/bas_errmsg', :locals => {:bas_errmsg => bas_errmsg} unless bas_errmsg.blank? %>

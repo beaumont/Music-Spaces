@@ -1,0 +1,19 @@
+<% right_column_block(:header_title => 'Address'.t) do %>
+  <div class="default">330 Townsend Street (Suite 204)<br />
+    San Francisco, CA  94107-1662<br />
+    <%= javascript_email_for("info@kroogi.com") %>
+  </div>
+<% end %>
+
+<% content_for :right_column do %>
+  <%= render :partial => '/shared/network_buttons' %>
+<% end %>
+
+<% main_block(:header_title => 'Contact Kroogi'.t, :white_body => true) do %>
+  <ul class="default">
+    <li><%= 'For <b>general inquiries</b> email us to'.t %> <%= javascript_email_for("info@kroogi.com") %></li>
+    <li><%= 'You may also send us a <b>private message</b> or leave a <b>message on the wall</b> at <a href="{{kroogi_forum_link}}">Kroogi Forum</a> (you have to be logged in)' / user_url_for(Kroogi::KROOGI_ACCOUNT) %></li>
+    <li><%= 'For <b>immediate feedback</b> use the feedback form at the bottom of the screen: "Have some feedback about Kroogi? Share it with us!" (you have to be logged in).'.t %></li>
+  </ul>
+  <br><br><br><br><br>
+<% end %>

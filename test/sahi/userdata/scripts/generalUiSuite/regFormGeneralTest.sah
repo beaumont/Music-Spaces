@@ -1,0 +1,85 @@
+/*
+    Registration form test.
+    Checks registration form avilability, successfull registration scenario, calendar work.
+
+    Out of scope:
+    - We cannot check registration e-mail and link in it
+    - We cannot check FB registration
+    - Not checking link to ToS page because it opens in new page and test stucks
+
+    Not added yet:
+    - Checking that user is registered via admin console
+
+    Test sequence:
+    - Open sign-up page and check it's elements availability
+    - Check that calendar works correctly
+    - Register as single artist (AA only) and check that registration is successfull
+    - Register as band (BA + project) and check that registration is successfull
+    - Register as artist in band (AA + project) and check that registration is successfull
+    - Register as ordinary user and check that registration is successfull
+
+    Tear-down: no need to restore DB state after this test to run other tests, but to run this test again you'll need to restore DB state
+*/
+
+// Prerequesites
+// Include functions and variables
+
+_include("../includes/includesList.sah");
+
+// Log out if we were logged in
+initial_user_logout();
+
+// Test body
+// Open sign up page and check availability of its elements
+_click(_link($signUpLink));
+_assertExists(_div($signUpPageTitle));
+_assertExists(_div($signUpPageEmailTab));
+_assertExists(_div($signUpPageFbTab));
+_assertExists(_div($signUpFanHelp));
+_assertExists(_div($signUpArtistHelp));
+_assertExists(_label($signUpEmailFieldLabel));
+_assertExists(_label($signUpLoginNameFieldlabel));
+_assertExists(_label($signUpPasswordFieldLabel));
+_assertExists(_label($signUpConfirmPasswordFieldLabel));
+_assertExists(_label($signUpArtistRadioLabel));
+_assertExists(_label($signUpGenderRadioLabel));
+_assertExists(_label($signUpBirthdayFieldLabel));
+_assertExists(_label($signUpLanguageRadioLabel));
+_assertExists(_label($signUpTermsCheckboxLabel));
+_assertExists(_link($signUpTermsLink));
+_assertExists(_submit($signUpPageButton));
+
+// Check fields' default values
+register_form_verify("", "", "", "", "no", "", "", "male", "", "en", "no");
+
+// Check that calendar is working
+_click(_image("Calendar"));
+_setSelected(_select(0), "October");
+_setSelected(_select(1), "1984");
+_click(_div("22"));
+_assertEqual("1984-10-22", _textbox($signUpBirthdayField).value);
+
+// Register as single artist (AA only) and check that registration is successfull
+register_form_fill("single-artist@kroogi.al", "single-artist", "12345", "12345", "yes", "single", "", "female", "1982-06-08", "ru", "yes");
+_assertExists(_div($signUpDonePageTitle));
+register_email_text ("single-artist@kroogi.al");
+
+// Register as a band (BA + project) and check that registration is successfull
+_click(_link($signUpLink));
+register_form_fill("band-manager@kroogi.al", "band-manager", "12345", "12345", "yes", "project", "my-band", "female", "1982-06-08", "ru", "yes");
+_assertExists(_div($signUpDonePageTitle));
+register_email_text ("band-manager@kroogi.al");
+_assertExists(_div($signUpDoneProjectText));
+
+// Register as artist in band (AA + project) and check that registration is successfull
+_click(_link($signUpLink));
+register_form_fill("artist@kroogi.al", "artist", "12345", "12345", "yes", "both", "my-other-band", "female", "1982-06-08", "ru", "yes");
+_assertExists(_div($signUpDonePageTitle));
+register_email_text ("artist@kroogi.al");
+_assertExists(_div($signUpDoneProjectText));
+
+// Register as ordinary user and check that registration is successfull
+_click(_link($signUpLink));
+register_form_fill("user@kroogi.al", "user", "12345", "12345", "no", "", "", "female", "1982-06-08", "ru", "yes");
+_assertExists(_div($signUpDonePageTitle));
+register_email_text ("user@kroogi.al");

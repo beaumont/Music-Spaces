@@ -1,0 +1,93 @@
+<% @title = @user.login + ' :: ' + 'Messages'.t %>
+<% @content_kind_displayname = 'Messages'.t %>
+
+<% main_block(:header_title => 'Message Center'.t, :content_head => '') do %>
+  
+<%# Should be on the right if we will keep this page %>
+  <% unless @activity.empty? %>
+    <div class="float_right">
+      <a href="#" class="button" onclick="$('qd').action='/activity/remove';$('qd').submit();return false;"><span><%= 'Delete Selected'.t %></span></a>
+      <a href="#" class="button" onclick="$('qd').action='/activity/mark?as=read';$('qd').submit();return false;"><span><%= 'Mark Selected Read'.t %></span></a>
+      <a href="#" class="button" onclick="$('qd').action='/activity/mark?as=new';$('qd').submit();return false;"><span><%= 'Mark Selected New'.t %></span></a>
+    </div>  
+  <% end %>
+
+    <%= 'Select'.t %>: <%= link_to_function("All".t, "Form.getInputs($('qd'), 'checkbox', null).each(function(checkbox) {checkbox.checked = true;});") %>     
+    <span class="separator"></span>
+    <%= link_to_function("None".t, "Form.getInputs($('qd'), 'checkbox', null).each(function(checkbox) {checkbox.checked = false;});") %>
+    <span class="separator"></span>
+    <%= link_to_function("Read".t, "Form.getInputs($('qd'), 'checkbox', null).each(function(checkbox) {if (checkbox.hasClassName('unread')) {checkbox.checked = false;} else {checkbox.checked = true;}});") %>
+<%#end of part for right side%>
+               
+  <div class="clear" style="margin-bottom:20px;"></div>               
+  
+  <form name="qd" action="#" method="post" id="qd">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+    <input type="hidden" name="back_to" value="<%= controller.action_name %>" />
+    <% @activity.each do | activity | next if skip_activity(activity) %>
+      <div class="<%= "user_pvt_#{activity.from_user_id}" if activity.pvtmessage? %>">
+        <div class="float_left">
+          <input type="checkbox" id="message<%= activity.id %>" name="activityids[]" value="<%= activity.id %>" class="<%= activity.unread? ? 'unread' : '' -%>" style="margin-top:3px;" />
+        </div>
+        <div class="message_center user_block"  id="message_<%= activity.id -%>" style="margin-left:25px;">
+          <div class="block_date">
+            <%= activity.created_at.to_s(:date_with_time) %>
+          </div>
+          <div class="block_username">
+            <%= user_link(activity.from_user, {:activity_id => activity.id, :frwrd_type => 'from_user', :icon => true}) %>
+          </div>
+          <%= avatar_md(activity.from_user, {:activity_id => activity.id, :frwrd_type => 'from_user', :outer_class => 'founder_avatar'}) %>
+          <div class="block_body <%= ' unread' if activity.unread? -%>">
+            <span class="new_label" id="new_blurb_<%= activity.id -%>" style="<%= 'display:none;' unless activity.unread? %>">
+              <%= 'New'.t %>:
+            </span>
+            <%= user_link(activity.from_user, {:activity_id => activity.id, :frwrd_type => 'from_user'}) %>
+            <%= render :partial => 'activity', :locals => {:activity => activity, :citation_length => 150, :iconized => false} %>
+            <div class="right">
+              <span id="mark_read_control_<%= activity.id -%>" style="display: <%= activity.unread? ? 'inline' : 'none' -%>;">
+                <%= link_to_remote 'Mark as Read'.t, :url => {:controller => 'activity', 
+                                                              :action => :mark, 
+                                                              :as => 'read', 
+                                                              :activityids => [activity.id]} %>
+              </span>
+              <span id="mark_new_control_<%= activity.id -%>" style="display: <%= activity.unread? ? 'none' : 'inline' -%>;">
+                <%= link_to_remote 'Mark as New'.t, :url => {:controller => 'activity', 
+                                                              :action => :mark, 
+                                                              :as => 'new', 
+                                                              :activityids => [activity.id]} %>
+              </span>
+              <span class="separator"></span>
+
+              <% if activity.pvtmessage? && activity.from_user != current_actor %>
+                <%= remove_pvt(activity) %>
+              <% else %>
+                <%= link_to_remote image_tag('remove.png', :alt => 'Delete Message'.t), {:url => {:controller => 'activity', :action => :remove, :activityids => [activity.id], :back_to => 'list'}}, {:class => "replaceable_link"} %>
+              <% end %>
+
+              <% if @view_dialogue %>
+                <%= link_to('View Thread ((dialog))'.t + ' &gt;&gt;', messages_dialogue_path(:with => activity.from_user_id), :class => 'view_dialogue') %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </form>
+  <%= render :partial => '/shared/pager', :locals => { :results => @activity} %>
+<% end %>
+<%= render :partial => '/shared/pager', :locals => { :results => @activity} %>
+
+<% if @activity.any?(&:pvtmessage?) %>
+  <%= render :partial => "/shared/delete_private_message" %>
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_tag("
+    jQuery(document).ready(function() {
+      jQuery('.replaceable_link').unbind().die();
+      jQuery('.replaceable_link').click(function() {
+        jQuery(this).replaceWith('#{js wait_up_homie(:display => true)}')
+      })
+    })
+  ") %>
+<% end %>

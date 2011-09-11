@@ -1,0 +1,36 @@
+<% if content.respond_to?(:bundles) and content.bundles %>
+  <% bundles = content.bundles.select{|b| b.is_a?(Bundle)} %>
+  <div><strong><%= 'Items available to download'.t %>:</strong></div>
+  <% if bundles.empty? %>
+    <div style="text-align: center"> <em><%= "No attached files".t %>.</em> </div>
+  <% else %>
+    <% need_terms_acceptance = content.need_terms_acceptance_of(current_user) %>
+    <% ask_for_sign_in = !logged_in? && (content.donatable? || need_terms_acceptance) %>
+    <% show_terms = logged_in? && need_terms_acceptance %>
+    <% bundles.each do |sub_bundle| %>
+      <div class="filename link">
+        <%= render( :partial => "/content/download_bundle", :locals => {:bundle => sub_bundle, :fake => show_terms || ask_for_sign_in} ) %>
+      </div>
+      <% if content.require_terms_acceptance? %>
+        <%= render :partial => '/shared/require_terms', :locals => {
+                :ask_for_sign_in => ask_for_sign_in,
+                :show_terms => show_terms,
+                :content => content,
+                :terms => content.fwd_details_if_needed.terms_and_conditions,
+                :title => 'Please accept Contest Terms before downloading the files'.t,
+                :header => 'Standard Terms for downloading'.t,
+        } %>
+      <% end %>
+    <% end %>
+    
+  <% end %>
+<% elsif content.respond_to?(:file_download) and content.file_download %>
+  <div><strong><%= 'Items available to download'.t %>:</strong></div>
+  <div>
+    <% link_title = content.file_download.title.blank? ? "No Title".t : h(content.file_download.title) %>
+    <%= link_to( link_title + " " + h(number_to_human_size(content.file_download.size)), content.file_download.s3_url) %>
+  </div>
+<% else %>
+  &nbsp;
+<% end %>
+

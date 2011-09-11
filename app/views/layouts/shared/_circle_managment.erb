@@ -1,0 +1,56 @@
+<div class="blue_block halfmoon" id="moonmenu"  style="height:80px;">
+    <% unless current_actor.is_self_or_owner?(user) %>
+      <% i_follow_relationship = Relationship.relationships(user, current_actor, Relationshiptype.all_valid).first %>
+      <% im_followed_relationship = Relationship.relationships(current_actor, user, Relationshiptype.all_valid).first %>
+      <% if !current_user.guest? and (permitted?(user, :can_invite) or permitted?(user, :can_invite_closer)) %>
+        <%# suggest current user to invite other user to his circle %>
+        <div class="account_text_and_button">
+          <div class="account_button">
+            <%= invite_closer_button(user) %>
+          </div>
+          <!--<div class="account_text">
+            <%= start_following_when_im_followed(user, im_followed_relationship) %>
+          </div>    <%# invite_closer %>-->
+        </div>    <%# invite_text_and_button %>
+      <% end %> <%# if !current_user.guest? and (permitted?(user, :can_invite) or permitted?(user, :can_invite_closer)) %>
+    <% end %>
+
+    <% if current_actor.is_self_or_owner?(user) %>
+      <div class="account_text_and_button">
+        <div class="account_button">
+          <%= invoke_widget_button 'Invite Friends'.t, 'invite_btn_busy', 'add_friends_overlay', 'add_friends_wizard' %>
+        </div>
+
+        <!--<div class="account_text">
+          <%= "You are the Host of this project".t unless current_user == user %>
+        </div>-->
+      </div>
+      <div class="account_text_and_button">
+        <div class="account_button">
+          <% add_content_dropdown(user) %>
+        </div>
+      </div>
+
+    <% else %> <%# you are NOT current_actor.is_self_or_owner?(user)... %>
+      <div class="account_text_and_button">
+        <%# Here comes the GET CLOSER BUTTON %>
+        <div class="account_button" id="relationship_button">
+          <%= render :partial => '/layouts/shared/relationship_button', :locals => {:user => user, :relationship => i_follow_relationship} %>
+        </div>
+        <!--<div class="account_text">
+          <%= start_following_when_i_follow(user, i_follow_relationship) %>
+        </div>-->
+      </div>
+    <% end %><%# end of the second branch -- you are NOT current_actor.is_self_or_owner?(user)... %>
+
+    <% if Rails.env == 'development' %>
+      <div class="account_text_and_button">
+        <%= link_to('Overlay', "javascript:void(0);", :onclick => "showGetCloserWidget()", :style => "float:right") %>
+      </div>
+      <div id="get_closer_widget" title="Get Closer" style="display:none;">
+        <%= render :partial => '/shared/get_closer_widget' %>
+      </div>
+    <% end %>
+  </div>
+  
+

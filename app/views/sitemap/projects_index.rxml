@@ -1,0 +1,9 @@
+xml.instruct! :xml, :version=>"1.0"
+xml.tag! 'sitemapindex', "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
+  for i in 0...(@max/100)
+    xml.tag! 'sitemap' do
+      xml.tag! 'loc', "http://#{APP_CONFIG.hostname}/smap.xml?id=#{i*100}"
+      xml.tag! 'lastmod', Time.now.strftime("%Y-%m-%d")
+    end
+ end
+end

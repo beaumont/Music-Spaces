@@ -1,0 +1,47 @@
+<%# translation ver 1 pass 2 -- AK %>
+<% @title = current_actor.login + ' :: ' + 'Connect to Other Networks'.t %>
+<% @content_kind_displayname = 'Connect to Other Networks'.t %>
+
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, 'Edit Your LiveJournal Settings'.t)) do %>
+  <% form_for :preference, :url => {:action => 'update', :id => @user} do |f| -%>
+    <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+    <% form_border do %>
+      <table cellpadding="8" cellspacing="0" border="0" class="manage_circle">
+        <tr>
+          <% if @type == 'personal' -%>
+            <%= render :partial => 'blog/user_text' -%>
+            <%= render :partial => 'lj_account', :locals => {:account => @account} %>
+            <div class="default">
+              <%= link_to "I would rather use an existing community journal".t, :action => :settings, :id => @user, :type => 'community' %>
+            </div>
+          <% elsif @type == 'community' || @account.is_community? -%>
+            <%= render :partial => 'blog/project_text' -%>
+            <%= render :partial => 'lj_comm_account', :locals => {:account => @account} %>
+            <div class="default">
+              <%= link_to "I would rather use an existing personal journal".t, :action => :settings, :id => @user, :type => 'personal' %>
+            </div>
+          <% end -%>
+        </tr>
+      </table>
+    <% end %>
+    <button class="button wizard" type="submit" name="commit"><span><%= 'Save'.t -%></span></button>
+
+    <% form_for :preference, :url => {:action => 'update', :id => @user}, :html => { :onsubmit => "return areYouSure();" } do |f| -%>
+      <%= hidden_field_tag('is_from_setting_center', true) if params[:is_from_setting_center]%>
+      <% fields_for @account do |user_fields| %>
+        <%= user_fields.hidden_field 'username', :value => "" %>
+      <% end %>
+      <button class="button_gr"  style="margin-top:5px;" type="submit" name="commit"><span><%= 'Disconnect'.t -%></span></button>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" language="javascript">
+    function areYouSure() {
+        return confirm('<%= js "This operation will disconnect your LiveJournal account from Kroogi. Are you sure you want this to happen?".t -%>');
+    }
+  </script>
+<% end %>

@@ -1,0 +1,134 @@
+<% maxUploads = 10 %>
+
+<% # only content which has an owner with a valid payment system can be downloadable
+   if @content.user.account_setting.has_an_approved_account_set? %>
+  <div class="form_head"><%= 'Download / Support Settings'.t %></div>
+  <div class="form_center">
+    <label><%= check_box_tag("downloadable", "1", @content.is_a?(FolderWithDownloadables), :class=>'auto_width') %> <b><%= 'Make this folder downloadable'.t %></b></label>
+      <script type="text/javascript" charset="utf-8">
+        function updateDownloadOptions() {
+          if ($('downloadable').checked) {
+            $$('.download_option').each(function(e) {
+              e.show()
+            });
+          } else {
+            $$('.download_option').each(function(e) {
+              e.hide()
+            });
+          }
+        }
+        $('downloadable').observe('click', updateDownloadOptions);
+        Event.observe(window, 'load', updateDownloadOptions);
+      </script>
+  </div>
+  <div class="download_option" style="display: none;">
+      <%# trannie hints
+        "This will be shown on your Kroogi page if you have 'feature on Kroogi Page' checkbox set below".t
+        'Kroogi page button label <br/><small class="instructions">(25 character limit)</small>'.t
+      %>
+      <%= render :partial => "shared/translatable_fields", :locals => {
+              :f => f,
+              :msg => lambda { "This will be shown on your Kroogi page if you have 'feature on Kroogi Page' checkbox set below".t },
+              :content => @content,
+              :fields => [['Kroogi page button label <br/><small class="instructions">(25 character limit)</small>',
+                           'donation_button_label', {:string => true}]],
+              } %>
+  </div>
+  
+  <div class="download_option" style="display: none;">
+    <div class="form_left"><%= 'Upload Album Contents'.t %></div>
+    <div class="form_right">
+      <script type="text/javascript" charset="utf-8">
+        var downloadsAdded = 1;
+        function addDownload() {
+          if (downloadsAdded < <%= maxUploads -%>) {
+            file_field = document.createElement("input");
+            file_field.type = 'file';
+            file_field.name = "file_bundle[][uploaded_data]";
+            file_field.size = '30';
+            file_field.style.width = '320px';
+            $('file_field_container').appendChild(file_field);
+            downloadsAdded += 1;
+          } else {
+            $('add_another').hide();
+            $('add_no_more').show();
+            new Effect.Highlight('add_no_more');
+          }
+        }
+      </script>
+      <div id="file_field_container">
+        <% bundle_items = @content.is_a?(BasicFolderWithDownloadables) ? @content.bundles : @content.pending_bundles %>
+        <% if bundle_items.empty? %>
+          <div><%= 'Upload .zip file(s) with album contents'.t %></div>
+        <% else %>
+          <div><%= 'Currently attached zip file(s)'.t -%>:</div>
+          <ul style="line-height: 140%;">
+            <% bundle_items.each do |bundle| %>
+              <li class="bundle_row">
+                <%= "#{bundle.filename} (#{number_to_human_size(bundle.size)})" %>
+                <%= link_to_remote image_tag('delete.gif', :alt => 'Delete'.t), :url => {:controller => 'content', :action => 'remove_album_association', :id => bundle.id, :album_id => @content.id}, :after => 'this.up("li.bundle_row").fade();' %>
+              </li>
+            <% end %>
+          </ul>
+          <div><%= 'If desired, you may upload more here'.t -%>:</div>
+        <% end %>
+        <input type="file" style="width: 320px;" size="30" name="file_bundle[][uploaded_data]" id="file_bundle__uploaded_data"/>
+      </div>
+      <div style="padding-top: 5px;" id="add_another">
+        <%= link_to_function 'Add another file'.t, 'addDownload()' %>
+      </div>
+      <div style="padding-top: 5px; display: none; margin-top: 5px;" id="add_no_more" class="special_notice">
+        <%= 'To prevent system timeouts, you can only add up to %s files at a time.' / [maxUploads] %>
+        <br/>
+        <%= 'If you need to add more: upload %s, save, press edit, and repeat as necessary.' / [maxUploads] %>
+      </div>
+    </div>
+  </div>
+  <div class="download_option" style="display: none;">
+    <div class="form_left"><%= 'Upload Cover Art'.t %></div>
+    <div class="form_right">
+      <% if @content.respond_to?(:cover_art) && @content.cover_art %>
+        <div style="margin-bottom: 5px;"><%= image_tag(@content.cover_art.thumb(:small).public_filename, :border => 0, :alt => h(@content.cover_art.thumb(:thumb).filename)) %></div>
+      <% elsif @content.respond_to?(:pending_cover_art) && @content.pending_cover_art %>
+        <div style="margin-bottom: 5px;"><%= image_tag(@content.pending_cover_art.thumb(:small).public_filename, :border => 0, :alt => h(@content.pending_cover_art.thumb(:thumb).filename)) %></div>
+      <% end %>
+      <%= file_field :cover_art, :uploaded_data %>
+      <div class="instructions"><%= 'Square images work best, at least 150x150, and they will be resized'.t %></div>
+    </div>
+  </div>
+
+  <div class="download_option" style="display: none;">
+    <%= render :partial => "shared/translatable_fields", :locals => {
+              :f => f,
+              :content => @content,
+              :fields => [[lambda { "Artist".t }, :artist]]} %>
+  </div>
+  <div class="download_option" style="display: none;">
+    <%= render :partial => 'min_contribution_setting', :locals => {:setting => @contribution_setting} %>
+  </div>
+  <div class="download_option" style="display: none;">
+    <div class="form_left"><%= 'Year'.t %></div>
+    <div class="form_right"><%= f.text_field(:year, :size => 4, :maxsize => 4, :style => 'width: 100px;', :value => @content.year) %></div>
+  </div>
+  <% if @content.user.fwd_tos_allowed? %>
+    <% terms = @content.fwd_details_if_needed.display_terms_and_conditions %>
+    <% fields_for :terms, terms do |t| %>
+      <div class="download_option" style="display: none;">
+        <%= t.check_box(:require_terms_acceptance, :class=>'auto_width', :onclick => "$('tos_block').toggle();") %>
+          <label for="terms_require_terms_acceptance">
+            <%= 'When users <b>download</b> files, they should agree to the following:'.t %>
+          </label>
+      </div>
+      <div class="download_option" style="display: none;">
+        <div id="tos_block" <%= "style=\"display:none\"" unless @content.require_terms_acceptance? %>>
+          <%= render :partial => "shared/translatable_fields", :locals => {
+                    :f => t,
+                    :content => terms,
+                    :fields => [[nil, :terms]],
+                    } %>
+        </div>
+      </div>  
+    <% end %>
+  <% end %>
+<% end %>
+

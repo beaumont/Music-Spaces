@@ -1,0 +1,30 @@
+<% unless @entry.is_a?(MusicContest) || (pvars = calc_playlist_vars_by_options(:entry => @entry, :only_public => true))[:tracks].blank? %>
+  <% embed_dlg_title = "Embed {{author_name}}'s {{content_title}}" / [
+            js(truncate(@entry.user.display_name, :length => 20)), js(@entry.title_short(30))] %>
+
+    <div style="display: none;" id="embed_player_dialog" title="<%= embed_dlg_title %>"></div>
+    <script type="text/javascript">
+      var embed_player_opts = {
+        title: "<%= embed_dlg_title %>",
+        modal: true,
+        height: 'auto',
+        position: 'top',
+        width: 450,
+        open:  function() {
+          jQuery("#embed_player_dialog").load(
+          '<%= url_for :controller => "player", :action => "embed_player_dialog", pvars[:id_param] => @entry.id %>');
+        },
+        close: function() {
+          jQuery("#embed_player_dialog").dialog('destroy');
+        }
+      };
+      function show_embed_player_dialog() {
+        jQuery('#embed_player_dialog').dialog(embed_player_opts);
+      }
+    </script>
+  <div class="sharing_icon">
+    <a href="#" onclick='show_embed_player_dialog(); return false;'>
+      <%= image_tag('icon_embed.gif') %>
+    </a>
+  </div>
+<% end %>

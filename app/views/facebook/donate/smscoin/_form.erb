@@ -1,0 +1,87 @@
+<% filters = @content ? {:min_gross_usd => @content.min_contribution_amount} : {} %>
+<% dialog_title   = "SMS" %>
+
+<script type="text/javascript">
+  function prepare_smscoin_providers_<%=box%>(div, country_code) {
+      var url = "<%= facebook_absolute_url("/donate/load_smscoin_providers") %>";
+    
+      var ajax = new Ajax();
+
+      ajax.responseType = Ajax.FBML;
+      ajax.requireLogin = true;
+      ajax.ondone = function(data) {
+          document.getElementById(div).setInnerFBML(data);
+      }
+      var params={
+                  "country":country_code,
+                  "content_id":'<%= @entry.id ? @entry.id : nil %>',
+                  "return_url":'<%= return_url %>',
+                  "recipient_id":'<%= @entry.user.id %>',
+                  "donor_id":"<%= (current_fb_user ? current_fb_user.id : nil) %>",
+                  "karma_point_id":'<%= @karma_point_id %>',
+                  "box":'<%=box%>'
+                  };
+      ajax.post(url,params);
+   }
+</script>
+
+
+<% fb_dialog "sms_#{box}", 0 do %>
+  <%= fb_dialog_title dialog_title %>
+  <% fb_dialog_content do %>
+    <div class="contribution_option_body smscoin">
+      <div id="choice_<%=box%>">
+        <ul>
+        <% Smscoin::Version.countries(filters).each do |country_code, country_name| %>
+          <% providers = Smscoin::Version.country_providers(country_code, filters) %>
+          <% next if providers.blank? %>
+            <li class="country_<%= country_code %>">
+              <%= link_to(country_name, '#',
+                         {:onclick=>"prepare_smscoin_providers_#{box}('choice_#{box}', '#{country_code}'); return false;",
+                          :clicktohidedialog => "sms_#{box}",
+                          :clicktoshow => "spinner_#{box}_#{country_code}"}) %>
+            <span id="spinner_<%=box%>_<%=country_code%>" style="display:none;vertical-align: middle;"><%= image_tag('ajax-loader.gif') %></span>
+            </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div align="left">
+    <%= fb_dialog_button "button", "Back", :close_dialog=>true %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  function fb_dialog(data) { new Dialog().showMessage('SMS', data, button_confirm='ok', button_cancel='bye');  }
+</script>
+
+<div class="contribution_option_body smscoin">
+  <span style="margin-top:10px;">&nbsp;&nbsp;</span>
+  <span>
+   <input disabled="true" type="text" value="" style="font-size: 11px; background-color:#F7F7F7; border:2px solid #F7F7F7;" size="5" />
+  </span>
+  <span class="donation_button" style="padding-left:8px"> 
+    <%= link_to("<span class='fb_submit_btn'>" + "SMS" + "</span>",
+                "#",
+                {:clicktoshowdialog => "sms_#{box}"} ) %>
+  </span>
+  <div class="status"></div>
+</div>
+<br class="clear" />
+<style type="text/css">
+  .contribution_option_body.smscoin ul {
+    display: inline;
+    padding: 0;
+  }
+
+  .contribution_option_body.smscoin li {
+    list-style-type: none;
+    display: inline-block;
+    border: 1px #CCC solid;
+    padding: 4px;
+    margin: 2px;
+    line-height: normal;
+  }
+</style>

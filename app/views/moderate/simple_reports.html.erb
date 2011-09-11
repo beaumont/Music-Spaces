@@ -1,0 +1,119 @@
+<% @title = 'Moderator Console'.t + ' :: ' + 'Simple Reports'.t %>
+
+<h1><%= 'Reported Items'.t %></h1>
+
+<div class="admin">
+  
+<% if @reports.empty? %>
+    <div class="section_empty"><%= "Nothing's been reported yet".t %></div>
+<% else %>
+<table border="0" cellspacing="0" cellpadding="5" class="admin" style="width: 100%;">
+  <tr>
+    <th><%= 'Responsible User'.t %></th>
+    <th><%= 'Reported Item'.t %></th>
+    <th><%= 'Reason'.t %></th>
+    <th><%= 'Details'.t %></th>
+    <th><%= 'Reported By'.t %></th>
+    <th><%= 'Date of Report'.t %></th>
+    <th><%= 'Status'.t %></th>
+  </tr>
+  
+  <% @reports.each do |report| %>
+    <% next unless report.reportable %>
+  <tr class="<%= cycle("dark", "light") %> <%= 'strike' if report.reportable.respond_to?('blocked?') && report.reportable.blocked? -%>">
+    <td><%= user_link(report.responsible_user, :icon => true) %></td>
+    <td>
+      <%= report.reportable.is_a?(User) ? user_link(report.reportable, :icon => true) : content_link(report.reportable, :icon => true) %>
+    </td>
+    <td><%= h report.display_reason %></td>
+    <td><%= h report.message %></td>
+    <td><%= user_link(report.reporter, :icon => true) %></td>
+    <td><%= report.created_at.localize('%b %e at %l:%M %p') %></td>
+    <td><%= report.reportable.state if report.reportable %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+</div>
+
+
+
+
+
+<h1><%= 'Blocked Items'.t %></h1>
+
+<div class="admin">
+  
+<% if @blocks.empty? %>
+    <div class="section_empty"><%= "Nothing's been blocked yet".t %></div>
+<% else %>
+<table border="0" cellspacing="0" cellpadding="5" class="admin" style="width: 100%;">
+  <tr>
+    <th><%= 'Responsible User'.t %></th>
+    <th><%= 'Blocked Item'.t %></th>
+    <th><%= 'Reason'.t %></th>
+    <th><%= 'Details'.t %></th>
+    <th><%= '# Reports'.t %></th>
+    <th><%= 'Blocked By'.t %></th>
+    <th><%= 'Date of Block'.t %></th>
+    <th><%= 'Status'.t %></th>
+  </tr>
+  
+  <% @blocks.each do |block| %>
+    <% next unless block.reportable %>
+  <tr class="<%= cycle("dark", "light") %> <%= 'strike' if block.reportable.respond_to?('blocked?') && block.reportable.blocked? -%>">
+    <td><%= user_link(block.responsible_user, :icon => true) %></td>
+    <td><%= block.reportable.is_a?(User) ? user_link(block.reportable, :icon => true) : content_link(block.reportable, :icon => true) %></td>
+    <td><%= h block.display_reason %></td>
+    <td><%= h block.message %></td>
+    <td><%= block.reportable.moderation_events.reports.size %></td>
+    <td><%= user_link(block.blocker, :icon => true) %></td>
+    <td><%= block.created_at.localize('%b %e at %l:%M %p') %></td>
+    <td><%= block.reportable.state %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+</div>
+
+
+
+
+
+
+
+
+<h1><%= 'Restored Items'.t %></h1>
+
+<div class="admin">
+  
+<% if @blocks.empty? %>
+    <div class="section_empty"><%= "Nothing's been restored yet".t %></div>
+<% else %>
+<table border="0" cellspacing="0" cellpadding="5" class="admin" style="width: 100%;">
+  <tr>
+    <th><%= 'Responsible User'.t %></th>
+    <th><%= 'Restored Item'.t %></th>
+    <th><%= 'Reason'.t %></th>
+    <th><%= 'Restored By'.t %></th>
+    <th><%= 'Date of Restoration'.t %></th>
+    <th><%= 'Status'.t %></th>
+  </tr>
+  
+  <% @restores.each do |restore| %>
+    <% next unless restore.restorable %>
+  <tr class="<%= cycle("dark", "light") %> <%= 'strike' if restore.restorable.respond_to?('blocked?') && restore.restorable.blocked? -%>">
+    <td><%= user_link(restore.responsible_user, :icon => true) %></td>
+    <td><%= restore.restorable.is_a?(User) ? user_link(restore.restorable, :icon => true) : content_link(restore.restorable, :icon => true) %></td>
+    <td><%= h restore.message %></td>
+    <td><%= user_link(restore.restorer, :icon => true) %></td>
+    <td><%= restore.created_at.localize('%b %e at %l:%M %p') %></td>
+    <td><%= restore.restorable.state %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+</div>

@@ -1,0 +1,16 @@
+<% archive ||= false %>
+<%= render :partial => 'public_question/index_right_column', :locals => {:archive => archive} %>
+
+<% main_block(:header_title => title, :left_block => render(:partial => 'public_question/index_left_menu'), :content_head => '') do %>
+  <% if @question %>
+    <div class="right"><%= 'Created: {{date}}' / @question.created_at.to_date.localize("%d %B %Y") %></div>
+    <div class="question"><%= @question.text %></div>
+  <%= yield %>
+  <% else %>
+    <div class="no_questions">
+      <%= no_q_caption %>
+    </div>
+  <% end %>
+  <div class="clear_left"></div>
+<% end %>
+

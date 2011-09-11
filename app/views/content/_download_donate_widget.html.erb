@@ -1,0 +1,149 @@
+<% return if content.is_a?(MusicContest) %>
+<% no_call_to_action ||= false %>
+<% # This widget has to deal with 4 cases corresponding to the mix of donatable? and downloadable?.
+   # In addition, it should handle cases in which the user has already donated.
+
+   # simple_donation forces the widget into a very simple donation-only widget
+
+   # Keep multipe donation dialogs from interfering with each other
+   @donation_dialog_number = (@donation_dialog_number || 0) + 1
+
+   # If not donatable and now downloadable, then return nothing
+   return if !content.donatable? and !content.downloadable?
+
+   simple_donation ||= false
+   contributable = true
+   unless defined?(allow_downloading_sequence)
+     allow_downloading_sequence = true
+   end
+   unless defined?(allow_showing_download_links)
+     allow_showing_download_links = true
+   end
+
+   contribute_rightaway ||= false
+   call_to_action = if content.min_contribution_amount
+     'Minimum necessary contribution ${{amount}}' / content.min_contribution_amount
+   else
+     'Please contribute if you download!'.t
+   end
+   button_text = button_text || "Contribute".t
+   is_prior_contributor ||= in_successful_payment_handler? #'just donated' case
+   is_prior_contributor ||= defined?(donor) && (donor.id>=0) && !donor.has_donated_to_content?(content).nil? #TODO: we don't honor 'just donated to MNC content' here
+   is_prior_contributor = false if @force_not_contributed
+   open_download = is_prior_contributor && allow_downloading_sequence
+
+   if !simple_donation
+     if content.downloadable?
+       button_text = 'Download'.t
+       # Check to see if donatable or if the prospective donor has _already_ donated.
+       if !content.donatable?
+         contributable = false
+         call_to_action = nil
+       elsif is_prior_contributor
+         button_text = 'Contribute Again!'.t
+         call_to_action = "Thanks for contributing to {{user_name}}!" / h(content.user.display_name)
+       end
+     else
+       # Not downloadable so is only donatable
+       allow_downloading_sequence = false
+       call_to_action = 'Please contribute to support this artist!'.t
+     end
+   end
+   if in_successful_payment_handler?
+     call_to_action = nil
+   end
+%>
+
+<div class="donate_widget">
+  <% show_download_links_widget = allow_showing_download_links && show_download_links_widget?(content) %>
+  <% contribute_rightaway = false if show_download_links_widget %>
+
+  <% if !simple_donation && allow_downloading_sequence && (!show_download_links_widget || is_prior_contributor || in_successful_payment_handler?) %>
+    <div id='download_wrapper_<%= @donation_dialog_number %>' style="<%= (!open_download && contributable) ? "display:none" : "" %>">
+      <%= render :partial => '/content/download_info', :locals => {:content => content} %>
+    </div>
+  <% end %>
+<%# Put down the contribution buttons and Javascript %>
+  <% if contributable %>
+    <div id='donation_wrapper_<%= @donation_dialog_number %>'>
+
+      <div id='donation_button_wrapper_<%= @donation_dialog_number %>'>
+        <%= link_to(
+                "<span>#{button_text}</span>",
+                "#",
+                {:id => "donation_button_#{ @donation_dialog_number }",
+                 :class=> (simple_donation ? "" : "button_or"),
+                 :onclick=>"script:do_contribution_#{ @donation_dialog_number }(); return false"}) %>
+      </div>
+    </div>
+    <% if !logged_in? && content.downloadable? %>
+      <%= render :partial => '/shared/login_signup_widget_sandbox',
+                 :locals => {:title => "Download without contribution".t,
+                             :login_block_title => 'Log In to Download for Free'.t,
+                             :signup_block_title => 'Create Kroogi Account to Download for Free'.t,
+                             :fb_signup_block_title => 'Use your Facebook to Download for Free'.t,
+                             :dialog_id_suffix => @donation_dialog_number,
+                             :thanks_title => "Thank you for joining!".t,
+                             :thanks_header => 'Enjoy your download!'.t,
+                             :thanks_last => 'However, you can download already.'.t,
+                             :reload_after => true,
+                         } %>
+    <% end %>
+
+    <%= render :partial => '/content/donate_widget', :locals => {:content => content,
+                                                                 :recipient => recipient,
+                                                                 :donor => donor,
+                                                                 :donate_widget_suffix => @donation_dialog_number,
+                                                                 :contribute_rightaway => contribute_rightaway,
+                                                                 :download => allow_downloading_sequence,
+            } %>
+
+  <% end %>
+  <% if show_download_links_widget %>
+    <% question = time_to_show_question(donor, recipient, :force_show => true) %>
+    <% qparams = {} %>
+    <% if in_successful_payment_handler? %>
+      <% qparams.merge!(:title => 'Thank you for supporting {{artist_name}}' / truncate(h(recipient.display_name), :length => 20)) %>
+      <% if question %>
+        <% if allow_showing_download_links %>
+          <% qparams.merge!({
+                  :prefix => render(:partial => '/shared/download_links',
+                                    :locals => {:content => content, :autostart => true}) +
+                          'Meanwhile, {{user_name}}, {{artist_name}} has a question for you.' / [
+                                  h(truncate(donor.display_name, :length => 30)), h(truncate(recipient.display_name, :length => 30))],
+                  }) %>
+        <% else %>
+          <% qparams.merge!({
+                  :prefix => '{{user_name}}, {{artist_name}} has a question for you.' / [
+                                  h(truncate(donor.display_name, :length => 30)), h(truncate(recipient.display_name, :length => 30))],
+                  }) %>
+        <% end %>
+      <% end %>
+    <% elsif question %>
+      <% qparams.merge!({
+              :title => 'Before you start your download...'.t,
+              :prefix => '{{user_name}}, {{artist_name}} has a question for you.' / [
+                      h(truncate(donor.display_name, :length => 30)), h(truncate(recipient.display_name, :length => 30))],
+              :suffix => '' + render(:partial => '/shared/download_links',
+                                     :locals => {:content => content, :autostart => false}),
+              }) %>
+    <% end %>
+    <% if question %>
+      <%= render :partial => '/shared/question_widget', :locals => qparams.merge({
+              :user => donor,
+              :question => question,
+              }) %>
+    <% else %>
+      <%= render :partial => '/shared/download_widget', :locals => qparams.merge({
+              :content => content,
+              :project => recipient,
+              :autostart => in_successful_payment_handler?
+      }) %>
+    <% end %>
+  <% end %>
+<% if !no_call_to_action && !simple_donation && !call_to_action.nil? %>
+  <div class="special_notice">
+    <%= call_to_action %>
+  </div>
+<% end %>
+</div>

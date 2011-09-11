@@ -1,0 +1,9 @@
+<% wizard_right_column %>
+
+<% wizard_main_block('Connect Money System'.t) do %>
+  <% form_border(:subhead_title => 'This is how receiving contributions works for artists and projects on Kroogi.com'.t) do %>
+    <%= render :partial => "/wizard/text/agreement_#{I18n.locale}.html.erb"%>
+  <% end %>
+  <%= render :partial => '/monetary_processor_accounts/attach_widget',
+             :locals => {:user => @user, :auto_open => 'true', :is_for_wizard =>  'true'} %>
+<% end %>

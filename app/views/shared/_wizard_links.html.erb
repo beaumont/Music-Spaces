@@ -1,0 +1,8 @@
+<% right_column_block(:header_title => 'Setup Wizard'.t) do %>
+  <div class="default"><%= 'Use our simplified guide to set up the basic features of your user and project profiles. Select the profile you wish to edit from the list below.'.t %></div>
+  <div style="margin-left:30px;">
+    <% projects_info.each do |project| %>
+      <%= wizard_link(project, :limit => 65, :use_display_name => true, :icon => true) %><br />
+    <% end %>
+  </div>
+<% end %>

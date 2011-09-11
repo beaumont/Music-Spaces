@@ -1,0 +1,26 @@
+<div class="searchResult">
+  <H1 class="header">What Kroogi Artist<br />Do You Want to Represent ?</H1>
+  <br />
+  <div style="padding:0px 0px 10px 0px;color:#999;">You selected <b><%=@user.display_name%></b></div>
+  <div class="collectionContainer searchFromContainer">
+    <div class="collectionHeader">Write an introduction for your profile visitors <span id="processingSpinner" style="display:none;" class="searchSpinner"> Processing... </span></div>
+    <div class="whiteBox" style="margin:10px;">
+      <div>
+        <% form_remote_tag do %>
+          <%= hidden_field_tag 'id', @user.id %>
+          <div style="padding:10px 10px 0px 10px;">
+          <%= text_area_tag 'header_text', nil, :rows => 2, :class=>'header_text_input'%>
+            <div class="header_text_submit_btn" align="right">
+            <%= submit_tag 'Finish' ,
+              :clickrewriteurl=>facebook_absolute_url("/facebook/tab/link_artist_to_profile"),
+              :clickrewriteid=>"searchFormId",
+              :clicktoshow=>"processingSpinner",
+              :class=>'inputbutton'%>
+            </div>
+          </div>
+        <%end%>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

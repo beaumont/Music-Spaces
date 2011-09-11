@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="verify-v1" content="PsAOZ5U2zmEBFLiZ8WTYXxkg0lqwRa+FmqKtZwvlmOM=" />
+<meta name="Author" content="Kroogi" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<script src="/javascripts/prototype.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/classes.js?1266262828" type="text/javascript"></script>
+<script src="/javascripts/application.js?1266262828" type="text/javascript"></script>
+<!-- , :cache => 'cache/all' -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> jQuery.noConflict(); </script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/ui-lightness/jquery-ui.css" />
+<link href="/stylesheets/jquery_dialog_overrides.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/javascripts/ui.stars.min.js?1266262828" type="text/javascript"></script>
+<link href="/stylesheets/ui.stars.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+
+      $("#rating_block_1 .stars_wrapper.avg").stars({
+          oneVoteOnly: true,
+          callback: function(ui, type, value){
+            $("#rating_block_1 form.rate").trigger("onsubmit")
+          }                  
+      });
+      $("#rating_block_1 .stars_wrapper.user").stars();
+    });
+  </script>
+<link href="../stylesheets/style-old.css?1266262828" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]><link href="/stylesheets/style-ie.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if lte IE 6]><link href="/stylesheets/style-ie6.css?1266262828" media="all" rel="stylesheet" type="text/css" /><![endif]-->
+<link href="../stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+<title>content/contest</title>
+<meta name="keywords" content="download music, donate, art, kroogi, kroogi.com" />
+<meta name="description" content="Support your favorite artist when you download and checkout music and art at Kroogi, the best place to discover the best content and donate to support the best artists." />
+<script type="text/javascript" src="http://test1.konfero.com/embeddedkonfero/embeddedKonfero?kroogiMode=true&chatRoomUrl=http%3A%2F%2Fanya.kroogi.com%3A3333&chatRoomTitle=Kroogi+rc%3A+chat+room+%22miro%22&locale=en"></script>
+</head>
+<body>
+<div id="main">
+	<div id="main_content_bg">
+		<div id="header">
+			<div id="topNav">
+				<div class="topNavLeft"> <a href="">Home of</a>
+					<form name="name" style="width:80px; display:inline;">
+						<select style="font-size:11px ;color:#012756; font-family:Arial, Helvetica, sans-serif; font-weight:bold; background-color:#ffffff; border:1px #FFF solid;" name="menu">
+							<option value="http://">Vasya</option>
+							<option value="http://">Petya</option>
+							<option value="http://">Konstantin</option>
+						</select>
+					</form>
+					<a href="">Friend Feed</a> | <a href="">Messages (8 unread)</a> | <a href="">My Projects</a> | <a href="">Sign Out</a></div>
+				<div class="language"> <a href="http://www.google.com/" class="eng_selected"><img src="../images/spacer.gif" /></a> <a href="http://www.google.com/" class="rus"><img src="../images/spacer.gif" /></a></div>
+				<div class="topNavRight"> <a href="">Music</a> | <a href="">Art</a> | <a href="">Photo</a> | <a href="">Written</a> | <a href="">Other</a> | <a href="">About</a></div>
+			</div>
+			<div id="topNavContent">
+				<div id="logo"><a href="explore-new.html"><img src="../images/logo.png" alt="Kroogi" id="logo" class="tp"/></a></div>
+				<div id="topNavSearch">
+					<form action="/search" method="post" style="margin:0; padding:0; position:relative;">
+						<div style="margin:0;padding:0">
+							<input name="authenticity_token" type="hidden" value="" />
+						</div>
+						<input class="topbar" id="tag" name="tag" style="font-size:12px ;color:#999; font-family:Arial, Helvetica, sans-serif; background-color:#ffffff; border:1px #999 solid;" onfocus="if(this.value == 'Search for Artist or Title') this.value='';" size="20" type="text" value="Search for Artist or Title" />
+						<button class="button_gr" type="submit" onclick="if(document.getElementById('tag').value==''){return false}"> <span>&nbsp;Go&nbsp;</span></button>
+					</form>
+				</div>
+			</div>
+			<div id="topNavFooter">
+				<p>Kultprosvet: Download new album by Lyapis Trubetskoy exclusively from Kroogi</p>
+			</div>
+		</div>
+		<div class="shadow"><img src="../images/960_w_btm.gif" /></div>
+		<div><img src="../images/960_o_top.gif" /></div>
+		<div id="projectHeader">
+			<div class="projectContent">
+				<div class="projectImage"><a href=""><img src="../images/money.gif" /></a></div>
+				<div class="projectFriends">
+					<div id="moonmenu" class="halfmoon">
+						<ul>
+							<li><a href="" rel="dropmenu1_e"><img src="../images/add_content_btn.gif" /></a></li>
+							<li><a href=""><img src="../images/invite_friend_btn.gif" /></a></li>
+						</ul>
+					</div>
+					<div id="dropmenu1_e" class="dropmenudiv_e"> <a href=""><img src="../images/album_th.gif" /> Album</a> <a href=""><img src="../images/track_th.gif" /> Track</a> <a href=""><img src="../images/video_th.gif" /> Video</a> <a href=""><img src="../images/picture_th.gif" /> Picture</a> <a href=""><img src="../images/written_th.gif" /> Writing</a> <a href=""><img src="../images/folder_th.gif" /> Folder</a> <a href=""><img src="../images/announcement_th.gif" /> Announcement</a></div>
+					<script type="text/javascript">
+	//SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
+	tabdropdown.init("moonmenu", 3)
+	</script>
+					<div class="projectSettings"><a href="content-new-edit-settings.html">Edit project settings</a></div>
+				</div>
+				<div class="projectName"><a href=""><img src="../images/name_image.gif" /></a> <a href="">t.A.T.u</a></div>
+				<div id="bluemenu" class="bluetabs">
+					<ul>
+						<li class="first"><a href="money-newHeader.html">Home</a> | </li>
+						<li><a href="">Showcase</a> | </li>
+						<li><a href="">Livejournal</a> | </li>
+						<li><a href="">Money</a> | </li>
+						<li><a class="orangeBox" href="" rel="dropmenu1_b">Folowers (150) <img src="../images/arrow_down.gif" /></a></li>
+					</ul>
+				</div>
+				<div id="dropmenu1_b" class="dropmenudiv_b"> <a href="">Supporters (140)</a> <a href="">Fans (23)</a> <a href="">Interested (150)</a> <a href="">View All (350)</a></div>
+				<script type="text/javascript">
+	//SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
+	tabdropdown.init("bluemenu")
+	</script>
+			</div>
+		</div>
+		<div class="shadow"><img src="../images/960_o_btm.gif" /></div>
+		<div class="project_banner"><img src="../images/project_banner.png" /></div>
+		<div id="right_column">
+			<div class="toolbar"> <a href=""><img src="../images/bullet_toolbar.gif" />&nbsp;&nbsp;&nbsp;Edit</a>
+				<div class="grey_line3"></div>
+				<a href=""><img src="../images/bullet_toolbar.gif" />&nbsp;&nbsp;&nbsp;Delete</a> </div>
+			<div><img src="../images/222_o_top.gif" /></div>
+			<div class="column_side_sdw">
+				<div class="column_header_body">
+					<div class="column_header">Participate Now!</div>
+				</div>
+				<div class="column_body">
+					<div class="default_text">Ready with your submission? Let the world hear what you've got!</div>
+					<button class="button"> <span> Submit Your Track</span> </button>
+				</div>
+			</div>
+			<div class="shadow"><img src="../images/222_w_btm.gif" /></div>
+			<div><img src="../images/222_o_top.gif" /></div>
+			<div class="column_side_sdw">
+				<div class="column_header_body">
+					<div class="column_header">Download Originals</div>
+				</div>
+				<div class="column_body">
+					<div class="default_text">Wave originals:</div>
+					<div class="default_text"><a href="">once_upon_the_time_multitrack.zip (100 Mb)</a></div>
+					<div class="grey_line2"></div>
+					<div class="default_text">MP3, 320 kbps:</div>
+					<div class="default_text"><a href="">once_upon_the_time_multitrack_mp3.zip (90 Mb)</a></div>
+				</div>
+			</div>
+			<div class="shadow"><img src="../images/222_w_btm.gif" /></div>
+		</div>
+		<div id="main_content_left">
+			<div><img src="../images/732_o_top.gif" /></div>
+			<div class="main_side_sdw">
+				<div class="main_header">
+					<div class="main_header_links"><a href="">Main</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="">Contest</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;t.A.T.u. Album Featuring You</div>
+				</div>
+				<div class="main_left">
+					<div class="main_left_block">
+						<div class="vote">Please vote</div>
+						<div class="vote_stars"><a href=""><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-yllw.gif" /><img src="../images/star-wht.gif" /></a><br />
+							<a class="votes_number" href="">3 120 votes</a></div>
+					</div>
+					<div class="album_img">
+						<div class="layer1">
+							<div class="layer2">
+								<div class="layer3"><img class="thumbnail" src="http://d30voi5vlani95.cloudfront.net/content/thumbs/10061/MirosBandAid_10059_cover_thumb.jpg" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="main_left_block">
+						<div class="main_left_menu"><a href=""><img src="../images/icon_facebook.gif" />&nbsp;&nbsp;&nbsp;Post to your Wall</a>
+							<div class="grey_line3"></div>
+							<a href=""><img src="../images/icon_twitt.gif" />&nbsp;&nbsp;&nbsp;Twit This</a>
+							<div class="grey_line3"></div>
+							<a href=""><img src="../images/icon_digg.gif" />&nbsp;&nbsp;&nbsp;Digg This</a>
+							<div class="grey_line3"></div>
+							<a href=""><img src="../images/icon_embed.gif" />&nbsp;&nbsp;&nbsp;Embed Anywhere</a> </div>
+					</div>
+				</div>
+				<div class="main_body">
+					<div class="main_title_r grey_out"><img src="../images/MeOnly.gif" />&nbsp;&nbsp;Host Only</div>
+					<div class="main_title">t.A.T.u. Album Featuring You</div>
+					<div class="default_text">Start: <b>11 Jun 2009</b>&nbsp;&nbsp; End: <b>1 Feb 2009</b>&nbsp;&nbsp; Last Submission: <b>5 Dec 2009</b></div>
+					<div class="default_text">Thanks to everyone who submitted tracks to Kroogi-albums! The short-list winners will be announced December 1st. The final tracks will be put onto a compilation that includes tracks from prominent artists Goatika Creative Lab and Alex Theory (also the album’s producer), released on limited &nbsp;&nbsp;<a href="">Read More &gt;</a></div>
+					<div class="project_body">
+						<div class="project_avatar"><a href=""><img src="../images/money.gif" /></a></div>
+						<div class="project_info">
+							<div class="feed_header"><a href=""> Original Track</a></div>
+							<div class="fakePlayer2"> <br />
+								<br />
+								<br />
+							</div>
+						</div>
+					</div>
+					<div class="main_title_r"><a class="selected" href="">latest</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">popular</a>&nbsp;&nbsp;on top</div>
+					<div class="main_title">Your Submissions</div>
+					<div class="orng_line"></div>
+					<div class="main_body_links"><a class="selected" href="">All Tracks (5)</a> <a href=""><img src="../images/star_g.gif" /> Favorites (1)</a> <a href=""><img src="../images/star_b.gif" /> Short-list (1)</a> <a href=""><img src="../images/star_r.gif" /> Final (2)</a> </div>
+					<div class="orng_line"></div>
+					<div class="project_body">
+						<div class="project_avatar"><a href=""><img src="../images/money.gif" /></a></div>
+						<div class="project_info">
+							<div class="feed_header_r"><a href="">To Short-list</a>&nbsp;&nbsp;<img src="http://assets1.kroogi.com:3333/images/icons/contest/favorite_item.gif?1266873392" /></div>
+							<div class="feed_header"><a href=""><img src="../images/kruser.gif" style="vertical-align:middle;" /> Anya Nikulina (anya)</a></div>
+							<div class="fakePlayer2"><br />
+								<br />
+								<br />
+							</div>
+							<div class="project_vote">
+								<div class="vote">Please vote</div>
+								<div class="vote_stars"><a href=""><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-yllw.gif" /><img src="../images/star-wht.gif" /></a><br />
+									<a class="votes_number" href="">3 120 votes</a></div>
+							</div>
+							<br />
+							<div class="default_text">Submitted: 12 Dec. 2009 3.35 pm</div>
+						</div>
+					</div>
+					<div class="grey_line3"></div>
+					<div class="project_body">
+						<div class="project_avatar"><a href=""><img src="../images/money.gif" /></a></div>
+						<div class="project_info">
+							<div class="feed_header_r"><a href="">To Short-list</a>&nbsp;&nbsp;<img src="http://assets1.kroogi.com:3333/images/icons/contest/favorite_item.gif?1266873392" /></div>
+							<div class="feed_header"><a href=""><img src="../images/kruser.gif" style="vertical-align:middle;" /> Anya Nikulina (anya)</a></div>
+							<div class="fakePlayer2"><br />
+								<br />
+								<br />
+							</div>
+							<div class="project_vote">
+								<div class="vote">Please vote</div>
+								<div class="vote_stars"><a href=""><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-org.gif" /><img src="../images/star-yllw.gif" /><img src="../images/star-wht.gif" /></a><br />
+									<a class="votes_number" href="">3 120 votes</a></div>
+							</div>
+							<br />
+							<div class="default_text">Submitted: 12 Dec. 2009 3.35 pm</div>
+						</div>
+					</div>
+					<div class="orng_line"></div>
+					<div class="default_text grey_out">Posted by <a href="">Miro BandAid</a> on 14 January 2010</div>
+					<div class="default_text grey_out">Tags: <a href="">Tag1</a>, <a href="">Tag2</a>, <a href="">Tag3</a></div>
+					<div class="default_text grey_out"><b><a href="">Recent View History</a></b><br />
+						Guest User, 22 February 2010 at 18:38<br />
+						Guest User, 22 February 2010 at 18:38<br />
+						Guest User, 22 February 2010 at 18:38<br />
+						Guest User, 22 February 2010 at 18:38</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div><img src="../images/732_gw_btm.gif" /></div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+	</div>
+</div>
+</body>

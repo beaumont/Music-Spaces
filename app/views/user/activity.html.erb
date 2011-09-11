@@ -1,0 +1,35 @@
+<% @title = current_actor.login + ' :: ' + 'All Activity'.t %>
+
+<% header_title = capture do %>
+  <%= 'Recent Activities'.t %>
+<% end %>
+
+<% content_head = capture do %>
+  <%= "%s's" / [@user.login] %>
+  <div class="content_head_r">
+    <%= link_to image_tag('feed-icon-14.png', :alt => 'RSS Feed'.t) + ' ' + 'RSS'.t, user_feed_path(@user) %>
+  </div>
+<% end %>
+
+<% main_block(:header_title => header_title, :content_head => content_head) do %>
+  <% if @activities.total_entries == 0 %>
+    <div class="section_empty"><%= 'No recent activity'.t -%></div>
+  <% else %>
+    <% @activities.each do |activity| %>
+      <div id="activity_<%= activity.id -%>">
+        <%= activity.created_at.localize("%D") %> - 
+        <% if activity.content.nil? %>
+          <span style="color: red"><%= 'This message has expired, and will be removed with the next refresh'.t %></span>
+        <%# Since we're paginating, we can't exclude these like we do on the front page%>
+        <% elsif activity.content_is_viewable? %>
+          <%= render :partial => '/activity/activity', :locals => {:activity => activity, :one_liner => true, :show_from_user => @user.project? } %>
+        <% else %>
+          <span style="color: red"><%= 'You are not authorized to see this event'.t %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render :partial => '/shared/pager', :locals => { :results => @activities} %>
+<% end %>
+  
+    

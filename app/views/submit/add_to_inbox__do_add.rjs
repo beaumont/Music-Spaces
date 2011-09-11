@@ -1,0 +1,18 @@
+if @inbox.accepts?(@content)
+  if @inbox_item.errors.empty?
+    page['submit_label'].hide
+    page['submit_inbox_search'].hide
+    page['submit_errors'].innerHTML = ''
+    page['submit_user_search'].innerHTML = 'Content submission complete.'.t + '<br/><br/>' + 'Please refresh this page to see the change.'.t
+    page['submit_user_search'].addClassName 'success_txt'
+    page['submit_user_search'].highlight
+  else
+    page['submit_errors'].innerHTML = @inbox_item.errors.full_messages.join(';')
+  end
+else
+  if @inbox.user.collection?
+    page['submit_errors'].innerHTML = 'This folder only accepts users, projects and other collections'.t
+  else
+    page['submit_errors'].innerHTML = 'This folder only accepts: %s' / [inbox_post_opts(@inbox)]
+  end
+end

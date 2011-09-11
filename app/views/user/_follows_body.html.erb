@@ -1,0 +1,72 @@
+<% list_limit ||= nil %>
+
+<% if !logged_in? && given_user_is_not_a_bum? %>
+    <div class="section_empty">
+    <%= render :partial => '/shared/login_signup_widget',
+               :locals => {
+                       :user => @user,
+                       :login_link_id => "follows_log_in_link",
+                       :signup_link_id => "follows_sign_up_link",
+                       :action_caption => "to see who %s follows" / [@user.login],
+                       :title_caption => "Log In to see who %s follows" / [@user.login],
+                       :login_block_title_caption => "Log In to see who %s follows" / [@user.login],
+                       :signup_block_title_caption => 'Create Kroogi Account to see who %s follows' / [@user.login],
+                       :fb_signup_block_title_caption => nil,
+                       :thanks_last_caption => 'You will not be able to see who %s follows until you activate your account.' / [@user.login],
+                       :dialog_id_suffix => 'follows',
+                       :widget_function_name => "show_follows_login_signup_widget"
+                } %>
+  </div>
+
+
+<% else %>
+
+  <% if members.blank? %>
+      <div class="section_empty"><%= h @user.login %> <%= "isn't following anyone".t %></div>
+  <% else %>
+    <% kroog_relationship, cid = user.followed_by_count([Relationshiptype::TYPES[:family]]) %>
+    <div class="default">
+      <strong><%= h @user.login %> <%= "is".t -%> <%= 'in Family Circle of'.t %>:</strong><br/>
+      <% if kroog_relationship %>
+        <%= kroog_relationship.find_followed_by(user, {:order => 'login', :limit => list_limit}).collect { |following_user| (!following_user.private? && following_user.is_view_permitted?(current_actor)) ? user_link(following_user, :icon => true) : 'Secret Agent'.t }.join('&nbsp; &nbsp;') %>
+        <%= link_to "(more... )".t, {:controller => 'user', :action => 'follows', :id => user} if list_limit && kroog_relationship.find_followed_by(user).count > list_limit %>
+        <% kroog_relationship = nil %>
+      <% else %>
+        <%= 'None'.t %>
+      <% end %>
+    </div>
+
+    <div class="default">
+      <strong><%= h @user.login %> <%= "is".t -%> <%= 'in Closer Circles of'.t %>:</strong><br/>
+      <% count = 0 %>
+      <% output = [] %>
+      <% user.followed_by_count(Relationshiptype.closer_circle_types).each do |kroog_relationship, index| %>
+        <% next unless kroog_relationship %>
+        <% break if list_limit && output.size >= list_limit + 1 %>
+        <% count += 1 %>
+        <% output += kroog_relationship.find_followed_by(user, {:order => 'login', :limit => list_limit ? list_limit + 1 : nil}).collect { |following_user| (!following_user.private? && following_user.is_view_permitted?(current_actor)) ? user_link(following_user, :icon => true) : 'Secret Agent'.t } %>
+      <% end %>
+      <% kroog_relationship = nil %>
+      <%= (list_limit ? output[0..list_limit - 1] : output).join('&nbsp; &nbsp;') %>
+      <%= link_to "(more... )".t, {:controller => 'user', :action => 'follows', :id => user} if list_limit && output.count > list_limit %>
+      <%= 'None'.t if count.zero? %>
+    </div>
+
+
+    <% kroog_relationship, cid = user.followed_by_count([Relationshiptype::TYPES[:interested]]) %>
+    <div class="default">
+      <strong><%= h @user.login %> <%= "is".t -%> <%= 'in Interested Circle of'.t %>:</strong><br/>
+      <% if kroog_relationship %>
+        <%= kroog_relationship.find_followed_by(user, {:order => 'login', :limit => list_limit}).collect { |following_user| (!following_user.private? && following_user.is_view_permitted?(current_actor)) ? user_link(following_user, :icon => true) : 'Secret Agent'.t }.join('&nbsp; &nbsp;') %>
+        <%= link_to "(more... )".t, {:controller => 'user', :action => 'follows', :id => user} if list_limit && kroog_relationship.find_followed_by(user).count > list_limit %>
+        <% kroog_relationship = nil %>
+      <% else %>
+        <%= 'None'.t %>
+      <% end %>
+    </div>
+
+  <% end %>
+
+
+<% end %>
+

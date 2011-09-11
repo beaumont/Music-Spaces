@@ -1,0 +1,42 @@
+<% return if !@entry %>
+
+<%
+   fb_admins_list = create_fb_admins_list
+
+   title = @entry.title_short(60)
+   if @entry.artist.nil? || @entry.artist == ""
+     title = h("'#{title}' by #{@entry.user.display_name}")
+   else
+     title = h("'#{title}' by #{@entry.artist}")
+   end
+
+   image_url = @entry.respond_to?(:cover_art) && @entry.cover_art ? @entry.cover_art.thumb(:thumb).public_filename : 'http://www.kroogi.com:/images/logo_top_nav.gif'
+   show_full_meta = open_graph_entity?(@entry) ? true : false
+%>
+
+<% content_for :content_metadata do %>
+  <% if show_full_meta %>
+    <% if @entry.description.nil? || @entry.description == '' %>
+      <% og_description = meta_description %>
+    <% else %>
+      <% og_description = smart_truncate(@entry.description, :words => 15) %>
+    <% end %>
+    <meta property="og:type" content="<%= open_graph_type(@entry) %>"/>
+    <meta property="og:title" content="<%= h(title) %>"/>
+    <meta property="og:url" content="<%= content_url(@entry) %>"/>
+    <meta property="og:image" content="<%= image_url %>"/>
+    <meta property="og:description" content="<%= og_description %>"/>
+
+    <meta property="og:site_name" content="<%= FB_CONNECT_CONFIG[:site_name] %>"/>
+    <meta property="fb:admins" content="<%= fb_admins_list %>"/>
+
+    <% if @fb_embeddable_music %> 
+      <meta content="396" property="og:video:width" />
+      <meta content="<%= player_height_for_fb(@entry) %>" property="og:video:height" />
+
+      <meta content="application/x-shockwave-flash" property="og:video:type" />
+
+      <meta content="<%= player_url_for_fb(@entry) %>" property="og:video" />
+    <% end %>
+  <% end %>
+<% end %>

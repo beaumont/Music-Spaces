@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('.add_friends_wizard_busy').hide();
+    jQuery('#bas_errmsg').show();
+    jQuery('#bas_errmsg').html("<%= bas_errmsg %>");
+    jQuery('.overlay_waitindicator').hide();
+    jQuery('#overlay_wizard').show();
+    jQuery('#bas_errmsg').effect('highlight', { duration: 6000 });
+  })
+</script>

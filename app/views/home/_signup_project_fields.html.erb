@@ -1,0 +1,26 @@
+<div style="padding-left:90px;">
+<% fields_for 'project', @project do |f| %>
+  <% unless error_messages_for(:project).blank? %>
+    <p style="color:red;">
+      <% if (error_messages_for 'project') %><%= error_messages_for 'project' %><br /><% end %>
+    </p>
+  <% end %>
+
+    <label for="project_name"><%= 'Project Kroogi Name'.t -%></label>
+    <%= f.text_field :login %>
+    <div class="default">
+      <%= 'This name will be used as part of your project URL (MyProject.kroogi.com).'.t %>
+      <%= 'Dash (-) is the only special character allowed.'.t %>
+    </div>
+
+    <label for="full_project_name"><%= 'Full Project Name'.t -%></label>
+    <%= f.text_field :display_name, :size => '40' %>
+
+    <label for="profile_tagline"><%= 'Project Motto'.t -%></label>
+    <% fields_for :profile, @project.profile do |p| %>
+      <%= p.text_field :tagline, :size => '40' %>
+    <% end %>
+
+<% end %>
+</div>
+

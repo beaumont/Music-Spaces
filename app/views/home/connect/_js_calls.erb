@@ -1,0 +1,48 @@
+<%
+partial = '/home/connect/form/signup'
+show_faces ||= false
+from_preferences ||= false
+%>
+<script type="text/javascript">
+  FB.Event.subscribe('auth.login', function(response) {
+    get_data();
+  });
+  FB.Event.subscribe('auth.logout', function(response) {
+    if(<%= from_preferences %>) {
+      return;
+    }
+    form = jQuery("#signupFormFB")[0];
+    if (form) {
+      form.reset();
+    }
+    window.location = "<%=  url_for('/signup')%>"
+  });
+
+  function load_fb_data() {
+    FB.getLoginStatus(function(response) {
+      if (response.session) {
+        // logged in and connected user, someone we know
+        get_data();
+      } else {
+      }
+    });
+  }
+  
+  function get_data() {
+    var data_url = <%= from_preferences %> ? '/facebook/connect/activate' : '/facebook/connect/fetch_user_info';
+
+    jQuery('.update_progress').show();
+    jQuery.get(data_url, {partial : "<%=partial%>", facebook_user : "true"} , function(data) {
+      if(<%= from_preferences %>) {
+        jQuery('#fb_connect_block').html(data);
+      } else {
+        jQuery('#this_signup_form').replaceWith(data);
+        jQuery('#signup_email').removeClass("selected");
+        jQuery('#signup_fb').addClass("selected");
+      }
+      jQuery('.update_progress').hide();
+      FB.XFBML.parse();
+    });
+  }
+</script>
+

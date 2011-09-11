@@ -1,0 +1,6 @@
+<p>
+  <%= '{{user}} asked you about your personal info for goodies receiving: {{question}}' / [
+          user_link(content.user),
+          ("<a href=\"#{@url}/goodies/participant_dialogue/#{content.commentable.id}\">" + content.comment + '</a>'),
+  ] -%>
+</p>

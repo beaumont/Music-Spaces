@@ -1,0 +1,41 @@
+defaults: &defaults
+  social_network_id: 3
+  wmid: 385492856439
+  secret: K3k7mm[x0/@9%/cPRz3!nS]+
+  debug: false
+  wiredump: false
+  url: https://merchant.webmoney.ru/lmi/payment.asp
+  postback_url: <%= "#{APP_CONFIG.external_host_address}/monetary_processors/webmoney/webmoney_postback" if APP_CONFIG.external_host_address %>
+  purse_usd: Z384427475601
+  purse_rur: R180613870060
+  purse_eur: E923805332409
+
+
+development:
+  <<: *defaults
+
+selenium:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  debug: true
+  wiredump: true
+
+rc:
+  <<: *defaults
+  postback_url: http://brainmaggot.net/monetary_processors/webmoney/webmoney_postback  
+
+staging:
+  <<: *defaults
+  debug: true
+  wiredump: true
+  postback_url: http://brainmaggot.org/monetary_processors/webmoney/webmoney_postback
+
+production:
+  <<: *defaults
+  debug: false
+  wiredump: false
+  postback_url: http://www.kroogi.com/monetary_processors/webmoney/webmoney_postback
+
+

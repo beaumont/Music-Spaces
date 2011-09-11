@@ -1,0 +1,9 @@
+A <%= @exception.class %> occurred in <%= @worker %>#<%= @task %> @ <%= Time.now %>:
+
+  <%= @exception.message %>
+  <%= @backtrace.first %>
+
+Backtrace:
+
+<%= @backtrace.join "\n" %>
+

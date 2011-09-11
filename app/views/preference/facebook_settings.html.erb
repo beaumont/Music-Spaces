@@ -1,0 +1,7 @@
+<%= render :partial => 'shared/wizard_links', :locals => {:projects_info => @projects_info} if @projects_info %>
+
+<% preference_main_block(edit_setting_breadcrumbs(@user, 'Facebook Connect Settings'.t)) do %>
+  <div id="fb_connect_block">
+    <%= render :partial => "/facebook/connect/connect_block", :locals => {:user => @user} %>
+  </div>
+<% end %>

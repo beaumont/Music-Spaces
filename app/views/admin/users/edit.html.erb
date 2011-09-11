@@ -1,0 +1,13 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Edit User %s' / @user.login %>
+
+  <h2><%= 'Editing user'.t %></h2>
+
+  <span class="adminmenu"><%= link_to 'Show'.t, :action => 'show', :id => @user %></span> |
+  <span class="adminmenu"><%= link_to 'Back'.t, :action => 'list' %></span>
+
+  <% form_for :user, :url => {:action => :update, :id => @user } do |form| %>
+    <%= render :partial => 'form', :locals => { :form => form }%>
+    <%= submit_tag 'Submit'.t %>
+  <% end %>
+

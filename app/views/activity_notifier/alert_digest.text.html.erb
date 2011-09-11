@@ -1,0 +1,83 @@
+
+<p><%= 'Hi, %s' / @user.login -%>!</p>
+
+<% 
+  # We need to be able to give users some context at beginning of email -- how many alerts in this message
+  divider = '<hr>'
+  count   = 0
+  msg     = []
+  @sent_on = Date.today.localize('%d %b %Y')
+
+-%>
+
+<% @activities.each do |activity|
+  @from_user = activity.from_user
+  @activity  = activity
+  @content   = activity.content
+  next if @content.nil?
+  
+  # Case selector for those activities where keyname != partial name. Defaults to rendering partial named keyname
+  begin 
+    case activity.keyname
+	  when :added_as_friend	  then partial_name = 'friend'
+    when :sent_pvtmsg
+		  partial_name = 'pvtmsg'
+		  @foruser = activity.content.foruser
+    when :comment_made        
+      partial_name = if activity.content.commentable_type == 'Profile' then 'greeting'
+      elsif activity.content.commentable_type == 'UserKroog' then 'forum_post'
+      else 'comment'
+      end
+    when :comment_replied_to
+	    partial_name = 'comment_reply'
+      # I don't know what this case was here -- shouldn't it default to comment_reply unless it's a comment_reply_content_owner?
+      # partial_name = 'comment_reply' if @recipient.id == activity.user.id
+      partial_name = 'comment_reply_content_owner' if @recipient.id == activity.content.commentable.user.id
+    when :user_featured    then partial_name = 'project_featured'
+    when :added_as_favorite   then partial_name = 'favorite'
+    when :invite_sent         # Send special email if invited to founder's circle of a project
+      if activity.content.inviter.project? && Relationshiptype.founders == activity.content.circle_id
+        partial_name = 'founder_invitation_sent'
+      else 
+        partial_name = 'invitation_sent'
+      end
+    when :invite_reinvited then partial_name = 'invitation_sent'
+    when :sent_getcloser      then partial_name = 'getcloser'
+    when :moved_to_down_circle then partial_name = 'downcircle'
+    when :invite_accepted then partial_name = 'invite_accepted'
+    when :getcloser_granted then partial_name = 'getcloser_granted'
+    else partial_name = activity.keyname.to_s
+    end
+    logger.debug "Rendering alert_#{partial_name}"
+    this_partial = manual_render_to_string(:partial => "alert_#{partial_name}", :locals => {:content => @content,
+                                                                                            :activity => @activity})
+    #puts "partial is \n%s" % this_partial
+    # OK, we got this far, no errors
+    count += 1
+    msg << this_partial
+  rescue ActionView::MissingTemplate => e
+    AdminNotifier.async_deliver_alert "Missing partial #{e}, #{e.try(:message)}, #{e.inspect} in email for #{activity.keyname} (activity #{activity.id} in #{RAILS_ENV})"
+  end
+end
+
+if count.zero? then raise Kroogi::NothingToSend # Raising to avoid sending the message
+elsif count > 1 # If only one alert, send like a normal email
+  msg = msg.collect do |m|
+    '<div style="padding-left: 20px; color: #444;">' + m + '</div>'
+  end
+end
+
+-%>
+
+<% unless count == 1 %>
+  <p>
+    <strong>
+      <%= 'On %s' / [@sent_on] -%>
+      <%= @subject_is_user ? 'you received {{count}} messages' / [count] : 'you received {{count}} messages for your project {{project_name}}' / [count, h(@subject_project)] -%>:
+    </strong>
+  </p>
+<% end -%>
+
+<%= msg.join(divider) %>
+
+<%= render :partial => 'footer' %>

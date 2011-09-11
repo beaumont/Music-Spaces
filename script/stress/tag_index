@@ -1,0 +1,13 @@
+def run_test
+#`wget localhost:3000/content/load_all_views`
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+  `wget "http://localhost:3000/tag?tag=one+two+three&type=users"`
+  (1..20).to_a.each {|i| `wget "http://localhost:3000/tag?type=users&tag=one+two+three#{i}"`}
+sleep(1)
+`wget localhost:3000/user/monitor`
+sleep(1)
+`wget localhost:3000/user/monitor`
+end

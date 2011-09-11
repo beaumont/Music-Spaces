@@ -1,0 +1,83 @@
+<% kroog ||= join_this_kroog
+   allow_action = !current_actor.is_self_or_owner?(kroog.user)
+   follower_count ||= kroog.members_count
+   unless defined?(hide_edit_link);
+     hide_edit_link = false;
+   end
+%>
+
+<div class="<%= 'circle_seen' if @seen_my_circle -%>" id="circle_<%= kroog.relationshiptype_id -%>" style="padding-bottom:10px;">
+  <div class="main_body_subhead">
+    <%= "#{join_this_kroog_counter + 1}." if defined?(show_circle_number) && show_circle_number -%>
+    <% cname = '%s Circle' / h(truncate(kroog.name, :length => 30)) %>
+    <%= (defined?(link_name) && link_name) ? link_to(cname, :controller => 'kroogi', :action => 'show', :id => kroog.user, :type => kroog.relationshiptype_id) : cname %>
+    <% if kroog.members_include?(current_actor) %>
+      <span class="circles_you" style="margin:0px; margin-left: 10px;"> <%= 'you are here'.t %> </span>
+      <% @seen_my_circle = true # Used to grey-ify following circles in join_circles page without massive db lookups   %>
+    <% end %>
+  </div>
+  <div class="default" style="font-weight:bold"><%= follower_count > 0 ? ('Followers: %d' / follower_count) : 'No followers'.t %></div>
+  <div class="default">
+    <%= teaser(@user, kroog) %>
+  </div>
+
+  <% unless @seen_my_circle %>
+    <% if invite = current_actor.invited_to?(kroog) %>
+      <div class="default" style="font-weight:bold;"><%= '%s has invited you to join this circle' / h(@user.login) %></div>
+      <%= render :partial => 'invite/response', :locals => {:invite => invite} %>
+    <% else %>
+
+      <% if kroog.open? %>
+        <% if allow_action %>
+          <%= link_to("<span>#{'Join'.t}</span>",
+                      {:controller => 'invite', :action => 'join', :id => @user.id, :circle => kroog.relationshiptype_id},
+                      :class => "button", :id => "join_open_#{kroog.relationshiptype_id}") %>
+          <div style="clear:both; padding-bottom:10px;"></div>
+        <% end %>
+      <% else %>
+        <div class="default" style="font-weight:bold"><%= 'This circle is by invitation only'.t %> <%= '(sorry, no requests)'.t unless kroog.can_request_invite? %></div>
+
+        <% requests = logged_in? ? current_actor.invites_i_requested.requests_to(kroog) : [] %>
+        <% requests.each do |r| %>
+          <p id="invite_requested_<%= kroog.relationshiptype_id -%>">
+            <strong>
+              <%= "You sent request to join %s Circle of %s on %s" / [kroog.name, kroog.user.login, r.created_at.to_s(:date_with_time)] -%>
+              .
+            </strong>
+            <em>
+              <% if r.pending? %>
+                <%= 'This request is still pending'.t -%>.
+              <% elsif r.accepted? %>
+                <%= 'This request has been accepted!'.t %>
+              <% elsif r.rejected? %>
+                <%= 'This request has been rejected'.t -%>.
+              <% end %>
+            </em>
+          </p>
+        <% end %>
+
+        <% if kroog.can_request_invite? && current_actor.is_a_follower_of?(@user) && allow_action && !requests.any? { |x| x.pending? } %>
+          <% if requests.select { |x| x.rejected? }.size < 3 %>
+            <%= link_to "<span>#{requests.empty? ? 'Send request'.t : 'Ask Again for Invitation'.t}</span>",
+                        {:controller => 'invite', :action => 'closer_add', :id => @user.id, :circle => kroog.relationshiptype_id},
+                        :class => "button", :id => "request_invite_#{kroog.relationshiptype_id}" %>
+            <div style="clear:left; padding-bottom:10px;"></div>
+          <% else %>
+            <p class="warning_txt">
+              <%= 'You have been turned down too many times, and may not longer request an invitation to this circle'.t %>
+              .
+            </p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if kroog.is_view_permitted? %>
+    <p>
+      <% unless kroog.comment_count.to_i.zero? %>
+        <%= "Circle wall posts: {{count}}" / kroog.comment_count %><br/>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+

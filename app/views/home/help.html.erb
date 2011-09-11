@@ -1,0 +1,14 @@
+<% right_column_block(:header_title => 'Table of Contents'.t) do %>
+  <ul class="default">
+    <li><a href="#top"><%= 'How to set up a successful Kroogi project'.t %></a></li>
+    <li><a href="#markup"><%= 'Kroogi Mark-up'.t %></a></li>
+    <li><a href="#widget"><%= 'Kroogi Widget Tutorial'.t %></a></li>
+    <li><a href="#tags"><%= 'Creating ID3 Tags: For Kroogi Artists'.t %></a></li>
+    <li><a href="#facebook"><%= 'Facebook Kroogi Downloads Tutorial'.t %></a></li>
+    <li><a href="#faq"><%= 'Frequently Asked Questions'.t %></a></li>	
+  </ul>
+<% end %>
+
+<% main_block(:header_title => '<a name="top"></a>' + 'Kroogi Help'.t, :white_body => true) do %>
+  <%= render :partial => "help_#{I18n.locale}"%>
+<% end %>

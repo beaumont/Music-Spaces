@@ -1,0 +1,6 @@
+<% if list.count > limit %>
+  <%= link_to "(more... )".t, "javascript:void(0)", :onclick => "$(this).hide(); $('#{block_id}').show();" %>
+  <span id="<%= block_id %>" style="display:none;">
+    <%= list[limit..-1].sort_by{|x| x.login.downcase}.collect {|p| user_link(p, :use_display_name => true, :icon => true, :limit => name_limit)}.join('&nbsp;&nbsp;') %>
+  </span>
+<% end %>

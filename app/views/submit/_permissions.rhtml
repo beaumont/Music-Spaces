@@ -1,0 +1,66 @@
+<% in_inbox_context ||= (((@content.new_record? || @content.just_uploaded) && @for_inbox) || @content.in_inbox?) && !@content.is_a?(Inbox) %>
+<% child_is_in_inbox ||= @content.is_a?(Album) && !@content.is_a?(Inbox) && @content.album_contents.any?{|x| x.in_inbox?} %>
+<% allow_permission = !in_inbox_context && !child_is_in_inbox && (@content.albums.empty? || @content.albums.detect{|album| album.featured_album?})%>
+<% unbold_label ||= false %>
+<div class="form_line">
+	<div class="form_left">
+     <label for="relationshiptype_id"><%= 'Show to'.t %></label>       
+	</div>
+	<div class="form_right">
+    <div id="permission_changing_<%= @content.id %>" style="display:<%=  allow_permission ? 'block' : 'none' %>;">
+      <%= f.select 'relationshiptype_id', Content.privacy_menu(@content.user), :selected => @content.restriction_level %>
+    </div>
+    <div id="permission_same_<%= @content.id %>" style="display:<%=  allow_permission ? 'none' : 'block' %>;">
+      <select disabled>
+        <option> <%= in_inbox_context ? 'Public (Submitted to Folder)'.t : child_is_in_inbox ? 'Public (Contents Submitted to Folder)'.t : 'Same as Folder'.t %> </option>
+       </select>
+     </div>     
+	</div>
+</div>
+<%# If in inbox, no permissions changing -- must be public %>
+<% if in_inbox_context && @for_inbox %>
+  <div class="form_line">
+  	<div class="form_left">
+      <%= 'Also submit directly to folder'.t %>
+    </div>
+  	<div class="form_right">
+  	  <%= content_link(@for_inbox) %> (<%= user_link(@for_inbox.user, :icon => true) %>)
+      <br/>
+      <% if @for_inbox.require_allowing_content_adoption? %>
+        <div id="atts_forced" style="color: red;">
+          <%= "Note: This folder's owner will be able to take any item submitted as their own (with text noting you as the original owner)".t %>
+        </div>
+      <% else %>
+        <div id="atts_option">
+          <label>
+            <%= check_box_tag :allow_take_to_showcase, 1, true, :class => 'auto_width' %>
+            <%= "Allow %s to use this content in their showcase (with text noting you as the original owner)" / [user_link(@for_inbox.user, :icon => true)] %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+    <% if !in_inbox_context && !child_is_in_inbox %>
+      <script type="text/javascript" charset="utf-8">
+        (function(){
+          var album_selector = $('album_selector_<%= @content.id %>');
+          var changing = $('permission_changing_<%= @content.id %>');
+          var same = $('permission_same_<%= @content.id %>');      
+          function updatePermissions() {
+      
+            if (album_selector && changing && same) {
+              if (album_selector.value == '') {
+                changing.show();
+                same.hide();      
+              } else {
+                changing.hide();
+                same.show();      
+              }
+            }
+          }
+          updatePermissions();
+          if (album_selector) Event.observe('album_selector_<%= @content.id %>', 'change', updatePermissions);
+        })()
+      </script>
+    <% end %>
+  </div>
+<% end %>

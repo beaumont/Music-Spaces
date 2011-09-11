@@ -1,0 +1,23 @@
+<div id="fb_friends">
+  <div class="default">
+    <%= "Matching your Facebook account with Kroogi user directory is one of the fastest ways to find your friends on Kroogi.".t %>
+  </div>
+  <div class="default">
+    <%= "If you would like to reconnect with your friends please click 'Find your friends' button:".t %>
+  </div>
+  <% unless current_user.facebook_connected? %>
+    <div style="text-align:center;">
+      <%= render :partial => '/shared/facebook/connect/fb_connect_button',
+      :locals => {:title_text => '',
+                  :onclick_handler => 'connect_fb_and_suggest_friends()',
+                  :show_faces => 'false',
+                  :button_text => 'Find your friends'.t, }
+      -%>
+    </div>
+  <% else %>
+    <button class="button" onclick="suggest_friends_from_fb_friends(); return false;">
+      <span><%= 'Find your friends'.t %></span>
+    </button>
+    <span class="update_progress" style="display:none;vertical-align: middle;"><img src="/images/ajax-loader.gif" /></span>
+  <% end %>
+</div>

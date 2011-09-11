@@ -1,0 +1,18 @@
+<%
+if content.min_contribution_amount
+  dialog_title   = "Please contribute to #{content.user.display_name} before downloading."
+  dialog_message = "Minimum necessary contribution is #{content.min_contribution_amount}"
+else
+  dialog_title   = "Enter any amount you feel like giving"
+  dialog_message = "You may enter any amount. Even 0."
+end
+%>
+<% fb_dialog "download_info", 0 do %>
+  <%= fb_dialog_title dialog_title %>
+  <% fb_dialog_content do %>
+      <%= dialog_message %>
+  <% end %>
+  <div align="left">
+    <%= fb_dialog_button "button", "Done", :close_dialog=>true%>
+  </div>
+<% end %>

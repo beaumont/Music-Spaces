@@ -1,0 +1,29 @@
+<% unless [tracks + texts + others].all? {|x| x.empty?} %>
+ 
+
+    <%= render(:partial => '/content/tracks_player',
+               :locals => {:data_options => {:tracks => tracks,
+                                             :context_album_id => featured_album.id},
+                           :player_id => "featured_tracks_player"
+               }) %>
+
+    <% texts.each do |text_content| %>
+      <%= render(:partial => 'content/text_in_folder', :locals => {:text_content => text_content}) %>
+    <% end %>
+    <%= render(:partial => "content_stream_new",
+               :locals => {:stream => others, :show_comment => true, :num_of_cols => 3,
+                           :album_id => featured_album.id})
+    %>
+
+    <% if permitted?(@user, :content_edit) %>
+      <div class="orng_line"></div>
+      <div class="subtopic_right"> <%= link_to 'Reorder'.t,
+                                               {:controller => 'submit', :action => 'edit_album', :id => featured_album.id},
+                                               :class => 'iconized i_reorder' %></div>
+
+    <% end -%>
+  
+<% else %>
+	  <div class="section_empty"><%= 'No featured content yet'.t %></div>
+<% end %>
+

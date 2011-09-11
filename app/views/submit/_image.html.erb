@@ -1,0 +1,24 @@
+<div class="form_center">
+  <%= image_tag @content.thumb(:thumb).public_filename, :size => @content.thumb(:thumb).image_size, :style => 'padding:5px;border:1px solid #cccccc;' %>
+</div>
+<div class="form_center">
+  <%= link_to_function 'Replace file...'.t, "$('replace_file').show();this.hide();" %>
+</div>
+<div id="replace_file" style="display: none;">
+	<div class="form_left"><%= 'Upload new file'.t -%></div>
+  <div class="form_right"><%= f.file_field :uploaded_data %></div>
+</div>
+<%= render :partial => "shared/translatable_fields", :locals => { 
+        :f => f, 
+        :msg => lambda {"You can provide text for these fields in English and/or Russian.  You must provide text in at least one language.".t}, 
+        :content => @content, 
+        :fields => [["Title", :title], ["Description", :description]]} %>
+<%= render :partial => "tags", :locals => { :f => f } %>
+<div class="form_left"><%= 'Copyright owner'.t %></div>
+<div class="form_right">
+  <%= f.text_field :owner, :value => @content.new_record? ? current_actor.login : @content.owner %> 
+</div>
+<%= render :partial => "donation_options", :locals => {:f => f, :content => @content} %>
+<%= render :partial => "display_settings", :locals => {:f => f, :content => @content} %>
+
+

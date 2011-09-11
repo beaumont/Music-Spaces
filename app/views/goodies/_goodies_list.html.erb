@@ -1,0 +1,28 @@
+<% disable_more_button ||= false %>
+<table class="list goodies">
+  <% goodies.each do |goodie| %>
+    <tr>
+      <td class="goodies_item" <%= 'colspan="3"' if goodie.donation? %>><%= goodie.title %></td>
+      <% unless goodie.donation? %>
+        <td class="goodies_price"><%= number_to_currency(goodie.price, :locale => :en, :precision => 0) %></td>
+        <td class="goodies_avl"><%= goodies_left_caption(goodie) %></td>
+      <% end %>
+      <td class="last goodies_add">
+        <% unless goodie.all_gone? %>
+          <%= render(:partial => '/tps/donate_widget', :locals => {:goodie => goodie}) unless disable_more_button %>
+          <% if logged_in? %>
+            <%= link_to("<span>#{goodie.donation ? 'Donate'.t : 'Take'.t}</span>",
+                  'javascript:void(0)',
+                  :class => "button", :disabled => (disable_more_button ? 'disabled' : nil),
+                  :onclick => "do_contribution_#{goodie.identifier}(this); return false") %>
+          <% else %>
+            <%= link_to("<span>#{goodie.donation ? 'Donate'.t : 'Take'.t}</span>",
+                  {:controller => "home", :action => "login"},
+                   :class => 'button', :disabled => (disable_more_button ? 'disabled' : nil) ) %>
+          <% end  %>
+          <%= wait_up_homie %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,21 @@
+<%
+question ||= nil
+question_ids_array ||= nil
+%>
+<div style="margin-top:5px;">
+  <% form_tag({ :controller => '/public_question',
+                :action => 'delete',
+                :id => (question.id if question),
+                :from_action => action_name
+  }) do -%>
+    <% if question_ids_array %>
+        <% question_ids_array.each do |q|%>
+            <%= hidden_field_tag 'q_ids[]', q.id %>
+        <% end %>
+    <% end %>
+    <%= render(:partial => '/shared/button', :locals => {:label => 'Delete'.t,
+                                             :button_class => 'button_gr',
+                                             :confirm => 'Are you sure you want to delete this (those) question(s)? This action cannot be undone.'.t,
+                                             }) %>
+  <% end %>
+</div>

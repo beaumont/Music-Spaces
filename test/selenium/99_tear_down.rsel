@@ -1,0 +1,5 @@
+# Just onfile tear-down if you need quick clean after test runs, to test manually
+
+# Prerequisites
+setup :fixtures => :all
+

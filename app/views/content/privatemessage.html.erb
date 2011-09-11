@@ -1,0 +1,62 @@
+<% @title = @entry.user.login + ' :: ' + 'Private Message'.t %>
+
+<div align="center">
+  <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border" style="width: 100%;">
+    <tr>
+      <td class="center white dotted_b" style="vertical-align:middle;">
+        <p style="padding:10px;">
+          <%= "From: %s" / user_link(@entry.user, :icon => true, :detect_you => true)%>
+          <% if @entry.user.project? && !@entry.submitter.nil? %>
+            (<%= user_link(@entry.submitter, :icon => true, :detect_you => true) %>)
+          <% end %>&nbsp;&nbsp;
+          <%= "To: %s" / user_link(@entry.recipient, :icon => true, :detect_you => true) %>
+          <br/>
+          <%= "Sent on:".t -%>
+          <span style="color: #999999;font-weight:bold"><%= @entry.created_at.to_s(:date_with_time) %></span>
+          <h2><%= h(truncate(@entry.title, :length => 50, :omission => " ... "))  if @entry.title -%></h2>
+        </p>
+      </td>
+      <td rowspan="3" class="white dotted_l" style="width: 150px;">
+        &nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td class="white" style="padding-left:0px;padding-right:0px">
+        <% @content_kind_displayname = 'Private Message'.t %>
+        <%= render :partial => "text_content", :locals => { :entry => @entry } %>
+        <div style="padding:4px;">
+          <% x = [@entry.user, @entry.recipient]
+             unless current_user.is_self_or_owner?(@entry.user)
+               x.reverse!
+             end
+          %>
+          <%= link_to('View Thread ((dialog))'.t + ' &gt;&gt;', user_path_options(x[0], :controller => '/activity', :action => 'dialogue', :with => x[1])) %>
+        </div>
+      </td>
+    </tr>
+    <% if @entry.description %>
+    <tr>
+      <td class="narrowed dotted_t">
+        <%= formatted_description @entry %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<br />
+<!-- end entry, begin comments -->
+
+<div align="center">
+  <table cellpadding="8" cellspacing="0" border="0" class="edit_basic_info gr_border">
+    <tr>
+      <td class="center white dotted_b" style="vertical-align:middle;">
+        <%  if @entry.editable? && @entry.me %>
+          <%= render :partial => "comments/pvt_message_comment_form",
+                     :locals => {:from => @entry.me, :to => @entry.not_me, :hide_title => true } %>
+          <br/>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+

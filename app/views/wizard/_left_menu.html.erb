@@ -1,0 +1,30 @@
+<% if @user.project? %>
+  <div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'basic_info_project') %>"> 
+    <%= link_to('About My Project'.t , :controller => 'wizard', :action => 'basic_info_project', :id => @user.id) %>
+  </div>
+<% end %>
+
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'add_avatar') %>">
+  <%= link_to('Project Avatar'.t, :controller => 'wizard', :action => 'add_avatar', :id => @user.id) %>
+</div>
+
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'add_picture') %>">
+  <%= link_to('Project Profile Picture'.t, :controller => 'wizard', :action => 'add_picture', :id => @user.id) %>
+</div>
+
+<% unless @user.project? && current_user.projects.count > 1 %>
+  <div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'basic_info') %>">
+    <%= link_to('About Me'.t, :controller => 'wizard', :action => 'basic_info', :id => @user.id) %>
+  </div>
+<% end %>
+
+<% if @user.project? %>
+  <div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'agreement') %> 
+    <%= maybe_selected_class(:controller => 'wizard', :action => 'attach_money') %>"> 
+    <%= link_to('Connect Money System'.t, :controller => 'wizard', :action => 'agreement', :id => @user.id) %>
+  </div>
+<% end %>
+
+<div class="main_left_tabs spaced_out <%= maybe_selected_class(:controller => 'wizard', :action => 'add_content') %>"> 
+  <%= link_to('Add Content'.t, :controller => 'wizard', :action => 'add_content', :id => @user.id) %>
+</div>

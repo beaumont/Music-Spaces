@@ -1,0 +1,39 @@
+ian_curtis_is_jd_founder:
+  id: 1
+  user_id: 8
+  related_user_id: 11
+  relationshiptype_id: 0
+  attributebits: 0
+  privacylevel: 0
+
+joe_is_maintainer_of_kroogi_music:
+  id: 2
+  user_id: 9
+  related_user_id: 3
+  relationshiptype_id: 0
+  attributebits: 0
+  privacylevel: 0
+
+joe_is_maintainer_of_dub:
+  id: 3
+  user_id: 15
+  related_user_id: 3
+  relationshiptype_id: 0
+  attributebits: 0
+  privacylevel: 0
+
+joe_is_maintainer_of_ambient_dub:
+  id: 4
+  user_id: 16
+  related_user_id: 3
+  relationshiptype_id: 0
+  attributebits: 0
+  privacylevel: 0
+
+joe_is_interested_in_jd:
+  id: 5
+  user_id: 8
+  related_user_id: 3  
+  relationshiptype_id: 5
+  attributebits: 0
+  privacylevel: 0

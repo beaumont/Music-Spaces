@@ -1,0 +1,33 @@
+<% unless defined?(show_invocation_links); show_invocation_links = true; end %>
+
+<% if show_invocation_links %>
+  <br />
+  <%= login_link('Log in'.t, {}, :id => login_link_id) %>
+  <%= 'or'.t %>
+  <%= link_to('Sign up'.t, "/signup", :id => signup_link_id) %>
+  <%= action_caption %>
+<% end %>
+<%= render :partial => '/shared/login_signup_widget_sandbox',
+           :locals => {:project_to_follow => user,
+                       :title => title_caption,
+                       :login_block_title => login_block_title_caption,
+                       :signup_block_title => signup_block_title_caption,
+                       :fb_signup_block_title => fb_signup_block_title_caption,
+                       :dialog_id_suffix => dialog_id_suffix,
+                       :thanks_last => thanks_last_caption,
+                       } %>
+
+<%= javascript_tag("
+  function #{widget_function_name}(active_section) {
+    jQuery('#ask_for_login_or_signon_#{dialog_id_suffix}').dialog(ask_for_login_or_signon_dialog_opts_#{dialog_id_suffix});
+    jQuery('#ask_for_login_or_signon_#{dialog_id_suffix} .accordion').accordion({ active: active_section, clearStyle: true, autoHeight: false });
+  }
+  jQuery('##{login_link_id}').bind('click', function() {
+    #{widget_function_name}(0);
+    return false;
+  });
+  jQuery('##{signup_link_id}').bind('click', function() {
+    #{widget_function_name}(1);
+    return false;
+  });
+") %>

@@ -1,0 +1,17 @@
+<%
+   navigation = @entry.navigation_within_parent(params[:album_id])
+   @navigation = navigation
+   album_id = navigation[:album_id]
+   url_params = {:album_id => album_id}
+   @url_params = url_params
+%>
+
+<% if navigation[:size] > 1 %>
+  <div class="content_nav">
+  <% next_content = navigation[:position] == navigation[:size] ? navigation[:first] : navigation[:next] %>
+  <% prev_content = navigation[:position] == 1 ? navigation[:last] : navigation[:previous] %>
+  <%= link_to_unless_current image_tag('/images/arrow_l.png'), content_url(prev_content, url_params) %>
+  <%= navigation[:position] %> / <%= navigation[:size] %>
+  <%= link_to_unless_current image_tag('/images/arrow_r.png'), content_url(next_content, url_params) %>
+  </div>
+<% end %>

@@ -1,0 +1,64 @@
+<% if ask_for_sign_in %>
+  <%= render :partial => '/shared/login_signup_widget_sandbox',
+    :locals => {:title => title,
+    :first_info_string => ('{{project_name}} asks you to accept the Contest Terms before downloading the files' /
+        content.user.display_name) + '<br/>',
+    :project_to_follow => content.user,
+    :login_block_title => 'Log in'.t.titleize,
+    :signup_block_title => 'Create Kroogi Account'.t,
+    :fb_signup_block_title => '',
+    :dialog_id_suffix => 'terms',
+    :thanks_last => 'You will not be able to download files until you activate your account.'.t,
+  } %>
+<% end %>
+
+<% if show_terms %>
+  <div style="display: none;" id="show_terms_dialog" title="<%= title %>">
+    <div>
+      <p class="info">
+        <strong>
+          <%= 'You must agree to following conditions before downloading'.t %>
+        </strong>
+      </p>
+      <h3><%= header %></h3>
+      <% form_for :terms, :url => {:controller => 'content', :action => 'accept_contest_terms', :id => content.id, :terms_id => terms.id},
+        :html => {:class=> "terms" }  do |f| -%>
+        <textarea type="text" class="text" readonly="readonly"><%= h(terms.terms) %></textarea>
+        <%= render :partial => '/submit/buttons', :locals => {:use_button_submit => true,
+          :ok_label => 'I Agree'.t, :cancel_label => 'Close'.t,
+          :no_cancel_handler => true} %>
+      <% end %>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var show_terms_dialog_opts = {
+      modal: true,
+      height: 'auto',
+      position: 'middle',
+      width: 565,
+      minWidth: 565,
+      close: function() {
+        jQuery("#show_terms_dialog").dialog('destroy');
+      }
+    };
+
+    jQuery('form.terms button.cancel').bind('click', function() {
+      jQuery("#show_terms_dialog").dialog('destroy');
+      return false;
+    });
+  </script>
+<% end %>
+
+<script type="text/javascript">
+  jQuery('.filename a').bind('click', function() {
+<% if ask_for_sign_in %>
+      jQuery('#ask_for_login_or_signon_terms').dialog(ask_for_login_or_signon_dialog_opts_terms);
+      jQuery('#ask_for_login_or_signon_terms .accordion').accordion({clearStyle: true, autoHeight: false});
+<% end %>
+<% if show_terms %>
+      jQuery('#show_terms_dialog').dialog(show_terms_dialog_opts);
+<% end %>
+  });
+</script>
+

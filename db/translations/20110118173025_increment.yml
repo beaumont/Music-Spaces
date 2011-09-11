@@ -1,0 +1,489 @@
+--- 
+- 
+  created_at: 2010-10-27 09:55:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Показывать другим пользователям, что я смотрел их материалы"
+  tr_key: "Show others when I view their content"
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2010-09-21 17:26:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У меня нет ни прав, ни разрешения на загрузку"
+  tr_key: "I don't own this, nor do I have permission to upload"
+  tr_origin: ~
+  updated_at: 2011-01-18 14:50:58 +00:00
+- 
+  created_at: 2010-09-22 08:44:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нет, мне права не принадлежат, но я ручаюсь, что правообладатель не против того, чтобы я публиковал материал, и я готов это подтвердить."
+  tr_key: "I am not a copyright owner, but I certify that the copyright owner does not mind me putting this work here, and I can prove it if I am asked to"
+  tr_origin: ~
+  updated_at: 2011-01-18 14:50:58 +00:00
+- 
+  created_at: 2010-09-22 08:44:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Правами владеет"
+  tr_key: "This is who owns it"
+  tr_origin: ~
+  updated_at: 2011-01-18 14:50:58 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, и разрешения у меня тоже нет"
+  tr_key: "I don't own this, nor do I have permission to upload it"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:34 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права на материал принадлежат мне"
+  tr_key: "I own a copyright to this work"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:56 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Нет, мне права не принадлежат, но я ручаюсь, что правообладатель не против того, чтобы я публиковал материал, и я готов это подтвердить."
+  tr_key: "I am not a copyright owner, but I certify that the copyright owner does not mind me putting this work here, and I can prove it if I am asked to."
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:35 +00:00
+- 
+  created_at: 2008-08-19 17:49:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права принадлежат:"
+  tr_key: "This is who owns it: "
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:37 +00:00
+- 
+  created_at: 2010-01-13 11:33:41 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Кто является правообладателем?"
+  tr_key: "Who owns the rights?"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:55 +00:00
+- 
+  created_at: 2008-10-09 05:05:28 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Создать проект"
+  tr_key: "Create Project"
+  tr_origin: /app/views/preference/show.html.erb
+  updated_at: 2011-01-17 18:19:39 +00:00
+- 
+  created_at: 2010-04-30 06:18:14 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мастер настроек"
+  tr_key: "Setup Guide"
+  tr_origin: /app/helpers/wizard_helper.rb
+  updated_at: 2011-01-17 18:19:40 +00:00
+- 
+  created_at: 2009-03-17 14:47:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Разрешить передавать материалы, независимо от того, могу ли я их принять на правах владельца или нет"
+  tr_key: "Allow submission of items I cannot accept as my own, as well as those I can"
+  tr_origin: /app/views/submit/inbox.html.erb
+  updated_at: 2011-01-15 17:07:42 +00:00
+- 
+  created_at: 2010-12-20 07:19:33 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Этап {{number}}"
+  tr_key: "Step {{number}}"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-20 07:20:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Последний этап"
+  tr_key: "Last Step"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-22 08:11:52 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница КПД"
+  tr_key: "((tps setup page)) For page itself"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-22 08:12:01 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница с добряками"
+  tr_key: "((tps setup page)) For goodies page"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-22 08:12:20 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Страница профиля"
+  tr_key: "((tps setup page))For Profile"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-23 18:51:08 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Всегда
+  tr_key: Always
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2011-01-17 18:19:23 +00:00
+- 
+  created_at: 2010-12-23 18:51:27 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Позднее
+  tr_key: Later
+  tr_origin: ~
+  updated_at: 2011-01-17 18:19:47 +00:00
+- 
+  created_at: 2010-12-22 08:12:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки КПД и добровольных взносов "
+  tr_key: "Pledge/Charity Settings"
+  tr_origin: ~
+  updated_at: 2011-01-18 09:19:40 +00:00
+- 
+  created_at: 2010-12-29 09:43:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки Facebook Connect"
+  tr_key: "Facebook Connect Settings"
+  tr_origin: /app/views/preference/facebook_settings.html.erb
+  updated_at: 2011-01-18 15:08:19 +00:00
+- 
+  created_at: 2010-12-23 14:53:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки Facebook Connect"
+  tr_key: "Facebook connection settings"
+  tr_origin: ~
+  updated_at: 2011-01-18 15:08:42 +00:00
+- 
+  created_at: 2010-04-06 06:50:07 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(если обладателей авторских прав несколько, оставьте поле пустым – вы сможете указать их позже)"
+  tr_key: "(for multiple owners, leave this field blank; you will have a chance to name owners later)"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:50:43 +00:00
+- 
+  created_at: 2011-01-11 14:55:19 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Windows Live пароль"
+  tr_key: "Windows Live Password"
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2011-01-11 14:55:30 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Windows Live логин"
+  tr_key: "Windows Live ID"
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2010-09-10 14:56:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Расскажите нам о СЕБЕ "
+  tr_key: "Tell us ABOUT yourself"
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2010-09-09 18:50:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Привет {{user}}."
+  tr_key: "Hello {{user}}."
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2011-01-12 14:03:54 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мы обещаем не сохранять и не передавать вашу информацию третьим лицам."
+  tr_key: "We do not save or share with any third party your account information."
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 17:30:17 +00:00
+- 
+  created_at: 2011-01-12 14:04:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Убедитесь, что e-mail адрес {{email}} введён верно."
+  tr_key: "Make sure you entered your email address {{email}} correctly."
+  tr_origin: ~
+  updated_at: 2011-01-17 08:08:49 +00:00
+- 
+  created_at: 2011-01-18 13:05:09 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Присоединиться к друзьям из Facebook:"
+  tr_key: "Start following your FB friends:"
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2011-01-18 15:09:35 +00:00
+- 
+  created_at: 2011-01-18 13:05:15 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Я ознакомился и принял условия   "
+  tr_key: "I have read and agree to the"
+  tr_origin: /app/views/tps_setup/_last_step.html.erb
+  updated_at: 2011-01-18 15:13:02 +00:00
+- 
+  created_at: 2011-01-18 13:05:23 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Детали
+  tr_key: "((tps setup page)) Details"
+  tr_origin: /app/helpers/tps_helper.rb
+  updated_at: 2011-01-18 14:13:38 +00:00
+- 
+  created_at: 2011-01-18 13:05:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Слишком длинное имя"
+  tr_key: "Login too long"
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-18 14:13:01 +00:00
+- 
+  created_at: 2011-01-18 13:05:25 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Полное имя и адрес участника"
+  tr_key: "Participant’s full name and address"
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-18 14:13:21 +00:00
+- 
+  created_at: 2011-01-18 13:05:26 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Если вы хотите продолжить общение со своими друзьями в пространстве Кругов, заполните пожалуйста эти поля:"
+  tr_key: "If you would like to reconnect with your friends please provide us with the following information:"
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 17:26:28 +00:00
+- 
+  created_at: 2011-01-18 13:05:29 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Описание
+  tr_key: "Album Info"
+  tr_origin: /app/views/uploader/_tracks_config.xml.erb
+  updated_at: 2011-01-18 14:12:30 +00:00
+- 
+  created_at: 2011-01-18 13:05:31 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Выбрать:"
+  tr_key: "Select file:"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:10:08 +00:00
+- 
+  created_at: 2011-01-18 13:05:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "В имени должна быть хотя бы одна буква"
+  tr_key: "Login must contain at least one non-numeric character"
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-18 14:09:36 +00:00
+- 
+  created_at: 2011-01-18 13:05:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Настройки Facebook Connect"
+  tr_key: "FB Connect Settings"
+  tr_origin: /app/views/shared/facebook/like/_widget.html.erb
+  updated_at: 2011-01-18 14:10:30 +00:00
+- 
+  created_at: 2011-01-18 13:05:34 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Хотите узнать кто из ваших друзей уже находится в Кругах – в этом поможет ваша электронная почта."
+  tr_key: "Matching your Email accounts with Kroogi user directory is the fastest way to find your friends on Kroogi."
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 17:19:47 +00:00
+- 
+  created_at: 2011-01-18 13:05:35 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить изображение:"
+  tr_key: "Upload a picture:"
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:08:38 +00:00
+- 
+  created_at: 2011-01-18 13:05:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: Просмотр
+  tr_key: Preview
+  tr_origin: /app/views/tps_setup/_for_profile.html.erb
+  updated_at: 2011-01-18 14:07:45 +00:00
+- 
+  created_at: 2011-01-18 13:05:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Всего доступно:"
+  tr_key: "Total quantity available:"
+  tr_origin: /app/views/tps_setup/_for_goodies_page.html.erb
+  updated_at: 2011-01-18 14:08:03 +00:00
+- 
+  created_at: 2011-01-18 13:05:42 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Загрузить треки"
+  tr_key: "Upload tracks"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-18 13:51:47 +00:00
+- 
+  created_at: 2011-01-18 13:05:43 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Без ограничения по времени"
+  tr_key: "No time limit"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-18 13:51:25 +00:00
+- 
+  created_at: 2011-01-18 13:05:47 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Некоторые из ваших знакомых уже находятся в Кругах. Выберите тех, к кому вы хотели бы присоединиться."
+  tr_key: "Some of your contacts are already on Kroogi. Select the friends you would like to follow."
+  tr_origin: /app/views/wizard/_select_kroogi_users_to_follow.html.erb
+  updated_at: 2011-01-18 15:19:55 +00:00
+- 
+  created_at: 2011-01-18 13:05:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "К сожалению это имя занято"
+  tr_key: "Sorry, login already taken"
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-18 13:29:44 +00:00
+- 
+  created_at: 2011-01-18 13:05:50 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Hotmail логин"
+  tr_key: "Hotmail Username"
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 13:25:26 +00:00
+- 
+  created_at: 2011-01-18 13:05:56 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Слишком короткое имя"
+  tr_key: "Login too short"
+  tr_origin: /app/helpers/home_helper.rb
+  updated_at: 2011-01-18 13:25:08 +00:00
+- 
+  created_at: 2011-01-18 13:05:59 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Проверьте верно ли введён адрес: {{email}}"
+  tr_key: "Please make sure you entered your email address {{email}} correctly."
+  tr_origin: /app/controllers/wizard_controller.rb
+  updated_at: 2011-01-18 13:16:27 +00:00
+- 
+  created_at: 2011-01-18 13:06:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Друзья Facebook на Кругах"
+  tr_key: "Facebook Friends on Kroogi"
+  tr_origin: /app/views/facebook/connect/_connect_block.html.erb
+  updated_at: 2011-01-18 13:14:08 +00:00
+- 
+  created_at: 2011-01-18 13:06:00 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Hotmail пароль"
+  tr_key: "Hotmail Password"
+  tr_origin: /app/views/wizard/_add_friends_wizard.html.erb
+  updated_at: 2011-01-18 13:15:00 +00:00
+- 
+  created_at: 2011-01-18 13:06:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Пропустить >>"
+  tr_key: "Skip this step >>"
+  tr_origin: /app/views/tps_setup/_for_page.html.erb
+  updated_at: 2011-01-18 13:15:09 +00:00
+- 
+  created_at: 2011-01-18 13:06:03 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Визитная карточка"
+  tr_key: "Display Basics"
+  tr_origin: /app/views/wizard/_basic_user_setup_wizard.html.erb
+  updated_at: 2011-01-18 15:23:17 +00:00
+- 
+  created_at: 2011-01-18 14:50:36 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "У меня нет ни прав на материал, ни разрешения на его загрузку"
+  tr_key: "I don’t own copyright to this work, nor do I have permission to upload it"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 17:02:41 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Правами владеет"
+  tr_key: "The copyright owner is"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 16:44:32 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Права на материал принадлежат мне"
+  tr_key: "I own copyright to this work"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 16:43:00 +00:00
+- 
+  created_at: 2011-01-18 14:50:37 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, но я ручаюсь, что правообладатель не будет возражать, если я опубликую здесь этот матераил, и я готов это подтвердить."
+  tr_key: "I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked."
+  tr_origin: /app/views/submit/_media.html.erb
+  updated_at: 2011-01-18 16:41:09 +00:00
+- 
+  created_at: 2011-01-18 14:50:46 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Мне права не принадлежат, но я ручаюсь, что правообладатель не будет возражать, если я опубликую здесь этот матераил, и я готов это подтвердить"
+  tr_key: "I don’t own copyright to this work, but I have all necessary permissions to upload this copyrighted work here. I will provide proof of such permissions if asked"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 16:40:43 +00:00
+- 
+  created_at: 2011-01-18 14:50:48 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "(если владельцев авторских прав несколько, оставьте это поле пустым, вы сможете указать их позже.)"
+  tr_key: "(for multiple owners leave this field blank; you will be able to add names later.)"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 17:12:48 +00:00
+- 
+  created_at: 2011-01-18 14:50:51 +00:00
+  language_id: 5556
+  pluralization_index: 1
+  text: "Владелец авторских прав"
+  tr_key: "Copyright ownership"
+  tr_origin: /app/views/wizard/add_picture.html.erb
+  updated_at: 2011-01-18 16:37:47 +00:00

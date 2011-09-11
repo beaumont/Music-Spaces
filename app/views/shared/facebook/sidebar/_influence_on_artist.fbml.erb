@@ -1,0 +1,31 @@
+<% fb_if_user_has_added_app(current_fb_user) do %>
+  <div class="rightTitle">Ripple effect you made for this artist</div>
+  <div class="rightBoxes">
+    <div class="boxContent">
+      <div class="albumStatistic">
+        <%if current_fb_user %>
+          <div class="userpic"><%= fb_profile_pic(current_fb_user.facebook_id, :size => :square, :width => "34px") %></div>
+          <div class="downloads"><%= download_impact_on_artist(@music_albums) %> downloaded those albums because of your recommendations on Facebook</div>
+        <%end%>
+      </div>
+    </div>
+    <div class="greyLine2"></div>
+    <div class="boxContent">
+      <div class="sendResult"> Send the music you like to people you love. Make a difference for your friends and for the musicians. Start the ripple. You may be surprised how far it will go</div>
+    </div>
+  </div>
+  <% fb_else do %>
+    <div class="rightBoxes">
+      <div class="boxContent">
+        <div class="albumStatistic">
+          <div class="downloads"><span class='quantity'>0</span> Downloads</div>
+        </div>
+      </div>
+      <div class="greyLine2"></div>
+      <div class="boxContent">
+        <div class="sendResult"> Send the music you like to people you love. Make a difference for your friends and for the musicians. Start the ripple. You may be surprised how far it will go</div>
+      </div>
+    </div>
+  <%end%>
+<% end %>
+

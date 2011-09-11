@@ -1,0 +1,67 @@
+
+<% @title = 'Admin Console'.t + ' :: ' + 'Show user %s' / @user.login %>
+
+<div class="admin">
+  <span class="adminmenu"><%= link_to 'Edit'.t, :action => 'edit', :id => @user %></span> |
+  <span class="adminmenu"><%= link_to 'Back'.t, :action => 'list' %></span> |
+  <span class="adminmenu"><%= link_to 'Balance Sheet'.t, :controller => '/admin/money', :action => 'balance', :user => @user.login %></span>
+
+  <table class="admin">
+    <tr>
+      <th><%= 'Name'.t %></th>
+      <th><%= 'Value'.t %></th>
+    </tr>
+    <tr class="light">
+      <td>Id:</td>
+      <td><%= @user.id %></td>
+    </tr>
+    <tr class="dark">
+      <td><%= 'Roles'.t %>:</td>
+      <td>
+        <%= @user.roles.collect{|role| role.name}.to_sentence(:skip_last_comma => true, :connector => '/') %>
+      </td>
+    </tr>
+
+    <% unless @user.project? %>
+    <tr class="light">
+      <td><%= 'Invited By'.t %>:</td>
+      <td>
+        <% tracked = Tracking::SiteInvitation.find_inviter_of(@user) %>
+        <% if tracked && tracked.invite %>
+        <%= user_link(tracked.invite.inviter, :icon => true) %> (<%= @user.generic_circle_name(tracked.invite.circle_id, :include_site => true) %>)
+        <% else %>
+        <em><%= 'None'.tdown %></em>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+
+
+    <% included_account_setting_columns = %w(billable invoice_agreement_accepted_at collected_usd balance_usd
+          waiting_period minimum_withdrawal_amount) %>
+    <% rejected_user_columns = %w(upload_quota_mb language) %>
+    <% ([[@user, 'type', 'Type'.t]] + User.content_columns.reject {|c| rejected_user_columns.include?(c.name)}.
+            map {|column| [@user, column.name, column.human_name]} +
+            [
+                    [@user, 'language', 'Language setting'],
+                    [@user.preference, :email_locale, 'Emails language setting'],
+                    [@user.preference, :current_locale, 'Current UI language'],
+            ] + 
+            [[@user, 'upload_quota_mb', 'Upload quota, Mb'], [@user, 'upload_quota_used_mb', 'Upload quota used, Mb'],
+             [@user, 'upload_quota_used', 'Upload quota used, b']] +
+            AccountSetting.content_columns.select {|c| included_account_setting_columns.include?(c.name)}.
+                    map {|column| [@user.account_setting, column.name, column.human_name]} +
+             [
+                    [@user.account_setting, 'withdrawal_limit', 'Withdrawal limit, USD'],
+                    [@user.account_setting, 'total_withdrawn', 'Total withdrawn, USD'],
+             ]).each do |object, method, title| %>
+      <tr class="<%= cycle_color %>">
+        <td class="<%= method.to_s %>"><%= title %>:</td>
+        <td><%=h object.send(method) %></td>
+      </tr>
+    <% end %>
+
+  </table>
+
+</div>
+

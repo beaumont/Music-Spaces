@@ -1,0 +1,26 @@
+defaults: &defaults
+  url: https://money.yandex.ru/eshop.xml
+  scid: 2021
+  ShopId: 12067
+  shopPassword: jnfgjgfjdfdzgdf4534
+  attributes:
+    usd_code: 840 #TODO: confirm with YM
+    rur_code: 643
+
+development:
+  <<: *defaults
+
+selenium:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+rc:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
